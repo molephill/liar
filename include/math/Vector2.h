@@ -9,7 +9,7 @@ namespace Liar
 		~Vector2();
 
 
-	private:
+	public:
 		float elements[2];
 	};
 }
