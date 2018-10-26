@@ -1,9 +1,17 @@
 ﻿  main.cpp
 e:\c++\liar\liar\include\openglwindow.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  Matrix3x3.cpp
+  Matrix4x4.cpp
+  Quaternion.cpp
+  Vector2.cpp
+  Vector3.cpp
+  Vector4.cpp
   OpenGLWindow.cpp
 e:\c++\liar\liar\window\openglwindow.cpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 e:\c++\liar\liar\include\openglwindow.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   Stage.cpp
 e:\c++\liar\liar\include\openglwindow.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   正在生成代码...
+  glad.c
+LINK : warning LNK4098: 默认库“MSVCRT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
   liar.vcxproj -> E:\c++\liar\Debug\liar.exe
