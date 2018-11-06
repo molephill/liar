@@ -16,14 +16,11 @@
     <Filter Include="源文件\window">
       <UniqueIdentifier>{3e9b68dd-ee90-447d-81dd-bdd7fdb904cc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\window">
-      <UniqueIdentifier>{ecdeed08-36b2-49ac-977d-0f50e67a69f1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\math">
       <UniqueIdentifier>{1a9abfbc-22b6-4b98-a17b-cce23066fc40}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\math">
-      <UniqueIdentifier>{8493479f-5b6b-4046-abc9-fab287706016}</UniqueIdentifier>
+    <Filter Include="头文件\window">
+      <UniqueIdentifier>{ecdeed08-36b2-49ac-977d-0f50e67a69f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -39,24 +36,6 @@
     <ClCompile Include="_common\glad\src\glad.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="math\Matrix3x3.cpp">
-      <Filter>源文件\math</Filter>
-    </ClCompile>
-    <ClCompile Include="math\Matrix4x4.cpp">
-      <Filter>源文件\math</Filter>
-    </ClCompile>
-    <ClCompile Include="math\Quaternion.cpp">
-      <Filter>源文件\math</Filter>
-    </ClCompile>
-    <ClCompile Include="math\Vector3.cpp">
-      <Filter>源文件\math</Filter>
-    </ClCompile>
-    <ClCompile Include="math\Vector4.cpp">
-      <Filter>源文件\math</Filter>
-    </ClCompile>
-    <ClCompile Include="math\Vector2.cpp">
-      <Filter>源文件\math</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\OpenGLWindow.hpp">
@@ -64,9 +43,6 @@
     </ClInclude>
     <ClInclude Include="include\Stage.hpp">
       <Filter>头文件\window</Filter>
-    </ClInclude>
-    <ClInclude Include="LiarType.h">
-      <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\math\Matrix3x3.h">
       <Filter>头文件\math</Filter>
@@ -87,6 +63,15 @@
       <Filter>头文件\math</Filter>
     </ClInclude>
     <ClInclude Include="include\math\Vector2.h">
+      <Filter>头文件\math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\Viewport.h">
+      <Filter>头文件\math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LiarType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\Plane.h">
       <Filter>头文件\math</Filter>
     </ClInclude>
   </ItemGroup>

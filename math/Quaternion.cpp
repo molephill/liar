@@ -2,12 +2,5 @@
 
 namespace Liar
 {
-	Quaternion::Quaternion()
-	{
-	}
 
-
-	Quaternion::~Quaternion()
-	{
-	}
 }

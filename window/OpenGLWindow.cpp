@@ -81,7 +81,7 @@ namespace Liar
 		Run(window, run);
 	}
 
-	void OpenGLWindow::SetSize(GLFWwindow* window, Liar::uint w, Liar::uint h)
+	void OpenGLWindow::SetSize(GLFWwindow* window, Liar::Uint w, Liar::Uint h)
 	{
 		m_renderStage->SetSize(w, h);
 	}

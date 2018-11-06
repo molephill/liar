@@ -32,7 +32,7 @@ namespace Liar
 		void Run(GLFWwindow*, bool);
 
 	public:
-        void SetSize(GLFWwindow*, Liar::uint, Liar::uint);
+        void SetSize(GLFWwindow*, Liar::Uint, Liar::Uint);
         bool MouseEvent(GLFWwindow* window, double, double);
 		void ScrollEvent(GLFWwindow* window, double, double);
 

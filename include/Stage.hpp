@@ -12,12 +12,12 @@ namespace Liar
 	class Stage
 	{
 	public:
-		Stage(Liar::uint w = WINDOW_W, Liar::uint h = WINDOW_H);
+		Stage(Liar::Uint w = WINDOW_W, Liar::Uint h = WINDOW_H);
 		~Stage();
 
 	private:
-		Liar::uint m_width;
-		Liar::uint m_height;
+		Liar::Uint m_width;
+		Liar::Uint m_height;
 		float m_red;
 		float m_green;
 		float m_blue;
@@ -26,10 +26,10 @@ namespace Liar
 
 	public:
 		bool Run();
-		Liar::uint GetWidth() const { return m_width; };
-		Liar::uint GetHeight() const { return m_height; };
+		Liar::Uint GetWidth() const { return m_width; };
+		Liar::Uint GetHeight() const { return m_height; };
 		
-		void SetSize(Liar::uint, Liar::uint);
+		void SetSize(Liar::Uint, Liar::Uint);
 	};
 }
 

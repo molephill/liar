@@ -2,7 +2,7 @@
 
 namespace Liar
 {
-    Stage::Stage(Liar::uint w, Liar::uint h):
+    Stage::Stage(Liar::Uint w, Liar::Uint h):
 		m_width(w), m_height(h),
 		m_isActive(true),
 		m_red(0.2f), m_green(0.3f), m_blue(0.3f)
@@ -30,7 +30,7 @@ namespace Liar
 		return true;
 	}
 
-	void Stage::SetSize(Liar::uint w, Liar::uint h)
+	void Stage::SetSize(Liar::Uint w, Liar::Uint h)
 	{
 		if (m_width != w || m_height != h)
 		{
