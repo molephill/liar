@@ -6,8 +6,8 @@
 
 namespace Liar
 {
-	static const float WINDOW_W = 960;
-	static const float WINDOW_H = 600;
+	static const Liar::Number WINDOW_W = 960;
+	static const Liar::Number WINDOW_H = 600;
 
 	class Stage
 	{
@@ -18,9 +18,9 @@ namespace Liar
 	private:
 		Liar::Uint m_width;
 		Liar::Uint m_height;
-		float m_red;
-		float m_green;
-		float m_blue;
+		Liar::Number m_red;
+		Liar::Number m_green;
+		Liar::Number m_blue;
         bool m_isActive;
 		OpenGLWindow* m_openglMainWindow;
 

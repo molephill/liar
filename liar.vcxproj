@@ -121,12 +121,43 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="core\BaseCamera.cpp" />
+    <ClCompile Include="core\Camera.cpp" />
+    <ClCompile Include="core\Scene.cpp" />
+    <ClCompile Include="display\Node.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="math\MathUtils.cpp" />
     <ClCompile Include="window\OpenGLWindow.cpp" />
     <ClCompile Include="window\Stage.cpp" />
     <ClCompile Include="_common\glad\src\glad.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="GL.h" />
+    <ClInclude Include="include\component\Component3D.h" />
+    <ClInclude Include="include\core\BaseCamera.h" />
+    <ClInclude Include="include\core\Camera.h" />
+    <ClInclude Include="include\core\GL.h" />
+    <ClInclude Include="include\core\GLContext.h" />
+    <ClInclude Include="include\core\graphics\IVertexBuffer.h" />
+    <ClInclude Include="include\core\graphics\raws\IRawVertexBuffers.h" />
+    <ClInclude Include="include\core\graphics\raws\RawVertexBuffersPositionNormalTexture.h" />
+    <ClInclude Include="include\core\graphics\VertexBufferPositionNormalTexture.h" />
+    <ClInclude Include="include\core\graphics\VertexFactory.h" />
+    <ClInclude Include="include\core\graphics\VertexType.h" />
+    <ClInclude Include="include\core\models\BaseMesh.h" />
+    <ClInclude Include="include\core\models\BoxMesh.h" />
+    <ClInclude Include="include\core\render\IRenderable.h" />
+    <ClInclude Include="include\core\render\IUpdate.h" />
+    <ClInclude Include="include\core\render\RenderState.h" />
+    <ClInclude Include="include\core\resource\BaseTexture.h" />
+    <ClInclude Include="include\core\resource\Resource.h" />
+    <ClInclude Include="include\core\resource\SolidColorTexture2D.h" />
+    <ClInclude Include="include\core\resource\Textrue2D.h" />
+    <ClInclude Include="include\core\Scene.h" />
+    <ClInclude Include="include\core\Transform3D.h" />
+    <ClInclude Include="include\display\Node.h" />
+    <ClInclude Include="include\events\EventDispatcher.h" />
     <ClInclude Include="include\LiarType.h" />
     <ClInclude Include="include\math\MathUtils3D.h" />
     <ClInclude Include="include\math\Matrix3x3.h" />
@@ -139,6 +170,7 @@
     <ClInclude Include="include\math\Viewport.h" />
     <ClInclude Include="include\OpenGLWindow.hpp" />
     <ClInclude Include="include\Stage.hpp" />
+    <ClInclude Include="VertexFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

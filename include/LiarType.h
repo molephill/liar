@@ -6,6 +6,8 @@
 namespace Liar
 {
 	typedef unsigned int Uint;
+	typedef int Int;
 	typedef float Number;
 	typedef double DNumber;
+	typedef unsigned char UChar;
 }

@@ -22,6 +22,51 @@
     <Filter Include="头文件\window">
       <UniqueIdentifier>{ecdeed08-36b2-49ac-977d-0f50e67a69f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\display">
+      <UniqueIdentifier>{4b4b8d48-9521-4bc1-b86b-c4d76b7f48e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\display">
+      <UniqueIdentifier>{510e9649-500a-4f8e-8b3c-f97b07c207e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\events">
+      <UniqueIdentifier>{79910557-a9b3-4b08-a462-9186fe2d5a5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core">
+      <UniqueIdentifier>{316d055d-d926-4317-9de1-0676f4a7a766}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\core">
+      <UniqueIdentifier>{4d4fedda-22a7-45cd-a1ac-23d5e769d5ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\compoent">
+      <UniqueIdentifier>{6f6c3a10-8b6b-44af-917d-3ae81d2ab8bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\compoent">
+      <UniqueIdentifier>{c7df9941-8a92-4e06-a115-f02bfa47fa76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\core\render">
+      <UniqueIdentifier>{75aea4fe-bc14-4645-940a-2688e45241de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\render">
+      <UniqueIdentifier>{33dae3ef-0881-483d-9d2b-7d88052bfdb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\match">
+      <UniqueIdentifier>{2c7617a8-c0e3-4b84-83ee-6f854a84900b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\resource">
+      <UniqueIdentifier>{a4ec2f5d-205a-45ae-8919-5858843491bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\core\resource">
+      <UniqueIdentifier>{b634de2f-8a50-43bd-8800-2c9d66dbeeca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\core\models">
+      <UniqueIdentifier>{3845c591-e9b4-4ae9-a706-3ceb45640de7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\core\graphics">
+      <UniqueIdentifier>{1853381a-682a-4b5a-8f39-1c374cbf6d58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\core\graphics\raws">
+      <UniqueIdentifier>{7890bc7f-b0b4-4e07-b922-bbf18cc7c787}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="window\OpenGLWindow.cpp">
@@ -35,6 +80,21 @@
     </ClCompile>
     <ClCompile Include="_common\glad\src\glad.c">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="display\Node.cpp">
+      <Filter>源文件\display</Filter>
+    </ClCompile>
+    <ClCompile Include="core\BaseCamera.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="math\MathUtils.cpp">
+      <Filter>源文件\match</Filter>
+    </ClCompile>
+    <ClCompile Include="core\Scene.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\Camera.cpp">
+      <Filter>源文件\core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +133,87 @@
     </ClInclude>
     <ClInclude Include="include\math\Plane.h">
       <Filter>头文件\math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\events\EventDispatcher.h">
+      <Filter>头文件\events</Filter>
+    </ClInclude>
+    <ClInclude Include="include\display\Node.h">
+      <Filter>头文件\display</Filter>
+    </ClInclude>
+    <ClInclude Include="include\component\Component3D.h">
+      <Filter>头文件\compoent</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\render\IUpdate.h">
+      <Filter>头文件\core\render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\render\RenderState.h">
+      <Filter>头文件\core\render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\Transform3D.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\BaseCamera.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\Scene.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\Camera.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\resource\Resource.h">
+      <Filter>头文件\core\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\resource\BaseTexture.h">
+      <Filter>头文件\core\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\GLContext.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="GL.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\GL.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\resource\Textrue2D.h">
+      <Filter>头文件\core\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\resource\SolidColorTexture2D.h">
+      <Filter>头文件\core\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\graphics\VertexType.h">
+      <Filter>头文件\core\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\graphics\IVertexBuffer.h">
+      <Filter>头文件\core\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\graphics\VertexBufferPositionNormalTexture.h">
+      <Filter>头文件\core\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\models\BaseMesh.h">
+      <Filter>头文件\core\models</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\render\IRenderable.h">
+      <Filter>头文件\core\render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\models\BoxMesh.h">
+      <Filter>头文件\core\models</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexFactory.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\graphics\raws\IRawVertexBuffers.h">
+      <Filter>头文件\core\graphics\raws</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\graphics\raws\RawVertexBuffersPositionNormalTexture.h">
+      <Filter>头文件\core\graphics\raws</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\graphics\VertexFactory.h">
+      <Filter>头文件\core\graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

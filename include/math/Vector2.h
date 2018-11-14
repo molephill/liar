@@ -8,26 +8,26 @@ namespace Liar
 	class Vector2
 	{
 	public:
-		Vector2(float sx = 0.0f, float sy = 0.0f) :x(sx), y(sy) {};
+		Vector2(Liar::Number sx = 0.0f, Liar::Number sy = 0.0f) :x(sx), y(sy) {};
 		~Vector2() {};
 
 	public:
-		float x;
-		float y;
+		Liar::Number x;
+		Liar::Number y;
 
 	public:
-		static void Scale(const Liar::Vector2& f, const float b, Liar::Vector2& e)
+		static void Scale(const Liar::Vector2& f, const Liar::Number b, Liar::Vector2& e)
 		{
 			e[0] = f[0] * b;
 			e[1] = f[1] * b;
 		}
 
 	public:
-		friend Liar::Vector2 operator*(const float, const Liar::Vector2&);
+		friend Liar::Vector2 operator*(const Liar::Number, const Liar::Vector2&);
 		friend std::ostream& operator<<(std::ostream&, const Liar::Vector2&);
 
 	public:
-		inline void Set(float sx, float sy) 
+		inline void Set(Liar::Number sx, Liar::Number sy)
 		{
 			x = sx;
 			y = sy;
@@ -39,46 +39,46 @@ namespace Liar
 			y = rhs.y;
 		};
 
-		inline float Length() const 
+		inline Liar::Number Length() const
 		{
 			return sqrtf(x * x + y * y);
 		};
 
-		inline float Distance(const Liar::Vector2& rhs) const
+		inline Liar::Number Distance(const Liar::Vector2& rhs) const
 		{
 			Distance(rhs.x, rhs.y);
 		};
 
-		inline float Distance(float cx, float cy) const
+		inline Liar::Number Distance(Liar::Number cx, Liar::Number cy) const
 		{
 			return sqrtf((cx - x)*(cx - x) + (cy - y)*(cy - y));
 		};
 
 		inline Liar::Vector2& Normalize()
 		{
-			float xxyy = x * x + y * y;
-			float invLength = 1.0f / sqrtf(xxyy);
+			Liar::Number xxyy = x * x + y * y;
+			Liar::Number invLength = 1.0f / sqrtf(xxyy);
 			x *= invLength;
 			y *= invLength;
 			return *this;
 		}
 
-		float Dot(const Liar::Vector2& rhs) const
+		Liar::Number Dot(const Liar::Vector2& rhs) const
 		{
 			return Dot(rhs.x, rhs.y);
 		};
 
-		float Dot(float cx, float cy) const
+		Liar::Number Dot(Liar::Number cx, Liar::Number cy) const
 		{
 			return cx * x + cy * y;
 		};
 
-		bool Equal(float cx, float cy, float e = Liar::ZERO_TO_LERANCE) const
+		bool Equal(Liar::Number cx, Liar::Number cy, Liar::DNumber e = Liar::MathUtils3D::ZERO_TO_LERANCE) const
 		{
 			return fabs(x - cx) < e && fabs(y - cy) < e;
 		};
 
-		inline bool Equal(const Liar::Vector2& rhs, float e = Liar::ZERO_TO_LERANCE) const
+		inline bool Equal(const Liar::Vector2& rhs, Liar::DNumber e = Liar::MathUtils3D::ZERO_TO_LERANCE) const
 		{
 			return Equal(rhs.x, rhs.y, e);
 		};
@@ -118,12 +118,12 @@ namespace Liar
 		};
 
 		// scale
-		inline Vector2 operator*(const float scale) const
+		inline Vector2 operator*(const Liar::Number scale) const
 		{
 			return Vector2(x * scale, y * scale);
 		};
 
-		inline Vector2& operator*=(const float a)
+		inline Vector2& operator*=(const Liar::Number a)
 		{
 			x *= a;
 			y *= a;
@@ -136,14 +136,6 @@ namespace Liar
 			return Vector2(x*rhs.x, y*rhs.y);
 		};
 
-		// scale and update this object
-		inline Liar::Vector2& operator*=(const float scale)
-		{
-			x *= scale;
-			y *= scale;
-			return *this;
-		};
-
 		// multiply each element and update this object
 		inline Liar::Vector2& operator*=(const Liar::Vector2& rhs)
 		{
@@ -153,13 +145,13 @@ namespace Liar
 		};
 
 		// inverse scale
-		inline Liar::Vector2 operator/(const float scale) const
+		inline Liar::Vector2 operator/(const Liar::Number scale) const
 		{
 			return Vector2(x / scale, y / scale);
 		};
 
 		// scale and update this object
-		inline Liar::Vector2& operator/=(const float scale)
+		inline Liar::Vector2& operator/=(const Liar::Number scale)
 		{
 			x /= scale;
 			y /= scale;
@@ -172,7 +164,7 @@ namespace Liar
 			return x == rhs.x && y == rhs.y;
 		};
 
-		inline bool operator==(float a) const
+		inline bool operator==(Liar::Number a) const
 		{
 			return (x == a) && (y == a);
 		}
@@ -183,7 +175,7 @@ namespace Liar
 			return x != rhs.x || y != rhs.y;
 		};
 
-		inline bool operator!=(float a) const
+		inline bool operator!=(Liar::Number a) const
 		{
 			return (x != a) || (y != a);
 		}
@@ -214,45 +206,39 @@ namespace Liar
 		}
 
 		// subscript operator v[0], v[1]
-		inline float operator[](int index) const
+		inline Liar::Number operator[](int index) const
 		{
 			return (&x)[index];
 		};
 		
 		// subscript operator v[0], v[1]
-		inline float& operator[](int index)
+		inline Liar::Number& operator[](int index)
 		{
 			return (&x)[index];
 		};
 
-		inline static void Scale(const Liar::Vector2& source, float a, Liar::Vector2& out)
-		{
-			out.x = source.x * a;
-			out.y = source.y * a;
-		};
-
 		inline static void Normalize(const Liar::Vector2& source, Liar::Vector2& out)
 		{
-			float xxyy = source.x * source.x + source.y * source.y;
-			float invLength = 1.0f / sqrtf(xxyy);
+			Liar::Number xxyy = source.x * source.x + source.y * source.y;
+			Liar::Number invLength = 1.0f / sqrtf(xxyy);
 			out.x = source.x*invLength;
 			out.y = source.y*invLength;
 		};
 
-		inline static float Distance(const Liar::Vector2& s, const Liar::Vector2& e)
+		inline static Liar::Number Distance(const Liar::Vector2& s, const Liar::Vector2& e)
 		{
 			return Vector2::Distance(s.x, s.y, e.x, e.y);
 		};
 
-		inline static float Distance(float sx, float sy, float ex, float ey)
+		inline static Liar::Number Distance(Liar::Number sx, Liar::Number sy, Liar::Number ex, Liar::Number ey)
 		{
-			float tmpx = sx - ex;
-			float tmpy = sy - ey;
+			Liar::Number tmpx = sx - ex;
+			Liar::Number tmpy = sy - ey;
 			return sqrtf(tmpx*tmpx - tmpy * tmpy);
 		}
 	};
 
-	inline Liar::Vector2 operator*(const float a, const Liar::Vector2& rhs)
+	inline Liar::Vector2 operator*(const Liar::Number a, const Liar::Vector2& rhs)
 	{
 		return Vector2(a*rhs.x, a*rhs.y);
 	};

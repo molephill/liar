@@ -11,9 +11,9 @@ namespace Liar
 	{
 	public:
 		Matrix3x3(
-			float m0 = 1.0f, float m1 = 0.0f, float m2 = 0.0f,
-			float m3 = 0.0f, float m4 = 0.0f, float m5 = 0.0f,
-			float m6 = 0.0f, float m7 = 0.0f, float m8 = 1.0f)
+			Liar::Number m0 = 1.0f, Liar::Number m1 = 0.0f, Liar::Number m2 = 0.0f,
+			Liar::Number m3 = 0.0f, Liar::Number m4 = 0.0f, Liar::Number m5 = 0.0f,
+			Liar::Number m6 = 0.0f, Liar::Number m7 = 0.0f, Liar::Number m8 = 1.0f)
 		{
 			m[0] = m0;  m[1] = m1;  m[2] = m2;
 			m[3] = m3;  m[4] = m4;  m[5] = m5;
@@ -22,11 +22,11 @@ namespace Liar
 		~Matrix3x3() {};
 
 	private:
-		float m[9];
+		Liar::Number m[9];
 
 	public:
 		friend Matrix3x3 operator-(const Matrix3x3& m);                     // unary operator (-)
-		friend Matrix3x3 operator*(float scalar, const Matrix3x3& m);       // pre-multiplication
+		friend Matrix3x3 operator*(Liar::Number scalar, const Matrix3x3& m);       // pre-multiplication
 		friend Vector3 operator*(const Vector3& vec, const Matrix3x3& m); // pre-multiplication
 		friend std::ostream& operator<<(std::ostream& os, const Matrix3x3& m);
 
@@ -44,9 +44,9 @@ namespace Liar
 			out[8] = 1;
 		};
 
-		static void CreateFromRotation(float rad, Liar::Matrix3x3& e)
+		static void CreateFromRotation(Liar::Number rad, Liar::Matrix3x3& e)
 		{
-			float s = sinf(rad), c = cosf(rad);
+			Liar::Number s = sinf(rad), c = cosf(rad);
 			e[0] = c;
 			e[1] = s;
 			e[2] = 0;
@@ -77,13 +77,13 @@ namespace Liar
 
 		static void Multiply(const Liar::Matrix3x3& f, const Liar::Matrix3x3& g, Liar::Matrix3x3& e)
 		{
-			float a00 = f[0], a01 = f[1], a02 = f[2];
-			float a10 = f[3], a11 = f[4], a12 = f[5];
-			float a20 = f[6], a21 = f[7], a22 = f[8];
+			Liar::Number a00 = f[0], a01 = f[1], a02 = f[2];
+			Liar::Number a10 = f[3], a11 = f[4], a12 = f[5];
+			Liar::Number a20 = f[6], a21 = f[7], a22 = f[8];
 
-			float b00 = g[0], b01 = g[1], b02 = g[2];
-			float b10 = g[3], b11 = g[4], b12 = g[5];
-			float b20 = g[6], b21 = g[7], b22 = g[8];
+			Liar::Number b00 = g[0], b01 = g[1], b02 = g[2];
+			Liar::Number b10 = g[3], b11 = g[4], b12 = g[5];
+			Liar::Number b20 = g[6], b21 = g[7], b22 = g[8];
 
 			e[0] = b00 * a00 + b01 * a10 + b02 * a20;
 			e[1] = b00 * a01 + b01 * a11 + b02 * a21;
@@ -98,30 +98,17 @@ namespace Liar
 			e[8] = b20 * a02 + b21 * a12 + b22 * a22;
 		}
 
-		static void CreateFromMatrix4x4(const Liar::Matrix4x4& sou, Liar::Matrix3x3& out)
-		{
-			out[0] = sou[0];
-			out[1] = sou[1];
-			out[2] = sou[2];
-			out[3] = sou[4];
-			out[4] = sou[5];
-			out[5] = sou[6];
-			out[6] = sou[8];
-			out[7] = sou[9];
-			out[8] = sou[10];
-		};
-
 		static void Invert(const Liar::Matrix3x3& m, Liar::Matrix3x3& e)
 		{
-			float a00 = m[0], a01 = m[1], a02 = m[2];
-			float a10 = m[3], a11 = m[4], a12 = m[5];
-			float a20 = m[6], a21 = m[7], a22 = m[8];
+			Liar::Number a00 = m[0], a01 = m[1], a02 = m[2];
+			Liar::Number a10 = m[3], a11 = m[4], a12 = m[5];
+			Liar::Number a20 = m[6], a21 = m[7], a22 = m[8];
 
-			float b01 = a22 * a11 - a12 * a21;
-			float b11 = -a22 * a10 + a12 * a20;
-			float b21 = a21 * a10 - a11 * a20;
+			Liar::Number b01 = a22 * a11 - a12 * a21;
+			Liar::Number b11 = -a22 * a10 + a12 * a20;
+			Liar::Number b21 = a21 * a10 - a11 * a20;
 
-			float det = a00 * b01 + a01 * b11 + a02 * b21;
+			Liar::Number det = a00 * b01 + a01 * b11 + a02 * b21;
 
 			if (det)
 			{
@@ -142,7 +129,7 @@ namespace Liar
 		{
 			if (&e == &f)
 			{
-				float a01 = f[1], a02 = f[2], a12 = f[5];
+				Liar::Number a01 = f[1], a02 = f[2], a12 = f[5];
 				e[1] = f[3];
 				e[2] = f[6];
 				e[3] = a01;
@@ -164,58 +151,34 @@ namespace Liar
 			}
 		}
 
-		static void LookAt(const Liar::Vector3& eye, const Liar::Vector3& target, const Liar::Vector3& up, Liar::Matrix3x3& me)
-		{
-			Liar::Vector3 v0e, v1e, v2e;
-			Vector3::Subtract(eye, target, v0e);
-			Vector3::Normalize(v0e, v0e);
-
-			Vector3::Cross(up, v0e, v1e);
-			Vector3::Normalize(v1e, v1e);
-
-			Vector3::Cross(v0e, v1e, v2e);
-
-			me[0] = v1e[0];
-			me[3] = v1e[1];
-			me[6] = v1e[2];
-
-			me[1] = v2e[0];
-			me[4] = v2e[1];
-			me[7] = v2e[2];
-
-			me[2] = v0e[0];
-			me[5] = v0e[1];
-			me[8] = v0e[2];
-		}
-
 	public:
-		inline float operator[](int index) const
+		inline Liar::Number operator[](int index) const
 		{
 			return m[index];
 		};
 
-		inline float& operator[](int index)
+		inline Liar::Number& operator[](int index)
 		{
 			return m[index];
 		};
 
-		inline void Set(float m0, float m1, float m2,
-			float m3, float m4, float m5,
-			float m6, float m7, float m8)
+		inline void Set(Liar::Number m0, Liar::Number m1, Liar::Number m2,
+			Liar::Number m3, Liar::Number m4, Liar::Number m5,
+			Liar::Number m6, Liar::Number m7, Liar::Number m8)
 		{
 			m[0] = m0;  m[1] = m1;  m[2] = m2;
 			m[3] = m3;  m[4] = m4;  m[5] = m5;
 			m[6] = m6;  m[7] = m7;  m[8] = m8;
 		};
 
-		inline void SetRow(size_t index, float a, float b, float c)
+		inline void SetRow(size_t index, Liar::Number a, Liar::Number b, Liar::Number c)
 		{
 			m[index] = a;
 			m[index + 3] = b;
 			m[index + 6] = c;
 		};
 
-		inline void SetRow(size_t index, const float row[3])
+		inline void SetRow(size_t index, const Liar::Number row[3])
 		{
 			SetRow(index, row[0], row[1], row[2]);
 		};
@@ -225,14 +188,14 @@ namespace Liar
 			SetRow(index, rhs.x, rhs.y, rhs.z);
 		};
 
-		inline void SetColumn(size_t index, float a, float b, float c)
+		inline void SetColumn(size_t index, Liar::Number a, Liar::Number b, Liar::Number c)
 		{
 			m[index * 3] = a;
 			m[index * 3 + 1] = b;
 			m[index * 3 + 2] = c;
 		};
 
-		inline void SetColumn(size_t index, const float col[3])
+		inline void SetColumn(size_t index, const Liar::Number col[3])
 		{
 			SetColumn(index, col[0], col[1], col[2]);
 		};
@@ -242,7 +205,7 @@ namespace Liar
 			SetColumn(index, rhs.x, rhs.y, rhs.z);
 		};
 
-		inline const float* Get() const
+		inline const Liar::Number* Get() const
 		{
 			return m;
 		};
@@ -332,26 +295,21 @@ namespace Liar
 				(m[6] != rhs[6]) || (m[7] != rhs[7]) || (m[8] != rhs[8]);
 		};
 
-		inline Matrix3x3 operator-(const Liar::Matrix3x3& rhs) const
+		inline Liar::Number Determinant() const
 		{
-			return Matrix3x3(-rhs[0], -rhs[1], -rhs[2], -rhs[3], -rhs[4], -rhs[5], -rhs[6], -rhs[7], -rhs[8]);
-		};
-
-		inline float Determinant() const
-		{
-			float a00 = m[0], a01 = m[1], a02 = m[2];
-			float a10 = m[3], a11 = m[4], a12 = m[5];
-			float a20 = m[6], a21 = m[7], a22 = m[8];
+			Liar::Number a00 = m[0], a01 = m[1], a02 = m[2];
+			Liar::Number a10 = m[3], a11 = m[4], a12 = m[5];
+			Liar::Number a20 = m[6], a21 = m[7], a22 = m[8];
 			return a00 * (a22 * a11 - a12 * a21) + a01 * (-a22 * a10 + a12 * a20) + a02 * (a21 * a10 - a11 * a20);
 		};
 
 		inline void Translate(const Liar::Vector2& g, Liar::Matrix3x3 & e)
 		{
-			float a00 = m[0], a01 = m[1], a02 = m[2];
-			float a10 = m[3], a11 = m[4], a12 = m[5];
-			float a20 = m[6], a21 = m[7], a22 = m[8];
+			Liar::Number a00 = m[0], a01 = m[1], a02 = m[2];
+			Liar::Number a10 = m[3], a11 = m[4], a12 = m[5];
+			Liar::Number a20 = m[6], a21 = m[7], a22 = m[8];
 
-			float x = g.x, y = g.y;
+			Liar::Number x = g.x, y = g.y;
 
 			e[0] = a00;
 			e[1] = a01;
@@ -366,14 +324,14 @@ namespace Liar
 			e[8] = x * a02 + y * a12 + a22;
 		};
 
-		inline void Rotate(float rad, Liar::Matrix3x3& e)
+		inline void Rotate(Liar::Number rad, Liar::Matrix3x3& e)
 		{
-			float a00 = m[0], a01 = m[1], a02 = m[2];
-			float a10 = m[3], a11 = m[4], a12 = m[5];
-			float a20 = m[6], a21 = m[7], a22 = m[8];
+			Liar::Number a00 = m[0], a01 = m[1], a02 = m[2];
+			Liar::Number a10 = m[3], a11 = m[4], a12 = m[5];
+			Liar::Number a20 = m[6], a21 = m[7], a22 = m[8];
 
-			float s = sinf(rad);
-			float c = cosf(rad);
+			Liar::Number s = sinf(rad);
+			Liar::Number c = cosf(rad);
 
 			e[0] = c * a00 + s * a10;
 			e[1] = c * a01 + s * a11;
@@ -390,7 +348,7 @@ namespace Liar
 
 		inline void Scale(const Liar::Vector2& g, Liar::Matrix3x3& e)
 		{
-			float x = g.x, y = g.y;
+			Liar::Number x = g.x, y = g.y;
 
 			e[0] = x * m[0];
 			e[1] = x * m[1];
@@ -407,15 +365,15 @@ namespace Liar
 
 		inline Matrix3x3& Invert()
 		{
-			float a00 = m[0], a01 = m[1], a02 = m[2];
-			float a10 = m[3], a11 = m[4], a12 = m[5];
-			float a20 = m[6], a21 = m[7], a22 = m[8];
+			Liar::Number a00 = m[0], a01 = m[1], a02 = m[2];
+			Liar::Number a10 = m[3], a11 = m[4], a12 = m[5];
+			Liar::Number a20 = m[6], a21 = m[7], a22 = m[8];
 
-			float b01 = a22 * a11 - a12 * a21;
-			float b11 = -a22 * a10 + a12 * a20;
-			float b21 = a21 * a10 - a11 * a20;
+			Liar::Number b01 = a22 * a11 - a12 * a21;
+			Liar::Number b11 = -a22 * a10 + a12 * a20;
+			Liar::Number b21 = a21 * a10 - a11 * a20;
 
-			float det = a00 * b01 + a01 * b11 + a02 * b21;
+			Liar::Number det = a00 * b01 + a01 * b11 + a02 * b21;
 
 			if (det)
 			{
@@ -436,7 +394,7 @@ namespace Liar
 
 		inline Matrix3x3& Transpose()
 		{
-			float a01 = m[1], a02 = m[2], a12 = m[5];
+			Liar::Number a01 = m[1], a02 = m[2], a12 = m[5];
 			m[1] = m[3];
 			m[2] = m[6];
 			m[3] = a01;
@@ -446,19 +404,6 @@ namespace Liar
 			return *this;
 		};
 
-		inline Matrix3x3& Identity()
-		{
-			m[0] = 1;
-			m[1] = 0;
-			m[2] = 0;
-			m[3] = 0;
-			m[4] = 1;
-			m[5] = 0;
-			m[6] = 0;
-			m[7] = 0;
-			m[8] = 1;
-		}
-
 	};
 
 	inline Matrix3x3 operator-(const Matrix3x3& rhs)
@@ -466,7 +411,7 @@ namespace Liar
 		return Matrix3x3(-rhs[0], -rhs[1], -rhs[2], -rhs[3], -rhs[4], -rhs[5], -rhs[6], -rhs[7], -rhs[8]);
 	}
 
-	inline Matrix3x3 operator*(float s, const Matrix3x3& rhs)
+	inline Matrix3x3 operator*(Liar::Number s, const Matrix3x3& rhs)
 	{
 		return Matrix3x3(s*rhs[0], s*rhs[1], s*rhs[2], s*rhs[3], s*rhs[4], s*rhs[5], s*rhs[6], s*rhs[7], s*rhs[8]);
 	}

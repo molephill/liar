@@ -11,10 +11,10 @@ namespace Liar
 	{
 	public:
 		Matrix4x4(
-			float m00 = 1.0f, float m01 = 0.0f, float m02 = 0.0f, float m03 = 0.0f,
-			float m04 = 0.0f, float m05 = 1.0f, float m06 = 0.0f, float m07 = 0.0f,
-			float m08 = 0.0f, float m09 = 0.0f, float m10 = 1.0f, float m11 = 0.0f,
-			float m12 = 0.0f, float m13 = 0.0f, float m14 = 0.0f, float m15 = 1.0f)
+			Liar::Number m00 = 1.0f, Liar::Number m01 = 0.0f, Liar::Number m02 = 0.0f, Liar::Number m03 = 0.0f,
+			Liar::Number m04 = 0.0f, Liar::Number m05 = 1.0f, Liar::Number m06 = 0.0f, Liar::Number m07 = 0.0f,
+			Liar::Number m08 = 0.0f, Liar::Number m09 = 0.0f, Liar::Number m10 = 1.0f, Liar::Number m11 = 0.0f,
+			Liar::Number m12 = 0.0f, Liar::Number m13 = 0.0f, Liar::Number m14 = 0.0f, Liar::Number m15 = 1.0f)
 		{
 			m[0] = m00;  m[1] = m01;  m[2] = m02;  m[3] = m03;
 			m[4] = m04;  m[5] = m05;  m[6] = m06;  m[7] = m07;
@@ -24,7 +24,7 @@ namespace Liar
 		~Matrix4x4() {};
 
 	private:
-		float m[16];
+		Liar::Number m[16];
 
 	public:
 		/**
@@ -32,9 +32,9 @@ namespace Liar
 		* @param	rad  旋转角度
 		* @param	out 输出矩阵
 		*/
-		static void CreateRotationX(float rad, Liar::Matrix4x4& oe)
+		static void CreateRotationX(Liar::Number rad, Liar::Matrix4x4& oe)
 		{
-			float s = sinf(rad), c = cosf(rad);
+			Liar::Number s = sinf(rad), c = cosf(rad);
 			oe[1] = oe[2] = oe[3] = oe[4] = oe[7] = oe[8] = oe[11] = oe[12] = oe[13] = oe[14] = 0;
 			oe[0] = oe[15] = 1;
 			oe[5] = oe[10] = c;
@@ -48,9 +48,9 @@ namespace Liar
 		* @param	rad  旋转角度
 		* @param	out 输出矩阵
 		*/
-		static void CreateRotationY(float rad, Liar::Matrix4x4& oe)
+		static void CreateRotationY(Liar::Number rad, Liar::Matrix4x4& oe)
 		{
-			float s = sinf(rad), c = cosf(rad);
+			Liar::Number s = sinf(rad), c = cosf(rad);
 			oe[1] = oe[3] = oe[4] = oe[6] = oe[7] = oe[9] = oe[11] = oe[12] = oe[13] = oe[14] = 0;
 			oe[5] = oe[15] = 1;
 			oe[0] = oe[10] = c;
@@ -63,9 +63,9 @@ namespace Liar
 		* @param	rad  旋转角度
 		* @param	out 输出矩阵
 		*/
-		static void CreateRotationZ(float rad, Liar::Matrix4x4& oe)
+		static void CreateRotationZ(Liar::Number rad, Liar::Matrix4x4& oe)
 		{
-			float s = sinf(rad), c = cosf(rad);
+			Liar::Number s = sinf(rad), c = cosf(rad);
 			oe[2] = oe[3] = oe[6] = oe[7] = oe[8] = oe[9] = oe[11] = oe[12] = oe[13] = oe[14] = 0;
 			oe[10] = oe[15] = 1;
 			oe[0] = oe[5] = c;
@@ -80,59 +80,28 @@ namespace Liar
 		* @param	roll
 		* @param	result
 		*/
-		static void CreateRotationAxis(const Liar::Vector3& axisE, float angle, Liar::Matrix4x4& resultE)
+		static void CreateRotationAxis(const Liar::Vector3& axisE, Liar::Number angle, Liar::Matrix4x4& resultE)
 		{
-			float x = axisE[0], y = axisE[1], z = axisE[2];
-			float cos = cosf(angle), sin = sinf(angle);
-			float xx = x * x;
-			float yy = y * y;
-			float zz = z * z;
-			float xy = x * y;
-			float xz = x * z;
-			float yz = y * z;
-
-			resultE[3] = resultE[7] = resultE[11] = resultE[12] = resultE[13] = resultE[14] = 0;
-			resultE[15] = 1.0;
-			resultE[0] = xx + (cos * (1.0 - xx));
-			resultE[1] = (xy - (cos * xy)) + (sin * z);
-			resultE[2] = (xz - (cos * xz)) - (sin * y);
-			resultE[4] = (xy - (cos * xy)) - (sin * z);
-			resultE[5] = yy + (cos * (1.0 - yy));
-			resultE[6] = (yz - (cos * yz)) + (sin * x);
-			resultE[8] = (xz - (cos * xz)) + (sin * y);
-			resultE[9] = (yz - (cos * yz)) - (sin * x);
-			resultE[10] = zz + (cos * (1.0 - zz));
-		};
-
-		/**
-		* 通过四元数创建旋转矩阵。
-		* @param	rotation 旋转四元数。
-		* @param	result 输出旋转矩阵
-		*/
-		static void CreateRotationQuaternion(const Liar::Quaternion& rotationE, Liar::Matrix4x4& resultE)
-		{
-			float rotationX = rotationE[0], rotationY = rotationE[1], rotationZ = rotationE[2], rotationW = rotationE[3];
-			float xx = rotationX * rotationX;
-			float yy = rotationY * rotationY;
-			float zz = rotationZ * rotationZ;
-			float xy = rotationX * rotationY;
-			float zw = rotationZ * rotationW;
-			float zx = rotationZ * rotationX;
-			float yw = rotationY * rotationW;
-			float yz = rotationY * rotationZ;
-			float xw = rotationX * rotationW;
+			Liar::Number x = axisE[0], y = axisE[1], z = axisE[2];
+			Liar::Number cos = cosf(angle), sin = sinf(angle);
+			Liar::Number xx = x * x;
+			Liar::Number yy = y * y;
+			Liar::Number zz = z * z;
+			Liar::Number xy = x * y;
+			Liar::Number xz = x * z;
+			Liar::Number yz = y * z;
 
 			resultE[3] = resultE[7] = resultE[11] = resultE[12] = resultE[13] = resultE[14] = 0.0f;
 			resultE[15] = 1.0f;
-			resultE[0] = 1.0 - (2.0 * (yy + zz));
-			resultE[1] = 2.0 * (xy + zw);
-			resultE[2] = 2.0 * (zx - yw);
-			resultE[4] = 2.0 * (xy - zw);
-			resultE[5] = 1.0 - (2.0 * (zz + xx));
-			resultE[6] = 2.0 * (yz + xw);
-			resultE[8] = 2.0 * (zx + yw);
-			resultE[9] = 2.0 * (yz - xw);
-			resultE[10] = 1.0 - (2.0 * (yy + xx));
+			resultE[0] = xx + (cos * (1.0f - xx));
+			resultE[1] = (xy - (cos * xy)) + (sin * z);
+			resultE[2] = (xz - (cos * xz)) - (sin * y);
+			resultE[4] = (xy - (cos * xy)) - (sin * z);
+			resultE[5] = yy + (cos * (1.0f - yy));
+			resultE[6] = (yz - (cos * yz)) + (sin * x);
+			resultE[8] = (xz - (cos * xz)) + (sin * y);
+			resultE[9] = (yz - (cos * yz)) - (sin * x);
+			resultE[10] = zz + (cos * (1.0f - zz));
 		};
 
 		/**
@@ -172,7 +141,7 @@ namespace Liar
 		static void Multiply(const Liar::Matrix4x4& a, const Liar::Matrix4x4& tb, Liar::Matrix4x4& e)
 		{
 			int i = 0;
-			float ai0 = 0.0f, ai1 = 0.0f, ai2 = 0.0f, ai3 = 0.0f;
+			Liar::Number ai0 = 0.0f, ai1 = 0.0f, ai2 = 0.0f, ai3 = 0.0f;
 
 			const Liar::Matrix4x4* TEMPBPoint = nullptr;
 			if (&tb == &e)
@@ -202,92 +171,6 @@ namespace Liar
 				e[i + 8] = ai0 * b[8] + ai1 * b[9] + ai2 * b[10] + ai3 * b[11];
 				e[i + 12] = ai0 * b[12] + ai1 * b[13] + ai2 * b[14] + ai3 * b[15];
 			}
-		};
-
-		/**
-		* 从四元数计算旋转矩阵
-		* @param	rotation 四元数
-		* @param	out 输出矩阵
-		*/
-		static void CreateFromQuaternion(const Liar::Quaternion& q, Liar::Matrix4x4& e)
-		{
-			float x = q[0], y = q[1], z = q[2], w = q[3];
-			float x2 = x + x;
-			float y2 = y + y;
-			float z2 = z + z;
-
-			float xx = x * x2;
-			float yx = y * x2;
-			float yy = y * y2;
-			float zx = z * x2;
-			float zy = z * y2;
-			float zz = z * z2;
-			float wx = w * x2;
-			float wy = w * y2;
-			float wz = w * z2;
-
-			e[0] = 1 - yy - zz;
-			e[1] = yx + wz;
-			e[2] = zx - wy;
-			e[3] = 0;
-
-			e[4] = yx - wz;
-			e[5] = 1 - xx - zz;
-			e[6] = zy + wx;
-			e[7] = 0;
-
-			e[8] = zx + wy;
-			e[9] = zy - wx;
-			e[10] = 1 - xx - yy;
-			e[11] = 0;
-
-			e[12] = 0;
-			e[13] = 0;
-			e[14] = 0;
-			e[15] = 1;
-		};
-
-		/**
-		* 计算仿射矩阵
-		* @param	trans 平移
-		* @param	rot 旋转
-		* @param	scale 缩放
-		* @param	out 输出矩阵
-		*/
-		static void CreateAffineTransformation(const Liar::Vector3& te, const Liar::Quaternion& re, const Liar::Vector3& se, Liar::Matrix4x4& oe)
-		{
-			float x = re[0], y = re[1], z = re[2], w = re[3];
-			float x2 = x + x;
-			float y2 = y + y;
-			float z2 = z + z;
-
-			float xx = x * x2;
-			float xy = x * y2;
-			float xz = x * z2;
-			float yy = y * y2;
-			float yz = y * z2;
-			float zz = z * z2;
-			float wx = w * x2;
-			float wy = w * y2;
-			float wz = w * z2;
-			float sx = se[0], sy = se[1], sz = se[2];
-
-			oe[0] = (1 - (yy + zz)) * sx;
-			oe[1] = (xy + wz) * sx;
-			oe[2] = (xz - wy) * sx;
-			oe[3] = 0;
-			oe[4] = (xy - wz) * sy;
-			oe[5] = (1 - (xx + zz)) * sy;
-			oe[6] = (yz + wx) * sy;
-			oe[7] = 0;
-			oe[8] = (xz + wy) * sz;
-			oe[9] = (yz - wx) * sz;
-			oe[10] = (1 - (xx + yy)) * sz;
-			oe[11] = 0;
-			oe[12] = te[0];
-			oe[13] = te[1];
-			oe[14] = te[2];
-			oe[15] = 1;
 		};
 
 		/**
@@ -332,15 +215,15 @@ namespace Liar
 		* @param	far 远裁面。
 		* @param	out 输出矩阵。
 		*/
-		static void CreatePerspective(float fov, float aspect, float n, float f, Liar::Matrix4x4& oe)
+		static void CreatePerspective(Liar::Number fov, Liar::Number aspect, Liar::Number nearPlane, Liar::Number farPlane, Liar::Matrix4x4& oe)
 		{
-			float f = 1.0 / tanf(fov*0.5);
-			float nf = 1.0f / (n - f);
+			Liar::Number f = 1.0f / tanf(fov*0.5f);
+			Liar::Number nf = 1.0f / (nearPlane - farPlane);
 			oe[0] = f / aspect;
 			oe[5] = f;
-			oe[10] = (f + n) * nf;
-			oe[11] = -1;
-			oe[14] = (2 * f * n) * nf;
+			oe[10] = (farPlane + nearPlane) * nf;
+			oe[11] = -1.0f;
+			oe[14] = (2.0f * f * nearPlane) * nf;
 			oe[1] = oe[2] = oe[3] = oe[4] = oe[6] = oe[7] = oe[8] = oe[9] = oe[12] = oe[13] = oe[15] = 0.0f;
 		};
 
@@ -354,11 +237,11 @@ namespace Liar
 		* @param	far 视椎远边界。
 		* @param	out 输出矩阵。
 		*/
-		static void CreateOrthoOffCenterRH(float left, float right, float bottom, float top, float n, float f, Liar::Matrix4x4& oe)
+		static void CreateOrthoOffCenterRH(Liar::Number left, Liar::Number right, Liar::Number bottom, Liar::Number top, Liar::Number n, Liar::Number f, Liar::Matrix4x4& oe)
 		{
-			float lr = 1.0f / (left - right);
-			float bt = 1.0f / (bottom - top);
-			float nf = 1.0f / (n - f);
+			Liar::Number lr = 1.0f / (left - right);
+			Liar::Number bt = 1.0f / (bottom - top);
+			Liar::Number nf = 1.0f / (n - f);
 
 			oe[1] = oe[2] = oe[3] = oe[4] = oe[6] = oe[7] = oe[8] = oe[9] = oe[11] = 0;
 			oe[15] = 1;
@@ -380,16 +263,16 @@ namespace Liar
 
 	public:
 		friend Matrix4x4 operator-(const Matrix4x4& m);                     // unary operator (-)
-		friend Matrix4x4 operator*(float scalar, const Matrix4x4& m);       // pre-multiplication
+		friend Matrix4x4 operator*(Liar::Number scalar, const Matrix4x4& m);       // pre-multiplication
 		friend Vector3 operator*(const Vector3& vec, const Matrix4x4& m); // pre-multiplication
 		friend Vector4 operator*(const Vector4& vec, const Matrix4x4& m); // pre-multiplication
 		friend std::ostream& operator<<(std::ostream& os, const Matrix4x4& m);
 
 	public:
-		inline void Set(float m00, float m01, float m02, float m03,
-			float m04, float m05, float m06, float m07,
-			float m08, float m09, float m10, float m11,
-			float m12, float m13, float m14, float m15)
+		inline void Set(Liar::Number m00, Liar::Number m01, Liar::Number m02, Liar::Number m03,
+			Liar::Number m04, Liar::Number m05, Liar::Number m06, Liar::Number m07,
+			Liar::Number m08, Liar::Number m09, Liar::Number m10, Liar::Number m11,
+			Liar::Number m12, Liar::Number m13, Liar::Number m14, Liar::Number m15)
 		{
 			m[0] = m00;  m[1] = m01;  m[2] = m02;  m[3] = m03;
 			m[4] = m04;  m[5] = m05;  m[6] = m06;  m[7] = m07;
@@ -403,17 +286,17 @@ namespace Liar
 			m[1] = m[2] = m[3] = m[4] = m[6] = m[7] = m[8] = m[9] = m[11] = m[12] = m[13] = m[14] = 0.0f;
 		};
 
-		inline float operator[](int index) const
+		inline Liar::Number operator[](int index) const
 		{
 			return m[index];
 		};
 
-		inline float& operator[](int index)
+		inline Liar::Number& operator[](int index)
 		{
 			return m[index];
 		};
 
-		inline void SetRow(size_t index, float a, float b, float c, float d)
+		inline void SetRow(size_t index, Liar::Number a, Liar::Number b, Liar::Number c, Liar::Number d)
 		{
 			m[index] = a;  
 			m[index + 4] = b;  
@@ -426,7 +309,7 @@ namespace Liar
 			SetRow(index, rhs.x, rhs.y, rhs.z, rhs.w);
 		};
 
-		inline void SetColumn(size_t index, float a, float b, float c, float d)
+		inline void SetColumn(size_t index, Liar::Number a, Liar::Number b, Liar::Number c, Liar::Number d)
 		{
 			m[index * 4] = a; 
 			m[index * 4 + 1] = b; 
@@ -439,7 +322,7 @@ namespace Liar
 			SetColumn(index, rhs.x, rhs.y, rhs.z, rhs.w);
 		};
 
-		inline const float* Get() const
+		inline const Liar::Number* Get() const
 		{
 			return m;
 		};
@@ -539,12 +422,12 @@ namespace Liar
 					);
 		};
 
-		inline float GetElementByRowColumn(size_t row, size_t column) const
+		inline Liar::Number GetElementByRowColumn(size_t row, size_t column) const
 		{
 			return m[row * 4 + column];
 		};
 
-		inline void SetElementByRowColumn(size_t row, size_t column, float value)
+		inline void SetElementByRowColumn(size_t row, size_t column, Liar::Number value)
 		{
 			m[row * 4 + column] = value;
 		}
@@ -584,13 +467,13 @@ namespace Liar
 			te[1] = m[13];
 			te[2] = m[14];
 
-			float m11 = m[0], m12 = m[1], m13 = m[2];
-			float m21 = m[4], m22 = m[5], m23 = m[6];
-			float m31 = m[8], m32 = m[9], m33 = m[10];
+			Liar::Number m11 = m[0], m12 = m[1], m13 = m[2];
+			Liar::Number m21 = m[4], m22 = m[5], m23 = m[6];
+			Liar::Number m31 = m[8], m32 = m[9], m33 = m[10];
 
-			float sX = se[0] = sqrtf((m11 * m11) + (m12 * m12) + (m13 * m13));
-			float sY = se[1] = sqrtf((m21 * m21) + (m22 * m22) + (m23 * m23));
-			float sZ = se[2] = sqrtf((m31 * m31) + (m32 * m32) + (m33 * m33));
+			Liar::Number sX = se[0] = sqrtf((m11 * m11) + (m12 * m12) + (m13 * m13));
+			Liar::Number sY = se[1] = sqrtf((m21 * m21) + (m22 * m22) + (m23 * m23));
+			Liar::Number sZ = se[2] = sqrtf((m31 * m31) + (m32 * m32) + (m33 * m33));
 
 			if (MathUtils3D::IsZero(sX) || MathUtils3D::IsZero(sY) || MathUtils3D::IsZero(sZ)) 
 			{
@@ -639,16 +522,16 @@ namespace Liar
 
 		/**
 		* 分解旋转矩阵的旋转为YawPitchRoll欧拉角。
-		* @param	out float yaw
-		* @param	out float pitch
-		* @param	out float roll
+		* @param	out Liar::Number yaw
+		* @param	out Liar::Number pitch
+		* @param	out Liar::Number roll
 		* @return
 		*/
 		void DecomposeYawPitchRoll(Liar::Vector3& yawPitchRollE)
 		{
-			float pitch = asinf(-m[9]);
+			Liar::Number pitch = asinf(-m[9]);
 			yawPitchRollE[1] = pitch;
-			float test = cosf(pitch);
+			Liar::Number test = cosf(pitch);
 			if (test > Liar::MathUtils3D::ZERO_TO_LERANCE) 
 			{
 				yawPitchRollE[2] = atan2f(m[1], m[5]);
@@ -664,8 +547,8 @@ namespace Liar
 		/**归一化矩阵 */
 		inline void Normalize()
 		{
-			float c = m[0], d = m[1], e = m[2];
-			float g = sqrt(c * c + d * d + e * e);
+			Liar::Number c = m[0], d = m[1], e = m[2];
+			Liar::Number g = sqrt(c * c + d * d + e * e);
 			if (g)
 			{
 				if (g == 1) return;
@@ -684,7 +567,7 @@ namespace Liar
 		/**计算矩阵的转置矩阵*/
 		inline Matrix4x4& Transpose()
 		{
-			float t = m[1];
+			Liar::Number t = m[1];
 			m[1] = m[4];
 			m[4] = t;
 			t = m[2];
@@ -708,25 +591,25 @@ namespace Liar
 
 		inline void Invert(Liar::Matrix4x4& oe)
 		{
-			float a00 = m[0], a01 = m[1], a02 = m[2], a03 = m[3];
-			float a10 = m[4], a11 = m[5], a12 = m[6], a13 = m[7];
-			float a20 = m[8], a21 = m[9], a22 = m[10], a23 = m[11];
-			float a30 = m[12], a31 = m[13], a32 = m[14], a33 = m[15];
+			Liar::Number a00 = m[0], a01 = m[1], a02 = m[2], a03 = m[3];
+			Liar::Number a10 = m[4], a11 = m[5], a12 = m[6], a13 = m[7];
+			Liar::Number a20 = m[8], a21 = m[9], a22 = m[10], a23 = m[11];
+			Liar::Number a30 = m[12], a31 = m[13], a32 = m[14], a33 = m[15];
 
-			float b00 = a00 * a11 - a01 * a10;
-			float b01 = a00 * a12 - a02 * a10;
-			float b02 = a00 * a13 - a03 * a10;
-			float b03 = a01 * a12 - a02 * a11;
-			float b04 = a01 * a13 - a03 * a11;
-			float b05 = a02 * a13 - a03 * a12;
-			float b06 = a20 * a31 - a21 * a30;
-			float b07 = a20 * a32 - a22 * a30;
-			float b08 = a20 * a33 - a23 * a30;
-			float b09 = a21 * a32 - a22 * a31;
-			float b10 = a21 * a33 - a23 * a31;
-			float b11 = a22 * a33 - a23 * a32;
+			Liar::Number b00 = a00 * a11 - a01 * a10;
+			Liar::Number b01 = a00 * a12 - a02 * a10;
+			Liar::Number b02 = a00 * a13 - a03 * a10;
+			Liar::Number b03 = a01 * a12 - a02 * a11;
+			Liar::Number b04 = a01 * a13 - a03 * a11;
+			Liar::Number b05 = a02 * a13 - a03 * a12;
+			Liar::Number b06 = a20 * a31 - a21 * a30;
+			Liar::Number b07 = a20 * a32 - a22 * a30;
+			Liar::Number b08 = a20 * a33 - a23 * a30;
+			Liar::Number b09 = a21 * a32 - a22 * a31;
+			Liar::Number b10 = a21 * a33 - a23 * a31;
+			Liar::Number b11 = a22 * a33 - a23 * a32;
 
-			float det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+			Liar::Number det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
 			if (abs(det) == 0)
 			{
 				return;
@@ -808,7 +691,7 @@ namespace Liar
 		return Matrix4x4(-rhs[0], -rhs[1], -rhs[2], -rhs[3], -rhs[4], -rhs[5], -rhs[6], -rhs[7], -rhs[8], -rhs[9], -rhs[10], -rhs[11], -rhs[12], -rhs[13], -rhs[14], -rhs[15]);
 	}
 
-	inline Matrix4x4 operator*(float s, const Matrix4x4& rhs)
+	inline Matrix4x4 operator*(Liar::Number s, const Matrix4x4& rhs)
 	{
 		return Matrix4x4(s*rhs[0], s*rhs[1], s*rhs[2], s*rhs[3], s*rhs[4], s*rhs[5], s*rhs[6], s*rhs[7], s*rhs[8], s*rhs[9], s*rhs[10], s*rhs[11], s*rhs[12], s*rhs[13], s*rhs[14], s*rhs[15]);
 	}

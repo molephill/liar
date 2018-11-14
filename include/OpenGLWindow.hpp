@@ -12,7 +12,6 @@
 #include <iostream>
 #include "LiarType.h"
 
-
 namespace Liar
 {
 	class Stage;
