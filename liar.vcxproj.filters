@@ -13,35 +13,14 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="源文件\window">
-      <UniqueIdentifier>{3e9b68dd-ee90-447d-81dd-bdd7fdb904cc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\math">
       <UniqueIdentifier>{1a9abfbc-22b6-4b98-a17b-cce23066fc40}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="头文件\window">
-      <UniqueIdentifier>{ecdeed08-36b2-49ac-977d-0f50e67a69f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="头文件\display">
-      <UniqueIdentifier>{4b4b8d48-9521-4bc1-b86b-c4d76b7f48e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\display">
-      <UniqueIdentifier>{510e9649-500a-4f8e-8b3c-f97b07c207e2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="头文件\events">
-      <UniqueIdentifier>{79910557-a9b3-4b08-a462-9186fe2d5a5e}</UniqueIdentifier>
     </Filter>
     <Filter Include="源文件\core">
       <UniqueIdentifier>{316d055d-d926-4317-9de1-0676f4a7a766}</UniqueIdentifier>
     </Filter>
     <Filter Include="头文件\core">
       <UniqueIdentifier>{4d4fedda-22a7-45cd-a1ac-23d5e769d5ea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="头文件\compoent">
-      <UniqueIdentifier>{6f6c3a10-8b6b-44af-917d-3ae81d2ab8bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\compoent">
-      <UniqueIdentifier>{c7df9941-8a92-4e06-a115-f02bfa47fa76}</UniqueIdentifier>
     </Filter>
     <Filter Include="头文件\core\render">
       <UniqueIdentifier>{75aea4fe-bc14-4645-940a-2688e45241de}</UniqueIdentifier>
@@ -67,43 +46,118 @@
     <Filter Include="头文件\core\graphics\raws">
       <UniqueIdentifier>{7890bc7f-b0b4-4e07-b922-bbf18cc7c787}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\core\light">
+      <UniqueIdentifier>{d3608db4-625c-4c91-b518-b7338c9f679c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\graphics">
+      <UniqueIdentifier>{07c8563a-aa65-44f5-9044-cd86e52d764b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\light">
+      <UniqueIdentifier>{0b5f63ae-96e1-40bf-8b9a-a63d8228ea9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\models">
+      <UniqueIdentifier>{f835ea70-f652-41b1-b4ad-8da39cbdf117}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\graphics\raws">
+      <UniqueIdentifier>{a33c3cfd-0cba-4466-b843-f8b18a456fc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\display">
+      <UniqueIdentifier>{2289040a-d4b8-4d38-9072-8b97f1273a77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\core\display">
+      <UniqueIdentifier>{6efdda17-4b25-4ee0-883f-e346dcb538b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="window\OpenGLWindow.cpp">
-      <Filter>源文件\window</Filter>
-    </ClCompile>
-    <ClCompile Include="window\Stage.cpp">
-      <Filter>源文件\window</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="_common\glad\src\glad.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="display\Node.cpp">
-      <Filter>源文件\display</Filter>
-    </ClCompile>
-    <ClCompile Include="core\BaseCamera.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
     <ClCompile Include="math\MathUtils.cpp">
       <Filter>源文件\match</Filter>
     </ClCompile>
-    <ClCompile Include="core\Scene.cpp">
+    <ClCompile Include="core\Liar3D.cpp">
       <Filter>源文件\core</Filter>
     </ClCompile>
-    <ClCompile Include="core\Camera.cpp">
-      <Filter>源文件\core</Filter>
+    <ClCompile Include="core\graphics\raws\RawVertexBuffersPositionNormalTexture.cpp">
+      <Filter>源文件\core\graphics\raws</Filter>
+    </ClCompile>
+    <ClCompile Include="core\graphics\VertexFactory.cpp">
+      <Filter>源文件\core\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="core\light\BaseLight.cpp">
+      <Filter>源文件\core\light</Filter>
+    </ClCompile>
+    <ClCompile Include="core\light\DirectionLight.cpp">
+      <Filter>源文件\core\light</Filter>
+    </ClCompile>
+    <ClCompile Include="core\light\PointLight.cpp">
+      <Filter>源文件\core\light</Filter>
+    </ClCompile>
+    <ClCompile Include="core\light\SpotLight.cpp">
+      <Filter>源文件\core\light</Filter>
+    </ClCompile>
+    <ClCompile Include="core\models\BaseMesh.cpp">
+      <Filter>源文件\core\models</Filter>
+    </ClCompile>
+    <ClCompile Include="core\models\BoxMesh.cpp">
+      <Filter>源文件\core\models</Filter>
+    </ClCompile>
+    <ClCompile Include="core\render\BaseRender.cpp">
+      <Filter>源文件\core\render</Filter>
+    </ClCompile>
+    <ClCompile Include="core\render\RenderState.cpp">
+      <Filter>源文件\core\render</Filter>
+    </ClCompile>
+    <ClCompile Include="core\resource\BaseTeture.cpp">
+      <Filter>源文件\core\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="core\resource\Resource.cpp">
+      <Filter>源文件\core\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="core\resource\SolidColorTexture.cpp">
+      <Filter>源文件\core\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="core\resource\Texture2D.cpp">
+      <Filter>源文件\core\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="core\graphics\raws\IRawVertexBuffers.cpp">
+      <Filter>源文件\core\graphics\raws</Filter>
+    </ClCompile>
+    <ClCompile Include="core\graphics\VertexBufferPositionNormalTexture.cpp">
+      <Filter>源文件\core\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="core\display\Node.cpp">
+      <Filter>源文件\core\display</Filter>
+    </ClCompile>
+    <ClCompile Include="core\display\Scene.cpp">
+      <Filter>源文件\core\display</Filter>
+    </ClCompile>
+    <ClCompile Include="core\display\Stage.cpp">
+      <Filter>源文件\core\display</Filter>
+    </ClCompile>
+    <ClCompile Include="core\display\EventDispatcher.cpp">
+      <Filter>源文件\core\display</Filter>
+    </ClCompile>
+    <ClCompile Include="core\display\Transform3D.cpp">
+      <Filter>源文件\core\display</Filter>
+    </ClCompile>
+    <ClCompile Include="core\display\TransformNode.cpp">
+      <Filter>源文件\core\display</Filter>
+    </ClCompile>
+    <ClCompile Include="core\render\BaseCamera.cpp">
+      <Filter>源文件\core\render</Filter>
+    </ClCompile>
+    <ClCompile Include="core\render\Camera.cpp">
+      <Filter>源文件\core\render</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Viewport.cpp">
+      <Filter>源文件\match</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\OpenGLWindow.hpp">
-      <Filter>头文件\window</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Stage.hpp">
-      <Filter>头文件\window</Filter>
-    </ClInclude>
     <ClInclude Include="include\math\Matrix3x3.h">
       <Filter>头文件\math</Filter>
     </ClInclude>
@@ -134,50 +188,17 @@
     <ClInclude Include="include\math\Plane.h">
       <Filter>头文件\math</Filter>
     </ClInclude>
-    <ClInclude Include="include\events\EventDispatcher.h">
-      <Filter>头文件\events</Filter>
-    </ClInclude>
-    <ClInclude Include="include\display\Node.h">
-      <Filter>头文件\display</Filter>
-    </ClInclude>
-    <ClInclude Include="include\component\Component3D.h">
-      <Filter>头文件\compoent</Filter>
-    </ClInclude>
     <ClInclude Include="include\core\render\IUpdate.h">
       <Filter>头文件\core\render</Filter>
     </ClInclude>
     <ClInclude Include="include\core\render\RenderState.h">
       <Filter>头文件\core\render</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\Transform3D.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\BaseCamera.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\Scene.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\Camera.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
     <ClInclude Include="include\core\resource\Resource.h">
       <Filter>头文件\core\resource</Filter>
     </ClInclude>
     <ClInclude Include="include\core\resource\BaseTexture.h">
       <Filter>头文件\core\resource</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\GLContext.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="GL.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\GL.h">
-      <Filter>头文件\core</Filter>
     </ClInclude>
     <ClInclude Include="include\core\resource\Textrue2D.h">
       <Filter>头文件\core\resource</Filter>
@@ -203,9 +224,6 @@
     <ClInclude Include="include\core\models\BoxMesh.h">
       <Filter>头文件\core\models</Filter>
     </ClInclude>
-    <ClInclude Include="VertexFactory.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="include\core\graphics\raws\IRawVertexBuffers.h">
       <Filter>头文件\core\graphics\raws</Filter>
     </ClInclude>
@@ -213,6 +231,54 @@
       <Filter>头文件\core\graphics\raws</Filter>
     </ClInclude>
     <ClInclude Include="include\core\graphics\VertexFactory.h">
+      <Filter>头文件\core\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\render\BaseRender.h">
+      <Filter>头文件\core\render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\light\BaseLight.h">
+      <Filter>头文件\core\light</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\light\DirectionLight.h">
+      <Filter>头文件\core\light</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\light\PointLight.h">
+      <Filter>头文件\core\light</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\light\SpotLight.h">
+      <Filter>头文件\core\light</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Liar3D.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\display\EventDispatcher.h">
+      <Filter>头文件\core\display</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\display\Node.h">
+      <Filter>头文件\core\display</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\display\Scene.h">
+      <Filter>头文件\core\display</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\display\Stage.hpp">
+      <Filter>头文件\core\display</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\display\Transform3D.h">
+      <Filter>头文件\core\display</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\display\TransformNode.h">
+      <Filter>头文件\core\display</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\render\BaseCamera.h">
+      <Filter>头文件\core\render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\render\Camera.h">
+      <Filter>头文件\core\render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\render\StageContext.h">
+      <Filter>头文件\core\render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\graphics\VertexElementUsage.h">
       <Filter>头文件\core\graphics</Filter>
     </ClInclude>
   </ItemGroup>

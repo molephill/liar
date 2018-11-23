@@ -8,7 +8,7 @@ namespace Liar
 	class Vector3
 	{
 	public:
-		Vector3(Liar::Number sx = 0.0f, Liar::Number sy = 0.0f, Liar::Number sz = 0.0f) :x(sx), y(sy), z(sz) {};
+		Vector3(Liar::Number sx = 0.0f, Liar::Number sy = 0.0f, Liar::Number sz = 0.0f) { Set(sx, sy, sz); };
 		~Vector3() {};
 
 	public:
@@ -149,7 +149,7 @@ namespace Liar
 		friend std::ostream& operator<<(std::ostream&, const Liar::Vector3&);
 
 	public:
-		inline void Set(Liar::Number sx, Liar::Number sy, Liar::Number sz)
+		inline void Set(Liar::Number sx = 0.0f, Liar::Number sy = 0.0f, Liar::Number sz = 0.0f)
 		{
 			x = sx;
 			y = sy;

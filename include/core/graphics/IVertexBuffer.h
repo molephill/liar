@@ -1,7 +1,7 @@
 #pragma once
 
 #include <core/graphics/VertexType.h>
-#include <core/GL.h>
+#include <LiarType.h>
 
 namespace Liar
 {

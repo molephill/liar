@@ -1,15 +1,33 @@
-﻿  BaseCamera.cpp
-  Camera.cpp
-  Scene.cpp
+﻿  EventDispatcher.cpp
   Node.cpp
-  main.cpp
-e:\c++\liar\liar\include\openglwindow.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  MathUtils.cpp
-  OpenGLWindow.cpp
-e:\c++\liar\liar\window\openglwindow.cpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-e:\c++\liar\liar\include\openglwindow.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  Scene.cpp
   Stage.cpp
-e:\c++\liar\liar\include\openglwindow.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  Transform3D.cpp
+  TransformNode.cpp
+  IRawVertexBuffers.cpp
+  RawVertexBuffersPositionNormalTexture.cpp
+  VertexBufferPositionNormalTexture.cpp
+  VertexFactory.cpp
+  Liar3D.cpp
+  BaseLight.cpp
+  DirectionLight.cpp
+  PointLight.cpp
+  SpotLight.cpp
+  BaseMesh.cpp
+  BoxMesh.cpp
+  BaseCamera.cpp
+  BaseRender.cpp
+  Camera.cpp
+  正在生成代码...
+  正在编译...
+  RenderState.cpp
+  BaseTeture.cpp
+  Resource.cpp
+  SolidColorTexture.cpp
+  Texture2D.cpp
+  main.cpp
+  MathUtils.cpp
+  Viewport.cpp
   正在生成代码...
   glad.c
 LINK : warning LNK4098: 默认库“MSVCRT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library

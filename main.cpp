@@ -1,12 +1,9 @@
 
-
-#include "Stage.hpp"
+#include <Liar3D.h>
 
 int main() {
 
-	Liar::Stage* stage = new Liar::Stage();
-
-	delete stage;
-
+	Liar::Liar3D::Init();
+	Liar::Liar3D::Destroy();
 	return 0;
 }

@@ -1,21 +1,22 @@
 #pragma once
 
 #include "MathUtils3D.h"
+#include <math/Vector3.h>
 
 namespace Liar
 {
 	class Plane
 	{
 	public:
-		Plane(Liar::Vector3& normal, Liar::Number d = 0)
-		{
-			m_normal = new Liar::Vector3(normal);
-			m_distance = d;
-		};
+		Plane(Liar::Number d = 0):
+			m_normal((Liar::Vector3*)malloc(sizeof(Liar::Vector3))),
+			m_distance(d)
+		{};
 
 		~Plane()
 		{
-			delete m_normal;
+			free(m_normal);
+			m_normal = nullptr;
 		};
 
 	private:
@@ -47,7 +48,10 @@ namespace Liar
 
 			Liar::Number d = -((x * point1e[0]) + (y * point1e[1]) + (z * point1e[2]));
 
-			return new Plane(TEMPVec3e, d);
+			Liar::Plane* plane = (Liar::Plane*)malloc(sizeof(Liar::Plane));
+			plane->SetNormal(TEMPVec3e);
+			plane->SetDistance(d);
+			return plane;
 		};
 
 		/**
@@ -66,5 +70,8 @@ namespace Liar
 
 			m_distance *= magnitude;
 		}
+
+		void SetNormal(const Liar::Vector3& rhs) { m_normal->Set(rhs); };
+		void SetDistance(Liar::Number value) { m_distance = value; };
 	};
 }

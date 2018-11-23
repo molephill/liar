@@ -10,4 +10,5 @@ namespace Liar
 	typedef float Number;
 	typedef double DNumber;
 	typedef unsigned char UChar;
+	typedef char Char;
 }

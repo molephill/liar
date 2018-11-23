@@ -1,16 +1,13 @@
 #pragma once
 
-#include <events/EventDispatcher.h>
+#include <core/display/EventDispatcher.h>
 
 namespace Liar
 {
 	class BaseRender :public Liar::EventDispatcher
 	{
 	public:
-		BaseRender() :
-			Liar::EventDispatcher()
-		{};
-		virtual ~BaseRender()
-		{};
+		BaseRender();
+		virtual ~BaseRender();
 	};
 }

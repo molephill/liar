@@ -16,10 +16,7 @@ namespace Liar
 			Liar::Number m08 = 0.0f, Liar::Number m09 = 0.0f, Liar::Number m10 = 1.0f, Liar::Number m11 = 0.0f,
 			Liar::Number m12 = 0.0f, Liar::Number m13 = 0.0f, Liar::Number m14 = 0.0f, Liar::Number m15 = 1.0f)
 		{
-			m[0] = m00;  m[1] = m01;  m[2] = m02;  m[3] = m03;
-			m[4] = m04;  m[5] = m05;  m[6] = m06;  m[7] = m07;
-			m[8] = m08;  m[9] = m09;  m[10] = m10;  m[11] = m11;
-			m[12] = m12;  m[13] = m13;  m[14] = m14;  m[15] = m15;
+			Set(m00, m01, m02, m03, m04, m05, m06, m07, m08, m09, m10, m11, m12, m13, m14, m15);
 		};
 		~Matrix4x4() {};
 
@@ -27,52 +24,6 @@ namespace Liar
 		Liar::Number m[16];
 
 	public:
-		/**
-		* 绕X轴旋转
-		* @param	rad  旋转角度
-		* @param	out 输出矩阵
-		*/
-		static void CreateRotationX(Liar::Number rad, Liar::Matrix4x4& oe)
-		{
-			Liar::Number s = sinf(rad), c = cosf(rad);
-			oe[1] = oe[2] = oe[3] = oe[4] = oe[7] = oe[8] = oe[11] = oe[12] = oe[13] = oe[14] = 0;
-			oe[0] = oe[15] = 1;
-			oe[5] = oe[10] = c;
-			oe[6] = s;
-			oe[9] = -s;
-		};
-
-		/**
-		*
-		* 绕Y轴旋转
-		* @param	rad  旋转角度
-		* @param	out 输出矩阵
-		*/
-		static void CreateRotationY(Liar::Number rad, Liar::Matrix4x4& oe)
-		{
-			Liar::Number s = sinf(rad), c = cosf(rad);
-			oe[1] = oe[3] = oe[4] = oe[6] = oe[7] = oe[9] = oe[11] = oe[12] = oe[13] = oe[14] = 0;
-			oe[5] = oe[15] = 1;
-			oe[0] = oe[10] = c;
-			oe[2] = -s;
-			oe[8] = s;
-		};
-
-		/**
-		* 绕Z轴旋转
-		* @param	rad  旋转角度
-		* @param	out 输出矩阵
-		*/
-		static void CreateRotationZ(Liar::Number rad, Liar::Matrix4x4& oe)
-		{
-			Liar::Number s = sinf(rad), c = cosf(rad);
-			oe[2] = oe[3] = oe[6] = oe[7] = oe[8] = oe[9] = oe[11] = oe[12] = oe[13] = oe[14] = 0;
-			oe[10] = oe[15] = 1;
-			oe[0] = oe[5] = c;
-			oe[1] = s;
-			oe[4] = -s;
-		};
-
 		/**
 		* 通过yaw pitch roll旋转创建旋转矩阵。
 		* @param	yaw
@@ -269,10 +220,11 @@ namespace Liar
 		friend std::ostream& operator<<(std::ostream& os, const Matrix4x4& m);
 
 	public:
-		inline void Set(Liar::Number m00, Liar::Number m01, Liar::Number m02, Liar::Number m03,
-			Liar::Number m04, Liar::Number m05, Liar::Number m06, Liar::Number m07,
-			Liar::Number m08, Liar::Number m09, Liar::Number m10, Liar::Number m11,
-			Liar::Number m12, Liar::Number m13, Liar::Number m14, Liar::Number m15)
+		inline void Set(
+			Liar::Number m00 = 1.0f, Liar::Number m01 = 0.0f, Liar::Number m02 = 0.0f, Liar::Number m03 = 0.0f,
+			Liar::Number m04 = 0.0f, Liar::Number m05 = 1.0f, Liar::Number m06 = 0.0f, Liar::Number m07 = 0.0f,
+			Liar::Number m08 = 0.0f, Liar::Number m09 = 0.0f, Liar::Number m10 = 1.0f, Liar::Number m11 = 0.0f,
+			Liar::Number m12 = 0.0f, Liar::Number m13 = 0.0f, Liar::Number m14 = 0.0f, Liar::Number m15 = 1.0f)
 		{
 			m[0] = m00;  m[1] = m01;  m[2] = m02;  m[3] = m03;
 			m[4] = m04;  m[5] = m05;  m[6] = m06;  m[7] = m07;

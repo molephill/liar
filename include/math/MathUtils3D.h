@@ -69,6 +69,9 @@ namespace Liar
 		// ====================== matrix4x4 ==================
 		static void CreateFromQuaternion(const Liar::Quaternion&, Liar::Matrix4x4&);
 		static void CreateAffineTransformation(const Liar::Vector3&, const Liar::Quaternion&, const Liar::Vector3&, Liar::Matrix4x4&);
+		static void CreateRotationX(Liar::Number, Liar::Matrix4x4&);
+		static void CreateRotationY(Liar::Number, Liar::Matrix4x4&);
+		static void CreateRotationZ(Liar::Number, Liar::Matrix4x4&);
 
 		// ====================== matrix3x3 ==================
 		static void CreateFromMatrix4x4(const Liar::Matrix4x4&, Liar::Matrix3x3&);

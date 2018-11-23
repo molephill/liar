@@ -1,25 +1,14 @@
 #pragma once
 
 #include <core/resource/Resource.h>
-#include <core/GL.h>
-#include <math/MathUtils3D.h>
 
 namespace Liar
 {
-	class BaseTeture :public Liar::Resource
+	class BaseTexture :public Liar::Resource
 	{
 	public:
-		BaseTeture(bool reapeat = true, GLint format = GL_RGBA, bool mipmap = true) :
-			Liar::Resource(),
-			m_type(GL_TEXTURE_2D),
-			m_width(0), m_height(0),
-			m_repeat(reapeat), m_mipmap(mipmap),
-			m_format(format),
-			m_minFifter(-1), m_magFifter(-1),
-			m_data(nullptr)
-		{};
-		virtual ~BaseTeture()
-		{};
+		BaseTexture(bool reapeat = true, GLint format = GL_RGBA, bool mipmap = true);
+		virtual ~BaseTexture();
 
 	protected:
 		GLenum m_type;
@@ -40,30 +29,7 @@ namespace Liar
 		Liar::Uint GetFormat() const { return m_format; };
 
 	public:
-		void SetRepeat(bool value)
-		{
-			if (m_repeat != value)
-			{
-				m_repeat = value;
-				bool isPot = Liar::MathUtils3D::IsPOT(m_width, m_height);
-				Liar::GLContext& gl = GL::mainContext;
-				if (isPot && m_repeat) {
-					gl.TexParameteri(m_type, GL_TEXTURE_WRAP_S, GL_REPEAT);
-					gl.TexParameteri(m_type, GL_TEXTURE_WRAP_S, GL_REPEAT);
-				}
-				else {
-					gl.TexParameteri(m_type, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-					gl.TexParameteri(m_type, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-				}
-			}
-		}
-
-		void SetMipMap(bool value)
-		{
-			if (m_mipmap != value)
-			{
-				m_mipmap = value;
-			}
-		}
+		void SetRepeat(bool value);
+		void SetMipMap(bool value);
 	};
 }

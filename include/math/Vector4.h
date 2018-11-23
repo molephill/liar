@@ -8,7 +8,7 @@ namespace Liar
 	class Vector4
 	{
 	public:
-		Vector4(Liar::Number cx = 0.0f, Liar::Number cy = 0.0f, Liar::Number cz = 0.0f, Liar::Number cw = 0.0f) :x(cx), y(cy), z(cz), w(cw) {};
+		Vector4(Liar::Number cx = 0.0f, Liar::Number cy = 0.0f, Liar::Number cz = 0.0f, Liar::Number cw = 0.0f) { Set(cx, cy, cz, cw); };
 		virtual ~Vector4() {};
 
 	public:
@@ -149,7 +149,7 @@ namespace Liar
 		friend std::ostream& operator<<(std::ostream&, const Vector4&);
 
 	public:
-		inline void Set(Liar::Number cx, Liar::Number cy, Liar::Number cz, Liar::Number cw)
+		inline void Set(Liar::Number cx = 0.0f, Liar::Number cy = 0.0f, Liar::Number cz = 0.0f, Liar::Number cw = 0.0f)
 		{
 			x = cx;
 			y = cy;

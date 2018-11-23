@@ -7,7 +7,7 @@ namespace Liar
 	class Quaternion:public Vector4
 	{
 	public:
-		Quaternion(Liar::Number cx = 0.0f, Liar::Number cy = 0.0f, Liar::Number cz = 0.0f, Liar::Number cw = 1.0f) :Vector4(cx, cy, cz, cw) {};
+		Quaternion(Liar::Number cx = 0.0f, Liar::Number cy = 0.0f, Liar::Number cz = 0.0f, Liar::Number cw = 1.0f) { Liar::Vector4::Set(cx, cy, cz, cw); };
 		~Quaternion() {};
 
 	public:
@@ -256,8 +256,8 @@ namespace Liar
 				anglee[2] = 0;
 			}
 			else {
-				Matrix4x4::CreateRotationY(-anglee[1], Liar::MathUtils3D::TEMPMatrix0);
-				Matrix4x4::CreateRotationX(-anglee[0], Liar::MathUtils3D::TEMPMatrix1);
+				Liar::MathUtils3D::CreateRotationY(-anglee[1], Liar::MathUtils3D::TEMPMatrix0);
+				Liar::MathUtils3D::CreateRotationX(-anglee[0], Liar::MathUtils3D::TEMPMatrix1);
 
 				Liar::MathUtils3D::TransformCoordinate(Liar::MathUtils3D::TEMPVector32, Liar::MathUtils3D::TEMPMatrix0, Liar::MathUtils3D::TEMPVector32);
 				Liar::MathUtils3D::TransformCoordinate(Liar::MathUtils3D::TEMPVector32, Liar::MathUtils3D::TEMPMatrix1, Liar::MathUtils3D::TEMPVector32);

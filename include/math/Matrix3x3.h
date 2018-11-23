@@ -15,9 +15,7 @@ namespace Liar
 			Liar::Number m3 = 0.0f, Liar::Number m4 = 0.0f, Liar::Number m5 = 0.0f,
 			Liar::Number m6 = 0.0f, Liar::Number m7 = 0.0f, Liar::Number m8 = 1.0f)
 		{
-			m[0] = m0;  m[1] = m1;  m[2] = m2;
-			m[3] = m3;  m[4] = m4;  m[5] = m5;
-			m[6] = m6;  m[7] = m7;  m[8] = m8;
+			Set(m0, m1, m2, m3, m4, m5, m6, m7, m8);
 		};
 		~Matrix3x3() {};
 
@@ -162,9 +160,10 @@ namespace Liar
 			return m[index];
 		};
 
-		inline void Set(Liar::Number m0, Liar::Number m1, Liar::Number m2,
-			Liar::Number m3, Liar::Number m4, Liar::Number m5,
-			Liar::Number m6, Liar::Number m7, Liar::Number m8)
+		inline void Set(
+			Liar::Number m0 = 1.0f, Liar::Number m1 = 0.0f, Liar::Number m2 = 0.0f,
+			Liar::Number m3 = 0.0f, Liar::Number m4 = 0.0f, Liar::Number m5 = 0.0f,
+			Liar::Number m6 = 0.0f, Liar::Number m7 = 0.0f, Liar::Number m8 = 1.0f)
 		{
 			m[0] = m0;  m[1] = m1;  m[2] = m2;
 			m[3] = m3;  m[4] = m4;  m[5] = m5;

@@ -412,6 +412,52 @@ namespace Liar
 		me[8] = v0e[2];
 	}
 
+	/**
+	*
+	* ÈÆYÖáĞı×ª
+	* @param	rad  Ğı×ª½Ç¶È
+	* @param	out Êä³ö¾ØÕó
+	*/
+	void MathUtils3D::CreateRotationY(Liar::Number rad, Liar::Matrix4x4& oe)
+	{
+		Liar::Number s = sinf(rad), c = cosf(rad);
+		oe[1] = oe[3] = oe[4] = oe[6] = oe[7] = oe[9] = oe[11] = oe[12] = oe[13] = oe[14] = 0;
+		oe[5] = oe[15] = 1;
+		oe[0] = oe[10] = c;
+		oe[2] = -s;
+		oe[8] = s;
+	};
+
+	/**
+	* ÈÆZÖáĞı×ª
+	* @param	rad  Ğı×ª½Ç¶È
+	* @param	out Êä³ö¾ØÕó
+	*/
+	void MathUtils3D::CreateRotationZ(Liar::Number rad, Liar::Matrix4x4& oe)
+	{
+		Liar::Number s = sinf(rad), c = cosf(rad);
+		oe[2] = oe[3] = oe[6] = oe[7] = oe[8] = oe[9] = oe[11] = oe[12] = oe[13] = oe[14] = 0;
+		oe[10] = oe[15] = 1;
+		oe[0] = oe[5] = c;
+		oe[1] = s;
+		oe[4] = -s;
+	};
+
+	/**
+	* ÈÆXÖáĞı×ª
+	* @param	rad  Ğı×ª½Ç¶È
+	* @param	out Êä³ö¾ØÕó
+	*/
+	void MathUtils3D::CreateRotationX(Liar::Number rad, Liar::Matrix4x4& oe)
+	{
+		Liar::Number s = sinf(rad), c = cosf(rad);
+		oe[1] = oe[2] = oe[3] = oe[4] = oe[7] = oe[8] = oe[11] = oe[12] = oe[13] = oe[14] = 0;
+		oe[0] = oe[15] = 1;
+		oe[5] = oe[10] = c;
+		oe[6] = s;
+		oe[9] = -s;
+	};
+
 	const Liar::DNumber MathUtils3D::MAX_VALUE = 3.40282347e+38;
 	const Liar::DNumber MathUtils3D::MIN_VALUE = -3.40282347e+38;
 	const Liar::DNumber MathUtils3D::ZERO_TO_LERANCE = 1e-6;
