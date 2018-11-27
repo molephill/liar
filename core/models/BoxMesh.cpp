@@ -9,6 +9,8 @@ namespace Liar
 		m_long(l), m_width(w), m_height(h)
 	{
 		m_rawVertexBuffers = Liar::Liar3D::vertexFactory->GetRawVertexBuffers(Liar::MeshVertexType::MESH_VERTEX_TYPE_POSITION_NORMAL_TEXTURE);
+		ReleaseResource();
+		ActiveResource();
 	}
 
 	BoxMesh::~BoxMesh()

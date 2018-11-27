@@ -1,6 +1,7 @@
 
 
 #include <core/render/RenderState.h>
+#include <core/render/BaseCamera.h>
 
 namespace Liar
 {

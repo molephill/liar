@@ -49,33 +49,6 @@ namespace Liar
 		static bool NearEqual(Liar::DNumber, Liar::DNumber);
 		static Liar::DNumber FastInvSqrt(Liar::DNumber);
 		static bool IsPOT(Liar::Uint, Liar::Uint);
-
-		// ======================= vector3 =============================
-		static void TransformV3ToV4(const Liar::Vector3&, const Liar::Matrix4x4&, Liar::Vector4&);
-		static void TransformV3ToV3(const Liar::Vector3&, const Liar::Matrix4x4&, Liar::Vector3&);
-		static void TransfromNormal(const Liar::Vector3&, const Liar::Matrix4x4&, Liar::Vector3&);
-		static void TransformCoordinate(const Liar::Vector3&, const Liar::Matrix4x4&, Liar::Vector3&);
-		static void TransformQuat(const Liar::Vector3&, const Liar::Quaternion&, Liar::Vector3&);
-
-		// ====================== vector4 =====================
-		static void TransformByM4x4(const Liar::Vector4&, const Liar::Matrix4x4&, Liar::Vector4&);
-
-		// ====================== quaternion ==================
-		static void CreateRotationQuaternion(const Liar::Quaternion&, Liar::Matrix4x4&);
-		static void CreateFromMatrix3x3(const Liar::Matrix3x3&, Liar::Quaternion&);
-		static void CreateFromMatrix4x4(const Liar::Matrix4x4&, Liar::Quaternion&);
-		static void RotationMatrix(const Liar::Matrix3x3&, Liar::Quaternion&);
-
-		// ====================== matrix4x4 ==================
-		static void CreateFromQuaternion(const Liar::Quaternion&, Liar::Matrix4x4&);
-		static void CreateAffineTransformation(const Liar::Vector3&, const Liar::Quaternion&, const Liar::Vector3&, Liar::Matrix4x4&);
-		static void CreateRotationX(Liar::Number, Liar::Matrix4x4&);
-		static void CreateRotationY(Liar::Number, Liar::Matrix4x4&);
-		static void CreateRotationZ(Liar::Number, Liar::Matrix4x4&);
-
-		// ====================== matrix3x3 ==================
-		static void CreateFromMatrix4x4(const Liar::Matrix4x4&, Liar::Matrix3x3&);
-		static void LookAt(const Liar::Vector3&, const Liar::Vector3&, const Liar::Vector3&, Liar::Matrix3x3&);
 	};
 
 }

@@ -1,9 +1,11 @@
 #pragma once
 
-#include <core/render/BaseCamera.h>
+#include <LiarType.h>
 
 namespace Liar
 {
+	class BaseCamera;
+
 	class RenderState
 	{
 	public:

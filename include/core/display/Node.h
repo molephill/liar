@@ -51,7 +51,7 @@ namespace Liar
 		inline bool GetBit(int type) const { return (m_bits & type) != 0; };
 		inline void SetBit(int type, bool value) { if (value) m_bits |= type; else m_bits &= ~type; };
 		Liar::Node* GetParent() const { return m_parent; };
-		Liar::Uint NumChildren() const { return m_numberChild; };
+		virtual Liar::Uint NumChildren() const { return m_numberChild; };
 		bool GetVisible() const { return m_visible; };
 
 	private:

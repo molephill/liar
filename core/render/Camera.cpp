@@ -7,8 +7,7 @@ namespace Liar
 		Liar::BaseCamera(nearPlane, farPlane),
 		m_viewPort(new Liar::Viewport()),
 		m_projectionMatrix(new Liar::Matrix4x4()),
-		m_projectionViewMatrix(new Liar::Matrix4x4()),
-		m_transformChanged(true)
+		m_projectionViewMatrix(new Liar::Matrix4x4())
 	{
 	}
 
@@ -19,7 +18,9 @@ namespace Liar
 
 	void Camera::CalculateProjectionMatrix()
 	{
-		bool calcProjectionViewMatrix = m_transformChanged || m_transform3D->GetTransformChanged();
+		Liar::BaseCamera::CalculateProjectionMatrix();
+
+		bool calcProjectionViewMatrix = GetTransformChanged();
 
 		if (m_transformChanged)
 		{
@@ -62,9 +63,9 @@ namespace Liar
 		bool destroied = Liar::TransformNode::Destroy(destroyChild);
 		if (destroied)
 		{
-			free(m_viewPort);
-			free(m_projectionMatrix);
-			free(m_projectionViewMatrix);
+			delete m_viewPort;
+			delete m_projectionMatrix;
+			delete m_projectionViewMatrix;
 			m_viewPort = nullptr;
 			m_projectionMatrix = nullptr;
 			m_projectionViewMatrix = nullptr;

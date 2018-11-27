@@ -23,9 +23,15 @@ namespace Liar
 		m_maxDepth = 1.0f;
 	}
 
+	/**
+	* 变换一个三维向量。
+	* @param	source 源三维向量。
+	* @param	matrix 变换矩阵。
+	* @param	vector 输出三维向量。
+	*/
 	void Viewport::Project(const Liar::Vector3& sourceEleme, const Liar::Matrix4x4& matrixEleme, Liar::Vector3& outEleme)
 	{
-		Liar::MathUtils3D::TransformV3ToV3(sourceEleme, matrixEleme, outEleme);
+		Liar::Vector3::TransformV3ToV3(sourceEleme, matrixEleme, outEleme);
 		Liar::Number a = (((sourceEleme[0] * matrixEleme[3]) + (sourceEleme[1] * matrixEleme[7])) + (sourceEleme[2] * matrixEleme[11])) + matrixEleme[15];
 
 		if (a != 1.0)
@@ -40,6 +46,12 @@ namespace Liar
 		outEleme[2] = (outEleme[2] * (m_maxDepth - m_minDepth)) + m_minDepth;
 	}
 
+	/**
+	* 反变换一个三维向量。
+	* @param	source 源三维向量。
+	* @param	matrix 变换矩阵。
+	* @param	vector 输出三维向量。
+	*/
 	void Viewport::UnProjectFromMat(const Liar::Vector3& sourceEleme, const Liar::Matrix4x4 & matrixEleme, Liar::Vector3& outEleme)
 	{
 		outEleme[0] = (((sourceEleme[0] - m_x) / (m_width)) * 2.0f) - 1.0f;
@@ -48,7 +60,7 @@ namespace Liar
 		outEleme[2] = (sourceEleme[2] - m_minDepth - halfDepth) / halfDepth;
 
 		Liar::Number a = (((outEleme[0] * matrixEleme[3]) + (outEleme[1] * matrixEleme[7])) + (outEleme[2] * matrixEleme[11])) + matrixEleme[15];
-		Liar::MathUtils3D::TransformV3ToV3(outEleme, matrixEleme, outEleme);
+		Liar::Vector3::TransformV3ToV3(outEleme, matrixEleme, outEleme);
 
 		if (a != 1.0f)
 		{
@@ -58,6 +70,14 @@ namespace Liar
 		}
 	}
 
+	/**
+	* 反变换一个三维向量。
+	* @param	source 源三维向量。
+	* @param	projection  透视投影矩阵。
+	* @param	view 视图矩阵。
+	* @param	world 世界矩阵,可设置为null。
+	* @param   out 输出向量。
+	*/
 	void Viewport::UnProjectFromWVP(const Liar::Vector3& source, const Liar::Matrix4x4& projection, const Liar::Matrix4x4& view, const Liar::Matrix4x4* world, Liar::Vector3& out)
 	{
 		Liar::Matrix4x4::Multiply(projection, view, Liar::MathUtils3D::TEMPMatrix0);

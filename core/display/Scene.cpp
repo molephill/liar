@@ -3,8 +3,7 @@
 namespace Liar
 {
 	Scene::Scene():
-		Liar::TransformNode(),
-		m_cameras(nullptr), m_numberCamera(0)
+		Liar::TransformNode()
 	{
 	}
 
@@ -12,9 +11,5 @@ namespace Liar
 	Scene::~Scene()
 	{
 	}
-
-	bool Scene::Render()
-	{
-		return true;
-	}
+	
 }

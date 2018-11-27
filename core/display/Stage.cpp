@@ -5,15 +5,16 @@ namespace Liar
 {
     Stage::Stage(Liar::Int w, Liar::Int h):
 		m_scenes(nullptr), m_numberChild(0),
+		m_cameras(nullptr), m_numberCamera(0),
 		m_width(w), m_height(h),
-		m_red(0.2f), m_green(0.3f), m_blue(0.3f),
 		m_isFirstMove(true), m_lastMouseX(0.0), m_lastMouseY(0.0)
 	{
 	}
 
 	Stage::~Stage()
 	{
-		for (size_t i = 0; i < m_numberChild; ++i)
+		size_t i = 0;
+		for (i = 0; i < m_numberChild; ++i)
 		{
 			delete m_scenes[i];
 			m_scenes[i] = nullptr;
@@ -22,6 +23,16 @@ namespace Liar
 		if (m_scenes) free(m_scenes);
 		m_scenes = nullptr;
 		m_numberChild = 0;
+
+		for (i = 0; i < m_numberCamera; ++i)
+		{
+			delete m_cameras[i];
+			m_cameras[i] = nullptr;
+		}
+
+		if (m_cameras) free(m_cameras);
+		m_cameras = nullptr;
+		m_numberCamera = 0;
 	}
 
 	Liar::Node* Stage::AddChild(Liar::Node* node)
@@ -41,18 +52,36 @@ namespace Liar
 		return node;
 	}
 
-	bool Stage::OnEnterFrame()
+	Liar::BaseCamera* Stage::AddCamera(Liar::BaseCamera* camera)
 	{
-		Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
-		gl.ClearColor(m_red, m_green, m_blue, 1.0f);
-		gl.Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		if (!camera) return camera;
+		if (m_scenes)
+		{
+			m_cameras = (Liar::BaseCamera**)realloc(m_cameras, sizeof(Liar::BaseCamera*)*(m_numberChild + 1));
+		}
+		else
+		{
+			m_cameras = (Liar::BaseCamera**)malloc(sizeof(Liar::BaseCamera*));
+		}
+		m_cameras[m_numberCamera] = camera;
+		++m_numberCamera;
+		return camera;
+	}
 
+	bool Stage::OnEnterFrame(Liar::StageContext& gl, Liar::RenderState& state)
+	{
 		bool rendering = true;
 
-		for (size_t i = 0; i < m_numberChild; ++i)
+		for (size_t j = 0; j < m_numberCamera; ++j)
 		{
-			rendering = m_scenes[i]->Render();
-			if (!rendering) break;
+			Liar::Liar3D::renderState->camera = m_cameras[j];
+			m_cameras[j]->Render(gl, state);
+
+			for (size_t i = 0; i < m_numberChild; ++i)
+			{
+				rendering = m_scenes[i]->Render(gl, state);
+				if (!rendering) break;
+			}
 		}
 
 		return rendering;

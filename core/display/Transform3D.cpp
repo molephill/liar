@@ -33,10 +33,16 @@ namespace Liar
 
 	void Transform3D::Translate(const Liar::Vector3& translation)
 	{
-		if (translation != 0)
+		Translate(translation.x, translation.y, translation.z);
+	}
+
+	void Transform3D::Translate(Liar::Number x, Liar::Number y, Liar::Number z)
+	{
+		if (x != 0 || y != 0 || z != 0)
 		{
-			Liar::MathUtils3D::CreateFromQuaternion(*m_localRotation, Liar::MathUtils3D::TEMPMatrix0);
-			Liar::MathUtils3D::TransformCoordinate(translation, Liar::MathUtils3D::TEMPMatrix0, Liar::MathUtils3D::TEMPVector30);
+			Liar::MathUtils3D::TEMPVector31.Set(x, y, z);
+			Liar::Matrix4x4::CreateFromQuaternion(*m_localRotation, Liar::MathUtils3D::TEMPMatrix0);
+			Liar::Vector3::TransformCoordinate(Liar::MathUtils3D::TEMPVector31, Liar::MathUtils3D::TEMPMatrix0, Liar::MathUtils3D::TEMPVector30);
 			Liar::Vector3::Add(*m_localPosition, Liar::MathUtils3D::TEMPVector30, *m_localPosition);
 			m_transformChanged = true;
 		}
@@ -44,9 +50,14 @@ namespace Liar
 
 	void Transform3D::Rotate(const Liar::Vector3& rotation, bool isRadian)
 	{
-		if (rotation != 0)
+		Rotate(rotation.x, rotation.y, rotation.z, isRadian);
+	}
+
+	void Transform3D::Rotate(Liar::Number x, Liar::Number y, Liar::Number z, bool isRadian)
+	{
+		if (x != 0 || y != 0 || z != 0)
 		{
-			Liar::MathUtils3D::TEMPVector30.Set(rotation);
+			Liar::MathUtils3D::TEMPVector30.Set(x, y, z);
 			if (!isRadian)
 			{
 				Liar::Vector3::Scale(Liar::MathUtils3D::TEMPVector30, Liar::MathUtils3D::AngleToRandin, Liar::MathUtils3D::TEMPVector30);
@@ -76,18 +87,18 @@ namespace Liar
 				Liar::Vector3& scaleOffsetPosition = Liar::MathUtils3D::TEMPVector31;
 				Liar::Vector3::Subtract(scalePivot, *m_pivot, scaleOffsetPosition);
 				Liar::Vector3& rotationOffsetPosition = Liar::MathUtils3D::TEMPVector32;
-				Liar::MathUtils3D::TransformQuat(scalePivot, *m_localRotation, rotationOffsetPosition);
+				Liar::Vector3::TransformQuat(scalePivot, *m_localRotation, rotationOffsetPosition);
 				Liar::Vector3::Subtract(rotationOffsetPosition, scalePivot, rotationOffsetPosition);
 
 				Liar::Vector3& resultLocalPosition = Liar::MathUtils3D::TEMPVector33;
 				Liar::Vector3::Subtract(*m_localPosition, scaleOffsetPosition, resultLocalPosition);
 				Liar::Vector3::Subtract(resultLocalPosition, rotationOffsetPosition, resultLocalPosition);
 
-				Liar::MathUtils3D::CreateAffineTransformation(resultLocalPosition, *m_localRotation, *m_localScale, *m_localMatrix);
+				Liar::Matrix4x4::CreateAffineTransformation(resultLocalPosition, *m_localRotation, *m_localScale, *m_localMatrix);
 			}
 			else
 			{
-				Liar::MathUtils3D::CreateAffineTransformation(*m_localPosition, *m_localRotation, *m_localScale, *m_localMatrix);
+				Liar::Matrix4x4::CreateAffineTransformation(*m_localPosition, *m_localRotation, *m_localScale, *m_localMatrix);
 			}
 		}
 	}
@@ -132,6 +143,18 @@ namespace Liar
 			m_localScale->Set(x, y, z);
 			m_transformChanged = true;
 		}
+	}
+
+	void Transform3D::LookAt(const Liar::Vector3& targetE, const Liar::Vector3& up)
+	{
+		Liar::Vector3& eyeE = *m_localPosition;
+		if (abs(eyeE[0] - targetE[0]) < MathUtils3D::ZERO_TO_LERANCE && 
+			abs(eyeE[1] - targetE[1]) < MathUtils3D::ZERO_TO_LERANCE && 
+			abs(eyeE[2] - targetE[2]) < MathUtils3D::ZERO_TO_LERANCE)
+			return;
+
+		Liar::Quaternion::LookAt(*m_localPosition, targetE, up, *m_localRotation);
+		m_localRotation->Invert();
 	}
 
 }

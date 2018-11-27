@@ -16,7 +16,6 @@ namespace Liar
 
 	BaseMesh::~BaseMesh()
 	{
-
 	}
 
 	void BaseMesh::DisposeResource()

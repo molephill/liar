@@ -28,7 +28,9 @@ namespace Liar
 
 	public:
 		void Translate(const Liar::Vector3& translation);
+		void Translate(Liar::Number, Liar::Number, Liar::Number);
 		void Rotate(const Liar::Vector3& rotation, bool isRadian = true);
+		void Rotate(Liar::Number, Liar::Number, Liar::Number, bool isRadian = true);
 		void CalclateTransformation();
 
 		void SetPosition(const Liar::Vector3& rhs);
@@ -45,5 +47,11 @@ namespace Liar
 		Liar::Vector3& GetScale() const { return *m_localScale; };
 		Liar::Matrix4x4& GetMatrix() const { return *m_localMatrix; };
 		bool GetTransformChanged() const { return m_transformChanged; };
+		/**
+		* 观察目标位置。
+		* @param	target 观察目标。
+		* @param	up 向上向量。
+		*/
+		void LookAt(const Liar::Vector3&, const Liar::Vector3&);
 	};
 }

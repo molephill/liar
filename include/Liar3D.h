@@ -19,6 +19,10 @@ namespace Liar
 		~Liar3D()
 		{};
 
+	private:
+		static GLFWwindow* m_window;
+		static void Destroy();
+
 	public:
 		static Liar::Stage* stage;
 		static Liar::StageContext* stageContext;
@@ -27,7 +31,6 @@ namespace Liar
 
 	public:
 		static void Init(Liar::Int w = Liar::WINDOW_W, Liar::Int h = Liar::WINDOW_H, const Liar::Char* title = "LiarOpenGL");
-		static void Run(GLFWwindow*, bool);
-		static void Destroy();
+		static bool Run(bool run = true);
 	};	
 }

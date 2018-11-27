@@ -3,6 +3,7 @@
 #define Stage_hpp
 
 #include <LiarType.h>
+#include <core/render/BaseCamera.h>
 #include <core/display/Scene.h>
 
 namespace Liar
@@ -17,9 +18,6 @@ namespace Liar
 	private:
 		Liar::Uint m_width;
 		Liar::Uint m_height;
-		Liar::Number m_red;
-		Liar::Number m_green;
-		Liar::Number m_blue;
         
 		bool m_isFirstMove;
 		Liar::DNumber m_lastMouseX;
@@ -28,6 +26,9 @@ namespace Liar
 	private:
 		Liar::Scene** m_scenes;
 		Liar::Uint m_numberChild;
+
+		Liar::BaseCamera** m_cameras;
+		Liar::Uint m_numberCamera;
 
 	public:
 		Liar::Uint GetWidth() const { return m_width; };
@@ -38,8 +39,9 @@ namespace Liar
 		void ScrollEvent(Liar::DNumber, Liar::DNumber);
 
 		Liar::Node* AddChild(Liar::Node*);
+		Liar::BaseCamera* AddCamera(Liar::BaseCamera*);
 
-		bool OnEnterFrame();
+		bool OnEnterFrame(Liar::StageContext& gl, Liar::RenderState& state);
 	};
 }
 

@@ -35,25 +35,24 @@ namespace Liar
 			return;
 		}
 
+		Liar::Liar3D::m_window = window;
+
 		glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 		glfwSetCursorPosCallback(window, mouse_callback);
 		glfwSetScrollCallback(window, scroll_callback);
 
 		Liar3D::vertexFactory = new Liar::VertexFactory();
-
 		Liar3D::stageContext = new Liar::StageContext();
-
 		Liar3D::renderState = new Liar::RenderState();
-
 		Liar3D::stage = new Liar::Stage(w, h);
-
-		Liar3D::Run(window, true);
 	}
 
-	void Liar3D::Run(GLFWwindow* window, bool run)
+	bool Liar3D::Run(bool runStatus)
 	{
-		if (!run) return;
+		if (!runStatus) return false;
 
+		GLFWwindow* window = Liar::Liar3D::m_window;
+		bool run = true;
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		{
 			glfwSetWindowShouldClose(window, true);
@@ -64,50 +63,55 @@ namespace Liar
 			glfwSwapBuffers(window);
 			glfwPollEvents();
 
-			run = Liar::Liar3D::stage->OnEnterFrame();
+			Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
+			Liar::RenderState& state = *(Liar::Liar3D::renderState);
+
+			run = Liar::Liar3D::stage->OnEnterFrame(gl, state);
+
 		}
 		else
 		{
+			Liar::Liar3D::Destroy();
 			run = false;
 		}
-		Run(window, run);
+		return Run(run);
 	}
 
 	void Liar3D::Destroy()
 	{
 		if (Liar::Liar3D::stage)
 		{
-			Liar::Liar3D::stage->~Stage();
-			free(Liar::Liar3D::stage);
+			delete Liar::Liar3D::stage;
 			Liar::Liar3D::stage = nullptr;
 		}
 
 		if (Liar::Liar3D::vertexFactory)
 		{
-			Liar::Liar3D::vertexFactory->~VertexFactory();
-			free(vertexFactory);
+			delete Liar::Liar3D::vertexFactory;
 			vertexFactory = nullptr;
 		}
 
 		if (Liar::Liar3D::stageContext)
 		{
-			Liar::Liar3D::stageContext->~StageContext();
-			free(stageContext);
+			delete Liar::Liar3D::stageContext;
 			stageContext = nullptr;
 		}
 
 		if (Liar::Liar3D::renderState)
 		{
-			Liar::Liar3D::renderState->~RenderState();
-			free(Liar::Liar3D::renderState);
+			delete Liar::Liar3D::renderState;
 			Liar::Liar3D::renderState = nullptr;
 		}
+
+
+		Liar::Liar3D::m_window = nullptr;
 	}
 
 	Liar::Stage* Liar3D::stage = nullptr;
 	Liar::StageContext* Liar3D::stageContext = nullptr;
 	Liar::VertexFactory* Liar3D::vertexFactory = nullptr;
 	Liar::RenderState* Liar3D::renderState = nullptr;
+	GLFWwindow* Liar3D::m_window = nullptr;
 }
 
 // ÅĞ¶ÏÊÇ·ñÔÚÆÁÄ»ÄÚ

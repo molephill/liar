@@ -175,5 +175,15 @@ namespace Liar
 		{
 			glClear(mask);
 		}
+
+		void Enable(GLenum cap)
+		{
+			glEnable(cap);
+		}
+
+		void Disable(GLenum cap)
+		{
+			glDisable(cap);
+		}
 	};
 }

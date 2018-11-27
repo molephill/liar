@@ -15,7 +15,6 @@ namespace Liar
 		Liar::Viewport* m_viewPort;
 		Liar::Matrix4x4* m_projectionMatrix;
 		Liar::Matrix4x4* m_projectionViewMatrix;
-		bool m_transformChanged;
 
 	protected:
 		virtual void CalculateProjectionMatrix();

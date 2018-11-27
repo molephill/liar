@@ -67,6 +67,12 @@
     <Filter Include="头文件\core\display">
       <UniqueIdentifier>{6efdda17-4b25-4ee0-883f-e346dcb538b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\core\resource\shader">
+      <UniqueIdentifier>{41d7c3d6-f64d-4e50-bcfb-7e34df7d22a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\core\resource\shader">
+      <UniqueIdentifier>{ee49aeb0-7e24-46ab-9d2a-003b4a79acd3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -154,6 +160,24 @@
       <Filter>源文件\core\render</Filter>
     </ClCompile>
     <ClCompile Include="math\Viewport.cpp">
+      <Filter>源文件\match</Filter>
+    </ClCompile>
+    <ClCompile Include="core\resource\shader\Shader.cpp">
+      <Filter>源文件\core\resource\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Matrix3x3.cpp">
+      <Filter>源文件\match</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Matrix4x4.cpp">
+      <Filter>源文件\match</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Quaternion.cpp">
+      <Filter>源文件\match</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Vector3.cpp">
+      <Filter>源文件\match</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Vector4.cpp">
       <Filter>源文件\match</Filter>
     </ClCompile>
   </ItemGroup>
@@ -280,6 +304,9 @@
     </ClInclude>
     <ClInclude Include="include\core\graphics\VertexElementUsage.h">
       <Filter>头文件\core\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\resource\shader\Shader.h">
+      <Filter>头文件\core\resource\shader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

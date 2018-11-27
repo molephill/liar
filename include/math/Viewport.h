@@ -44,6 +44,10 @@ namespace Liar
 		void SetViewSize(Liar::Number, Liar::Number);
 
 		Liar::Number GetAspect() const { return m_width / m_height; };
+		Liar::Number GetStartX() const { return m_x; };
+		Liar::Number GetStartY() const { return m_y; };
+		Liar::Number GetWidth() const { return m_width; };
+		Liar::Number GetHeight() const { return m_height; };
 	};
 }
 

@@ -21,10 +21,16 @@ e:\c++\liar\liar\debug\scene.obj
 e:\c++\liar\liar\debug\node.obj
 e:\c++\liar\liar\debug\eventdispatcher.obj
 e:\c++\liar\liar\debug\viewport.obj
+e:\c++\liar\liar\debug\vector4.obj
+e:\c++\liar\liar\debug\vector3.obj
+e:\c++\liar\liar\debug\quaternion.obj
+e:\c++\liar\liar\debug\matrix4x4.obj
+e:\c++\liar\liar\debug\matrix3x3.obj
 e:\c++\liar\liar\debug\mathutils.obj
 e:\c++\liar\liar\debug\main.obj
 e:\c++\liar\liar\debug\texture2d.obj
 e:\c++\liar\liar\debug\solidcolortexture.obj
+e:\c++\liar\liar\debug\shader.obj
 e:\c++\liar\liar\debug\resource.obj
 e:\c++\liar\liar\debug\baseteture.obj
 e:\c++\liar\liar\debug\renderstate.obj
