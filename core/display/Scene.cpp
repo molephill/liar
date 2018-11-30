@@ -7,9 +7,9 @@ namespace Liar
 	{
 	}
 
-
 	Scene::~Scene()
 	{
+		Destroy();
 	}
 	
 }

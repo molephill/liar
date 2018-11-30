@@ -41,7 +41,7 @@ namespace Liar
 		glfwSetCursorPosCallback(window, mouse_callback);
 		glfwSetScrollCallback(window, scroll_callback);
 
-		Liar3D::vertexFactory = new Liar::VertexFactory();
+		Liar3D::geometryFactory = new Liar::GeometryFactory();
 		Liar3D::stageContext = new Liar::StageContext();
 		Liar3D::renderState = new Liar::RenderState();
 		Liar3D::stage = new Liar::Stage(w, h);
@@ -71,6 +71,7 @@ namespace Liar
 		}
 		else
 		{
+			glfwSetWindowShouldClose(window, true);
 			Liar::Liar3D::Destroy();
 			run = false;
 		}
@@ -85,16 +86,16 @@ namespace Liar
 			Liar::Liar3D::stage = nullptr;
 		}
 
-		if (Liar::Liar3D::vertexFactory)
+		if (Liar::Liar3D::geometryFactory)
 		{
-			delete Liar::Liar3D::vertexFactory;
-			vertexFactory = nullptr;
+			delete Liar::Liar3D::geometryFactory;
+			Liar::Liar3D::geometryFactory = nullptr;
 		}
 
 		if (Liar::Liar3D::stageContext)
 		{
 			delete Liar::Liar3D::stageContext;
-			stageContext = nullptr;
+			Liar::Liar3D::stageContext = nullptr;
 		}
 
 		if (Liar::Liar3D::renderState)
@@ -103,13 +104,13 @@ namespace Liar
 			Liar::Liar3D::renderState = nullptr;
 		}
 
-
+		glfwTerminate();
 		Liar::Liar3D::m_window = nullptr;
 	}
 
 	Liar::Stage* Liar3D::stage = nullptr;
 	Liar::StageContext* Liar3D::stageContext = nullptr;
-	Liar::VertexFactory* Liar3D::vertexFactory = nullptr;
+	Liar::GeometryFactory* Liar3D::geometryFactory = nullptr;
 	Liar::RenderState* Liar3D::renderState = nullptr;
 	GLFWwindow* Liar3D::m_window = nullptr;
 }

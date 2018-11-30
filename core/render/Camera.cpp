@@ -14,6 +14,7 @@ namespace Liar
 
 	Camera::~Camera()
 	{
+		Destroy();
 	}
 
 	void Camera::CalculateProjectionMatrix()
@@ -60,7 +61,7 @@ namespace Liar
 
 	bool Camera::Destroy(bool destroyChild)
 	{
-		bool destroied = Liar::TransformNode::Destroy(destroyChild);
+		bool destroied = Liar::BaseCamera::Destroy(destroyChild);
 		if (destroied)
 		{
 			delete m_viewPort;

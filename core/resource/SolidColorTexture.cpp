@@ -14,5 +14,6 @@ namespace Liar
 		m_data[1] = static_cast<Liar::UChar>(g * 255);
 		m_data[2] = static_cast<Liar::UChar>(b * 255);
 		m_data[3] = static_cast<Liar::UChar>(a * 255);
+
 	}
 }

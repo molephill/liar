@@ -1,24 +1,22 @@
 
-#include <core/models/BoxMesh.h>
-#include <Liar3D.h>
+#include <core/models/geometries/BoxGeometry.h>
+#include <core/graphics/VertexBufferPositionNormalTexture.h>
 
 namespace Liar
 {
-	BoxMesh::BoxMesh(Liar::Number l, Liar::Number w, Liar::Number h):
-		Liar::BaseMesh(),
+	BoxGeometry::BoxGeometry(Liar::Number l, Liar::Number w, Liar::Number h):
+		Liar::Geometry(Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_TEXTURE),
 		m_long(l), m_width(w), m_height(h)
 	{
-		m_rawVertexBuffers = Liar::Liar3D::vertexFactory->GetRawVertexBuffers(Liar::MeshVertexType::MESH_VERTEX_TYPE_POSITION_NORMAL_TEXTURE);
-		ReleaseResource();
-		ActiveResource();
 	}
 
-	BoxMesh::~BoxMesh()
+
+	BoxGeometry::~BoxGeometry()
 	{
-
+		Destroy();
 	}
 
-	void BoxMesh::SetLong(Liar::Number value)
+	void BoxGeometry::SetLong(Liar::Number value)
 	{
 		if (m_long != value)
 		{
@@ -28,7 +26,7 @@ namespace Liar
 		}
 	}
 
-	void BoxMesh::SetWidth(Liar::Number value)
+	void BoxGeometry::SetWidth(Liar::Number value)
 	{
 		if (m_width != value)
 		{
@@ -38,7 +36,7 @@ namespace Liar
 		}
 	}
 
-	void BoxMesh::SetHeight(Liar::Number value)
+	void BoxGeometry::SetHeight(Liar::Number value)
 	{
 		if (m_height != value)
 		{
@@ -48,9 +46,23 @@ namespace Liar
 		}
 	}
 
-	void BoxMesh::RecreateResource()
+	void BoxGeometry::InitVertices(Liar::Uint size)
 	{
-		m_numberVertices = 24;
+		m_numberVertices = size;
+		// vertices;
+		Liar::VertexBufferPositionNormalTexture** vertices = (Liar::VertexBufferPositionNormalTexture**)malloc(sizeof(Liar::VertexBufferPositionNormalTexture*)*m_numberVertices);
+		for (size_t i = 0; i < m_numberVertices; ++i)
+		{
+			vertices[i] = new Liar::VertexBufferPositionNormalTexture();
+		}
+		m_vertices = (Liar::IVertexBuffer**)vertices;
+	}
+
+	void BoxGeometry::RecreateResource()
+	{
+		Liar::Geometry::RecreateResource();
+		InitVertices(24);
+
 		m_numberIndices = 36;
 
 		Liar::Number halfLong = m_long * 0.5f;
@@ -81,10 +93,6 @@ namespace Liar
 		m_rawVertexBuffers->AddSubVertexBuffer(Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE, 1, 0);
 		m_rawVertexBuffers->AddSubVertexBuffer(Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE, 1, 1);
 		m_rawVertexBuffers->AddSubVertexBuffer(Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE, 0, 1);
-
-		// vertices;
-		Liar::VertexBufferPositionNormalTexture** vertices = (Liar::VertexBufferPositionNormalTexture**)malloc(sizeof(Liar::VertexBufferPositionNormalTexture*)*m_numberVertices);
-		m_vertices = (IVertexBuffer**)vertices;
 
 		Liar::IVertexBuffer* vertex = nullptr;
 		// ио
@@ -227,12 +235,5 @@ namespace Liar
 		m_indices[24] = 16; m_indices[25] = 17; m_indices[26] = 18; m_indices[27] = 18; m_indices[28] = 19; m_indices[29] = 16;
 		// ╨С
 		m_indices[30] = 20; m_indices[31] = 23; m_indices[32] = 22; m_indices[33] = 22; m_indices[34] = 21; m_indices[35] = 20;
-	}
-
-	void BoxMesh::Render(Liar::RenderState&)
-	{
-		Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
-		gl.DrawElements(GL_TRIANGLES, m_numberIndices, GL_UNSIGNED_INT, 0);
-		gl.BindVertexArray(0);
 	}
 }

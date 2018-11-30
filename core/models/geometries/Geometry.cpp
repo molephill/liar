@@ -1,12 +1,13 @@
 
-#include <core/models/BaseMesh.h>
+#include <core/models/geometries/Geometry.h>
 #include <Liar3D.h>
 #include <algorithm>
 
 namespace Liar
 {
-	BaseMesh::BaseMesh(GLenum type):
+	Geometry::Geometry(GLenum type):
 		Liar::Resource(),
+		m_geometryVertexType(Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_NONE),
 		m_bufferSubType(type),
 		m_rawVertexBuffers(nullptr), m_numberVertices(0),
 		m_vertexArray(0), m_vertexBuffer(0), m_elementBuffer(0),
@@ -14,11 +15,18 @@ namespace Liar
 	{
 	}
 
-	BaseMesh::~BaseMesh()
+	Geometry::~Geometry()
 	{
+		Destroy();
 	}
 
-	void BaseMesh::DisposeResource()
+	void Geometry::RecreateResource()
+	{
+		Liar::Resource::RecreateResource();
+		m_rawVertexBuffers = Liar::Liar3D::geometryFactory->GetVertexFactory().GetRawVertexBuffers(m_geometryVertexType);
+	}
+
+	void Geometry::DisposeResource()
 	{
 		Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
 		if (m_vertexArray > 0) gl.DeleteBuffers(1, &m_vertexArray);
@@ -27,7 +35,7 @@ namespace Liar
 
 		for (size_t i = 0; i < m_numberVertices; ++i)
 		{
-			m_vertices[i]->~IVertexBuffer();
+			delete m_vertices[i];
 			m_vertices[i] = nullptr;
 		}
 		if (m_vertices) free(m_vertices);
@@ -35,8 +43,7 @@ namespace Liar
 
 		if (m_rawVertexBuffers)
 		{
-			m_rawVertexBuffers->~IRawVertexBuffers();
-			free(m_rawVertexBuffers);
+			delete m_rawVertexBuffers;
 			m_rawVertexBuffers = nullptr;
 		}
 
@@ -44,7 +51,7 @@ namespace Liar
 		m_indices = nullptr;
 	}
 
-	void BaseMesh::GenAndBindVertex()
+	void Geometry::GenAndBindVertex()
 	{
 		Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
 		gl.GenVertexArrays(1, &m_vertexArray);
@@ -72,19 +79,47 @@ namespace Liar
 		}
 	}
 
-	size_t BaseMesh::GetRenderElementsCount()
+	void Geometry::SetGeometryVertexType(Liar::GeometryVertexType geometryVertexType)
+	{
+		if (m_geometryVertexType != geometryVertexType)
+		{
+			m_geometryVertexType = geometryVertexType;
+			DisposeResource();
+			RecreateResource();
+		}
+	}
+
+	Liar::IVertexBuffer* Geometry::GetVertexBuff(size_t index)
+	{
+		if (index >= m_numberVertices) return nullptr;
+		return m_vertices[index];
+	}
+
+	size_t Geometry::GetRenderElementsCount()
 	{
 		return 1;
 	}
 
-	const Liar::IRenderable* BaseMesh::GetRenderElement(size_t) const
+	const Liar::IRenderable* Geometry::GetRenderElement(size_t) const
 	{
 		return this;
 	}
 
-	void BaseMesh::BeforeRender(Liar::RenderState&)
+	void Geometry::BeforeRender(Liar::RenderState&)
 	{
 		Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
 		gl.BindVertexArray(m_vertexArray);
+	}
+
+	Liar::Uint Geometry::GetNumberTriangles() 
+	{
+		return m_numberIndices / 3;
+	}
+
+	bool Geometry::Render(Liar::StageContext& gl, Liar::RenderState&)
+	{
+		gl.DrawElements(GL_TRIANGLES, m_numberIndices, GL_UNSIGNED_INT, 0);
+		gl.BindVertexArray(0);
+		return true;
 	}
 }

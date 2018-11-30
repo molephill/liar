@@ -16,7 +16,7 @@ namespace Liar
 
 	BaseTexture::~BaseTexture()
 	{
-
+		Destroy();
 	}
 
 	void BaseTexture::SetRepeat(bool value)
@@ -43,5 +43,10 @@ namespace Liar
 		{
 			m_mipmap = value;
 		}
+	}
+
+	void BaseTexture::DisposeResource()
+	{
+
 	}
 }

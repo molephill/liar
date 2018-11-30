@@ -1,6 +1,7 @@
 #pragma once
 
 #include <core/render/RenderState.h>
+#include <core/render/StageContext.h>
 
 namespace Liar
 {
@@ -11,8 +12,8 @@ namespace Liar
 		virtual ~IRenderable() {};
 
 	public:
-		virtual size_t GetNumberTriangles() const = 0;
+		virtual size_t GetNumberTriangles() = 0;
 		virtual void BeforeRender(Liar::RenderState&) = 0;
-		virtual void Render(Liar::RenderState&) = 0;
+		virtual bool Render(Liar::StageContext& gl, Liar::RenderState& state) = 0;
 	};
 }

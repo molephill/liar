@@ -13,11 +13,7 @@ namespace Liar
 
 	BaseCamera::~BaseCamera()
 	{
-		if (m_clearColor)
-		{
-			delete m_clearColor;
-			m_clearColor = nullptr;
-		}
+		Destroy();
 	}
 
 	void BaseCamera::SetFarPlane(Liar::Number value)
@@ -106,6 +102,20 @@ namespace Liar
 		CalculateProjectionMatrix();
 
 		return Liar::TransformNode::Render(gl, state);
+	}
+
+	bool BaseCamera::Destroy(bool destoryChild)
+	{
+		bool destory = Liar::TransformNode::Destroy(destoryChild);
+		if (destory)
+		{
+			if (m_clearColor)
+			{
+				delete m_clearColor;
+				m_clearColor = nullptr;
+			}
+		}
+		return destory;
 	}
 
 }

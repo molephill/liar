@@ -3,8 +3,8 @@
 #include <LiarType.h>
 #include <core/display/Stage.hpp>
 #include <core/render/StageContext.h>
-#include <core/graphics/VertexFactory.h>
 #include <core/render/RenderState.h>
+#include <core/models/GeometryFactory.h>
 
 namespace Liar
 {
@@ -27,7 +27,7 @@ namespace Liar
 		static Liar::Stage* stage;
 		static Liar::StageContext* stageContext;
 		static Liar::RenderState* renderState;
-		static Liar::VertexFactory* vertexFactory;
+		static Liar::GeometryFactory* geometryFactory;
 
 	public:
 		static void Init(Liar::Int w = Liar::WINDOW_W, Liar::Int h = Liar::WINDOW_H, const Liar::Char* title = "LiarOpenGL");

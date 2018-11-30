@@ -12,6 +12,7 @@ namespace Liar
 
 	RawVertexBuffersPositionNormalTexture::~RawVertexBuffersPositionNormalTexture()
 	{
+		Destroy();
 	}
 
 	void RawVertexBuffersPositionNormalTexture::Destroy()
@@ -19,7 +20,7 @@ namespace Liar
 		size_t i = 0;
 		for (i = 0; i < m_numberPostions; ++i)
 		{
-			m_positons[i]->~Vector3();
+			delete m_positons[i];
 			m_positons[i] = nullptr;
 		}
 
@@ -28,7 +29,7 @@ namespace Liar
 
 		for (i = 0; i < m_numberNormals; ++i)
 		{
-			m_normals[i]->~Vector3();
+			delete m_normals[i];
 			m_normals[i] = nullptr;
 		}
 		if (m_normals) free(m_normals);
@@ -36,8 +37,8 @@ namespace Liar
 
 		for (i = 0; i < m_numberTexCoodrs; ++i)
 		{
-			m_normals[i]->~Vector3();
-			m_normals[i] = nullptr;
+			delete m_texCoords[i];
+			m_texCoords[i] = nullptr;
 		}
 		if (m_texCoords) free(m_texCoords);
 		m_texCoords = nullptr;
@@ -52,7 +53,8 @@ namespace Liar
 			++m_numberPostions;
 			if (!m_positons) m_positons = (Liar::Vector3**)malloc(sizeof(Liar::Vector3*));
 			else m_positons = (Liar::Vector3**)realloc(m_positons, sizeof(Liar::Vector3*)*m_numberPostions);
-			m_positons[m_numberPostions - 1]->Set(x, y, z);
+			positon = new Liar::Vector3(x, y, z);
+			m_positons[m_numberPostions - 1] = positon;
 		}
 	}
 
@@ -65,7 +67,8 @@ namespace Liar
 			++m_numberNormals;
 			if (!m_normals) m_normals = (Liar::Vector3**)malloc(sizeof(Liar::Vector3*));
 			else m_normals = (Liar::Vector3**)realloc(m_normals, sizeof(Liar::Vector3*)*m_numberNormals);
-			m_normals[m_numberNormals - 1]->Set(x, y, z);
+			normal = new Liar::Vector3(x, y, z);
+			m_normals[m_numberNormals - 1] = normal;
 		}
 	}
 
@@ -78,7 +81,8 @@ namespace Liar
 			++m_numberTexCoodrs;
 			if (!m_texCoords) m_texCoords = (Liar::Vector2**)malloc(sizeof(Liar::Vector2*));
 			else m_texCoords = (Liar::Vector2**)realloc(m_texCoords, sizeof(Liar::Vector2*)*m_numberTexCoodrs);
-			m_texCoords[m_numberTexCoodrs - 1]->Set(x, y);
+			texCoord = new Liar::Vector2(x, y);
+			m_texCoords[m_numberTexCoodrs - 1] = texCoord;
 		}
 	}
 
@@ -89,7 +93,7 @@ namespace Liar
 		case Liar::VertexElementAttr::ELEMENT_ATTR_POSITION:
 			AddPositonVertex(x, y, z);
 			break;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_ROTATION:
+		case Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL:
 			AddNormalVertex(x, y, z);
 			break;
 		case Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE:
@@ -105,7 +109,7 @@ namespace Liar
 		case Liar::VertexElementAttr::ELEMENT_ATTR_POSITION:
 			return m_positons[index];
 			break;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_ROTATION:
+		case Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL:
 			return m_normals[index];
 			break;
 		case Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE:

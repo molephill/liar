@@ -1,5 +1,4 @@
 #include <core/display/Node.h>
-#include <algorithm>
 
 namespace Liar
 {
@@ -173,23 +172,20 @@ namespace Liar
 		if (!node || m_destroyed || node == this) return this;
 		if (node->m_parent == this)
 		{
-			if (node->m_parent == this)
+			Liar::Int index = GetChildIndex(node);
+			if (index != m_numberChild - 1)
 			{
-				Liar::Int index = GetChildIndex(node);
-				if (index != m_numberChild - 1)
-				{
-					SpliceChild(index, 1, false);
-					m_childs[m_numberChild - 1] = node;
-					ChildChange();
-				}
-			}
-			else
-			{
-				if (node->m_parent) node->m_parent->RemoveChild(node);
-				SpliceChild(m_numberChild, node);
-				node->m_parent = this;
+				SpliceChild(index, 1, false);
+				m_childs[m_numberChild - 1] = node;
 				ChildChange();
 			}
+		}
+		else
+		{
+			if (node->m_parent) node->m_parent->RemoveChild(node);
+			SpliceChild(m_numberChild, node);
+			node->m_parent = this;
+			ChildChange();
 		}
 		return node;
 	}
@@ -237,8 +233,8 @@ namespace Liar
 		{
 			if (destroyChild) DestroyChildren();
 			else RemoveChildren();
+			free(m_childs);
 		}
-		free(m_childs);
 		m_childs = nullptr;
 		m_parent = nullptr;
 		return true;
@@ -249,9 +245,10 @@ namespace Liar
 	*/
 	void Node::DestroyChildren()
 	{
-		for (Liar::Uint i = m_numberChild; i > -1; --i)
+		for (Liar::Uint i = 0; i < m_numberChild; ++i)
 		{
-			m_childs[i]->Destroy(true);
+			delete m_childs[i];
+			m_childs[i] = nullptr;
 		}
 		m_numberChild = 0;
 	}

@@ -11,9 +11,6 @@ namespace Liar
 		virtual ~Texture2D();
 
 	protected:
-		virtual void SetTextureInfo();
-
-	protected:
-		void CreateGLTexture();
+		virtual void RecreateResource();
 	};
 }

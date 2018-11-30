@@ -73,6 +73,18 @@
     <Filter Include="头文件\core\resource\shader">
       <UniqueIdentifier>{ee49aeb0-7e24-46ab-9d2a-003b4a79acd3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\core\models\geometries">
+      <UniqueIdentifier>{cf052168-61fa-4008-a609-37c3c71db574}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\models\geometries">
+      <UniqueIdentifier>{b11fbc97-d0db-40d1-905d-de5ba83768fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\material">
+      <UniqueIdentifier>{d9cdea23-5cf6-4d43-b642-b784a0cda859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\core\material">
+      <UniqueIdentifier>{8a1dd101-657f-461f-94a1-11180d8fdf32}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -104,12 +116,6 @@
     </ClCompile>
     <ClCompile Include="core\light\SpotLight.cpp">
       <Filter>源文件\core\light</Filter>
-    </ClCompile>
-    <ClCompile Include="core\models\BaseMesh.cpp">
-      <Filter>源文件\core\models</Filter>
-    </ClCompile>
-    <ClCompile Include="core\models\BoxMesh.cpp">
-      <Filter>源文件\core\models</Filter>
     </ClCompile>
     <ClCompile Include="core\render\BaseRender.cpp">
       <Filter>源文件\core\render</Filter>
@@ -180,6 +186,21 @@
     <ClCompile Include="math\Vector4.cpp">
       <Filter>源文件\match</Filter>
     </ClCompile>
+    <ClCompile Include="core\models\geometries\Geometry.cpp">
+      <Filter>源文件\core\models\geometries</Filter>
+    </ClCompile>
+    <ClCompile Include="core\models\geometries\BoxGeometry.cpp">
+      <Filter>源文件\core\models\geometries</Filter>
+    </ClCompile>
+    <ClCompile Include="core\models\GeometryFactory.cpp">
+      <Filter>源文件\core\models</Filter>
+    </ClCompile>
+    <ClCompile Include="core\models\Mesh.cpp">
+      <Filter>源文件\core\models</Filter>
+    </ClCompile>
+    <ClCompile Include="core\material\BaseMaterial.cpp">
+      <Filter>源文件\core\material</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\math\Matrix3x3.h">
@@ -239,14 +260,8 @@
     <ClInclude Include="include\core\graphics\VertexBufferPositionNormalTexture.h">
       <Filter>头文件\core\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\models\BaseMesh.h">
-      <Filter>头文件\core\models</Filter>
-    </ClInclude>
     <ClInclude Include="include\core\render\IRenderable.h">
       <Filter>头文件\core\render</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\models\BoxMesh.h">
-      <Filter>头文件\core\models</Filter>
     </ClInclude>
     <ClInclude Include="include\core\graphics\raws\IRawVertexBuffers.h">
       <Filter>头文件\core\graphics\raws</Filter>
@@ -307,6 +322,21 @@
     </ClInclude>
     <ClInclude Include="include\core\resource\shader\Shader.h">
       <Filter>头文件\core\resource\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\models\geometries\Geometry.h">
+      <Filter>头文件\core\models\geometries</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\models\geometries\BoxGeometry.h">
+      <Filter>头文件\core\models\geometries</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\models\GeometryFactory.h">
+      <Filter>头文件\core\models</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\models\Mesh.h">
+      <Filter>头文件\core\models</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\material\BaseMaterial.h">
+      <Filter>头文件\core\material</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

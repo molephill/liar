@@ -12,12 +12,22 @@ namespace Liar
 
 	Texture2D::~Texture2D()
 	{
-
+		Destroy();
 	}
 
-	void Texture2D::SetTextureInfo()
+	void Texture2D::RecreateResource()
 	{
+		Liar::BaseTexture::RecreateResource();
+
 		Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
+
+		switch (m_format)
+		{
+		case GL_RGB:
+		case GL_RGBA:
+			gl.TexImage2D(m_type, 0, m_format, m_width, m_height, 0, m_format, GL_UNSIGNED_BYTE, m_data);
+			break;
+		}
 
 		GLint repeat = m_repeat ? GL_REPEAT : GL_CLAMP_TO_EDGE;
 		bool isPot = Liar::MathUtils3D::IsPOT(m_width, m_height);
@@ -48,20 +58,5 @@ namespace Liar
 			gl.GenerateMipmap(m_type);
 			m_memorySize *= (1 + 1 / 3);
 		}
-	}
-
-	void Texture2D::CreateGLTexture()
-	{
-		Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
-
-		switch (m_format)
-		{
-		case GL_RGB:
-		case GL_RGBA:
-			gl.TexImage2D(m_type, 0, m_format, m_width, m_height, 0, m_format, GL_UNSIGNED_BYTE, m_data);
-			break;
-		}
-
-		SetTextureInfo();
 	}
 }

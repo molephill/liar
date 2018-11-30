@@ -2,6 +2,7 @@
 
 #include "Node.h"
 #include "Transform3D.h"
+#include <core/material/BaseMaterial.h>
 #include <core/render/RenderState.h>
 #include <core/render/StageContext.h>
 
@@ -15,9 +16,7 @@ namespace Liar
 
 	protected:
 		Liar::Transform3D* m_transform3D;
-
-	protected:
-		virtual void CalculateProjectionMatrix();
+		Liar::BaseMaterial* m_material;
 
 	public:
 		Liar::Transform3D& GetTransform3D() const { return *m_transform3D; };

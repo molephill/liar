@@ -18,6 +18,10 @@ namespace Liar
 		{
 			Set(m00, m01, m02, m03, m04, m05, m06, m07, m08, m09, m10, m11, m12, m13, m14, m15);
 		};
+		Matrix4x4(const Liar::Matrix4x4& rhs)
+		{
+			Set(rhs);
+		};
 		~Matrix4x4() {};
 
 	private:
@@ -114,6 +118,14 @@ namespace Liar
 			m[8] = m08;  m[9] = m09;  m[10] = m10;  m[11] = m11;
 			m[12] = m12;  m[13] = m13;  m[14] = m14;  m[15] = m15;
 		};
+
+		inline void Set(const Liar::Matrix4x4& rhs)
+		{
+			m[0] = rhs[0];  m[1] = rhs[1];  m[2] = rhs[2];  m[3] = rhs[3];
+			m[4] = rhs[4];  m[5] = rhs[5];  m[6] = rhs[6];  m[7] = rhs[7];
+			m[8] = rhs[8];  m[9] = rhs[9];  m[10] = rhs[10];  m[11] = rhs[11];
+			m[12] = rhs[12];  m[13] = rhs[13];  m[14] = rhs[14];  m[15] = rhs[15];
+		}
 
 		inline void Identity()
 		{

@@ -23,15 +23,15 @@ namespace Liar
 		Liar::Int m_refrenceCount;
 
 	public:
-		Liar::Int AddRefrence();
-		Liar::Int RemoveRefrence();
+		virtual Liar::Int AddRefrence();
+		virtual Liar::Int ReduceRefrence();
 		virtual bool Destroy();
 		virtual bool ReleaseResource(bool force = false);
 		virtual void ActiveResource(bool force = false);
 
 	protected:
 		virtual void DisposeResource() = 0;
-		virtual void RecreateResource() = 0;
+		virtual void RecreateResource();
 
 	public:
 		Liar::Int GetRefrenceCount() const { return m_refrenceCount; };

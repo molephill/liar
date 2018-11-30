@@ -28,6 +28,9 @@ namespace Liar
 		bool GetMipmap() const { return m_mipmap; };
 		Liar::Uint GetFormat() const { return m_format; };
 
+	protected:
+		virtual void DisposeResource();
+
 	public:
 		void SetRepeat(bool value);
 		void SetMipMap(bool value);

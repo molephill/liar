@@ -9,7 +9,7 @@ namespace Liar
 	{
 	public:
 		Node();
-		~Node();
+		virtual ~Node();
 
 	protected:
 		int m_bits;

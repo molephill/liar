@@ -1,13 +1,14 @@
 #pragma once
-#include <core/models/BaseMesh.h>
+
+#include "Geometry.h"
 
 namespace Liar
 {
-	class BoxMesh :public BaseMesh
+	class BoxGeometry:public Geometry
 	{
 	public:
-		BoxMesh(Liar::Number l = 1.0f, Liar::Number w = 1.0f, Liar::Number h = 1.0f);
-		virtual ~BoxMesh();
+		BoxGeometry(Liar::Number l = 1.0f, Liar::Number w = 1.0f, Liar::Number h = 1.0f);
+		virtual ~BoxGeometry();
 
 	private:
 		Liar::Number m_long;
@@ -24,9 +25,6 @@ namespace Liar
 
 	protected:
 		virtual void RecreateResource();
-
-	public:
-		virtual size_t GetNumberTriangles() const { return 12; };
-		virtual void Render(Liar::RenderState&);
+		virtual void InitVertices(Liar::Uint);
 	};
 }

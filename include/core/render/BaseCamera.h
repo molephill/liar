@@ -51,6 +51,7 @@ namespace Liar
 		void SetClearColor(Liar::Number, Liar::Number, Liar::Number, Liar::Number alpha = 1.0f);
 
 		virtual bool Render(Liar::StageContext&, Liar::RenderState&);
+		virtual bool Destroy(bool destoryChild = true);
 
 		virtual bool GetTransformChanged() const { return m_transformChanged || m_transform3D->GetTransformChanged(); };
 		virtual Liar::Viewport& GetViewport() = 0;

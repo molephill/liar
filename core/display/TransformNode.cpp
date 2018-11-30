@@ -6,14 +6,14 @@ namespace Liar
 {
 	TransformNode::TransformNode():
 		Liar::Node(),
-		m_transform3D(new Liar::Transform3D())
+		m_transform3D(new Liar::Transform3D()),
+		m_material(nullptr)
 	{
 	}
 
 	TransformNode::~TransformNode()
 	{
-		delete m_transform3D;
-		m_transform3D = nullptr;
+		Destroy();
 	}
 
 	bool TransformNode::Destroy(bool destroyChild)
@@ -23,18 +23,19 @@ namespace Liar
 		{
 			delete m_transform3D;
 			m_transform3D = nullptr;
+
+			if (m_material)
+			{
+				m_material->ReduceRefrence();
+				m_material = nullptr;
+			}
 		}
 		return destroied;
 	}
 
-	void TransformNode::CalculateProjectionMatrix()
-	{
-		m_transform3D->CalclateTransformation();
-	}
-
 	bool TransformNode::Render(Liar::StageContext& gl, Liar::RenderState& state)
 	{
-		CalculateProjectionMatrix();
+		m_transform3D->CalclateTransformation();
 		return true;
 	}
 }

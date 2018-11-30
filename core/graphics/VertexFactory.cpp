@@ -10,22 +10,22 @@ namespace Liar
 	{
 	}
 
-	Liar::IVertexBuffer* VertexFactory::GetVertexBuffer(Liar::MeshVertexType attr)
+	Liar::IVertexBuffer* VertexFactory::GetVertexBuffer(Liar::GeometryVertexType attr)
 	{
 		switch (attr)
 		{
-		case Liar::MeshVertexType::MESH_VERTEX_TYPE_POSITION_NORMAL_TEXTURE:
+		case Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_TEXTURE:
 			return new Liar::VertexBufferPositionNormalTexture();
 		default:
 			return nullptr;
 		}
 	}
 
-	Liar::IRawVertexBuffers* VertexFactory::GetRawVertexBuffers(Liar::MeshVertexType attr)
+	Liar::IRawVertexBuffers* VertexFactory::GetRawVertexBuffers(Liar::GeometryVertexType attr)
 	{
 		switch (attr)
 		{
-		case Liar::MeshVertexType::MESH_VERTEX_TYPE_POSITION_NORMAL_TEXTURE:
+		case Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_TEXTURE:
 			return new Liar::RawVertexBuffersPositionNormalTexture();
 		default:
 			return nullptr;

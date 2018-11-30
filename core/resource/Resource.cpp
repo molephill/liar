@@ -7,7 +7,7 @@ namespace Liar
 		m_id(++__uniqueIDCounter),
 		m_memorySize(0),
 		m_released(true), m_destroyed(false),
-		m_lock(false), m_loaded(true), m_refrenceCount(0)
+		m_lock(false), m_loaded(true), m_refrenceCount(1)
 	{}
 
 	Resource::~Resource()
@@ -20,19 +20,33 @@ namespace Liar
 		return m_refrenceCount++;
 	}
 
-	Liar::Int Resource::RemoveRefrence()
+	Liar::Int Resource::ReduceRefrence()
 	{
-		return m_refrenceCount--;
+		m_refrenceCount--;
+		if (m_refrenceCount <= 0)
+		{
+			delete this;
+			return 0;
+		}
+		else
+		{
+			return m_refrenceCount;
+		}
 	}
 
 	bool Resource::Destroy()
 	{
 		if (m_destroyed) return false;
 		m_lock = false;
-		ReleaseResource();
+		ReleaseResource(true);
 		m_destroyed = true;
 		return true;
 
+	}
+
+	void Resource::RecreateResource()
+	{
+		m_released = false;
 	}
 
 	bool Resource::ReleaseResource(bool force)
