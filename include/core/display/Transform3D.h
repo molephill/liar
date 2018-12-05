@@ -42,6 +42,8 @@ namespace Liar
 		void SetScale(const Liar::Vector3& rhs);
 		void SetScale(Liar::Number x, Liar::Number y, Liar::Number z);
 
+		bool IsFrontFaceInvert();
+
 		Liar::Vector3& GetPosition() const { return *m_localPosition; };
 		Liar::Quaternion& GetRotation() const { return *m_localRotation; };
 		Liar::Vector3& GetScale() const { return *m_localScale; };

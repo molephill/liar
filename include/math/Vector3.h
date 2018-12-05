@@ -9,6 +9,7 @@ namespace Liar
 	{
 	public:
 		Vector3(Liar::Number sx = 0.0f, Liar::Number sy = 0.0f, Liar::Number sz = 0.0f) { Set(sx, sy, sz); };
+		Vector3(const Liar::Vector3& rhs) { Set(rhs); };
 		~Vector3() {};
 
 	public:

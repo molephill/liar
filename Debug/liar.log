@@ -14,19 +14,25 @@
   PointLight.cpp
   SpotLight.cpp
   BaseMaterial.cpp
+  StandardMaterial.cpp
   BoxGeometry.cpp
   Geometry.cpp
   GeometryFactory.cpp
-  Mesh.cpp
   正在生成代码...
   正在编译...
+  Mesh.cpp
   BaseCamera.cpp
   BaseRender.cpp
   Camera.cpp
+  RenderQueue.cpp
   RenderState.cpp
   BaseTeture.cpp
   Resource.cpp
   Shader.cpp
+  ShaderCompile.cpp
+  ShaderValue.cpp
+e:\c++\liar\liar\core\resource\shader\shadervalue.cpp(351): warning C4018: “<”: 有符号/无符号不匹配
+e:\c++\liar\liar\core\resource\shader\shadervalue.cpp(366): warning C4018: “<”: 有符号/无符号不匹配
   SolidColorTexture.cpp
   Texture2D.cpp
   main.cpp
@@ -36,6 +42,8 @@
   Quaternion.cpp
   Vector3.cpp
   Vector4.cpp
+  正在生成代码...
+  正在编译...
   Viewport.cpp
   正在生成代码...
   glad.c

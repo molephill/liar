@@ -2,7 +2,7 @@
 
 namespace Liar
 {
-	enum CullType
+	enum CullTypeDefine
 	{
 		/**剔除枚举_不剔除。*/
 		CULL_NONE = 0,
@@ -12,7 +12,7 @@ namespace Liar
 		CULL_BACK
 	};
 
-	enum BlendType
+	enum BlendTypeDefine
 	{
 		/**混合枚举_禁用。*/
 		BLEND_DISABLE = 0,
@@ -23,7 +23,7 @@ namespace Liar
 	};
 
 	/*混合参数枚举*/
-	enum BlendParam
+	enum BlendParamDefine
 	{
 		/**混合参数枚举_零,例：RGB(0,0,0),Alpha:(1)。*/
 		BLENDPARAM_ZERO = 0,
@@ -50,7 +50,7 @@ namespace Liar
 	};
 
 	/*混合方程枚举*/
-	enum BlendQuation
+	enum BlendQuationDefine
 	{
 		/**混合方程枚举_加法,例：source + destination*/
 		BLENDEQUATION_ADD,
@@ -61,7 +61,7 @@ namespace Liar
 	};
 
 	/*深度测试函数枚举*/
-	enum DepthTest
+	enum DepthTestDefine
 	{
 		/**深度测试函数枚举_关闭深度测试。*/
 		DEPTHTEST_OFF,

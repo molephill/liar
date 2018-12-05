@@ -138,6 +138,7 @@
     <ClCompile Include="core\light\PointLight.cpp" />
     <ClCompile Include="core\light\SpotLight.cpp" />
     <ClCompile Include="core\material\BaseMaterial.cpp" />
+    <ClCompile Include="core\material\StandardMaterial.cpp" />
     <ClCompile Include="core\models\geometries\BoxGeometry.cpp" />
     <ClCompile Include="core\models\geometries\Geometry.cpp" />
     <ClCompile Include="core\models\GeometryFactory.cpp" />
@@ -145,10 +146,13 @@
     <ClCompile Include="core\render\BaseCamera.cpp" />
     <ClCompile Include="core\render\BaseRender.cpp" />
     <ClCompile Include="core\render\Camera.cpp" />
+    <ClCompile Include="core\render\RenderQueue.cpp" />
     <ClCompile Include="core\render\RenderState.cpp" />
     <ClCompile Include="core\resource\BaseTeture.cpp" />
     <ClCompile Include="core\resource\Resource.cpp" />
     <ClCompile Include="core\resource\shader\Shader.cpp" />
+    <ClCompile Include="core\resource\shader\ShaderCompile.cpp" />
+    <ClCompile Include="core\resource\shader\ShaderValue.cpp" />
     <ClCompile Include="core\resource\SolidColorTexture.cpp" />
     <ClCompile Include="core\resource\Texture2D.cpp" />
     <ClCompile Include="main.cpp" />
@@ -180,6 +184,8 @@
     <ClInclude Include="include\core\light\PointLight.h" />
     <ClInclude Include="include\core\light\SpotLight.h" />
     <ClInclude Include="include\core\material\BaseMaterial.h" />
+    <ClInclude Include="include\core\material\MaterialDefine.h" />
+    <ClInclude Include="include\core\material\StandardMaterial.h" />
     <ClInclude Include="include\core\models\geometries\BoxGeometry.h" />
     <ClInclude Include="include\core\models\geometries\Geometry.h" />
     <ClInclude Include="include\core\models\GeometryFactory.h" />
@@ -189,11 +195,16 @@
     <ClInclude Include="include\core\render\Camera.h" />
     <ClInclude Include="include\core\render\IRenderable.h" />
     <ClInclude Include="include\core\render\IUpdate.h" />
+    <ClInclude Include="include\core\render\RenderDefine.h" />
+    <ClInclude Include="include\core\render\RenderQueue.h" />
     <ClInclude Include="include\core\render\RenderState.h" />
     <ClInclude Include="include\core\render\StageContext.h" />
     <ClInclude Include="include\core\resource\BaseTexture.h" />
     <ClInclude Include="include\core\resource\Resource.h" />
     <ClInclude Include="include\core\resource\shader\Shader.h" />
+    <ClInclude Include="include\core\resource\shader\ShaderCompile.h" />
+    <ClInclude Include="include\core\resource\shader\ShaderDefine.h" />
+    <ClInclude Include="include\core\resource\shader\ShaderValue.h" />
     <ClInclude Include="include\core\resource\SolidColorTexture2D.h" />
     <ClInclude Include="include\core\resource\Textrue2D.h" />
     <ClInclude Include="include\Liar3D.h" />
@@ -207,6 +218,12 @@
     <ClInclude Include="include\math\Vector3.h" />
     <ClInclude Include="include\math\Vector4.h" />
     <ClInclude Include="include\math\Viewport.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="core\resource\shader\files\LightHelper.glsl" />
+    <None Include="core\resource\shader\files\PixelSimpleTextureSkinnedMes.ps" />
+    <None Include="core\resource\shader\files\PixelSimpleTextureSkinnedMes.vs" />
+    <None Include="core\resource\shader\files\ShadowHelper.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -85,6 +85,9 @@
     <Filter Include="头文件\core\material">
       <UniqueIdentifier>{8a1dd101-657f-461f-94a1-11180d8fdf32}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\core\resource\shader\files">
+      <UniqueIdentifier>{24c9465a-f372-4fc8-99c6-ea2e506ed33e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -200,6 +203,18 @@
     </ClCompile>
     <ClCompile Include="core\material\BaseMaterial.cpp">
       <Filter>源文件\core\material</Filter>
+    </ClCompile>
+    <ClCompile Include="core\material\StandardMaterial.cpp">
+      <Filter>源文件\core\material</Filter>
+    </ClCompile>
+    <ClCompile Include="core\render\RenderQueue.cpp">
+      <Filter>源文件\core\render</Filter>
+    </ClCompile>
+    <ClCompile Include="core\resource\shader\ShaderCompile.cpp">
+      <Filter>源文件\core\resource\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="core\resource\shader\ShaderValue.cpp">
+      <Filter>源文件\core\resource\shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -338,5 +353,40 @@
     <ClInclude Include="include\core\material\BaseMaterial.h">
       <Filter>头文件\core\material</Filter>
     </ClInclude>
+    <ClInclude Include="include\core\material\MaterialDefine.h">
+      <Filter>头文件\core\material</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\material\StandardMaterial.h">
+      <Filter>头文件\core\material</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\render\RenderQueue.h">
+      <Filter>头文件\core\render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\resource\shader\ShaderCompile.h">
+      <Filter>头文件\core\resource\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\resource\shader\ShaderDefine.h">
+      <Filter>头文件\core\resource\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\render\RenderDefine.h">
+      <Filter>头文件\core\render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\resource\shader\ShaderValue.h">
+      <Filter>头文件\core\resource\shader</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="core\resource\shader\files\LightHelper.glsl">
+      <Filter>头文件\core\resource\shader\files</Filter>
+    </None>
+    <None Include="core\resource\shader\files\PixelSimpleTextureSkinnedMes.ps">
+      <Filter>头文件\core\resource\shader\files</Filter>
+    </None>
+    <None Include="core\resource\shader\files\PixelSimpleTextureSkinnedMes.vs">
+      <Filter>头文件\core\resource\shader\files</Filter>
+    </None>
+    <None Include="core\resource\shader\files\ShadowHelper.glsl">
+      <Filter>头文件\core\resource\shader\files</Filter>
+    </None>
   </ItemGroup>
 </Project>

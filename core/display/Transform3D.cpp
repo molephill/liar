@@ -31,6 +31,14 @@ namespace Liar
 		}
 	}
 
+	bool Transform3D::IsFrontFaceInvert()
+	{
+		bool isInvert = m_localScale->x < 0;
+		if (!isInvert && m_localScale->y < 0) isInvert = !isInvert;
+		if (!isInvert && m_localScale->z < 0) isInvert = !isInvert;
+		return isInvert;
+	}
+
 	void Transform3D::Translate(const Liar::Vector3& translation)
 	{
 		Translate(translation.x, translation.y, translation.z);

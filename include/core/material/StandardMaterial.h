@@ -1,8 +1,17 @@
 #pragma once
-class StandardMaterial
+
+#include <core/material/BaseMaterial.h>
+
+namespace Liar
 {
-public:
-	StandardMaterial();
-	~StandardMaterial();
-};
+	class StandardMaterial:public Liar::BaseMaterial
+	{
+	public:
+		StandardMaterial();
+		virtual ~StandardMaterial();
+
+	public:
+		virtual void SetRenderMode(Liar::RenderMode);
+	};
+}
 
