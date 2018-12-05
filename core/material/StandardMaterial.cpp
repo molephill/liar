@@ -12,13 +12,13 @@ namespace Liar
 	{
 	}
 
-	void StandardMaterial::SetRenderMode(Liar::RenderMode value)
+	void StandardMaterial::SetRenderMode(Liar::RenderModeDefine value)
 	{
 		switch (value)
 		{
-		case Liar::RenderMode::RENDERMODE_OPAQUE:
+		case Liar::RenderModeDefine::RENDERMODE_OPAQUE:
 		{
-			m_renderQueue = Liar::RenderQueueType::RENDERQUEUE_OPAQUE;
+			m_renderQueue = Liar::RenderQueueDefine::RENDERQUEUE_OPAQUE;
 			m_depthWrite = true;
 			m_cull = Liar::CullTypeDefine::CULL_BACK;
 			m_blend = Liar::BlendTypeDefine::BLEND_DISABLE;
@@ -26,9 +26,9 @@ namespace Liar
 			m_shaderValues->RemoveShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_ADDTIVEFOG);
 			break;
 		}
-		case Liar::RenderMode::RENDERMODE_OPAQUEDOUBLEFACE:
+		case Liar::RenderModeDefine::RENDERMODE_OPAQUEDOUBLEFACE:
 		{
-			m_renderQueue = Liar::RenderQueueType::RENDERQUEUE_OPAQUE;
+			m_renderQueue = Liar::RenderQueueDefine::RENDERQUEUE_OPAQUE;
 			m_depthWrite = true;
 			m_cull = Liar::CullTypeDefine::CULL_NONE;
 			m_blend = Liar::BlendTypeDefine::BLEND_DISABLE;
@@ -36,27 +36,27 @@ namespace Liar
 			m_shaderValues->RemoveShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_ADDTIVEFOG);
 			break;
 		}
-		case Liar::RenderMode::RENDERMODE_CUTOUT:
+		case Liar::RenderModeDefine::RENDERMODE_CUTOUT:
 		{
-			m_renderQueue = Liar::RenderQueueType::RENDERQUEUE_OPAQUE;
+			m_renderQueue = Liar::RenderQueueDefine::RENDERQUEUE_OPAQUE;
 			m_depthWrite = true;
 			m_cull = Liar::CullTypeDefine::CULL_BACK;
 			m_alphaTest = true;
 			m_shaderValues->RemoveShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_ADDTIVEFOG);
 			break;
 		}
-		case Liar::RenderMode::RENDERMODE_CUTOUTDOUBLEFACE:
+		case Liar::RenderModeDefine::RENDERMODE_CUTOUTDOUBLEFACE:
 		{
-			m_renderQueue = Liar::RenderQueueType::RENDERQUEUE_OPAQUE;
+			m_renderQueue = Liar::RenderQueueDefine::RENDERQUEUE_OPAQUE;
 			m_depthWrite = true;
 			m_cull = Liar::CullTypeDefine::CULL_NONE;
 			m_alphaTest = true;
 			m_shaderValues->RemoveShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_ADDTIVEFOG);
 			break;
 		}
-		case Liar::RenderMode::RENDERMODE_TRANSPARENT:
+		case Liar::RenderModeDefine::RENDERMODE_TRANSPARENT:
 		{
-			m_renderQueue = Liar::RenderQueueType::RENDERQUEUE_TRANSPARENT;
+			m_renderQueue = Liar::RenderQueueDefine::RENDERQUEUE_TRANSPARENT;
 			m_depthWrite = true;
 			m_cull = Liar::CullTypeDefine::CULL_BACK;
 			m_blend = Liar::BlendTypeDefine::BLEND_ENABLE_ALL;
@@ -66,9 +66,9 @@ namespace Liar
 			m_shaderValues->RemoveShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_ADDTIVEFOG);
 			break;
 		}
-		case Liar::RenderMode::RENDERMODE_TRANSPARENTDOUBLEFACE:
+		case Liar::RenderModeDefine::RENDERMODE_TRANSPARENTDOUBLEFACE:
 		{
-			m_renderQueue = Liar::RenderQueueType::RENDERQUEUE_TRANSPARENT;
+			m_renderQueue = Liar::RenderQueueDefine::RENDERQUEUE_TRANSPARENT;
 			m_depthWrite = true;
 			m_cull = Liar::CullTypeDefine::CULL_NONE;
 			m_blend = Liar::BlendTypeDefine::BLEND_ENABLE_ALL;
@@ -78,9 +78,9 @@ namespace Liar
 			m_shaderValues->RemoveShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_ADDTIVEFOG);
 			break;
 		}
-		case Liar::RenderMode::RENDERMODE_ADDTIVE:
+		case Liar::RenderModeDefine::RENDERMODE_ADDTIVE:
 		{
-			m_renderQueue = Liar::RenderQueueType::RENDERQUEUE_TRANSPARENT;
+			m_renderQueue = Liar::RenderQueueDefine::RENDERQUEUE_TRANSPARENT;
 			m_depthWrite = true;
 			m_cull = Liar::CullTypeDefine::CULL_BACK;
 			m_blend = Liar::BlendTypeDefine::BLEND_ENABLE_ALL;
@@ -90,9 +90,9 @@ namespace Liar
 			m_shaderValues->AddShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_ADDTIVEFOG);
 			break;
 		}
-		case Liar::RenderMode::RENDERMODE_ADDTIVEDOUBLEFACE:
+		case Liar::RenderModeDefine::RENDERMODE_ADDTIVEDOUBLEFACE:
 		{
-			m_renderQueue = Liar::RenderQueueType::RENDERQUEUE_TRANSPARENT;
+			m_renderQueue = Liar::RenderQueueDefine::RENDERQUEUE_TRANSPARENT;
 			m_depthWrite = true;
 			m_cull = Liar::CullTypeDefine::CULL_NONE;
 			m_blend = Liar::BlendTypeDefine::BLEND_ENABLE_ALL;
@@ -102,9 +102,9 @@ namespace Liar
 			m_shaderValues->AddShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_ADDTIVEFOG);
 			break;
 		}
-		case Liar::RenderMode::RENDERMODE_DEPTHREAD_TRANSPARENT:
+		case Liar::RenderModeDefine::RENDERMODE_DEPTHREAD_TRANSPARENT:
 		{
-			m_renderQueue = Liar::RenderQueueType::RENDERQUEUE_TRANSPARENT;
+			m_renderQueue = Liar::RenderQueueDefine::RENDERQUEUE_TRANSPARENT;
 			m_depthWrite = false;
 			m_cull = Liar::CullTypeDefine::CULL_BACK;
 			m_blend = Liar::BlendTypeDefine::BLEND_ENABLE_ALL;
@@ -114,9 +114,9 @@ namespace Liar
 			m_shaderValues->RemoveShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_ADDTIVEFOG);
 			break;
 		}
-		case Liar::RenderMode::RENDERMODE_DEPTHREAD_TRANSPARENTDOUBLEFACE:
+		case Liar::RenderModeDefine::RENDERMODE_DEPTHREAD_TRANSPARENTDOUBLEFACE:
 		{
-			m_renderQueue = Liar::RenderQueueType::RENDERQUEUE_TRANSPARENT;
+			m_renderQueue = Liar::RenderQueueDefine::RENDERQUEUE_TRANSPARENT;
 			m_depthWrite = false;
 			m_cull = Liar::CullTypeDefine::CULL_NONE;
 			m_blend = Liar::BlendTypeDefine::BLEND_ENABLE_ALL;
@@ -126,9 +126,9 @@ namespace Liar
 			m_shaderValues->RemoveShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_ADDTIVEFOG);
 			break;
 		}
-		case Liar::RenderMode::RENDERMODE_DEPTHREAD_ADDTIVE:
+		case Liar::RenderModeDefine::RENDERMODE_DEPTHREAD_ADDTIVE:
 		{
-			m_renderQueue = Liar::RenderQueueType::RENDERQUEUE_TRANSPARENT;
+			m_renderQueue = Liar::RenderQueueDefine::RENDERQUEUE_TRANSPARENT;
 			m_depthWrite = false;
 			m_cull = Liar::CullTypeDefine::CULL_BACK;
 			m_blend = Liar::BlendTypeDefine::BLEND_ENABLE_ALL;
@@ -138,9 +138,9 @@ namespace Liar
 			m_shaderValues->AddShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_ADDTIVEFOG);
 			break;
 		}
-		case Liar::RenderMode::RENDERMODE_DEPTHREAD_ADDTIVEDOUBLEFACE:
+		case Liar::RenderModeDefine::RENDERMODE_DEPTHREAD_ADDTIVEDOUBLEFACE:
 		{
-			m_renderQueue = Liar::RenderQueueType::RENDERQUEUE_TRANSPARENT;
+			m_renderQueue = Liar::RenderQueueDefine::RENDERQUEUE_TRANSPARENT;
 			m_depthWrite = false;
 			m_cull = Liar::CullTypeDefine::CULL_NONE;
 			m_blend = Liar::BlendTypeDefine::BLEND_ENABLE_ALL;
@@ -150,9 +150,9 @@ namespace Liar
 			m_shaderValues->AddShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_ADDTIVEFOG);
 			break;
 		}
-		case Liar::RenderMode::RENDERMODE_NONDEPTH_TRANSPARENT:
+		case Liar::RenderModeDefine::RENDERMODE_NONDEPTH_TRANSPARENT:
 		{
-			m_renderQueue = Liar::RenderQueueType::RENDERQUEUE_TRANSPARENT;
+			m_renderQueue = Liar::RenderQueueDefine::RENDERQUEUE_TRANSPARENT;
 			m_depthTest = Liar::DepthTestDefine::DEPTHTEST_LESS;
 			m_cull = Liar::CullTypeDefine::CULL_BACK;
 			m_blend = Liar::BlendTypeDefine::BLEND_ENABLE_ALL;
@@ -162,9 +162,9 @@ namespace Liar
 			m_shaderValues->RemoveShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_ADDTIVEFOG);
 			break;
 		}
-		case Liar::RenderMode::RENDERMODE_NONDEPTH_TRANSPARENTDOUBLEFACE:
+		case Liar::RenderModeDefine::RENDERMODE_NONDEPTH_TRANSPARENTDOUBLEFACE:
 		{
-			m_renderQueue = Liar::RenderQueueType::RENDERQUEUE_TRANSPARENT;
+			m_renderQueue = Liar::RenderQueueDefine::RENDERQUEUE_TRANSPARENT;
 			m_depthTest = Liar::DepthTestDefine::DEPTHTEST_LESS;
 			m_cull = Liar::CullTypeDefine::CULL_NONE;
 			m_blend = Liar::BlendTypeDefine::BLEND_ENABLE_ALL;
@@ -174,9 +174,9 @@ namespace Liar
 			m_shaderValues->RemoveShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_ADDTIVEFOG);
 			break;
 		}
-		case Liar::RenderMode::RENDERMODE_NONDEPTH_ADDTIVE:
+		case Liar::RenderModeDefine::RENDERMODE_NONDEPTH_ADDTIVE:
 		{
-			m_renderQueue = Liar::RenderQueueType::RENDERQUEUE_TRANSPARENT;
+			m_renderQueue = Liar::RenderQueueDefine::RENDERQUEUE_TRANSPARENT;
 			m_depthTest = Liar::DepthTestDefine::DEPTHTEST_LESS;
 			m_cull = Liar::CullTypeDefine::CULL_BACK;
 			m_blend = Liar::BlendTypeDefine::BLEND_ENABLE_ALL;
@@ -186,9 +186,9 @@ namespace Liar
 			m_shaderValues->AddShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_ADDTIVEFOG);
 			break;
 		}
-		case Liar::RenderMode::RENDERMODE_NONDEPTH_ADDTIVEDOUBLEFACE:
+		case Liar::RenderModeDefine::RENDERMODE_NONDEPTH_ADDTIVEDOUBLEFACE:
 		{
-			m_renderQueue = Liar::RenderQueueType::RENDERQUEUE_TRANSPARENT;
+			m_renderQueue = Liar::RenderQueueDefine::RENDERQUEUE_TRANSPARENT;
 			m_depthTest = Liar::DepthTestDefine::DEPTHTEST_LESS;
 			m_cull = Liar::CullTypeDefine::CULL_NONE;
 			m_blend = Liar::BlendTypeDefine::BLEND_ENABLE_ALL;

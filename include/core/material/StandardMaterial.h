@@ -11,7 +11,7 @@ namespace Liar
 		virtual ~StandardMaterial();
 
 	public:
-		virtual void SetRenderMode(Liar::RenderMode);
+		virtual void SetRenderMode(Liar::RenderModeDefine);
 	};
 }
 

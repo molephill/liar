@@ -40,7 +40,7 @@ namespace Liar
 		Liar::BlendQuationDefine m_blendEquationAlpha;	/**Alpha混合方程。*/
 		Liar::DepthTestDefine m_depthTest;			/**深度测试函数。*/
 		bool m_depthWrite;				/**是否深度写入。*/
-		Liar::RenderQueueType m_renderQueue;
+		Liar::RenderQueueDefine m_renderQueue;
 		Liar::ShaderValue* m_shaderValues;
 
 	public:
@@ -73,8 +73,8 @@ namespace Liar
 		Liar::DepthTestDefine GetDepthTest() const { return m_depthTest; };
 		void SetDepthWrite(bool value) { m_depthWrite = value; };
 		bool GetDepthWrite() const { return m_depthWrite; };
-		void SetRenderQueue(Liar::RenderQueueType type) { m_renderQueue = type; };
-		Liar::RenderQueueType GetRenderQueue() const { return m_renderQueue; };
+		void SetRenderQueue(Liar::RenderQueueDefine type) { m_renderQueue = type; };
+		Liar::RenderQueueDefine GetRenderQueue() const { return m_renderQueue; };
 
 	public:
 		/**
@@ -222,6 +222,6 @@ namespace Liar
 		virtual Liar::Int ReduceRefrence();
 		virtual bool Destroy();
 
-		virtual void SetRenderMode(Liar::RenderMode) = 0;
+		virtual void SetRenderMode(Liar::RenderModeDefine) = 0;
 	};
 }

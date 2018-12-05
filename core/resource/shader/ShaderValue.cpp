@@ -348,7 +348,7 @@ namespace Liar
 		}
 		else
 		{
-			if (shaderIndex < m_numberVec4)
+			if (static_cast<Liar::Uint>(shaderIndex) < m_numberVec4)
 			{
 				if (m_vec4Values[shaderIndex]) delete m_vec4Values[shaderIndex];
 				m_vec4Values[shaderIndex] = nullptr;
@@ -363,7 +363,7 @@ namespace Liar
 	*/
 	Liar::Vector4* ShaderValue::GetVector4(Liar::ShaderValueDefine shaderIndex)
 	{
-		return shaderIndex < m_numberVec4 ? m_vec4Values[shaderIndex] : nullptr;
+		return static_cast<Liar::Uint>(shaderIndex) < m_numberVec4 ? m_vec4Values[shaderIndex] : nullptr;
 	}
 
 	/**

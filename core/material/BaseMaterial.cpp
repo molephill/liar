@@ -17,7 +17,7 @@ namespace Liar
 		m_blendEquation(Liar::BlendQuationDefine::BLENDEQUATION_ADD), m_blendEquationRGB(Liar::BlendQuationDefine::BLENDEQUATION_ADD),
 		m_blendEquationAlpha(Liar::BlendQuationDefine::BLENDEQUATION_ADD),
 		m_depthTest(Liar::DepthTestDefine::DEPTHTEST_LESS),
-		m_depthWrite(false), m_renderQueue(Liar::RenderQueueType::RENDERQUEUE_OPAQUE),
+		m_depthWrite(false), m_renderQueue(Liar::RenderQueueDefine::RENDERQUEUE_OPAQUE),
 		m_shaderValues(new Liar::ShaderValue())
 	{
 	}
