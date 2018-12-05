@@ -2,7 +2,7 @@
 
 namespace Liar
 {
-	enum RenderQueueType
+	enum RenderQueueDefine
 	{
 		/** 定义非透明渲染队列标记。*/
 		RENDERQUEUE_OPAQUE,
@@ -11,7 +11,7 @@ namespace Liar
 	};
 
 	/**渲染状态*/
-	enum RenderMode
+	enum RenderModeDefine
 	{
 		/**渲染状态_不透明。*/
 		RENDERMODE_OPAQUE = 1,
