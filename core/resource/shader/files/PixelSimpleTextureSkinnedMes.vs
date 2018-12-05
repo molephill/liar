@@ -59,7 +59,7 @@ void main_castShadow()
 	skinTransform += u_Bones[int(a_BoneIndices.y)] * a_BoneWeights.y;
 	skinTransform += u_Bones[int(a_BoneIndices.z)] * a_BoneWeights.z;
 	skinTransform += u_Bones[int(a_BoneIndices.w)] * a_BoneWeights.w;
-	vec4 position=skinTransform*a_Position;
+	vec4 position = skinTransform * a_Position;
 	gl_Position = u_MvpMatrix * position;
 #else
 	gl_Position = u_MvpMatrix * a_Position;
@@ -67,7 +67,7 @@ void main_castShadow()
  
 //TODO没考虑UV动画呢
 #if defined(DIFFUSEMAP)&&defined(ALPHATEST)
-	v_Texcoord0=a_Texcoord0;
+	v_Texcoord0 = a_Texcoord0;
 #endif
 	v_posViewZ = gl_Position.z;
 }
@@ -80,7 +80,7 @@ void main_normal()
 	skinTransform += u_Bones[int(a_BoneIndices.y)] * a_BoneWeights.y;
 	skinTransform += u_Bones[int(a_BoneIndices.z)] * a_BoneWeights.z;
 	skinTransform += u_Bones[int(a_BoneIndices.w)] * a_BoneWeights.w;
-	vec4 position=skinTransform*a_Position;
+	vec4 position = skinTransform * a_Position;
 	gl_Position = u_MvpMatrix * position;
 #else
 	gl_Position = u_MvpMatrix * a_Position;
@@ -89,11 +89,11 @@ void main_normal()
 #if defined(DIRECTIONLIGHT)||defined(POINTLIGHT)||defined(SPOTLIGHT)||defined(REFLECTMAP)
 	mat3 worldMat;
 	#ifdef BONE
-		worldMat=mat3(u_WorldMat*skinTransform);
+		worldMat = mat3(u_WorldMat * skinTransform);
 	#else
-		worldMat=mat3(u_WorldMat);
+		worldMat = mat3(u_WorldMat);
 	#endif  
-	v_Normal=worldMat*a_Normal;
+	v_Normal = worldMat * a_Normal;
 	#if (defined(DIRECTIONLIGHT)||defined(POINTLIGHT)||defined(SPOTLIGHT))&&defined(NORMALMAP)
 		v_Tangent0=worldMat*a_Tangent0;
 	#endif
@@ -101,41 +101,41 @@ void main_normal()
 
 #if defined(DIRECTIONLIGHT)||defined(POINTLIGHT)||defined(SPOTLIGHT)||defined(FOG)||defined(DEPTHFOG)||defined(REFLECTMAP)||defined(RECEIVESHADOW)
 	#ifdef BONE
-		v_PositionWorld=(u_WorldMat*position).xyz;
+		v_PositionWorld = (u_WorldMat * position).xyz;
 	#else
-		v_PositionWorld=(u_WorldMat*a_Position).xyz;
+		v_PositionWorld = (u_WorldMat * a_Position).xyz;
 	#endif
 #endif
 
 #if defined(DIFFUSEMAP)||((defined(DIRECTIONLIGHT)||defined(POINTLIGHT)||defined(SPOTLIGHT))&&(defined(COLOR)&&defined(SPECULARMAP)||defined(NORMALMAP)))
-	v_Texcoord0=a_Texcoord0;
+	v_Texcoord0 = a_Texcoord0;
 	#ifdef TILINGOFFSET
-		v_Texcoord0=(vec2(v_Texcoord0.x,v_Texcoord0.y-1.0)*u_TilingOffset.xy)+u_TilingOffset.zw;
-		v_Texcoord0=vec2(v_Texcoord0.x,v_Texcoord0.y+1.0);
+		v_Texcoord0 = (vec2(v_Texcoord0.x, v_Texcoord0.y - 1.0) * u_TilingOffset.xy ) + u_TilingOffset.zw;
+		v_Texcoord0 = vec2(v_Texcoord0.x, v_Texcoord0.y + 1.0);
 	#endif
 	#ifdef UVTRANSFORM
-		v_Texcoord0=(u_UVMatrix*vec4(v_Texcoord0,0.0,1.0)).xy;
+		v_Texcoord0 = (u_UVMatrix * vec4(v_Texcoord0,0.0,1.0)).xy;
 	#endif
 #endif
 
 #if defined(AMBIENTMAP)||defined(LIGHTMAP)
 	#ifdef SCALEOFFSETLIGHTINGMAPUV
 		#ifdef UV1
-			v_LightMapUV=vec2(a_Texcoord1.x*u_LightmapScaleOffset.x+u_LightmapScaleOffset.z,1.0+a_Texcoord1.y*u_LightmapScaleOffset.y+u_LightmapScaleOffset.w);
+			v_LightMapUV = vec2(a_Texcoord1.x * u_LightmapScaleOffset.x + u_LightmapScaleOffset.z, 1.0 + a_Texcoord1.y * u_LightmapScaleOffset.y + u_LightmapScaleOffset.w);
 		#else
-			v_LightMapUV=vec2(a_Texcoord0.x,a_Texcoord0.y-1.0)*u_LightmapScaleOffset.xy+u_LightmapScaleOffset.zw;
+			v_LightMapUV = vec2(a_Texcoord0.x, a_Texcoord0.y -1.0) * u_LightmapScaleOffset.xy + u_LightmapScaleOffset.zw;
 		#endif 
 	#else
 		#ifdef UV1
-			v_LightMapUV=a_Texcoord1;
+			v_LightMapUV = a_Texcoord1;
 		#else
-			v_LightMapUV=a_Texcoord0;
+			v_LightMapUV = a_Texcoord0;
 		#endif 
 	#endif 
 #endif
 
 #ifdef COLOR
-	v_Color=a_Color;
+	v_Color = a_Color;
 #endif
 
 #ifdef RECEIVESHADOW

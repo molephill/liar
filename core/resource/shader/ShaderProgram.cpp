@@ -1,5 +1,5 @@
 
-#include <core/resource/shader/Shader.h>
+#include <core/resource/shader/ShaderProgram.h>
 
 namespace Liar
 {
@@ -29,26 +29,26 @@ namespace Liar
 	void ShaderProgram::LinkProgram(const char* vShaderCode, const char * fShaderCode)
 	{
 		// 2. compile shaders
-		unsigned int vertex, fragment;
+		Liar::Uint vertex, fragment;
 
 		// vertex shader
 		vertex = glCreateShader(GL_VERTEX_SHADER);
 		glShaderSource(vertex, 1, &vShaderCode, NULL);
 		glCompileShader(vertex);
-		CheckCompileErrors(vertex, LiarShaderType::SHADER_TYPE_VERTEXT);
+		CheckCompileErrors(vertex, GLSLShaderTypeDefine::GLSL_SHADER_VERTEXT);
 
 		// fragment Shader
 		fragment = glCreateShader(GL_FRAGMENT_SHADER);
 		glShaderSource(fragment, 1, &fShaderCode, NULL);
 		glCompileShader(fragment);
-		CheckCompileErrors(fragment, LiarShaderType::SHADER_TYPE_FRAGMENT);
+		CheckCompileErrors(fragment, GLSLShaderTypeDefine::GLSL_SHADER_FRAGMENT);
 
 		// shader Program
 		m_programId = glCreateProgram();
 		glAttachShader(m_programId, vertex);
 		glAttachShader(m_programId, fragment);
 		glLinkProgram(m_programId);
-		CheckCompileErrors(m_programId, LiarShaderType::SHADER_TYPE_PROGROM);
+		CheckCompileErrors(m_programId, GLSLShaderTypeDefine::GLSL_SHADER_PROGROM);
 
 		// delete the shaders as they're linked into our program now and no longer necessary
 		glDeleteShader(vertex);
@@ -56,11 +56,11 @@ namespace Liar
 	}
 
 	// ¼ì²â±¨´í
-	void ShaderProgram::CheckCompileErrors(unsigned int shader, LiarShaderType type)
+	void ShaderProgram::CheckCompileErrors(Liar::Uint shader, GLSLShaderTypeDefine type)
 	{
 		int success;
 		char infoLog[512];
-		if (type != LiarShaderType::SHADER_TYPE_PROGROM)
+		if (type != GLSLShaderTypeDefine::GLSL_SHADER_PROGROM)
 		{
 			glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 			if (!success)
@@ -110,7 +110,7 @@ namespace Liar
 
 	// utility uniform functions
 	// ------------------------------------------------------------------------
-	void ShaderProgram::SetInt(const std::string& name, int value) const
+	void ShaderProgram::SetInt(const std::string& name, Liar::Int value) const
 	{
 		glUniform1i(glGetUniformLocation(m_programId, name.c_str()), value);
 	}
@@ -122,7 +122,7 @@ namespace Liar
 	}
 	// ------------------------------------------------------------------------
 
-	void ShaderProgram::SetFloat(const std::string& name, float value) const
+	void ShaderProgram::SetFloat(const std::string& name, Liar::Number value) const
 	{
 		glUniform1f(glGetUniformLocation(m_programId, name.c_str()), value);
 	}
@@ -132,7 +132,7 @@ namespace Liar
 	{
 		SetVec2(name, value.x, value.y);
 	}
-	void ShaderProgram::SetVec2(const std::string& name, float x, float y) const
+	void ShaderProgram::SetVec2(const std::string& name, Liar::Number x, Liar::Number y) const
 	{
 		glUniform2f(glGetUniformLocation(m_programId, name.c_str()), x, y);
 	}
@@ -142,7 +142,7 @@ namespace Liar
 	{
 		SetVec3(name, value.x, value.y, value.z);
 	}
-	void ShaderProgram::SetVec3(const std::string& name, float x, float y, float z) const
+	void ShaderProgram::SetVec3(const std::string& name, Liar::Number x, Liar::Number y, Liar::Number z) const
 	{
 		glUniform3f(glGetUniformLocation(m_programId, name.c_str()), x, y, z);
 	}
@@ -152,7 +152,7 @@ namespace Liar
 	{
 		SetVec4(name, value.x, value.y, value.z, value.w);
 	}
-	void ShaderProgram::SetVec4(const std::string& name, float x, float y, float z, float w) const
+	void ShaderProgram::SetVec4(const std::string& name, Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w) const
 	{
 		glUniform4f(glGetUniformLocation(m_programId, name.c_str()), x, y, z, w);
 	}

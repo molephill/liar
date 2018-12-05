@@ -171,9 +171,6 @@
     <ClCompile Include="math\Viewport.cpp">
       <Filter>源文件\match</Filter>
     </ClCompile>
-    <ClCompile Include="core\resource\shader\Shader.cpp">
-      <Filter>源文件\core\resource\shader</Filter>
-    </ClCompile>
     <ClCompile Include="math\Matrix3x3.cpp">
       <Filter>源文件\match</Filter>
     </ClCompile>
@@ -214,6 +211,9 @@
       <Filter>源文件\core\resource\shader</Filter>
     </ClCompile>
     <ClCompile Include="core\resource\shader\ShaderValue.cpp">
+      <Filter>源文件\core\resource\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="core\resource\shader\ShaderProgram.cpp">
       <Filter>源文件\core\resource\shader</Filter>
     </ClCompile>
   </ItemGroup>
@@ -335,9 +335,6 @@
     <ClInclude Include="include\core\graphics\VertexElementUsage.h">
       <Filter>头文件\core\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\resource\shader\Shader.h">
-      <Filter>头文件\core\resource\shader</Filter>
-    </ClInclude>
     <ClInclude Include="include\core\models\geometries\Geometry.h">
       <Filter>头文件\core\models\geometries</Filter>
     </ClInclude>
@@ -372,6 +369,9 @@
       <Filter>头文件\core\render</Filter>
     </ClInclude>
     <ClInclude Include="include\core\resource\shader\ShaderValue.h">
+      <Filter>头文件\core\resource\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\resource\shader\ShaderProgram.h">
       <Filter>头文件\core\resource\shader</Filter>
     </ClInclude>
   </ItemGroup>

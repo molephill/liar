@@ -2,6 +2,7 @@
 
 namespace Liar
 {
+	/* 定义 define */
 	enum ShaderTypeDefine
 	{
 		SHADERTYPE_ALPHATEST,
@@ -22,7 +23,9 @@ namespace Liar
 		SHADERTYPE_UV0,
 		SHADERTYPE_COLOR,
 		SHADERTYPE_UV1,
-		SHADERTYPE_DEPTHFOG
+		SHADERTYPE_DEPTHFOG,
+		SHADERTYPE_RECEIVE_SHADOW,
+		SHADERTYPE_CAST_SHADOW
 	};
 
 	enum ShaderValueDefine
@@ -44,5 +47,13 @@ namespace Liar
 		SHADERVALUE_UVMATRIX,
 		SHADERVALUE_UVAGE,
 		SHADERVALUE_TILINGOFFSET
+	};
+
+	/* GLSL shader 类型*/
+	enum GLSLShaderTypeDefine
+	{
+		GLSL_SHADER_VERTEXT = 0,
+		GLSL_SHADER_FRAGMENT = 1,
+		GLSL_SHADER_PROGROM = 2,
 	};
 }

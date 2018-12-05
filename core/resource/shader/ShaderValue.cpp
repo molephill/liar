@@ -11,7 +11,7 @@ namespace Liar
 		m_vec3Values(nullptr), m_numberVec3(0),
 		m_vec4Values(nullptr), m_numberVec4(0),
 		m_matrix4x4Values(nullptr), m_numberMatrix4x4(0),
-		m_shaderDefineValue(0)
+		m_shaderDefineValue(0), m_shaderVertexAttribDefineValue(0)
 	{
 	}
 
@@ -109,6 +109,24 @@ namespace Liar
 	void ShaderValue::RemoveShaderDefine(Liar::ShaderTypeDefine value)
 	{
 		m_shaderDefineValue &= ~value;
+	}
+
+	/**
+	* 增加Shader顶点宏定义。
+	* @param value 宏定义。
+	*/
+	void ShaderValue::AddShaderVertexAttribDefine(Liar::VertexElementUsage value)
+	{
+		m_shaderVertexAttribDefineValue |= value;
+	}
+
+	/**
+	* 移除Shader宏定义。
+	* @param value 宏定义。
+	*/
+	void ShaderValue::RemoveShaderVertexAttribDefine(Liar::VertexElementUsage value)
+	{
+		m_shaderVertexAttribDefineValue &= ~value;
 	}
 
 	/**

@@ -3,6 +3,7 @@
 #include <math/Vector2.h>
 #include <math/Matrix4x4.h>
 #include <core/resource/shader/ShaderDefine.h>
+#include <core/graphics/VertexElementUsage.h>
 
 namespace Liar
 {
@@ -35,26 +36,31 @@ namespace Liar
 		Liar::Uint m_numberMatrix4x4;
 
 		Liar::Int m_shaderDefineValue;
+		Liar::Int m_shaderVertexAttribDefineValue;		/* 定义顶点属性 */
 
 	public:
-		virtual void AddShaderDefine(Liar::ShaderTypeDefine);
-		virtual void RemoveShaderDefine(Liar::ShaderTypeDefine);
-		virtual void SetMatrix4x4(Liar::ShaderValueDefine, Liar::Matrix4x4*);
-		virtual Liar::Matrix4x4* GetMatrix4x4(Liar::ShaderValueDefine);
-		virtual void SetInt(Liar::ShaderValueDefine, Liar::Int);
-		virtual int GetInt(Liar::ShaderValueDefine) const;
-		virtual void SetFloat(Liar::ShaderValueDefine, Liar::Number);
-		virtual float GetFloat(Liar::ShaderValueDefine) const;
-		virtual void SetBool(Liar::ShaderValueDefine, bool);
-		virtual bool GetBool(Liar::ShaderValueDefine) const;
-		virtual void SetVector2(Liar::ShaderValueDefine, Liar::Vector2*);
-		virtual Liar::Vector2* GetVector2(Liar::ShaderValueDefine);
-		virtual void SetVector3(Liar::ShaderValueDefine, Liar::Vector3*);
-		virtual Liar::Vector3* GetVector3(Liar::ShaderValueDefine);
-		virtual void SetVector4(Liar::ShaderValueDefine, Liar::Vector4*);
-		virtual Liar::Vector4* GetVector4(Liar::ShaderValueDefine);
-		virtual void SetColor(Liar::ShaderValueDefine, Liar::Vector3*);
-		virtual void SetColor(Liar::ShaderValueDefine, Liar::Vector4*);
+		void AddShaderDefine(Liar::ShaderTypeDefine);
+		void RemoveShaderDefine(Liar::ShaderTypeDefine);
+
+		void AddShaderVertexAttribDefine(Liar::VertexElementUsage);
+		void RemoveShaderVertexAttribDefine(Liar::VertexElementUsage);
+
+		void SetMatrix4x4(Liar::ShaderValueDefine, Liar::Matrix4x4*);
+		Liar::Matrix4x4* GetMatrix4x4(Liar::ShaderValueDefine);
+		void SetInt(Liar::ShaderValueDefine, Liar::Int);
+		int GetInt(Liar::ShaderValueDefine) const;
+		void SetFloat(Liar::ShaderValueDefine, Liar::Number);
+		float GetFloat(Liar::ShaderValueDefine) const;
+		void SetBool(Liar::ShaderValueDefine, bool);
+		bool GetBool(Liar::ShaderValueDefine) const;
+		void SetVector2(Liar::ShaderValueDefine, Liar::Vector2*);
+		Liar::Vector2* GetVector2(Liar::ShaderValueDefine);
+		void SetVector3(Liar::ShaderValueDefine, Liar::Vector3*);
+		Liar::Vector3* GetVector3(Liar::ShaderValueDefine);
+		void SetVector4(Liar::ShaderValueDefine, Liar::Vector4*);
+		Liar::Vector4* GetVector4(Liar::ShaderValueDefine);
+		void SetColor(Liar::ShaderValueDefine, Liar::Vector3*);
+		void SetColor(Liar::ShaderValueDefine, Liar::Vector4*);
 
 	private:
 		Liar::Int CalcNumberIndex(Liar::ShaderValueDefine, Liar::Uint&);

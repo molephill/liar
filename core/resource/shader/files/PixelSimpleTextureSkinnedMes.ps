@@ -110,7 +110,7 @@ varying float v_posViewZ;
 void main_castShadow()
 {
 	//FragColor=vec4(v_posViewZ,0.0,0.0,1.0);
-	FragColor=packDepth(v_posViewZ);
+	FragColo r= packDepth(v_posViewZ);
 	#if defined(DIFFUSEMAP)&&defined(ALPHATEST)
 		float alpha = texture2D(u_DiffuseTexture,v_Texcoord0).w;
 		if( alpha < u_AlphaTestValue )
@@ -164,33 +164,33 @@ void main_normal()
 #if defined(DIRECTIONLIGHT)||defined(POINTLIGHT)||defined(SPOTLIGHT)||defined(FOG)||defined(REFLECTMAP)
 	vec3 toEye;
 	#ifdef FOG
-		toEye=u_CameraPos-v_PositionWorld;
-		float toEyeLength=length(toEye);
-		toEye/=toEyeLength;
+		toEye = u_CameraPos - v_PositionWorld;
+		float toEyeLength = length(toEye);
+		toEye /= toEyeLength;
 	#else
-		toEye=normalize(u_CameraPos-v_PositionWorld);
+		toEye = normalize(u_CameraPos-v_PositionWorld);
 	#endif
 #endif
 	
 #ifdef DIRECTIONLIGHT
 	computeDirectionLight(u_MaterialDiffuse,u_MaterialAmbient,u_MaterialSpecular,u_DirectionLight,u_AmbientColor,normal,toEye, dif, amb, spe);
-	diffuse+=dif;
-	ambient+=amb;
-	specular+=spe;
+	diffuse += dif;
+	ambient += amb;
+	specular += spe;
 #endif
  
 #ifdef POINTLIGHT
 	computePointLight(u_MaterialDiffuse,u_MaterialAmbient,u_MaterialSpecular,u_PointLight,u_AmbientColor,v_PositionWorld,normal,toEye, dif, amb, spe);
-	diffuse+=dif;
-	ambient+=amb;
-	specular+=spe;
+	diffuse += dif;
+	ambient += amb;
+	specular += spe;
 #endif
 
 #ifdef SPOTLIGHT
 	ComputeSpotLight(u_MaterialDiffuse,u_MaterialAmbient,u_MaterialSpecular,u_SpotLight,u_AmbientColor,v_PositionWorld,normal,toEye, dif, amb, spe);
-	diffuse+=dif;
-	ambient+=amb;
-	specular+=spe;
+	diffuse += dif;
+	ambient += amb;
+	specular += spe;
 #endif
 
 #ifdef RECEIVESHADOW
@@ -208,59 +208,59 @@ void main_normal()
 
 #ifdef AMBIENTMAP
 	#if defined(DIRECTIONLIGHT)||defined(POINTLIGHT)||defined(SPOTLIGHT)
-		FragColor.rgb=FragColor.rgb*(u_MaterialAmbient+texture2D(u_AmbientTexture, v_LightMapUV).rgb); 
+		FragColor.rgb = FragColor.rgb * (u_MaterialAmbient + texture2D(u_AmbientTexture, v_LightMapUV).rgb); 
 	#else
 		#if defined(RECEIVESHADOW)
-			FragColor.rgb=FragColor.rgb*(u_MaterialAmbient+texture2D(u_AmbientTexture, v_LightMapUV).rgb * shadowValue);
+			FragColor.rgb = FragColor.rgb * (u_MaterialAmbient + texture2D(u_AmbientTexture, v_LightMapUV).rgb * shadowValue);
 		#else
-			FragColor.rgb=FragColor.rgb*(u_MaterialAmbient+texture2D(u_AmbientTexture, v_LightMapUV).rgb); 
+			FragColor.rgb = FragColor.rgb*(u_MaterialAmbient + texture2D(u_AmbientTexture, v_LightMapUV).rgb); 
 		#endif
 	#endif
 #endif
 
 #ifdef LIGHTMAP
 	#if defined(DIRECTIONLIGHT)||defined(POINTLIGHT)||defined(SPOTLIGHT)
-		FragColor.rgb=FragColor.rgb*(u_MaterialAmbient+texture2D(u_LightMap, v_LightMapUV).rgb); 
+		FragColor.rgb = FragColor.rgb * (u_MaterialAmbient + texture2D(u_LightMap, v_LightMapUV).rgb); 
 	#else
 		#if defined(RECEIVESHADOW)
-			FragColor.rgb=FragColor.rgb*(u_MaterialAmbient+texture2D(u_LightMap, v_LightMapUV).rgb * shadowValue);
+			FragColor.rgb = FragColor.rgb * (u_MaterialAmbient + texture2D(u_LightMap, v_LightMapUV).rgb * shadowValue);
 		#else
-			FragColor.rgb=FragColor.rgb*(u_MaterialAmbient+texture2D(u_LightMap, v_LightMapUV).rgb); 
+			FragColor.rgb = FragColor.rgb * (u_MaterialAmbient + texture2D(u_LightMap, v_LightMapUV).rgb); 
 		#endif
 	#endif
 #endif
 
-FragColor=FragColor*u_Albedo;
+FragColor = FragColor * u_Albedo;
 
 #if defined(DIRECTIONLIGHT)||defined(POINTLIGHT)||defined(SPOTLIGHT)
 	#if (defined(DIFFUSEMAP)||defined(COLOR))&&defined(SPECULARMAP)
-		specular =specular*texture2D(u_SpecularTexture, v_Texcoord0).rgb;
+		specular = specular * texture2D(u_SpecularTexture, v_Texcoord0).rgb;
     #endif
 	#ifdef RECEIVESHADOW
-		FragColor =vec4( FragColor.rgb*(ambient + diffuse*shadowValue) + specular*shadowValue,FragColor.a);
+		FragColor = vec4( FragColor.rgb * (ambient + diffuse*shadowValue) + specular * shadowValue,FragColor.a);
 	#else
-		FragColor =vec4( FragColor.rgb*(ambient + diffuse) + specular,FragColor.a);
+		FragColor = vec4( FragColor.rgb * (ambient + diffuse) + specular,FragColor.a);
 	#endif
 #endif
   
 #ifdef REFLECTMAP
 	vec3 incident = -toEye;
-	vec3 reflectionVector = reflect(incident,normal);
-	vec3 reflectionColor  = textureCube(u_ReflectTexture,reflectionVector).rgb;
+	vec3 reflectionVector = reflect(incident, normal);
+	vec3 reflectionColor  = textureCube(u_ReflectTexture, reflectionVector).rgb;
 	FragColor.rgb += u_MaterialReflect*reflectionColor;
 #endif
   
 #ifdef FOG
 	float lerpFact=clamp((toEyeLength-u_FogStart)/u_FogRange,0.0,1.0);
 	#ifdef ADDTIVEFOG
-		FragColor.rgb=mix(FragColor.rgb,vec3(0.0,0.0,0.0),lerpFact);
+		FragColor.rgb = mix(FragColor.rgb, vec3(0.0,0.0,0.0), lerpFact);
 	#else
-		FragColor.rgb=mix(FragColor.rgb,u_FogColor,lerpFact);
+		FragColor.rgb = mix(FragColor.rgb, u_FogColor, lerpFact);
 	#endif
 #endif
 #ifdef DEPTHFOG
-	float lerpFact = (-v_PositionWorld.y-u_FogStart)/u_FogRange;
-	FragColor.rgb=mix(FragColor.rgb,u_FogColor,lerpFact);
+	float lerpFact = (-v_PositionWorld.y - u_FogStart) / u_FogRange;
+	FragColor.rgb = mix(FragColor.rgb, u_FogColor, lerpFact);
 #endif
 }
 

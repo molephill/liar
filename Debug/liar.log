@@ -28,8 +28,8 @@
   RenderState.cpp
   BaseTeture.cpp
   Resource.cpp
-  Shader.cpp
   ShaderCompile.cpp
+  ShaderProgram.cpp
   ShaderValue.cpp
   SolidColorTexture.cpp
   Texture2D.cpp

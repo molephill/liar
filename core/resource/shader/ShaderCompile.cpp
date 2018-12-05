@@ -52,6 +52,10 @@ namespace Liar
 			return "UV1";
 		case Liar::ShaderTypeDefine::SHADERTYPE_DEPTHFOG:
 			return "DEPTHFOG";
+		case Liar::ShaderTypeDefine::SHADERTYPE_RECEIVE_SHADOW:
+			return "RECEIVE_SHADOW";
+		case Liar::ShaderTypeDefine::SHADERTYPE_CAST_SHADOW:
+			return "CAST_SHADOW";
 		default:
 			return nullptr;
 		}

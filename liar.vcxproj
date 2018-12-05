@@ -150,8 +150,8 @@
     <ClCompile Include="core\render\RenderState.cpp" />
     <ClCompile Include="core\resource\BaseTeture.cpp" />
     <ClCompile Include="core\resource\Resource.cpp" />
-    <ClCompile Include="core\resource\shader\Shader.cpp" />
     <ClCompile Include="core\resource\shader\ShaderCompile.cpp" />
+    <ClCompile Include="core\resource\shader\ShaderProgram.cpp" />
     <ClCompile Include="core\resource\shader\ShaderValue.cpp" />
     <ClCompile Include="core\resource\SolidColorTexture.cpp" />
     <ClCompile Include="core\resource\Texture2D.cpp" />
@@ -201,9 +201,9 @@
     <ClInclude Include="include\core\render\StageContext.h" />
     <ClInclude Include="include\core\resource\BaseTexture.h" />
     <ClInclude Include="include\core\resource\Resource.h" />
-    <ClInclude Include="include\core\resource\shader\Shader.h" />
     <ClInclude Include="include\core\resource\shader\ShaderCompile.h" />
     <ClInclude Include="include\core\resource\shader\ShaderDefine.h" />
+    <ClInclude Include="include\core\resource\shader\ShaderProgram.h" />
     <ClInclude Include="include\core\resource\shader\ShaderValue.h" />
     <ClInclude Include="include\core\resource\SolidColorTexture2D.h" />
     <ClInclude Include="include\core\resource\Textrue2D.h" />

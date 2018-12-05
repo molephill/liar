@@ -19,7 +19,7 @@ float unpackDepth(const in vec4 rgbaDepth)
 }
 float tex2DPCF( sampler2D shadowMap,vec2 texcoord,vec2 invsize,float zRef )
 {
-	vec2 texelpos =texcoord / invsize;
+	vec2 texelpos = texcoord / invsize;
 	vec2 lerps = fract( texelpos );
 	float sourcevals[4];
 	sourcevals[0] = float( unpackDepth(texture2D(shadowMap,texcoord)) > zRef );
