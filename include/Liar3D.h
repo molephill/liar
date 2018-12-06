@@ -3,6 +3,7 @@
 #include <LiarType.h>
 #include <core/display/Stage.hpp>
 #include <core/render/StageContext.h>
+#include <core/resource/shader/ShaderCompile.h>
 #include <core/render/RenderState.h>
 #include <core/models/GeometryFactory.h>
 
@@ -28,6 +29,8 @@ namespace Liar
 		static Liar::StageContext* stageContext;
 		static Liar::RenderState* renderState;
 		static Liar::GeometryFactory* geometryFactory;
+		static Liar::ShaderCompile* shaderCompile;
+		static const char* basePath;
 
 	public:
 		static void Init(Liar::Int w = Liar::WINDOW_W, Liar::Int h = Liar::WINDOW_H, const Liar::Char* title = "LiarOpenGL");

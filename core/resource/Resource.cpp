@@ -7,7 +7,7 @@ namespace Liar
 		m_id(++__uniqueIDCounter),
 		m_memorySize(0),
 		m_released(true), m_destroyed(false),
-		m_lock(false), m_loaded(true), m_refrenceCount(1)
+		m_lock(false), m_loaded(true), m_refrenceCount(0)
 	{}
 
 	Resource::~Resource()

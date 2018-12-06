@@ -30,8 +30,8 @@ e:\c++\liar\liar\debug\main.obj
 e:\c++\liar\liar\debug\texture2d.obj
 e:\c++\liar\liar\debug\solidcolortexture.obj
 e:\c++\liar\liar\debug\shadervalue.obj
+e:\c++\liar\liar\debug\shaderprogram.obj
 e:\c++\liar\liar\debug\shadercompile.obj
-e:\c++\liar\liar\debug\shader.obj
 e:\c++\liar\liar\debug\resource.obj
 e:\c++\liar\liar\debug\baseteture.obj
 e:\c++\liar\liar\debug\renderstate.obj
@@ -42,8 +42,8 @@ e:\c++\liar\liar\debug\basecamera.obj
 e:\c++\liar\liar\debug\mesh.obj
 e:\c++\liar\liar\debug\viewport.obj
 e:\c++\liar\liar\debug\glad.obj
-e:\c++\liar\debug\liar.ilk
 e:\c++\liar\debug\liar.exe
+e:\c++\liar\debug\liar.ilk
 e:\c++\liar\debug\liar.pdb
 e:\c++\liar\liar\debug\liar.tlog\cl.command.1.tlog
 e:\c++\liar\liar\debug\liar.tlog\cl.read.1.tlog

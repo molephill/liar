@@ -1,49 +1,12 @@
-﻿  EventDispatcher.cpp
-  Node.cpp
-  Scene.cpp
+﻿  Liar3D.cpp
   Stage.cpp
-  Transform3D.cpp
-  TransformNode.cpp
-  IRawVertexBuffers.cpp
-  RawVertexBuffersPositionNormalTexture.cpp
   VertexBufferPositionNormalTexture.cpp
-  VertexFactory.cpp
-  Liar3D.cpp
-  BaseLight.cpp
-  DirectionLight.cpp
-  PointLight.cpp
-  SpotLight.cpp
   BaseMaterial.cpp
-  StandardMaterial.cpp
-  BoxGeometry.cpp
-  Geometry.cpp
-  GeometryFactory.cpp
-  正在生成代码...
-  正在编译...
   Mesh.cpp
-  BaseCamera.cpp
-  BaseRender.cpp
-  Camera.cpp
-  RenderQueue.cpp
-  RenderState.cpp
+  Geometry.cpp
   BaseTeture.cpp
-  Resource.cpp
-  ShaderCompile.cpp
-  ShaderProgram.cpp
-  ShaderValue.cpp
-  SolidColorTexture.cpp
   Texture2D.cpp
+  ShaderCompile.cpp
   main.cpp
-  MathUtils.cpp
-  Matrix3x3.cpp
-  Matrix4x4.cpp
-  Quaternion.cpp
-  Vector3.cpp
-  Vector4.cpp
   正在生成代码...
-  正在编译...
-  Viewport.cpp
-  正在生成代码...
-  glad.c
-LINK : warning LNK4098: 默认库“MSVCRT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
   liar.vcxproj -> E:\c++\liar\Debug\liar.exe

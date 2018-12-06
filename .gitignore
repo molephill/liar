@@ -5,3 +5,4 @@
 *.tlog
 *.obj
 *.log
+core/resource/shader/files/test.ps

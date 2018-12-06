@@ -45,6 +45,12 @@ namespace Liar
 		Liar3D::stageContext = new Liar::StageContext();
 		Liar3D::renderState = new Liar::RenderState();
 		Liar3D::stage = new Liar::Stage(w, h);
+		Liar::Liar3D::shaderCompile = new Liar::ShaderCompile();
+
+#ifdef __APPLE__
+#else
+		Liar3D::basePath = "E:/c++/liar/liar/core/";
+#endif
 	}
 
 	bool Liar3D::Run(bool runStatus)
@@ -104,6 +110,12 @@ namespace Liar
 			Liar::Liar3D::renderState = nullptr;
 		}
 
+		if (Liar::Liar3D::shaderCompile)
+		{
+			delete Liar::Liar3D::shaderCompile;
+			Liar::Liar3D::shaderCompile = nullptr;
+		}
+
 		glfwTerminate();
 		Liar::Liar3D::m_window = nullptr;
 	}
@@ -112,7 +124,9 @@ namespace Liar
 	Liar::StageContext* Liar3D::stageContext = nullptr;
 	Liar::GeometryFactory* Liar3D::geometryFactory = nullptr;
 	Liar::RenderState* Liar3D::renderState = nullptr;
+	Liar::ShaderCompile* Liar3D::shaderCompile = nullptr;
 	GLFWwindow* Liar3D::m_window = nullptr;
+	const char* Liar3D::basePath = nullptr;
 }
 
 // ÅÐ¶ÏÊÇ·ñÔÚÆÁÄ»ÄÚ

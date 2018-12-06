@@ -1,4 +1,8 @@
+
+#ifdef DEBUG
 #include "vld.h" 
+#endif // DEBUG
+
 #include <Liar3D.h>
 #include <core/display/Scene.h>
 #include <core/render/Camera.h>
@@ -18,6 +22,10 @@ int main() {
 
 	Liar::Mesh* mesh = new Liar::Mesh(Liar::GeometryType::GEOMETRY_TYPE_BOX);
 	scene->AddChild(mesh);
+
+	std::string head = Liar::Liar3D::shaderCompile->LoadGLSL("E:/c++/liar/liar/core/resource/shader/files/PixelSimpleTextureSkinnedMes.ps");
+
+	std::cout << head << std::endl;
 
 	Liar::Liar3D::Run();
 

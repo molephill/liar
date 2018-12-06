@@ -218,12 +218,7 @@
     <ClInclude Include="include\math\Vector3.h" />
     <ClInclude Include="include\math\Vector4.h" />
     <ClInclude Include="include\math\Viewport.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="core\resource\shader\files\LightHelper.glsl" />
-    <None Include="core\resource\shader\files\PixelSimpleTextureSkinnedMes.ps" />
-    <None Include="core\resource\shader\files\PixelSimpleTextureSkinnedMes.vs" />
-    <None Include="core\resource\shader\files\ShadowHelper.glsl" />
+    <ClInclude Include="include\utils\StringParse.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

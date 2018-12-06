@@ -50,7 +50,7 @@ namespace Liar
 		void SetMat4(const std::string&, const Liar::Matrix4x4&) const;
 
 	private:
-		void CheckCompileErrors(Liar::Uint, GLSLShaderType);
+		void CheckCompileErrors(Liar::Uint, GLSLShaderTypeDefine);
 		void LinkProgram(const char*, const char*);
 		std::string LoadGLSL(const char*);
 	};

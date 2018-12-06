@@ -58,6 +58,56 @@ namespace Liar
 			}
 		}
 
+		static void SplitHeadAndLast(const std::string& name, std::string& head, std::string& last, const char* split = ".")
+		{
+			std::string::size_type pos = name.find(split);
+			if (pos != std::string::npos)
+			{
+				head = name.substr(0, pos);
+				last = name.substr(pos + 1);
+			}
+		}
+
+		static std::string Replace(const std::string& name, const char* rePtr, const char* ptr = "")
+		{
+			std::string tmp2 = name;
+			std::string::size_type pos = tmp2.find(rePtr);
+			while (pos != std::string::npos)
+			{
+				tmp2 = tmp2.replace(pos, 1, ptr);
+				pos = tmp2.find(rePtr);
+			}
+			return tmp2;
+		}
+
+		/*
+		* 获得范围内的数据
+		*/
+		static std::string GetRange(const std::string& name, std::string& last, const char* ptr = "\"")
+		{
+			std::string tmp2;
+			std::string::size_type pos = name.find(ptr);
+			if(pos != std::string::npos)
+			{
+				tmp2 = name.substr(pos + 1);
+				pos = tmp2.find(ptr);
+				if (pos != std::string::npos)
+				{
+					last = tmp2.substr(pos + 1);
+					last = last.replace(pos, 1, ptr);
+					return tmp2.substr(0, pos);
+				}
+				else
+				{
+					return "";
+				}
+			}
+			else
+			{
+				return "";
+			}
+		}
+
 		static void StringToUpper(std::string& name)
 		{
 			std::transform(name.begin(), name.end(), name.begin(), ::toupper);

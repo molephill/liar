@@ -85,8 +85,11 @@
     <Filter Include="头文件\core\material">
       <UniqueIdentifier>{8a1dd101-657f-461f-94a1-11180d8fdf32}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\core\resource\shader\files">
-      <UniqueIdentifier>{24c9465a-f372-4fc8-99c6-ea2e506ed33e}</UniqueIdentifier>
+    <Filter Include="头文件\utils">
+      <UniqueIdentifier>{1fba2ba8-35eb-4b7e-89d9-3400c55571bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\utils">
+      <UniqueIdentifier>{f801e564-f52e-4b13-9306-4c15ec3c66f2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -374,19 +377,8 @@
     <ClInclude Include="include\core\resource\shader\ShaderProgram.h">
       <Filter>头文件\core\resource\shader</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="core\resource\shader\files\LightHelper.glsl">
-      <Filter>头文件\core\resource\shader\files</Filter>
-    </None>
-    <None Include="core\resource\shader\files\PixelSimpleTextureSkinnedMes.ps">
-      <Filter>头文件\core\resource\shader\files</Filter>
-    </None>
-    <None Include="core\resource\shader\files\PixelSimpleTextureSkinnedMes.vs">
-      <Filter>头文件\core\resource\shader\files</Filter>
-    </None>
-    <None Include="core\resource\shader\files\ShadowHelper.glsl">
-      <Filter>头文件\core\resource\shader\files</Filter>
-    </None>
+    <ClInclude Include="include\utils\StringParse.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
