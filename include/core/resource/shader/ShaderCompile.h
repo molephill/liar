@@ -36,7 +36,7 @@ namespace Liar
 		std::string ParseInclude(std::string);
 
 	public:
-		std::string LoadGLSL(const char*, bool parseInclude = true);
+		std::string LoadGLSL(const char*);
 	};
 }
 

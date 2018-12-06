@@ -6,3 +6,10 @@
 *.obj
 *.log
 core/resource/shader/files/test.ps
+*.tlog
+*.idb
+*.log
+*.tlog
+*.obj
+*.idb
+*.pdb

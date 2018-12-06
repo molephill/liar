@@ -78,9 +78,7 @@ namespace Liar
 				tmp0 += "resource/shader/files/";
 				tmp0 += tmp2;
 
-				tmp0 = LoadGLSL(tmp0.c_str(), false);
-
-				AddShaderContent(tmp2, tmp0);
+				tmp0 = LoadGLSL(tmp0.c_str());
 				content = head + tmp0 + tmp1;
 			}
 			else
@@ -92,34 +90,37 @@ namespace Liar
 		}
 	}
 
-	std::string ShaderCompile::LoadGLSL(const char* path, bool parseInclude)
+	std::string ShaderCompile::LoadGLSL(const char* path)
 	{
-		std::ifstream shaderFile;
-		shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-		try
+		std::string shaderName = Liar::StringParse::GetLast(path, "/");
+		Liar::ShaderContent* shaderContent = GetShaderContent(shaderName.c_str);
+		if (shaderContent)
 		{
-			// open files
-			shaderFile.open(path);
-			std::stringstream shaderStream;
-			// read file's buffer contents into streams
-			shaderStream << shaderFile.rdbuf();
-			// close file handlers
-			shaderFile.close();
-			// convert stream into string
-			if (parseInclude)
-			{
-				// parse include
-				return ParseInclude(shaderStream.str());
-			}
-			else
-			{
-				return shaderStream.str();
-			}
+			return shaderContent->content;
 		}
-		catch (std::ifstream::failure e)
+		else
 		{
-			std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
-			return "";
+			std::ifstream shaderFile;
+			shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+			try
+			{
+				// open files
+				shaderFile.open(path);
+				std::stringstream shaderStream;
+				// read file's buffer contents into streams
+				shaderStream << shaderFile.rdbuf();
+				// close file handlers
+				shaderFile.close();
+				// convert stream into string
+				std::string shaderContent = ParseInclude(shaderStream.str());
+				AddShaderContent(shaderName, shaderContent);
+				return shaderContent;
+			}
+			catch (std::ifstream::failure e)
+			{
+				std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+				return "";
+			}
 		}
 	}
 

@@ -1,12 +1,2 @@
-﻿  Liar3D.cpp
-  Stage.cpp
-  VertexBufferPositionNormalTexture.cpp
-  BaseMaterial.cpp
-  Mesh.cpp
-  Geometry.cpp
-  BaseTeture.cpp
-  Texture2D.cpp
-  ShaderCompile.cpp
-  main.cpp
-  正在生成代码...
+﻿  ShaderCompile.cpp
   liar.vcxproj -> E:\c++\liar\Debug\liar.exe
