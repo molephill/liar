@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>E:\c++\liar\liar\_common\glad\include;E:\c++\liar\liar\_win_opengl\glew-1.11.0\include\GL;E:\c++\liar\liar\_win_opengl\gflw-3.2.1\glfw-3.2.1.bin.WIN32\include;E:\c++\liar\liar\include;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\c++\liar\liar\_win_opengl\glew-1.11.0\lib\Release\Win32;E:\c++\liar\liar\_win_opengl\gflw-3.2.1\glfw-3.2.1.bin.WIN32\lib-vc2015;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\c++\VSOpenGL\OpenGL\glad\include;D:\InitTools\OpenGL\win\gflw-3.2.1\glfw-3.2.1.bin.WIN32\include;E:\c++\VSOpenGL\OpenGL\stb_load;E:\c++\liar\liar\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\InitTools\OpenGL\win\gflw-3.2.1\glfw-3.2.1.bin.WIN32\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -163,6 +163,7 @@
     <ClCompile Include="math\Vector3.cpp" />
     <ClCompile Include="math\Vector4.cpp" />
     <ClCompile Include="math\Viewport.cpp" />
+    <ClCompile Include="utils\URL.cpp" />
     <ClCompile Include="_common\glad\src\glad.c" />
   </ItemGroup>
   <ItemGroup>
@@ -219,6 +220,7 @@
     <ClInclude Include="include\math\Vector4.h" />
     <ClInclude Include="include\math\Viewport.h" />
     <ClInclude Include="include\utils\StringParse.h" />
+    <ClInclude Include="include\utils\URL.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

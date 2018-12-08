@@ -219,6 +219,9 @@
     <ClCompile Include="core\resource\shader\ShaderProgram.cpp">
       <Filter>源文件\core\resource\shader</Filter>
     </ClCompile>
+    <ClCompile Include="utils\URL.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\math\Matrix3x3.h">
@@ -378,6 +381,9 @@
       <Filter>头文件\core\resource\shader</Filter>
     </ClInclude>
     <ClInclude Include="include\utils\StringParse.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\URL.h">
       <Filter>头文件\utils</Filter>
     </ClInclude>
   </ItemGroup>

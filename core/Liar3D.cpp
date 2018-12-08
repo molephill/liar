@@ -12,7 +12,7 @@ namespace Liar
 	{
 		glfwInit();
 
-		glfwWindowHint(GLFW_SAMPLES, 4);
+		//glfwWindowHint(GLFW_SAMPLES, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 #ifdef __APPLE__
@@ -41,15 +41,17 @@ namespace Liar
 		glfwSetCursorPosCallback(window, mouse_callback);
 		glfwSetScrollCallback(window, scroll_callback);
 
-		Liar3D::geometryFactory = new Liar::GeometryFactory();
-		Liar3D::stageContext = new Liar::StageContext();
-		Liar3D::renderState = new Liar::RenderState();
-		Liar3D::stage = new Liar::Stage(w, h);
+		Liar::Liar3D::geometryFactory = new Liar::GeometryFactory();
+		Liar::Liar3D::stageContext = new Liar::StageContext();
+		Liar::Liar3D::renderState = new Liar::RenderState();
+		Liar::Liar3D::stage = new Liar::Stage(w, h);
 		Liar::Liar3D::shaderCompile = new Liar::ShaderCompile();
+		Liar::Liar3D::urlFormat = new Liar::URL();
 
 #ifdef __APPLE__
 #else
-		Liar3D::basePath = "E:/c++/liar/liar/core/";
+		Liar::Liar3D::urlFormat->basePath = "E:\\c++\\liar\\liar\\core\\";
+		Liar::Liar3D::urlFormat->baseshaderFolder = "resource\\shader\\files\\";
 #endif
 	}
 
@@ -116,6 +118,12 @@ namespace Liar
 			Liar::Liar3D::shaderCompile = nullptr;
 		}
 
+		if (Liar::Liar3D::urlFormat)
+		{
+			delete Liar::Liar3D::urlFormat;
+			Liar::Liar3D::urlFormat = nullptr;
+		}
+
 		glfwTerminate();
 		Liar::Liar3D::m_window = nullptr;
 	}
@@ -125,8 +133,8 @@ namespace Liar
 	Liar::GeometryFactory* Liar3D::geometryFactory = nullptr;
 	Liar::RenderState* Liar3D::renderState = nullptr;
 	Liar::ShaderCompile* Liar3D::shaderCompile = nullptr;
+	Liar::URL* Liar3D::urlFormat = nullptr;
 	GLFWwindow* Liar3D::m_window = nullptr;
-	const char* Liar3D::basePath = nullptr;
 }
 
 // ÅÐ¶ÏÊÇ·ñÔÚÆÁÄ»ÄÚ

@@ -94,7 +94,8 @@ namespace Liar
 				if (pos != std::string::npos)
 				{
 					last = tmp2.substr(pos + 1);
-					last = last.replace(pos, 1, ptr);
+					std::string::size_type semicolonPos = last.find(";");
+					if (semicolonPos == 0) last = last.replace(semicolonPos, 1, "");
 					return tmp2.substr(0, pos);
 				}
 				else

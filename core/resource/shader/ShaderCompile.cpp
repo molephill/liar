@@ -74,11 +74,7 @@ namespace Liar
 			Liar::ShaderContent* tmp = GetShaderContent(tmp2.c_str());
 			if (!tmp)
 			{
-				tmp0 = Liar::Liar3D::basePath;
-				tmp0 += "resource/shader/files/";
-				tmp0 += tmp2;
-
-				tmp0 = LoadGLSL(tmp0.c_str());
+				tmp0 = LoadGLSL(tmp2.c_str());
 				content = head + tmp0 + tmp1;
 			}
 			else
@@ -92,8 +88,7 @@ namespace Liar
 
 	std::string ShaderCompile::LoadGLSL(const char* path)
 	{
-		std::string shaderName = Liar::StringParse::GetLast(path, "/");
-		Liar::ShaderContent* shaderContent = GetShaderContent(shaderName.c_str);
+		Liar::ShaderContent* shaderContent = GetShaderContent(path);
 		if (shaderContent)
 		{
 			return shaderContent->content;
@@ -104,8 +99,10 @@ namespace Liar
 			shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 			try
 			{
+				// formatURL
+				std::string formatPath = Liar::Liar3D::urlFormat->ForamtShaderURL(path);
 				// open files
-				shaderFile.open(path);
+				shaderFile.open(formatPath);
 				std::stringstream shaderStream;
 				// read file's buffer contents into streams
 				shaderStream << shaderFile.rdbuf();
@@ -113,7 +110,7 @@ namespace Liar
 				shaderFile.close();
 				// convert stream into string
 				std::string shaderContent = ParseInclude(shaderStream.str());
-				AddShaderContent(shaderName, shaderContent);
+				AddShaderContent(path, shaderContent);
 				return shaderContent;
 			}
 			catch (std::ifstream::failure e)

@@ -6,6 +6,7 @@
 #include <core/resource/shader/ShaderCompile.h>
 #include <core/render/RenderState.h>
 #include <core/models/GeometryFactory.h>
+#include <utils/URL.h>
 
 namespace Liar
 {
@@ -30,7 +31,7 @@ namespace Liar
 		static Liar::RenderState* renderState;
 		static Liar::GeometryFactory* geometryFactory;
 		static Liar::ShaderCompile* shaderCompile;
-		static const char* basePath;
+		static Liar::URL* urlFormat;
 
 	public:
 		static void Init(Liar::Int w = Liar::WINDOW_W, Liar::Int h = Liar::WINDOW_H, const Liar::Char* title = "LiarOpenGL");
