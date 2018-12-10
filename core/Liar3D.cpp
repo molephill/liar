@@ -12,7 +12,7 @@ namespace Liar
 	{
 		glfwInit();
 
-		//glfwWindowHint(GLFW_SAMPLES, 4);
+		glfwWindowHint(GLFW_SAMPLES, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 #ifdef __APPLE__
@@ -55,35 +55,35 @@ namespace Liar
 #endif
 	}
 
-	bool Liar3D::Run(bool runStatus)
+	void Liar3D::Run()
 	{
-		if (!runStatus) return false;
-
-		GLFWwindow* window = Liar::Liar3D::m_window;
 		bool run = true;
-		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		GLFWwindow* window = Liar::Liar3D::m_window;
+		while (run)
 		{
-			glfwSetWindowShouldClose(window, true);
+			if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+			{
+				glfwSetWindowShouldClose(window, true);
+			}
+
+			if (!glfwWindowShouldClose(window))
+			{
+				glfwSwapBuffers(window);
+				glfwPollEvents();
+
+				Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
+				Liar::RenderState& state = *(Liar::Liar3D::renderState);
+
+				run = Liar::Liar3D::stage->OnEnterFrame(gl, state);
+
+			}
+			else
+			{
+				glfwSetWindowShouldClose(window, true);
+				Liar::Liar3D::Destroy();
+				run = false;
+			}
 		}
-
-		if (!glfwWindowShouldClose(window))
-		{
-			glfwSwapBuffers(window);
-			glfwPollEvents();
-
-			Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
-			Liar::RenderState& state = *(Liar::Liar3D::renderState);
-
-			run = Liar::Liar3D::stage->OnEnterFrame(gl, state);
-
-		}
-		else
-		{
-			glfwSetWindowShouldClose(window, true);
-			Liar::Liar3D::Destroy();
-			run = false;
-		}
-		return Run(run);
 	}
 
 	void Liar3D::Destroy()

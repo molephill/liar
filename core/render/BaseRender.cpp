@@ -4,7 +4,7 @@
 namespace Liar
 {
 	BaseRender::BaseRender():
-		Liar::EventDispatcher()
+		Liar::Resource()
 	{
 	}
 

@@ -3,7 +3,10 @@
 
 namespace Liar
 {
-	URL::URL()
+	URL::URL():
+		basePath(nullptr),
+		baseshaderFolder(nullptr),
+		baseSourceFolder(nullptr)
 	{
 	}
 

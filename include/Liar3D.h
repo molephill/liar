@@ -35,6 +35,6 @@ namespace Liar
 
 	public:
 		static void Init(Liar::Int w = Liar::WINDOW_W, Liar::Int h = Liar::WINDOW_H, const Liar::Char* title = "LiarOpenGL");
-		static bool Run(bool run = true);
+		static void Run();
 	};	
 }
