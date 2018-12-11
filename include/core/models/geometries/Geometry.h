@@ -1,14 +1,13 @@
 #pragma once
 
 #include <core/resource/Resource.h>
-#include <core/render/IRenderable.h>
 #include <core/graphics/IVertexBuffer.h>
 #include <core/graphics/raws/IRawVertexBuffers.h>
 
 
 namespace Liar
 {
-	class Geometry :public Liar::Resource, public Liar::IRenderable
+	class Geometry :public Liar::Resource
 	{
 	public:
 		Geometry(GLenum type = GL_ARRAY_BUFFER);
@@ -40,10 +39,6 @@ namespace Liar
 
 	public:
 		virtual void GenAndBindVertex();
-		virtual size_t GetRenderElementsCount();
-		virtual const Liar::IRenderable* GetRenderElement(size_t) const;
-		virtual void BeforeRender(Liar::RenderState&);
-		virtual bool Render(Liar::StageContext& gl, Liar::RenderState& state);
 		virtual size_t GetNumberTriangles();
 		virtual Liar::IVertexBuffer* GetVertexBuff(size_t);
 	};

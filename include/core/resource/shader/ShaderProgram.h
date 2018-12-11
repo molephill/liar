@@ -25,7 +25,7 @@ namespace Liar
 		Liar::Uint m_programId;
 
 	public:
-		void Load(const char*, const char*);
+		void LinkProgram(const char*, const char*);
 		Liar::Uint GetProgramId() { return m_programId; };
 
 		void Use();
@@ -51,8 +51,6 @@ namespace Liar
 
 	private:
 		void CheckCompileErrors(Liar::Uint, GLSLShaderTypeDefine);
-		void LinkProgram(const char*, const char*);
-		std::string LoadGLSL(const char*);
 	};
 }
 

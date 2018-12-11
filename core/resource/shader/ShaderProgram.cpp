@@ -19,13 +19,6 @@ namespace Liar
 		}
 	}
 
-	void ShaderProgram::Load(const char* vertexFile, const char* fragmentFile)
-	{
-		std::string vertex = LoadGLSL(vertexFile);
-		std::string fragment = LoadGLSL(fragmentFile);
-		LinkProgram(vertex.c_str(), fragment.c_str());
-	}
-
 	void ShaderProgram::LinkProgram(const char* vShaderCode, const char * fShaderCode)
 	{
 		// 2. compile shaders
@@ -77,29 +70,6 @@ namespace Liar
 				glGetProgramInfoLog(shader, 512, NULL, infoLog);
 				std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
 			}
-		}
-	}
-
-	std::string ShaderProgram::LoadGLSL(const char* path)
-	{
-		std::ifstream shaderFile;
-		shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-		try
-		{
-			// open files
-			shaderFile.open(path);
-			std::stringstream shaderStream;
-			// read file's buffer contents into streams
-			shaderStream << shaderFile.rdbuf();
-			// close file handlers
-			shaderFile.close();
-			// convert stream into string
-			return shaderStream.str();
-		}
-		catch (std::ifstream::failure e)
-		{
-			std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
-			return "";
 		}
 	}
 

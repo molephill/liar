@@ -13,15 +13,14 @@ namespace Liar
 		~Transform3D();
 
 	private:
-		Liar::Vector3* m_localPosition;
-		Liar::Quaternion* m_localRotation;
-		Liar::Vector3* m_localScale;
-		Liar::Matrix4x4* m_localMatrix;
+		Liar::Vector3* m_position;
+		Liar::Quaternion* m_rotation;
+		Liar::Vector3* m_scale;
+		Liar::Matrix4x4* m_matrix;
+		Liar::Matrix4x4* m_worldMatrix;
+		Liar::Matrix4x4* m_projectViewMatrix;
 
 		Liar::Transform3D* m_parent;
-		Liar::Transform3D** m_childs;
-		Liar::Uint m_numberChild;
-
 		Liar::Vector3* m_pivot;
 
 		bool m_transformChanged;
@@ -42,12 +41,14 @@ namespace Liar
 		void SetScale(const Liar::Vector3& rhs);
 		void SetScale(Liar::Number x, Liar::Number y, Liar::Number z);
 
+		void SetParent(Liar::Transform3D* parent);
+
 		bool IsFrontFaceInvert();
 
-		Liar::Vector3& GetPosition() const { return *m_localPosition; };
-		Liar::Quaternion& GetRotation() const { return *m_localRotation; };
-		Liar::Vector3& GetScale() const { return *m_localScale; };
-		Liar::Matrix4x4& GetMatrix() const { return *m_localMatrix; };
+		Liar::Vector3& GetPosition() const { return *m_position; };
+		Liar::Quaternion& GetRotation() const { return *m_rotation; };
+		Liar::Vector3& GetScale() const { return *m_scale; };
+		Liar::Matrix4x4& GetMatrix() const { return *m_matrix; };
 		bool GetTransformChanged() const { return m_transformChanged; };
 		/**
 		* 观察目标位置。

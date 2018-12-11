@@ -95,31 +95,8 @@ namespace Liar
 		return m_vertices[index];
 	}
 
-	size_t Geometry::GetRenderElementsCount()
-	{
-		return 1;
-	}
-
-	const Liar::IRenderable* Geometry::GetRenderElement(size_t) const
-	{
-		return this;
-	}
-
-	void Geometry::BeforeRender(Liar::RenderState&)
-	{
-		Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
-		gl.BindVertexArray(m_vertexArray);
-	}
-
 	Liar::Uint Geometry::GetNumberTriangles() 
 	{
 		return m_numberIndices / 3;
-	}
-
-	bool Geometry::Render(Liar::StageContext& gl, Liar::RenderState&)
-	{
-		gl.DrawElements(GL_TRIANGLES, m_numberIndices, GL_UNSIGNED_INT, 0);
-		gl.BindVertexArray(0);
-		return true;
 	}
 }

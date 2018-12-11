@@ -1,6 +1,6 @@
 #pragma once
 
-#include <core/display/TransformNode.h>
+#include <core/display/Node.h>
 #include <math/Viewport.h>
 #include <core/render/RenderState.h>
 #include <core/render/StageContext.h>
@@ -15,7 +15,7 @@ namespace Liar
 		CLEARFLAG_DEPTHONLY
 	};
 
-	class BaseCamera:public TransformNode
+	class BaseCamera:public Liar::Node
 	{
 	public:
 		BaseCamera(Liar::Number nearPlane = 0.1f, Liar::Number farPlane = 1000.0f);

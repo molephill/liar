@@ -1,4 +1,5 @@
 #include <core/display/Node.h>
+#include <Liar3D.h>
 
 namespace Liar
 {
@@ -6,7 +7,8 @@ namespace Liar
 		Liar::EventDispatcher(),
 		m_bits(0), m_numberChild(0), m_childs(nullptr),
 		m_parent(nullptr), m_name(nullptr), m_destroyed(false),
-		m_visible(true)
+		m_visible(true), m_transform3D(new Liar::Transform3D()),
+		m_material(nullptr)
 	{
 	}
 
@@ -36,8 +38,7 @@ namespace Liar
 		for (Liar::Uint i = startIndex; i < max; ++i)
 		{
 			if (calcLen > len) break;
-			Liar::Node* node = m_childs[i];
-			if (destroy) node->~Node();
+			if (destroy) delete m_childs[i];
 			m_childs[i] = m_childs[replaceIndex++];
 		}
 
@@ -46,7 +47,7 @@ namespace Liar
 			replaceIndex = startIndex + len;
 			for (Liar::Uint i = replaceIndex; i < max; ++i)
 			{
-				free(m_childs[i]);
+				delete m_childs[i];
 				m_childs[i] = nullptr;
 			}
 		}
@@ -81,7 +82,7 @@ namespace Liar
 		startIndex = std::min(m_numberChild - 1, startIndex);
 		for (Liar::Uint i = m_numberChild - 1; i == startIndex; --i)
 		{
-			if (destroy) m_childs[i]->~Node();
+			if (destroy) delete m_childs[i];
 			m_childs[i] = nullptr;
 			free(m_childs[i]);
 		}
@@ -137,7 +138,7 @@ namespace Liar
 		if (node)
 		{
 			SpliceChild(index, 1, false);
-			node->m_parent = nullptr;
+			node->SetParent(nullptr);
 		}
 		return node;
 	}
@@ -156,7 +157,7 @@ namespace Liar
 			endIndex = std::min(endIndex, static_cast<Liar::Int>(m_numberChild));
 			for (Liar::Int i = beginIndex; i < endIndex; ++i)
 			{
-				m_childs[i]->m_parent = nullptr;
+				m_childs[i]->SetParent(nullptr);
 			}
 			SpliceChild(beginIndex, endIndex, false);
 		}
@@ -184,7 +185,7 @@ namespace Liar
 		{
 			if (node->m_parent) node->m_parent->RemoveChild(node);
 			SpliceChild(m_numberChild, node);
-			node->m_parent = this;
+			node->SetParent(this);
 			ChildChange();
 		}
 		return node;
@@ -212,7 +213,7 @@ namespace Liar
 			{
 				if (node->m_parent) node->m_parent->RemoveChild(node);
 				SpliceChild(index, node);
-				node->m_parent = this;
+				node->SetParent(this);
 			}
 			return node;
 		}
@@ -237,6 +238,15 @@ namespace Liar
 		}
 		m_childs = nullptr;
 		m_parent = nullptr;
+
+		delete m_transform3D;
+		m_transform3D = nullptr;
+
+		if (m_material)
+		{
+			m_material->ReduceRefrence();
+			m_material = nullptr;
+		}
 		return true;
 	}
 
@@ -302,8 +312,8 @@ namespace Liar
 		if (index > -1)
 		{
 			m_childs[index] = newNode;
-			oldNode->m_parent = nullptr;
-			newNode->m_parent = this;
+			oldNode->SetParent(nullptr);
+			newNode->SetParent(this);
 			return newNode;
 		}
 		return nullptr;
@@ -339,6 +349,7 @@ namespace Liar
 				m_parent->ChildChange();
 				if (!node->GetVisible()) DisplayChild(this, false);
 			}
+			node->m_transform3D->SetParent(m_transform3D);
 			m_parent = node;
 		}
 	}
@@ -369,5 +380,30 @@ namespace Liar
 			}
 			node->SetVisible(display);
 		}
+	}
+
+	Liar::RenderUnit* Node::GetRenderUint(Liar::RenderState& state)
+	{
+		Liar::RenderUnit* unit = Liar::Liar3D::rendering->PopRenderUnit();
+		unit->material = m_material;
+		unit->transform = m_transform3D;
+		return unit;
+	}
+
+	Liar::Int Node::CollectRenderUint(Liar::RenderState& state)
+	{
+		m_transform3D->CalclateTransformation();
+		return CollectChildrenRenderUint(state);
+	}
+
+	Liar::Int Node::CollectChildrenRenderUint(Liar::RenderState& state)
+	{
+		Liar::Int count = 0;
+		for (size_t i = 0; i < m_numberChild; ++i)
+		{
+			Liar::Liar3D::rendering->AddRenderUnit(m_childs[i]->GetRenderUint(state));
+			count += m_childs[i]->CollectRenderUint(state) + 1;
+		}
+		return count;
 	}
 }

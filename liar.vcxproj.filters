@@ -123,9 +123,6 @@
     <ClCompile Include="core\light\SpotLight.cpp">
       <Filter>源文件\core\light</Filter>
     </ClCompile>
-    <ClCompile Include="core\render\BaseRender.cpp">
-      <Filter>源文件\core\render</Filter>
-    </ClCompile>
     <ClCompile Include="core\render\RenderState.cpp">
       <Filter>源文件\core\render</Filter>
     </ClCompile>
@@ -160,9 +157,6 @@
       <Filter>源文件\core\display</Filter>
     </ClCompile>
     <ClCompile Include="core\display\Transform3D.cpp">
-      <Filter>源文件\core\display</Filter>
-    </ClCompile>
-    <ClCompile Include="core\display\TransformNode.cpp">
       <Filter>源文件\core\display</Filter>
     </ClCompile>
     <ClCompile Include="core\render\BaseCamera.cpp">
@@ -222,6 +216,12 @@
     <ClCompile Include="utils\URL.cpp">
       <Filter>源文件\utils</Filter>
     </ClCompile>
+    <ClCompile Include="core\render\Renderer.cpp">
+      <Filter>源文件\core\render</Filter>
+    </ClCompile>
+    <ClCompile Include="core\render\RenderUnit.cpp">
+      <Filter>源文件\core\render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\math\Matrix3x3.h">
@@ -254,9 +254,6 @@
     <ClInclude Include="include\math\Plane.h">
       <Filter>头文件\math</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\render\IUpdate.h">
-      <Filter>头文件\core\render</Filter>
-    </ClInclude>
     <ClInclude Include="include\core\render\RenderState.h">
       <Filter>头文件\core\render</Filter>
     </ClInclude>
@@ -281,9 +278,6 @@
     <ClInclude Include="include\core\graphics\VertexBufferPositionNormalTexture.h">
       <Filter>头文件\core\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\render\IRenderable.h">
-      <Filter>头文件\core\render</Filter>
-    </ClInclude>
     <ClInclude Include="include\core\graphics\raws\IRawVertexBuffers.h">
       <Filter>头文件\core\graphics\raws</Filter>
     </ClInclude>
@@ -292,9 +286,6 @@
     </ClInclude>
     <ClInclude Include="include\core\graphics\VertexFactory.h">
       <Filter>头文件\core\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\render\BaseRender.h">
-      <Filter>头文件\core\render</Filter>
     </ClInclude>
     <ClInclude Include="include\core\light\BaseLight.h">
       <Filter>头文件\core\light</Filter>
@@ -324,9 +315,6 @@
       <Filter>头文件\core\display</Filter>
     </ClInclude>
     <ClInclude Include="include\core\display\Transform3D.h">
-      <Filter>头文件\core\display</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\display\TransformNode.h">
       <Filter>头文件\core\display</Filter>
     </ClInclude>
     <ClInclude Include="include\core\render\BaseCamera.h">
@@ -385,6 +373,12 @@
     </ClInclude>
     <ClInclude Include="include\utils\URL.h">
       <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\render\RenderUnit.h">
+      <Filter>头文件\core\render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\render\Renderer.h">
+      <Filter>头文件\core\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

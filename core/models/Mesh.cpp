@@ -5,7 +5,7 @@
 namespace Liar
 {
 	Mesh::Mesh(Liar::GeometryType type):
-		Liar::TransformNode()
+		Liar::Node()
 	{
 		SetGeometryType(type);
 	}
@@ -26,21 +26,27 @@ namespace Liar
 		m_geometry = Liar::Liar3D::geometryFactory->GetGeometry(type);
 	}
 
+	Liar::RenderUnit* Mesh::GetRenderUint()
+	{
+		Liar::RenderUnit* renderUnit = Liar::Node::GetRenderUint();
+		renderUnit->geometry = m_geometry;
+		return renderUnit;
+	}
+
+	Liar::Int Mesh::CollectRenderUint(Liar::RenderState& state)
+	{
+		Liar::Liar3D::rendering->AddRenderUnit(GetRenderUint());
+		return CollectChildrenRenderUint(state) + 1;
+	}
+
 	bool Mesh::Destroy(bool destroyChild)
 	{
-		bool destroy = Liar::TransformNode::Destroy(destroyChild);
+		bool destroy = Liar::Node::Destroy(destroyChild);
 		if (destroy)
 		{
 			m_geometry->ReduceRefrence();
 			m_geometry = nullptr;
 		}
 		return destroy;
-	}
-
-	bool Mesh::Render(Liar::StageContext& gl, Liar::RenderState& state)
-	{
-		bool render = Liar::TransformNode::Render(gl, state);
-		if (render) render = m_geometry->Render(gl, state);
-		return render;
 	}
 }

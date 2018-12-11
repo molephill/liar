@@ -1,6 +1,10 @@
 #pragma once
 
+#include "Transform3D.h"
+#include <core/material/BaseMaterial.h>
 #include <core/display/EventDispatcher.h>
+#include <core/render/RenderUnit.h>
+#include <core/render/RenderState.h>
 #include <LiarType.h>
 
 namespace Liar
@@ -19,6 +23,8 @@ namespace Liar
 		const char* m_name;
 		bool m_destroyed;
 		bool m_visible;
+		Liar::Transform3D* m_transform3D;
+		Liar::BaseMaterial* m_material;
 
 	public:
 		virtual void SetUpNoticeType(int);
@@ -45,6 +51,7 @@ namespace Liar
 
 	protected:
 		virtual void ChildChange(Liar::Node* child = nullptr) {};
+		virtual Liar::RenderUnit* GetRenderUint(Liar::RenderState&);
 
 	public:
 		inline bool GetDestroyed() const { return m_destroyed; };
@@ -53,9 +60,11 @@ namespace Liar
 		Liar::Node* GetParent() const { return m_parent; };
 		virtual Liar::Uint NumChildren() const { return m_numberChild; };
 		bool GetVisible() const { return m_visible; };
+		Liar::Int CollectRenderUint(Liar::RenderState&);
+		Liar::Int CollectChildrenRenderUint(Liar::RenderState&);
 
 	private:
 		void DisplayChild(Liar::Node*, bool);
 	};
-}
+} 
 

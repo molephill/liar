@@ -3,7 +3,7 @@
 namespace Liar
 {
 	BaseCamera::BaseCamera(Liar::Number nearPlane, Liar::Number farPlane) :
-		Liar::TransformNode(),
+		Liar::Node(),
 		m_nearPlane(nearPlane), m_farPlane(farPlane),
 		m_orthographic(false), m_fieldOfView(60.f),
 		m_orthographicVerticalSize(10.0f), m_transformChanged(true),
@@ -101,12 +101,12 @@ namespace Liar
 
 		CalculateProjectionMatrix();
 
-		return Liar::TransformNode::Render(gl, state);
+		return true;
 	}
 
 	bool BaseCamera::Destroy(bool destoryChild)
 	{
-		bool destory = Liar::TransformNode::Destroy(destoryChild);
+		bool destory = Liar::Node::Destroy(destoryChild);
 		if (destory)
 		{
 			if (m_clearColor)

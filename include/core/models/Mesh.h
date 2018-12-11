@@ -1,11 +1,11 @@
 #pragma once
 
-#include <core/display/TransformNode.h>
+#include <core/display/Node.h>
 #include <core/models/GeometryFactory.h>
 
 namespace Liar
 {
-	class Mesh:public TransformNode
+	class Mesh:public Liar::Node
 	{
 	public:
 		Mesh(Liar::GeometryType);
@@ -13,10 +13,11 @@ namespace Liar
 
 	protected:
 		Liar::Geometry* m_geometry;
+		virtual Liar::RenderUnit* GetRenderUint();
 
 	public:
+		virtual Liar::Int CollectRenderUint(Liar::RenderState&);
 		void SetGeometryType(Liar::GeometryType);
-		virtual bool Render(Liar::StageContext& gl, Liar::RenderState& state);
 		virtual bool Destroy(bool destroyChild = true);
 	};
 }

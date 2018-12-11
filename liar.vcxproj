@@ -127,7 +127,6 @@
     <ClCompile Include="core\display\Scene.cpp" />
     <ClCompile Include="core\display\Stage.cpp" />
     <ClCompile Include="core\display\Transform3D.cpp" />
-    <ClCompile Include="core\display\TransformNode.cpp" />
     <ClCompile Include="core\graphics\raws\IRawVertexBuffers.cpp" />
     <ClCompile Include="core\graphics\raws\RawVertexBuffersPositionNormalTexture.cpp" />
     <ClCompile Include="core\graphics\VertexBufferPositionNormalTexture.cpp" />
@@ -144,10 +143,11 @@
     <ClCompile Include="core\models\GeometryFactory.cpp" />
     <ClCompile Include="core\models\Mesh.cpp" />
     <ClCompile Include="core\render\BaseCamera.cpp" />
-    <ClCompile Include="core\render\BaseRender.cpp" />
     <ClCompile Include="core\render\Camera.cpp" />
+    <ClCompile Include="core\render\Renderer.cpp" />
     <ClCompile Include="core\render\RenderQueue.cpp" />
     <ClCompile Include="core\render\RenderState.cpp" />
+    <ClCompile Include="core\render\RenderUnit.cpp" />
     <ClCompile Include="core\resource\BaseTeture.cpp" />
     <ClCompile Include="core\resource\Resource.cpp" />
     <ClCompile Include="core\resource\shader\ShaderCompile.cpp" />
@@ -172,7 +172,6 @@
     <ClInclude Include="include\core\display\Scene.h" />
     <ClInclude Include="include\core\display\Stage.hpp" />
     <ClInclude Include="include\core\display\Transform3D.h" />
-    <ClInclude Include="include\core\display\TransformNode.h" />
     <ClInclude Include="include\core\graphics\IVertexBuffer.h" />
     <ClInclude Include="include\core\graphics\raws\IRawVertexBuffers.h" />
     <ClInclude Include="include\core\graphics\raws\RawVertexBuffersPositionNormalTexture.h" />
@@ -192,13 +191,12 @@
     <ClInclude Include="include\core\models\GeometryFactory.h" />
     <ClInclude Include="include\core\models\Mesh.h" />
     <ClInclude Include="include\core\render\BaseCamera.h" />
-    <ClInclude Include="include\core\render\BaseRender.h" />
     <ClInclude Include="include\core\render\Camera.h" />
-    <ClInclude Include="include\core\render\IRenderable.h" />
-    <ClInclude Include="include\core\render\IUpdate.h" />
     <ClInclude Include="include\core\render\RenderDefine.h" />
+    <ClInclude Include="include\core\render\Renderer.h" />
     <ClInclude Include="include\core\render\RenderQueue.h" />
     <ClInclude Include="include\core\render\RenderState.h" />
+    <ClInclude Include="include\core\render\RenderUnit.h" />
     <ClInclude Include="include\core\render\StageContext.h" />
     <ClInclude Include="include\core\resource\BaseTexture.h" />
     <ClInclude Include="include\core\resource\Resource.h" />

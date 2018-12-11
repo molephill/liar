@@ -1,21 +1,27 @@
 #pragma once
 
-#include <core/display/Node.h>
 #include <core/render/RenderQueue.h>
 
 namespace Liar
 {
-	class Scene:public Liar::Node
+	class Renderer
 	{
 	public:
-		Scene();
-		virtual ~Scene();
+		Renderer();
+		~Renderer();
 
 	private:
 		Liar::RenderQueue** m_renderQueues;
 		Liar::Int m_numberRenderQueue;
 
+		Liar::RenderUnit** m_renderUnits;
+		Liar::Uint m_numberRenderUnit;
+		Liar::Uint m_curIndexRenderUnit;
+
 	public:
+		Liar::RenderUnit* PopRenderUnit();
+		void PushRenderUnit(Liar::RenderUnit*);
 		Liar::RenderUnit* AddRenderUnit(Liar::RenderUnit*, Liar::RenderQueueDefine type = Liar::RenderQueueDefine::RENDERQUEUE_OPAQUE);
 	};
 }
+

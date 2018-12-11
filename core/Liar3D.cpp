@@ -47,6 +47,7 @@ namespace Liar
 		Liar::Liar3D::stage = new Liar::Stage(w, h);
 		Liar::Liar3D::shaderCompile = new Liar::ShaderCompile();
 		Liar::Liar3D::urlFormat = new Liar::URL();
+		Liar::Liar3D::rendering = new Liar::Renderer();
 
 #ifdef __APPLE__
 #else
@@ -124,6 +125,12 @@ namespace Liar
 			Liar::Liar3D::urlFormat = nullptr;
 		}
 
+		if (Liar::Liar3D::rendering)
+		{
+			delete Liar::Liar3D::rendering;
+			Liar::Liar3D::rendering = nullptr;
+		}
+
 		glfwTerminate();
 		Liar::Liar3D::m_window = nullptr;
 	}
@@ -134,6 +141,7 @@ namespace Liar
 	Liar::RenderState* Liar3D::renderState = nullptr;
 	Liar::ShaderCompile* Liar3D::shaderCompile = nullptr;
 	Liar::URL* Liar3D::urlFormat = nullptr;
+	Liar::Renderer* Liar3D::rendering = nullptr;
 	GLFWwindow* Liar3D::m_window = nullptr;
 }
 

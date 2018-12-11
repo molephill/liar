@@ -71,7 +71,7 @@ namespace Liar
 	bool Stage::OnEnterFrame(Liar::StageContext& gl, Liar::RenderState& state)
 	{
 		bool rendering = true;
-
+		Liar::Int renderCount = 0;
 		for (size_t j = 0; j < m_numberCamera; ++j)
 		{
 			Liar::Liar3D::renderState->camera = m_cameras[j];
@@ -79,8 +79,7 @@ namespace Liar
 
 			for (size_t i = 0; i < m_numberChild; ++i)
 			{
-				rendering = m_scenes[i]->Render(gl, state);
-				if (!rendering) break;
+				renderCount += m_scenes[i]->CollectRenderUint(state);
 			}
 		}
 
