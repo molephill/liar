@@ -35,6 +35,7 @@ namespace Liar
 		{
 			m_cameras = (Liar::BaseCamera**)malloc(sizeof(Liar::BaseCamera*));
 		}
+		camera->GetTransform3D().SetParent(m_transform3D);
 		m_cameras[m_numberCamera] = camera;
 		++m_numberCamera;
 		return camera;
@@ -50,12 +51,14 @@ namespace Liar
 			Liar::Liar3D::renderState->camera = m_cameras[j];
 			m_cameras[j]->Render(state);
 			m_transform3D->CalclateTransformation(m_cameras[j]->GetProjectionViewMatrix());
-			for (size_t i = 0; i < m_numberChild; ++i)
-			{
-				renderCount += m_childs[i]->CollectRenderUint(state);
-			}
+			renderCount += CollectRenderUint(state);
 		}
 		return rendering;
+	}
+
+	Liar::Int Stage::CollectRenderUint(Liar::RenderState& state, bool buildShader)
+	{
+		return CollectChildrenRenderUint(state, buildShader);
 	}
 
 	void Stage::SetSize(Liar::Uint w, Liar::Uint h)

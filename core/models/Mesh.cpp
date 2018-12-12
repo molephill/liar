@@ -61,7 +61,6 @@ namespace Liar
 
 	Liar::Int Mesh::CollectRenderUint(Liar::RenderState& state, bool buildShader)
 	{
-		Liar::Liar3D::rendering->AddRenderUnit(GetRenderUint(state, buildShader));
-		return CollectChildrenRenderUint(state, buildShader) + 1;
+		return Liar::Node::CollectRenderUint(state, buildShader);
 	}
 }

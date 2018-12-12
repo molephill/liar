@@ -399,8 +399,7 @@ namespace Liar
 		Liar::Int count = 0;
 		for (size_t i = 0; i < m_numberChild; ++i)
 		{
-			Liar::Liar3D::rendering->AddRenderUnit(m_childs[i]->GetRenderUint(state, buildShader));
-			count += m_childs[i]->CollectRenderUint(state) + 1;
+			count += m_childs[i]->CollectRenderUint(state);
 		}
 		return count;
 	}
