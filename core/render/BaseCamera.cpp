@@ -69,7 +69,7 @@ namespace Liar
 		m_clearColor->Set(r, g, b, alpha);
 	}
 
-	bool BaseCamera::Render(Liar::StageContext& gl)
+	bool BaseCamera::Render(Liar::RenderState& state)
 	{
 		const Liar::BaseCamera& camera = *this;
 		const Liar::Viewport& viewport = GetViewport();
@@ -78,6 +78,8 @@ namespace Liar
 		Liar::Number vpy = viewport.GetStartY();
 		Liar::Number vpWidth = viewport.GetWidth();
 		Liar::Number vpHeight = viewport.GetHeight();
+
+		Liar::StageContext& gl = *state.stageContext;
 
 		gl.Viewport(static_cast<GLsizei>(vpx), static_cast<GLsizei>(vpy), static_cast<GLint>(vpWidth), static_cast<GLint>(vpHeight));
 

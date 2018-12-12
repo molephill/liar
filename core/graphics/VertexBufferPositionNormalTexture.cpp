@@ -38,7 +38,7 @@ namespace Liar
 		size_t positionOffsize = start;
 		size_t normalOffsize = positionOffsize + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3;
 		size_t texCoordOffseize = normalOffsize + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR2;
-		Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
+		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
 		gl.BufferSubData(type, positionOffsize, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3, m_position);
 		gl.BufferSubData(type, normalOffsize, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3, m_normal);
 		gl.BufferSubData(type, texCoordOffseize, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR2, m_texCoord);
@@ -51,7 +51,7 @@ namespace Liar
 
 	void VertexBufferPositionNormalTexture::VertexAttrbPointer()
 	{
-		Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
+		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
 		size_t stride = GetStride();
 		size_t positionOffsize = 0;
 		size_t normalOffsize = positionOffsize + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3;

@@ -102,7 +102,7 @@ namespace Liar
 
 	void BaseMaterial::SetRenderStateBlendDepth()
 	{
-		Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
+		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
 		gl.SetDepthMask(m_depthTest);
 		if (m_depthTest == Liar::DepthTestDefine::DEPTHTEST_OFF)
 		{
@@ -133,7 +133,7 @@ namespace Liar
 
 	void BaseMaterial::SetRenderStateFrontFace(bool isTarget, Liar::Transform3D* transform)
 	{
-		Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
+		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
 		Liar::Int frontFace = 0;
 		switch (m_cull)
 		{

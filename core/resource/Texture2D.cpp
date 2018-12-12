@@ -19,7 +19,7 @@ namespace Liar
 	{
 		Liar::BaseTexture::RecreateResource();
 
-		Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
+		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
 
 		switch (m_format)
 		{

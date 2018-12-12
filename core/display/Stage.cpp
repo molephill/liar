@@ -41,14 +41,14 @@ namespace Liar
 	}
 
 
-	bool Stage::OnEnterFrame(Liar::StageContext& gl, Liar::RenderState& state)
+	bool Stage::OnEnterFrame(Liar::RenderState& state)
 	{
 		bool rendering = true;
 		Liar::Int renderCount = 0;
 		for (size_t j = 0; j < m_numberCamera; ++j)
 		{
 			Liar::Liar3D::renderState->camera = m_cameras[j];
-			m_cameras[j]->Render(gl);
+			m_cameras[j]->Render(state);
 			m_transform3D->CalclateTransformation(m_cameras[j]->GetProjectionViewMatrix());
 			for (size_t i = 0; i < m_numberChild; ++i)
 			{
@@ -65,7 +65,7 @@ namespace Liar
 			m_width = w;
 			m_height = h;
 
-			Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
+			Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
 			gl.Viewport(0, 0, w, h);
 			gl.Scissor(0, 0, w, h);
 

@@ -3,7 +3,6 @@
 #include <core/display/Node.h>
 #include <math/Viewport.h>
 #include <core/render/RenderState.h>
-#include <core/render/StageContext.h>
 
 namespace Liar
 {
@@ -52,7 +51,7 @@ namespace Liar
 		void SetClearColor(const Liar::Vector4&);
 		void SetClearColor(Liar::Number, Liar::Number, Liar::Number, Liar::Number alpha = 1.0f);
 
-		virtual bool Render(Liar::StageContext& gl);
+		virtual bool Render(Liar::RenderState& gl);
 
 		virtual bool GetTransformChanged() const { return m_transformChanged || m_transform3D->GetTransformChanged(); };
 		virtual Liar::Viewport& GetViewport() = 0;

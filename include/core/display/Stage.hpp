@@ -36,7 +36,7 @@ namespace Liar
 		void ScrollEvent(Liar::DNumber, Liar::DNumber);
 
 		Liar::BaseCamera* AddCamera(Liar::BaseCamera*);
-		bool OnEnterFrame(Liar::StageContext& gl, Liar::RenderState& state);
+		bool OnEnterFrame(Liar::RenderState& state);
 	};
 }
 

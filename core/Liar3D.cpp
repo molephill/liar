@@ -47,11 +47,9 @@ namespace Liar
 		Liar::Liar3D::urlFormat->basePath = "E:\\c++\\liar\\liar\\core\\";
 		Liar::Liar3D::urlFormat->baseshaderFolder = "resource\\shader\\files\\";
 #endif
-
-		Liar::Liar3D::geometryFactory = new Liar::GeometryFactory();
-		Liar::Liar3D::stageContext = new Liar::StageContext();
-		Liar::Liar3D::renderState = new Liar::RenderState();
 		Liar::Liar3D::stage = new Liar::Stage(w, h);
+		Liar::Liar3D::renderState = new Liar::RenderState();
+		Liar::Liar3D::geometryFactory = new Liar::GeometryFactory();
 		Liar::Liar3D::shaderCompile = new Liar::ShaderCompile();
 		Liar::Liar3D::rendering = new Liar::Renderer();
 	}
@@ -72,10 +70,9 @@ namespace Liar
 				glfwSwapBuffers(window);
 				glfwPollEvents();
 
-				Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
 				Liar::RenderState& state = *(Liar::Liar3D::renderState);
 
-				run = Liar::Liar3D::stage->OnEnterFrame(gl, state);
+				run = Liar::Liar3D::stage->OnEnterFrame(state);
 				rendering->Render(state);
 				state.publicDefine = state.shaderValue->GetShaderDefineValue();
 
@@ -97,18 +94,6 @@ namespace Liar
 			Liar::Liar3D::geometryFactory = nullptr;
 		}
 
-		if (Liar::Liar3D::stageContext)
-		{
-			delete Liar::Liar3D::stageContext;
-			Liar::Liar3D::stageContext = nullptr;
-		}
-
-		if (Liar::Liar3D::renderState)
-		{
-			delete Liar::Liar3D::renderState;
-			Liar::Liar3D::renderState = nullptr;
-		}
-
 		if (Liar::Liar3D::shaderCompile)
 		{
 			delete Liar::Liar3D::shaderCompile;
@@ -127,10 +112,17 @@ namespace Liar
 			Liar::Liar3D::rendering = nullptr;
 		}
 
+		/*  ·Å×îºóÉ¾³ý */
 		if (Liar::Liar3D::stage)
 		{
 			delete Liar::Liar3D::stage;
 			Liar::Liar3D::stage = nullptr;
+		}
+
+		if (Liar::Liar3D::renderState)
+		{
+			delete Liar::Liar3D::renderState;
+			Liar::Liar3D::renderState = nullptr;
 		}
 
 		glfwTerminate();
@@ -138,7 +130,6 @@ namespace Liar
 	}
 
 	Liar::Stage* Liar3D::stage = nullptr;
-	Liar::StageContext* Liar3D::stageContext = nullptr;
 	Liar::GeometryFactory* Liar3D::geometryFactory = nullptr;
 	Liar::RenderState* Liar3D::renderState = nullptr;
 	Liar::ShaderCompile* Liar3D::shaderCompile = nullptr;

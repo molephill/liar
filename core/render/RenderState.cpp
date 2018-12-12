@@ -8,7 +8,8 @@ namespace Liar
 	RenderState::RenderState() :
 		clientWidth(0), clientHeight(0),
 		camera(nullptr), enableLight(true),
-		shaderValue(new Liar::ShaderValue()), publicDefine(-1)
+		shaderValue(new Liar::ShaderValue()), publicDefine(-1),
+		stageContext(new Liar::StageContext())
 	{
 	}
 
@@ -17,5 +18,7 @@ namespace Liar
 		camera = nullptr;
 		delete shaderValue;
 		shaderValue = nullptr;
+		delete stageContext;
+		stageContext = nullptr;
 	}
 }

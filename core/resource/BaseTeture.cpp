@@ -60,7 +60,7 @@ namespace Liar
 		{
 			m_repeat = value;
 			bool isPot = Liar::MathUtils3D::IsPOT(m_width, m_height);
-			Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
+			Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
 			if (isPot && m_repeat) {
 				gl.TexParameteri(m_type, GL_TEXTURE_WRAP_S, GL_REPEAT);
 				gl.TexParameteri(m_type, GL_TEXTURE_WRAP_S, GL_REPEAT);

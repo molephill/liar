@@ -28,7 +28,7 @@ namespace Liar
 
 	void Geometry::DisposeResource()
 	{
-		Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
+		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
 		if (m_vertexArray > 0) gl.DeleteBuffers(1, &m_vertexArray);
 		if (m_vertexBuffer > 0) gl.DeleteBuffers(1, &m_vertexBuffer);
 		if (m_elementBuffer > 0) gl.DeleteBuffers(1, &m_elementBuffer);
@@ -53,7 +53,7 @@ namespace Liar
 
 	void Geometry::GenAndBindVertex()
 	{
-		Liar::StageContext& gl = *(Liar::Liar3D::stageContext);
+		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
 		gl.GenVertexArrays(1, &m_vertexArray);
 		gl.BindVertexArray(m_vertexArray);
 

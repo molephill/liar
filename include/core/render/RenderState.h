@@ -2,6 +2,7 @@
 
 #include <LiarType.h>
 #include <core/resource/shader/ShaderValue.h>
+#include <core/render/StageContext.h>
 
 namespace Liar
 {
@@ -20,5 +21,6 @@ namespace Liar
 		bool enableLight;
 		Liar::ShaderValue* shaderValue;
 		Liar::Int publicDefine;
+		Liar::StageContext* stageContext;
 	};
 }

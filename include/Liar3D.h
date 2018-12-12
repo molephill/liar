@@ -28,7 +28,6 @@ namespace Liar
 
 	public:
 		static Liar::Stage* stage;
-		static Liar::StageContext* stageContext;
 		static Liar::RenderState* renderState;
 		static Liar::GeometryFactory* geometryFactory;
 		static Liar::ShaderCompile* shaderCompile;
