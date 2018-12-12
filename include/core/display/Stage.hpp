@@ -4,16 +4,16 @@
 
 #include <LiarType.h>
 #include <core/render/BaseCamera.h>
-#include <core/display/Scene.h>
+#include <core/display/Node.h>
 
 namespace Liar
 {
 
-	class Stage
+	class Stage:public Liar::Node
 	{
 	public:
 		Stage(Liar::Int w, Liar::Int h);
-		~Stage();
+		virtual ~Stage();
 
 	private:
 		Liar::Uint m_width;
@@ -24,9 +24,6 @@ namespace Liar
 		Liar::DNumber m_lastMouseY;
 
 	private:
-		Liar::Scene** m_scenes;
-		Liar::Uint m_numberChild;
-
 		Liar::BaseCamera** m_cameras;
 		Liar::Uint m_numberCamera;
 
@@ -38,9 +35,7 @@ namespace Liar
 		void MouseEvent(Liar::DNumber, Liar::DNumber, Liar::Int);
 		void ScrollEvent(Liar::DNumber, Liar::DNumber);
 
-		Liar::Node* AddChild(Liar::Node*);
 		Liar::BaseCamera* AddCamera(Liar::BaseCamera*);
-
 		bool OnEnterFrame(Liar::StageContext& gl, Liar::RenderState& state);
 	};
 }

@@ -12,20 +12,17 @@ namespace Liar
 
 	private:
 		Liar::Vector3* m_direction;
-		Liar::Number m_cutOff;
-		Liar::Number m_outerCutOff;
+		Liar::Number m_spot;					// 聚光的聚光值
 
 	public:
 		void SetDirection(const Liar::Vector3& rhs) { m_direction->Set(rhs); };
 		void SetDirection(Liar::Number x, Liar::Number y, Liar::Number z) { m_direction->Set(x, y, z); };
 		Liar::Vector3& GetDirection() const { return *m_direction; };
 
-		void SetCutOff(Liar::Number value) { m_cutOff = value; };
-		void SetOuterCutoff(Liar::Number value) { m_outerCutOff = value; };
+		void SetSpot(Liar::Number value) { m_spot = value; };
+		Liar::Number GetSpot() const { return m_spot; };
 
-		Liar::Number GetCutOff() const { return m_cutOff; };
-		Liar::Number GetOuterCutOff() const { return m_outerCutOff; };
-
+		virtual bool PrepareRender(Liar::RenderState&);
 		virtual bool Destroy(bool destroyChild = true);
 	};
 }

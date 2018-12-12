@@ -13,11 +13,11 @@ namespace Liar
 
 	protected:
 		Liar::Geometry* m_geometry;
-		virtual Liar::RenderUnit* GetRenderUint();
+		virtual Liar::RenderUnit* GetRenderUint(Liar::RenderState&, bool buildShader = true);
+		virtual bool BuildShaderProgram(Liar::RenderState&);
 
 	public:
-		virtual Liar::Int CollectRenderUint(Liar::RenderState&);
+		virtual Liar::Int CollectRenderUint(Liar::RenderState&, bool buildShader = true);
 		void SetGeometryType(Liar::GeometryType);
-		virtual bool Destroy(bool destroyChild = true);
 	};
 }

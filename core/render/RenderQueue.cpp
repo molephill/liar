@@ -37,6 +37,16 @@ namespace Liar
 		return unit;
 	}
 
+	void RenderQueue::Render(Liar::RenderState& state)
+	{
+		for (size_t i = 0; i < m_curNumber; ++i)
+		{
+			Liar::Liar3D::rendering->PushRenderUnit(m_renderUnits[i]);
+			m_renderUnits[i] = nullptr;
+		}
+		m_curNumber = 0;
+	}
+
 	void RenderQueue::Clear()
 	{
 		for (size_t i = 0; i < m_numberRenderUint; ++i)

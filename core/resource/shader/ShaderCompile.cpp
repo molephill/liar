@@ -5,10 +5,11 @@
 namespace Liar
 {
 	ShaderCompile::ShaderCompile():
-		m_shaders(nullptr), m_numberShaders(0)
+		m_shaders(nullptr), m_numberShaders(0),
+		m_szVersion("#version 410 core\n")
 	{
+		AddPreComileShader("TEST", "test2.vs", "test2.fs");
 	}
-
 
 	ShaderCompile::~ShaderCompile()
 	{
@@ -22,6 +23,17 @@ namespace Liar
 			}
 			free(m_shaders);
 			m_numberShaders = 0;
+		}
+
+		if (m_preShaders)
+		{
+			for (i = 0; i < m_numberPreShaders; ++i)
+			{
+				delete m_preShaders[i];
+				m_preShaders[i] = nullptr;
+			}
+			free(m_preShaders);
+			m_numberPreShaders = 0;
 		}
 	}
 
@@ -52,6 +64,36 @@ namespace Liar
 			m_shaders = (Liar::ShaderContent**)malloc(sizeof(Liar::ShaderContent*) * m_numberShaders);
 		}
 		m_shaders[m_numberShaders - 1] = new Liar::ShaderContent(name, content);
+	}
+
+	Liar::PreCompileShader* ShaderCompile::GetPreCompileShader(const char* name)
+	{
+		for (size_t i = 0; i < m_numberPreShaders; ++i)
+		{
+			Liar::PreCompileShader* tmp = m_preShaders[i];
+			if (strcmp(tmp->name.c_str(), name) == 0)
+			{
+				return tmp;
+			}
+		}
+
+		return nullptr;
+	}
+
+	void ShaderCompile::AddPreComileShader(const char* name, const char* vPath, const char* fPath)
+	{
+		++m_numberPreShaders;
+		if (m_shaders)
+		{
+			m_preShaders = (Liar::PreCompileShader**)realloc(m_preShaders, sizeof(Liar::PreCompileShader*) * m_numberPreShaders);
+		}
+		else
+		{
+			m_preShaders = (Liar::PreCompileShader**)malloc(sizeof(Liar::PreCompileShader*) * m_numberPreShaders);
+		}
+		std::string vCode = LoadGLSL(vPath);
+		std::string fCode = LoadGLSL(fPath);
+		m_preShaders[m_numberPreShaders - 1] = new Liar::PreCompileShader(name, vCode, fCode);
 	}
 
 	/*

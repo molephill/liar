@@ -22,5 +22,6 @@ namespace Liar
 		virtual void BufferSubData(GLenum type, size_t start);
 		virtual size_t GetStride() const;
 		virtual void VertexAttrbPointer();
+		virtual std::string GetAttribDefines();
 	};
 }

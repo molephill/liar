@@ -23,8 +23,6 @@ namespace Liar
 		Liar::Viewport* GetViewPort() { return m_viewPort; };
 		Liar::Matrix4x4& GetProjectionMatrix() const { return *m_projectionMatrix; };
 		Liar::Matrix4x4& GetProjectionViewMatrix() const { return *m_projectionViewMatrix; };
-
-		virtual bool Destroy(bool destroyChild = true);
 		virtual Liar::Viewport& GetViewport() { return *m_viewPort; };
 	};
 }

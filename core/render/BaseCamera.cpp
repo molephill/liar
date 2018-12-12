@@ -3,7 +3,7 @@
 namespace Liar
 {
 	BaseCamera::BaseCamera(Liar::Number nearPlane, Liar::Number farPlane) :
-		Liar::Node(),
+		m_transform3D(new Liar::Transform3D()),
 		m_nearPlane(nearPlane), m_farPlane(farPlane),
 		m_orthographic(false), m_fieldOfView(60.f),
 		m_orthographicVerticalSize(10.0f), m_transformChanged(true),
@@ -13,7 +13,13 @@ namespace Liar
 
 	BaseCamera::~BaseCamera()
 	{
-		Destroy();
+		delete m_transform3D;
+		m_transform3D = nullptr;
+		if (m_clearColor)
+		{
+			delete m_clearColor;
+			m_clearColor = nullptr;
+		}
 	}
 
 	void BaseCamera::SetFarPlane(Liar::Number value)
@@ -63,10 +69,10 @@ namespace Liar
 		m_clearColor->Set(r, g, b, alpha);
 	}
 
-	bool BaseCamera::Render(Liar::StageContext& gl, Liar::RenderState& state)
+	bool BaseCamera::Render(Liar::StageContext& gl)
 	{
-		const Liar::BaseCamera& camera = *(state.camera);
-		const Liar::Viewport& viewport = state.camera->GetViewport();
+		const Liar::BaseCamera& camera = *this;
+		const Liar::Viewport& viewport = GetViewport();
 
 		Liar::Number vpx = viewport.GetStartX();
 		Liar::Number vpy = viewport.GetStartY();
@@ -80,7 +86,7 @@ namespace Liar
 		{
 		case CameraClearType::CLEARFLAG_SOLIDCOLOR:
 		{
-			Liar::Vector4* clearColor = state.camera->GetClearColor();
+			Liar::Vector4* clearColor = GetClearColor();
 			if (clearColor)
 			{
 				gl.Enable(GL_SCISSOR_TEST);
@@ -102,20 +108,6 @@ namespace Liar
 		CalculateProjectionMatrix();
 
 		return true;
-	}
-
-	bool BaseCamera::Destroy(bool destoryChild)
-	{
-		bool destory = Liar::Node::Destroy(destoryChild);
-		if (destory)
-		{
-			if (m_clearColor)
-			{
-				delete m_clearColor;
-				m_clearColor = nullptr;
-			}
-		}
-		return destory;
 	}
 
 }

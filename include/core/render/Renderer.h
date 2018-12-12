@@ -1,6 +1,7 @@
 #pragma once
 
 #include <core/render/RenderQueue.h>
+#include <core/render/RenderState.h>
 
 namespace Liar
 {
@@ -22,6 +23,7 @@ namespace Liar
 		Liar::RenderUnit* PopRenderUnit();
 		void PushRenderUnit(Liar::RenderUnit*);
 		Liar::RenderUnit* AddRenderUnit(Liar::RenderUnit*, Liar::RenderQueueDefine type = Liar::RenderQueueDefine::RENDERQUEUE_OPAQUE);
+		void Render(Liar::RenderState&);
 	};
 }
 

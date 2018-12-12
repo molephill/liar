@@ -10,13 +10,48 @@ namespace Liar
 		m_type(GL_TEXTURE_2D),
 		m_width(0), m_height(0),
 		m_minFifter(-1), m_magFifter(-1),
-		m_data(nullptr)
+		m_data(nullptr), m_url(""), m_textureID(0)
 	{
 	}
 
 	BaseTexture::~BaseTexture()
 	{
 		Destroy();
+	}
+
+	void BaseTexture::SetURL(const char* url)
+	{
+		if (strcmp(url, m_url.c_str()) != 0)
+		{
+			ReleaseResource();
+			m_url = url;
+			std::string formatPath = Liar3D::urlFormat->ForamtShaderURL(url);
+			int nrComponents = 0;
+			m_data = stbi_load(formatPath.c_str(), &m_width, &m_height, &nrComponents, 0);
+			if (m_data)
+			{
+				m_loaded = true;
+				switch (nrComponents)
+				{
+				case 1:
+					m_format = GL_RED;
+				case 4:
+					m_format = GL_RGBA;
+				case 3:
+				default:
+					m_format = GL_RGB;
+					break;
+				}
+				ActiveResource();
+			}
+		}
+	}
+
+	void BaseTexture::RecreateResource()
+	{
+		Liar::Resource::RecreateResource();
+		glGenTextures(1, &m_textureID);
+		glBindTexture(GL_TEXTURE_2D, m_textureID);
 	}
 
 	void BaseTexture::SetRepeat(bool value)
@@ -47,6 +82,8 @@ namespace Liar
 
 	void BaseTexture::DisposeResource()
 	{
-
+		if (m_data) free(m_data);
+		m_released = true;
+		if(m_textureID > 0) glDeleteTextures(1, &m_textureID);
 	}
 }

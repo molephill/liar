@@ -11,7 +11,7 @@ namespace Liar
 		m_vec3Values(nullptr), m_numberVec3(0),
 		m_vec4Values(nullptr), m_numberVec4(0),
 		m_matrix4x4Values(nullptr), m_numberMatrix4x4(0),
-		m_shaderDefineValue(0), m_shaderVertexAttribDefineValue(0)
+		m_shaderDefineValue(0)
 	{
 	}
 
@@ -109,24 +109,6 @@ namespace Liar
 	void ShaderValue::RemoveShaderDefine(Liar::ShaderTypeDefine value)
 	{
 		m_shaderDefineValue &= ~value;
-	}
-
-	/**
-	* 增加Shader顶点宏定义。
-	* @param value 宏定义。
-	*/
-	void ShaderValue::AddShaderVertexAttribDefine(Liar::VertexElementUsage value)
-	{
-		m_shaderVertexAttribDefineValue |= value;
-	}
-
-	/**
-	* 移除Shader宏定义。
-	* @param value 宏定义。
-	*/
-	void ShaderValue::RemoveShaderVertexAttribDefine(Liar::VertexElementUsage value)
-	{
-		m_shaderVertexAttribDefineValue &= ~value;
 	}
 
 	/**
@@ -236,7 +218,6 @@ namespace Liar
 	{
 		if (mat)
 		{
-			Liar::Matrix4x4* temp = new Liar::Matrix4x4(*mat);
 			Liar::Uint preIndex = CalcNumberIndex(shaderIndex, m_numberMatrix4x4);
 			if (m_matrix4x4Values)
 			{
@@ -249,7 +230,14 @@ namespace Liar
 			{
 				m_matrix4x4Values = (Liar::Matrix4x4**)malloc(sizeof(Liar::Matrix4x4*)*m_numberMatrix4x4);
 			}
-			m_matrix4x4Values[shaderIndex] = temp;
+			if (m_matrix4x4Values[shaderIndex])
+			{
+				m_matrix4x4Values[shaderIndex]->Set(*mat);
+			}
+			else
+			{
+				m_matrix4x4Values[shaderIndex] = new Liar::Matrix4x4(*mat);
+			}
 		}
 		else
 		{
@@ -270,7 +258,6 @@ namespace Liar
 	{
 		if (value)
 		{
-			Liar::Vector2* tmp = new Liar::Vector2(*value);
 			Liar::Uint preIndex = CalcNumberIndex(shaderIndex, m_numberVec2);
 			if (m_vec2Values)
 			{
@@ -280,7 +267,14 @@ namespace Liar
 			{
 				m_vec2Values = (Liar::Vector2**)malloc(sizeof(Liar::Vector2*)*m_numberVec2);
 			}
-			m_vec2Values[shaderIndex] = tmp;
+			if (m_vec2Values[shaderIndex])
+			{
+				m_vec2Values[shaderIndex]->Set(*value);
+			}
+			else
+			{
+				m_vec2Values[shaderIndex] = new Liar::Vector2(*value);
+			}
 		}
 		else
 		{
@@ -311,7 +305,6 @@ namespace Liar
 	{
 		if (value)
 		{
-			Liar::Vector3* tmp = new Liar::Vector3(*value);
 			Liar::Uint preIndex = CalcNumberIndex(shaderIndex, m_numberVec3);
 			if (m_vec3Values)
 			{
@@ -321,7 +314,14 @@ namespace Liar
 			{
 				m_vec3Values = (Liar::Vector3**)malloc(sizeof(Liar::Vector3*)*m_numberVec3);
 			}
-			m_vec3Values[shaderIndex] = tmp;
+			if (m_vec3Values[shaderIndex])
+			{
+				m_vec3Values[shaderIndex]->Set(*value);
+			}
+			else
+			{
+				m_vec3Values[shaderIndex] = new Liar::Vector3(*value);
+			}
 		}
 		else
 		{
@@ -352,7 +352,6 @@ namespace Liar
 	{
 		if (value)
 		{
-			Liar::Vector4* tmp = new Liar::Vector4(*value);
 			Liar::Uint preIndex = CalcNumberIndex(shaderIndex, m_numberVec4);
 			if (m_vec4Values)
 			{
@@ -362,7 +361,14 @@ namespace Liar
 			{
 				m_vec4Values = (Liar::Vector4**)malloc(sizeof(Liar::Vector4*)*m_numberVec4);
 			}
-			m_vec4Values[shaderIndex] = tmp;
+			if (m_vec4Values[shaderIndex])
+			{
+				m_vec4Values[shaderIndex]->Set(*value);
+			}
+			else
+			{
+				m_vec4Values[shaderIndex] = new Liar::Vector4(*value);
+			}
 		}
 		else
 		{

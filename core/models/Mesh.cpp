@@ -8,12 +8,14 @@ namespace Liar
 		Liar::Node()
 	{
 		SetGeometryType(type);
+		m_preCompileShader = Liar::Liar3D::shaderCompile->GetPreCompileShader("TEST");
 	}
 
 
 	Mesh::~Mesh()
 	{
-		Destroy();
+		m_geometry->ReduceRefrence();
+		m_geometry = nullptr;
 	}
 
 	void Mesh::SetGeometryType(Liar::GeometryType type)
@@ -26,27 +28,40 @@ namespace Liar
 		m_geometry = Liar::Liar3D::geometryFactory->GetGeometry(type);
 	}
 
-	Liar::RenderUnit* Mesh::GetRenderUint()
+	bool Mesh::BuildShaderProgram(Liar::RenderState& state)
 	{
-		Liar::RenderUnit* renderUnit = Liar::Node::GetRenderUint();
+		if (!m_shaderProgram) m_shaderProgram = new Liar::ShaderProgram();
+		bool recreate = Liar::Node::BuildShaderProgram(state);
+		if (!recreate) recreate = m_shaderProgram->vertexDefine >= 0;
+		if (recreate)
+		{
+			m_shaderProgram->Clear();
+			m_shaderProgram->vertexDefine = 0;
+			m_shaderProgram->fragementDefine = m_material ? m_material->GetShaderValue().GetShaderDefineValue() : m_shaderProgram->fragementDefine;
+
+			std::string vertexCode(Liar::Liar3D::shaderCompile->GetVersion());
+			vertexCode += m_geometry->GetAttribDefines();
+			vertexCode += m_preCompileShader->vertexShaderCode;
+
+			std::string fragmentCode(Liar::Liar3D::shaderCompile->GetVersion());
+			fragmentCode += m_preCompileShader->fragmentShaderCode;
+
+			m_shaderProgram->LinkProgram(vertexCode.c_str(), fragmentCode.c_str());
+		}
+
+		return recreate;
+	}
+
+	Liar::RenderUnit* Mesh::GetRenderUint(Liar::RenderState& state, bool buildShader)
+	{
+		Liar::RenderUnit* renderUnit = Liar::Node::GetRenderUint(state, buildShader);
 		renderUnit->geometry = m_geometry;
 		return renderUnit;
 	}
 
-	Liar::Int Mesh::CollectRenderUint(Liar::RenderState& state)
+	Liar::Int Mesh::CollectRenderUint(Liar::RenderState& state, bool buildShader)
 	{
-		Liar::Liar3D::rendering->AddRenderUnit(GetRenderUint());
-		return CollectChildrenRenderUint(state) + 1;
-	}
-
-	bool Mesh::Destroy(bool destroyChild)
-	{
-		bool destroy = Liar::Node::Destroy(destroyChild);
-		if (destroy)
-		{
-			m_geometry->ReduceRefrence();
-			m_geometry = nullptr;
-		}
-		return destroy;
+		Liar::Liar3D::rendering->AddRenderUnit(GetRenderUint(state, buildShader));
+		return CollectChildrenRenderUint(state, buildShader) + 1;
 	}
 }

@@ -15,13 +15,14 @@ namespace Liar
 		CLEARFLAG_DEPTHONLY
 	};
 
-	class BaseCamera:public Liar::Node
+	class BaseCamera
 	{
 	public:
 		BaseCamera(Liar::Number nearPlane = 0.1f, Liar::Number farPlane = 1000.0f);
 		virtual ~BaseCamera();
 
 	protected:
+		Liar::Transform3D* m_transform3D;
 		Liar::Number m_nearPlane;
 		Liar::Number m_farPlane;
 		Liar::Number m_fieldOfView;
@@ -40,6 +41,7 @@ namespace Liar
 		Liar::Vector4* GetClearColor() { return m_clearColor; };
 		bool GetOrthographic() const { return m_orthographic; };
 		Liar::CameraClearType GetClearFlag() const { return m_clearFlag; };
+		Liar::Transform3D& GetTransform3D() const { return *m_transform3D; };
 
 		void SetClearFlag(Liar::CameraClearType type) { m_clearFlag = type; };
 
@@ -50,10 +52,11 @@ namespace Liar
 		void SetClearColor(const Liar::Vector4&);
 		void SetClearColor(Liar::Number, Liar::Number, Liar::Number, Liar::Number alpha = 1.0f);
 
-		virtual bool Render(Liar::StageContext&, Liar::RenderState&);
-		virtual bool Destroy(bool destoryChild = true);
+		virtual bool Render(Liar::StageContext& gl);
 
 		virtual bool GetTransformChanged() const { return m_transformChanged || m_transform3D->GetTransformChanged(); };
 		virtual Liar::Viewport& GetViewport() = 0;
+		virtual Liar::Matrix4x4& GetProjectionMatrix() const = 0;
+		virtual Liar::Matrix4x4& GetProjectionViewMatrix() const = 0;
 	};
 }

@@ -1,6 +1,5 @@
 
 #include <core/graphics/VertexBufferPositionNormalTexture.h>
-#include <core/graphics/VertexElementUsage.h>
 #include <Liar3D.h>
 
 namespace Liar
@@ -58,13 +57,27 @@ namespace Liar
 		size_t normalOffsize = positionOffsize + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3;
 		size_t texCoordOffseize = normalOffsize + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR2;
 		// position
-		gl.VertexAttribPointer(Liar::VertexElementUsage::POSITION0, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3, GL_FLOAT, GL_FALSE, stride, (void*)positionOffsize);
-		gl.EnableVertexAttribArray(Liar::VertexElementUsage::POSITION0);
+		gl.VertexAttribPointer(0, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3, GL_FLOAT, GL_FALSE, stride, (void*)positionOffsize);
+		gl.EnableVertexAttribArray(0);
 		// normal
-		gl.VertexAttribPointer(Liar::VertexElementUsage::NORMAL0, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3, GL_FLOAT, GL_FALSE, stride, (void*)normalOffsize);
-		gl.EnableVertexAttribArray(Liar::VertexElementUsage::NORMAL0);
+		gl.VertexAttribPointer(1, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3, GL_FLOAT, GL_FALSE, stride, (void*)normalOffsize);
+		gl.EnableVertexAttribArray(1);
 		// texCoordinate
-		gl.VertexAttribPointer(Liar::VertexElementUsage::TEXTURECOORDINATE0, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR2, GL_FLOAT, GL_FALSE, stride, (void*)texCoordOffseize);
-		gl.EnableVertexAttribArray(Liar::VertexElementUsage::TEXTURECOORDINATE0);
+		gl.VertexAttribPointer(2, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR2, GL_FLOAT, GL_FALSE, stride, (void*)texCoordOffseize);
+		gl.EnableVertexAttribArray(2);
+	}
+
+	std::string VertexBufferPositionNormalTexture::GetAttribDefines()
+	{
+		std::string tmp("#define ");
+		tmp += Liar::VERTEX_ATTRIB_POSITION0;
+		tmp += " 0\n";
+		tmp += "#define ";
+		tmp += Liar::VERTEX_ATTRIB_NORMAL0;
+		tmp += " 1\n";
+		tmp += "#define ";
+		tmp += Liar::VERTEX_ATTRIB_TEXCOORDINATE0;
+		tmp += " 2\n";
+		return tmp;
 	}
 }

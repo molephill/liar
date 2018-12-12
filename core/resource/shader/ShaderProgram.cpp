@@ -5,18 +5,14 @@ namespace Liar
 {
 
 	ShaderProgram::ShaderProgram():
-		Liar::Resource(),
-		m_programId(0)
+		m_programId(0),
+		vertexDefine(-1), fragementDefine(-1)
 	{
-
 	}
 
 	ShaderProgram::~ShaderProgram()
 	{
-		if (m_programId > 0)
-		{
-			glDeleteProgram(m_programId);
-		}
+		Clear();
 	}
 
 	void ShaderProgram::LinkProgram(const char* vShaderCode, const char * fShaderCode)
@@ -70,6 +66,14 @@ namespace Liar
 				glGetProgramInfoLog(shader, 512, NULL, infoLog);
 				std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
 			}
+		}
+	}
+
+	void ShaderProgram::Clear()
+	{
+		if (m_programId > 0)
+		{
+			glDeleteProgram(m_programId);
 		}
 	}
 

@@ -5,6 +5,8 @@
 #include <core/display/EventDispatcher.h>
 #include <core/render/RenderUnit.h>
 #include <core/render/RenderState.h>
+#include <core/resource/shader/ShaderProgram.h>
+#include <core/resource/shader/ShaderCompile.h>
 #include <LiarType.h>
 
 namespace Liar
@@ -21,14 +23,14 @@ namespace Liar
 		Liar::Uint m_numberChild;
 		Liar::Node* m_parent;
 		const char* m_name;
-		bool m_destroyed;
 		bool m_visible;
 		Liar::Transform3D* m_transform3D;
 		Liar::BaseMaterial* m_material;
+		Liar::ShaderProgram* m_shaderProgram;
+		Liar::PreCompileShader* m_preCompileShader;
 
 	public:
 		virtual void SetUpNoticeType(int);
-		virtual bool Destroy(bool destroyChild = true);
 		virtual void DestroyChildren();
 		virtual Liar::Node* AddChild(Liar::Node*);
 		virtual Liar::Node* AddChildAt(Liar::Node*, Liar::Int);
@@ -51,17 +53,17 @@ namespace Liar
 
 	protected:
 		virtual void ChildChange(Liar::Node* child = nullptr) {};
-		virtual Liar::RenderUnit* GetRenderUint(Liar::RenderState&);
+		virtual Liar::RenderUnit* GetRenderUint(Liar::RenderState&, bool buildShader = false);
+		virtual bool BuildShaderProgram(Liar::RenderState&);
 
 	public:
-		inline bool GetDestroyed() const { return m_destroyed; };
 		inline bool GetBit(int type) const { return (m_bits & type) != 0; };
 		inline void SetBit(int type, bool value) { if (value) m_bits |= type; else m_bits &= ~type; };
 		Liar::Node* GetParent() const { return m_parent; };
 		virtual Liar::Uint NumChildren() const { return m_numberChild; };
 		bool GetVisible() const { return m_visible; };
-		Liar::Int CollectRenderUint(Liar::RenderState&);
-		Liar::Int CollectChildrenRenderUint(Liar::RenderState&);
+		virtual Liar::Int CollectRenderUint(Liar::RenderState&, bool buildShader = false);
+		virtual Liar::Int CollectChildrenRenderUint(Liar::RenderState&, bool buildShader = true);
 
 	private:
 		void DisplayChild(Liar::Node*, bool);

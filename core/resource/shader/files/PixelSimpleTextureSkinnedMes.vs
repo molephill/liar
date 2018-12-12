@@ -6,7 +6,7 @@ varying vec3 v_Normal;
 #endif
 
 #if defined(DIFFUSEMAP)||((defined(DIRECTIONLIGHT)||defined(POINTLIGHT)||defined(SPOTLIGHT))&&(defined(COLOR)&&defined(SPECULARMAP)||defined(NORMALMAP)))||(defined(LIGHTMAP)&&defined(UV))
-layout (location = TEXTURECOORDINATE0) in vec3 a_Texcoord0;
+layout (location = TEXTURECOORDINATE0 in vec3 a_Texcoord0;
 varying vec2 v_Texcoord0;
   #ifdef UVTRANSFORM 
   uniform mat4 u_UVMatrix;

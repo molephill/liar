@@ -5,14 +5,17 @@
 
 namespace Liar
 {
-	RenderState::RenderState():
+	RenderState::RenderState() :
 		clientWidth(0), clientHeight(0),
-		camera(nullptr)
+		camera(nullptr), enableLight(true),
+		shaderValue(new Liar::ShaderValue()), publicDefine(-1)
 	{
 	}
 
 	RenderState::~RenderState()
 	{
 		camera = nullptr;
+		delete shaderValue;
+		shaderValue = nullptr;
 	}
 }

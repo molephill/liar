@@ -75,6 +75,7 @@ namespace Liar
 		bool GetDepthWrite() const { return m_depthWrite; };
 		void SetRenderQueue(Liar::RenderQueueDefine type) { m_renderQueue = type; };
 		Liar::RenderQueueDefine GetRenderQueue() const { return m_renderQueue; };
+		Liar::ShaderValue& GetShaderValue() { return *m_shaderValues; };
 
 	public:
 		/**
@@ -138,8 +139,8 @@ namespace Liar
 		* 设置反射率。
 		* @param value 反射率。
 		*/
-		void SetAbedoColor(Liar::Vector4*);
-		Liar::Vector4* GetAbedoColor();
+		void SetAlbedoColor(Liar::Vector4*);
+		Liar::Vector4* GetAlbedoColor();
 
 
 		/**

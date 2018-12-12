@@ -72,11 +72,14 @@ namespace Liar
 		size_t bufferSize = m_numberVertices * stride;
 		gl.BufferData(GL_ARRAY_BUFFER, bufferSize, nullptr, GL_STATIC_DRAW);
 
-		for (i = 0; i < m_numberVertices; ++i)
+		for (i = 0; i < m_numberIndices; ++i)
 		{
 			size_t start = i * stride;
-			m_vertices[i]->BufferSubData(m_bufferSubType, start);
+			size_t vertexIndex = m_indices[i];
+			m_vertices[vertexIndex]->BufferSubData(m_bufferSubType, start);
 		}
+
+		m_vertices[0]->VertexAttrbPointer();
 	}
 
 	void Geometry::SetGeometryVertexType(Liar::GeometryVertexType geometryVertexType)
@@ -98,5 +101,11 @@ namespace Liar
 	Liar::Uint Geometry::GetNumberTriangles() 
 	{
 		return m_numberIndices / 3;
+	}
+
+	std::string Geometry::GetAttribDefines()
+	{
+		if (m_vertices) return m_vertices[0]->GetAttribDefines();
+		else return "";
 	}
 }

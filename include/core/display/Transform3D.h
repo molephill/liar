@@ -30,7 +30,7 @@ namespace Liar
 		void Translate(Liar::Number, Liar::Number, Liar::Number);
 		void Rotate(const Liar::Vector3& rotation, bool isRadian = true);
 		void Rotate(Liar::Number, Liar::Number, Liar::Number, bool isRadian = true);
-		void CalclateTransformation();
+		void CalclateTransformation(const Liar::Matrix4x4&);
 
 		void SetPosition(const Liar::Vector3& rhs);
 		void SetPosition(Liar::Number x, Liar::Number y, Liar::Number z);
@@ -45,10 +45,12 @@ namespace Liar
 
 		bool IsFrontFaceInvert();
 
+		Liar::Matrix4x4& GetProjectionViewWorldMatrix() const { return *m_projectViewMatrix; };
 		Liar::Vector3& GetPosition() const { return *m_position; };
 		Liar::Quaternion& GetRotation() const { return *m_rotation; };
 		Liar::Vector3& GetScale() const { return *m_scale; };
 		Liar::Matrix4x4& GetMatrix() const { return *m_matrix; };
+		Liar::Matrix4x4& GetWorldMatrix() const { return *m_worldMatrix; };
 		bool GetTransformChanged() const { return m_transformChanged; };
 		/**
 		* 观察目标位置。

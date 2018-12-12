@@ -3,7 +3,6 @@
 #include <math/Vector2.h>
 #include <math/Matrix4x4.h>
 #include <core/resource/shader/ShaderDefine.h>
-#include <core/graphics/VertexElementUsage.h>
 
 namespace Liar
 {
@@ -36,14 +35,12 @@ namespace Liar
 		Liar::Uint m_numberMatrix4x4;
 
 		Liar::Int m_shaderDefineValue;
-		Liar::Int m_shaderVertexAttribDefineValue;		/* 定义顶点属性 */
 
 	public:
 		void AddShaderDefine(Liar::ShaderTypeDefine);
 		void RemoveShaderDefine(Liar::ShaderTypeDefine);
 
-		void AddShaderVertexAttribDefine(Liar::VertexElementUsage);
-		void RemoveShaderVertexAttribDefine(Liar::VertexElementUsage);
+		Liar::Int GetShaderDefineValue() const { return m_shaderDefineValue; };
 
 		void SetMatrix4x4(Liar::ShaderValueDefine, Liar::Matrix4x4*);
 		Liar::Matrix4x4* GetMatrix4x4(Liar::ShaderValueDefine);

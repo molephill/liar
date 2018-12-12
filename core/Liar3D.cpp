@@ -41,19 +41,19 @@ namespace Liar
 		glfwSetCursorPosCallback(window, mouse_callback);
 		glfwSetScrollCallback(window, scroll_callback);
 
-		Liar::Liar3D::geometryFactory = new Liar::GeometryFactory();
-		Liar::Liar3D::stageContext = new Liar::StageContext();
-		Liar::Liar3D::renderState = new Liar::RenderState();
-		Liar::Liar3D::stage = new Liar::Stage(w, h);
-		Liar::Liar3D::shaderCompile = new Liar::ShaderCompile();
 		Liar::Liar3D::urlFormat = new Liar::URL();
-		Liar::Liar3D::rendering = new Liar::Renderer();
-
 #ifdef __APPLE__
 #else
 		Liar::Liar3D::urlFormat->basePath = "E:\\c++\\liar\\liar\\core\\";
 		Liar::Liar3D::urlFormat->baseshaderFolder = "resource\\shader\\files\\";
 #endif
+
+		Liar::Liar3D::geometryFactory = new Liar::GeometryFactory();
+		Liar::Liar3D::stageContext = new Liar::StageContext();
+		Liar::Liar3D::renderState = new Liar::RenderState();
+		Liar::Liar3D::stage = new Liar::Stage(w, h);
+		Liar::Liar3D::shaderCompile = new Liar::ShaderCompile();
+		Liar::Liar3D::rendering = new Liar::Renderer();
 	}
 
 	void Liar3D::Run()
@@ -76,6 +76,8 @@ namespace Liar
 				Liar::RenderState& state = *(Liar::Liar3D::renderState);
 
 				run = Liar::Liar3D::stage->OnEnterFrame(gl, state);
+				rendering->Render(state);
+				state.publicDefine = state.shaderValue->GetShaderDefineValue();
 
 			}
 			else
@@ -89,12 +91,6 @@ namespace Liar
 
 	void Liar3D::Destroy()
 	{
-		if (Liar::Liar3D::stage)
-		{
-			delete Liar::Liar3D::stage;
-			Liar::Liar3D::stage = nullptr;
-		}
-
 		if (Liar::Liar3D::geometryFactory)
 		{
 			delete Liar::Liar3D::geometryFactory;
@@ -129,6 +125,12 @@ namespace Liar
 		{
 			delete Liar::Liar3D::rendering;
 			Liar::Liar3D::rendering = nullptr;
+		}
+
+		if (Liar::Liar3D::stage)
+		{
+			delete Liar::Liar3D::stage;
+			Liar::Liar3D::stage = nullptr;
 		}
 
 		glfwTerminate();

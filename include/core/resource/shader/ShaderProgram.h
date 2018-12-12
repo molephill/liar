@@ -15,7 +15,7 @@
 
 namespace Liar
 {
-	class ShaderProgram:public Resource
+	class ShaderProgram
 	{
 	public:
 		ShaderProgram();
@@ -25,8 +25,13 @@ namespace Liar
 		Liar::Uint m_programId;
 
 	public:
+		Liar::Int vertexDefine;					// 顶点定义数值
+		Liar::Int fragementDefine;				// 片段定义数值
+
+	public:
 		void LinkProgram(const char*, const char*);
 		Liar::Uint GetProgramId() { return m_programId; };
+		void Clear();
 
 		void Use();
 		// ------------------------------------------------------------------------

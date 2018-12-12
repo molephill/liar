@@ -147,9 +147,6 @@
     <ClCompile Include="core\display\Node.cpp">
       <Filter>源文件\core\display</Filter>
     </ClCompile>
-    <ClCompile Include="core\display\Scene.cpp">
-      <Filter>源文件\core\display</Filter>
-    </ClCompile>
     <ClCompile Include="core\display\Stage.cpp">
       <Filter>源文件\core\display</Filter>
     </ClCompile>
@@ -221,6 +218,9 @@
     </ClCompile>
     <ClCompile Include="core\render\RenderUnit.cpp">
       <Filter>源文件\core\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VSOpenGL\OpenGL\stb_load\deprecated\stb_image.c">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -308,9 +308,6 @@
     <ClInclude Include="include\core\display\Node.h">
       <Filter>头文件\core\display</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\display\Scene.h">
-      <Filter>头文件\core\display</Filter>
-    </ClInclude>
     <ClInclude Include="include\core\display\Stage.hpp">
       <Filter>头文件\core\display</Filter>
     </ClInclude>
@@ -325,9 +322,6 @@
     </ClInclude>
     <ClInclude Include="include\core\render\StageContext.h">
       <Filter>头文件\core\render</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\graphics\VertexElementUsage.h">
-      <Filter>头文件\core\graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\core\models\geometries\Geometry.h">
       <Filter>头文件\core\models\geometries</Filter>

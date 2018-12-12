@@ -1,6 +1,7 @@
 #pragma once
 
 #include <core/render/RenderUnit.h>
+#include <core/render/RenderState.h>
 
 namespace Liar
 {
@@ -17,6 +18,7 @@ namespace Liar
 
 	public:
 		Liar::RenderUnit* AddRenderUnit(Liar::RenderUnit*);
+		void Render(Liar::RenderState&);
 		void Clear();
 	};
 }

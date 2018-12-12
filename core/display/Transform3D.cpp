@@ -22,11 +22,13 @@ namespace Liar
 		delete m_scale;
 		delete m_matrix;
 		delete m_worldMatrix;
+		delete m_projectViewMatrix;
 		m_position = nullptr;
 		m_rotation = nullptr;
 		m_scale = nullptr;
 		m_matrix = nullptr;
 		m_worldMatrix = nullptr;
+		m_projectViewMatrix = nullptr;
 		m_parent = nullptr;
 		if (m_pivot)
 		{
@@ -86,7 +88,7 @@ namespace Liar
 		}
 	}
 
-	void Transform3D::CalclateTransformation()
+	void Transform3D::CalclateTransformation(const Liar::Matrix4x4& projectionViewMatrix)
 	{
 		if (m_transformChanged)
 		{
@@ -122,6 +124,8 @@ namespace Liar
 				m_worldMatrix->Set(*m_matrix);
 			}
 		}
+
+		Liar::Matrix4x4::Multiply(projectionViewMatrix, *m_worldMatrix, *m_projectViewMatrix);
 	}
 
 	void Transform3D::SetPosition(const Liar::Vector3& rhs)

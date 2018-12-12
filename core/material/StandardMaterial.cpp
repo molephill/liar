@@ -5,11 +5,28 @@ namespace Liar
 	StandardMaterial::StandardMaterial():
 		Liar::BaseMaterial()
 	{
+		Liar::Vector3* tmp = &(Liar::MathUtils3D::TEMPVector30);
+		tmp->Set(0.6f, 0.6f, 0.6f);
+		SetAmbientColor(tmp);
+		tmp->Set(1.0f, 1.0f, 1.0f);
+		SetDiffuseColor(tmp);
+		SetReflectColor(tmp);
+
+		Liar::Vector4* tmpv4 = &(Liar::MathUtils3D::TEMPVector4);
+		tmpv4->Set(1.0f, 1.0f, 1.0f, 8.0f);
+		SetSpecularColor(tmpv4);
+		tmpv4->Set(1.0f, 1.0f, 1.0f, 1.0f);
+		SetAlbedoColor(tmpv4);
+		tmpv4->Set(1.0f, 1.0f, 0.0f, 0.0f);
+		SetTilingOffset(tmpv4);
+
+		SetAlphaTestValue(0.5f);
 	}
 
 
 	StandardMaterial::~StandardMaterial()
 	{
+		Destroy();
 	}
 
 	void StandardMaterial::SetRenderMode(Liar::RenderModeDefine value)

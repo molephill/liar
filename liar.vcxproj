@@ -122,9 +122,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\VSOpenGL\OpenGL\stb_load\deprecated\stb_image.c" />
     <ClCompile Include="core\display\EventDispatcher.cpp" />
     <ClCompile Include="core\display\Node.cpp" />
-    <ClCompile Include="core\display\Scene.cpp" />
     <ClCompile Include="core\display\Stage.cpp" />
     <ClCompile Include="core\display\Transform3D.cpp" />
     <ClCompile Include="core\graphics\raws\IRawVertexBuffers.cpp" />
@@ -169,14 +169,12 @@
   <ItemGroup>
     <ClInclude Include="include\core\display\EventDispatcher.h" />
     <ClInclude Include="include\core\display\Node.h" />
-    <ClInclude Include="include\core\display\Scene.h" />
     <ClInclude Include="include\core\display\Stage.hpp" />
     <ClInclude Include="include\core\display\Transform3D.h" />
     <ClInclude Include="include\core\graphics\IVertexBuffer.h" />
     <ClInclude Include="include\core\graphics\raws\IRawVertexBuffers.h" />
     <ClInclude Include="include\core\graphics\raws\RawVertexBuffersPositionNormalTexture.h" />
     <ClInclude Include="include\core\graphics\VertexBufferPositionNormalTexture.h" />
-    <ClInclude Include="include\core\graphics\VertexElementUsage.h" />
     <ClInclude Include="include\core\graphics\VertexFactory.h" />
     <ClInclude Include="include\core\graphics\VertexType.h" />
     <ClInclude Include="include\core\light\BaseLight.h" />

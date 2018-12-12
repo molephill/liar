@@ -3,18 +3,42 @@
 
 namespace Liar
 {
-	Node::Node():
+	Node::Node() :
 		Liar::EventDispatcher(),
 		m_bits(0), m_numberChild(0), m_childs(nullptr),
-		m_parent(nullptr), m_name(nullptr), m_destroyed(false),
+		m_parent(nullptr), m_name(nullptr),
 		m_visible(true), m_transform3D(new Liar::Transform3D()),
-		m_material(nullptr)
+		m_material(nullptr), m_shaderProgram(nullptr), m_preCompileShader(nullptr)
 	{
 	}
 
 	Node::~Node()
 	{
-		Destroy();
+		if (m_parent) m_parent->RemoveChild(this);
+		if (m_childs)
+		{
+			DestroyChildren();
+			free(m_childs);
+		}
+		m_childs = nullptr;
+		m_parent = nullptr;
+
+		delete m_transform3D;
+		m_transform3D = nullptr;
+
+		if (m_material)
+		{
+			m_material->ReduceRefrence();
+			m_material = nullptr;
+		}
+
+		if (m_shaderProgram)
+		{
+			delete m_shaderProgram;
+			m_shaderProgram = nullptr;
+		}
+
+		m_preCompileShader = nullptr;
 	}
 
 	void Node::SetUpNoticeType(int type)
@@ -57,7 +81,7 @@ namespace Liar
 
 	Liar::Node* Node::SpliceChild(Liar::Uint startIndex, Liar::Node* node)
 	{
-		if (!node || m_destroyed) return node;
+		if (!node) return node;
 		if (!m_childs)
 		{
 			m_childs = (Liar::Node**)malloc(sizeof(Liar::Node*));
@@ -170,7 +194,7 @@ namespace Liar
 	*/
 	Liar::Node* Node::AddChild(Liar::Node* node)
 	{
-		if (!node || m_destroyed || node == this) return this;
+		if (!node || node == this) return this;
 		if (node->m_parent == this)
 		{
 			Liar::Int index = GetChildIndex(node);
@@ -199,7 +223,7 @@ namespace Liar
 	*/
 	Liar::Node* Node::AddChildAt(Liar::Node* node, Liar::Int index)
 	{
-		if (!node || m_destroyed || node == this) return node;
+		if (!node || node == this) return node;
 		if (index >= 0 && static_cast<Liar::Uint>(index) < m_numberChild)
 		{
 			if (node->m_parent == this)
@@ -218,36 +242,6 @@ namespace Liar
 			return node;
 		}
 		return node;
-	}
-
-	/**
-	* <p>销毁此对象。destroy对象默认会把自己从父节点移除，并且清理自身引用关系，等待js自动垃圾回收机制回收。destroy后不能再使用。</p>
-	* <p>destroy时会移除自身的事情监听，自身的timer监听，移除子对象及从父节点移除自己。</p>
-	* @param destroyChild	（可选）是否同时销毁子节点，若值为true,则销毁子节点，否则不销毁子节点。
-	*/
-	bool Node::Destroy(bool destroyChild)
-	{
-		if (m_destroyed) return false;
-		m_destroyed = true;
-		if (m_parent) m_parent->RemoveChild(this);
-		if (m_childs)
-		{
-			if (destroyChild) DestroyChildren();
-			else RemoveChildren();
-			free(m_childs);
-		}
-		m_childs = nullptr;
-		m_parent = nullptr;
-
-		delete m_transform3D;
-		m_transform3D = nullptr;
-
-		if (m_material)
-		{
-			m_material->ReduceRefrence();
-			m_material = nullptr;
-		}
-		return true;
 	}
 
 	/**
@@ -341,15 +335,16 @@ namespace Liar
 		{
 			if (node)
 			{
+				m_transform3D->SetParent(node->m_transform3D);
 				if (node->GetVisible()) DisplayChild(this, true);
 				node->ChildChange(this);
 			}
 			else
 			{
+				m_transform3D->SetParent(nullptr);
 				m_parent->ChildChange();
-				if (!node->GetVisible()) DisplayChild(this, false);
+				DisplayChild(this, false);
 			}
-			node->m_transform3D->SetParent(m_transform3D);
 			m_parent = node;
 		}
 	}
@@ -382,28 +377,41 @@ namespace Liar
 		}
 	}
 
-	Liar::RenderUnit* Node::GetRenderUint(Liar::RenderState& state)
+	Liar::RenderUnit* Node::GetRenderUint(Liar::RenderState& state, bool buildShader)
 	{
 		Liar::RenderUnit* unit = Liar::Liar3D::rendering->PopRenderUnit();
+		m_transform3D->CalclateTransformation(state.camera->GetProjectionViewMatrix());
 		unit->material = m_material;
 		unit->transform = m_transform3D;
+		if (buildShader) BuildShaderProgram(state);
+		unit->shaderProgram = m_shaderProgram;
 		return unit;
 	}
 
-	Liar::Int Node::CollectRenderUint(Liar::RenderState& state)
+	Liar::Int Node::CollectRenderUint(Liar::RenderState& state, bool buildShader)
 	{
-		m_transform3D->CalclateTransformation();
-		return CollectChildrenRenderUint(state);
+		Liar::Liar3D::rendering->AddRenderUnit(GetRenderUint(state, buildShader));
+		return CollectChildrenRenderUint(state, buildShader) + 1;
 	}
 
-	Liar::Int Node::CollectChildrenRenderUint(Liar::RenderState& state)
+	Liar::Int Node::CollectChildrenRenderUint(Liar::RenderState& state, bool buildShader)
 	{
 		Liar::Int count = 0;
 		for (size_t i = 0; i < m_numberChild; ++i)
 		{
-			Liar::Liar3D::rendering->AddRenderUnit(m_childs[i]->GetRenderUint(state));
+			Liar::Liar3D::rendering->AddRenderUnit(m_childs[i]->GetRenderUint(state, buildShader));
 			count += m_childs[i]->CollectRenderUint(state) + 1;
 		}
 		return count;
+	}
+
+	bool Node::BuildShaderProgram(Liar::RenderState& state)
+	{
+		bool recreate = state.shaderValue->GetShaderDefineValue() != state.publicDefine;
+		if (!recreate && m_shaderProgram && m_material)
+		{
+			recreate = m_shaderProgram->fragementDefine != m_material->GetShaderValue().GetShaderDefineValue();
+		}
+		return recreate;
 	}
 }

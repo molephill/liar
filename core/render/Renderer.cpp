@@ -16,6 +16,7 @@ namespace Liar
 		{
 			if (m_renderQueues[i])
 			{
+				m_renderQueues[i]->Clear();
 				delete m_renderQueues[i];
 				m_renderQueues[i] = nullptr;
 			}
@@ -24,16 +25,16 @@ namespace Liar
 		if (m_renderQueues) free(m_renderQueues);
 		m_numberRenderQueue = 0;
 
-		size_t unit = 0;
-		for (int i = 0; i < m_numberRenderUnit; ++i)
+		for (Liar::Uint i = 0; i < m_numberRenderUnit; ++i)
 		{
 			if (m_renderUnits[i])
 			{
 				delete m_renderUnits[i];
-				++unit;
+				m_renderUnits[i] = nullptr;
 			}
 		}
-		
+		if (m_renderUnits) free(m_renderUnits);
+		m_numberRenderUnit = 0;
 
 	}
 
@@ -91,6 +92,17 @@ namespace Liar
 		{
 			unit->Clear();
 			m_renderUnits[m_curIndexRenderUnit++] = unit;
+		}
+	}
+
+	void Renderer::Render(Liar::RenderState& state)
+	{
+		for (int i = 0; i < m_numberRenderQueue; ++i)
+		{
+			if (m_renderQueues[i])
+			{
+				m_renderQueues[i]->Render(state);
+			}
 		}
 	}
 }

@@ -4,7 +4,7 @@
 namespace Liar
 {
     Stage::Stage(Liar::Int w, Liar::Int h):
-		m_scenes(nullptr), m_numberChild(0),
+		Liar::Node(),
 		m_cameras(nullptr), m_numberCamera(0),
 		m_width(w), m_height(h),
 		m_isFirstMove(true), m_lastMouseX(0.0), m_lastMouseY(0.0)
@@ -13,18 +13,7 @@ namespace Liar
 
 	Stage::~Stage()
 	{
-		size_t i = 0;
-		for (i = 0; i < m_numberChild; ++i)
-		{
-			delete m_scenes[i];
-			m_scenes[i] = nullptr;
-		}
-
-		if (m_scenes) free(m_scenes);
-		m_scenes = nullptr;
-		m_numberChild = 0;
-
-		for (i = 0; i < m_numberCamera; ++i)
+		for (size_t i = 0; i < m_numberCamera; ++i)
 		{
 			delete m_cameras[i];
 			m_cameras[i] = nullptr;
@@ -35,27 +24,10 @@ namespace Liar
 		m_numberCamera = 0;
 	}
 
-	Liar::Node* Stage::AddChild(Liar::Node* node)
-	{
-		Liar::Scene* scene = static_cast<Liar::Scene*>(node);
-		if (!scene) return node;
-		if (m_scenes)
-		{
-			m_scenes = (Liar::Scene**)realloc(m_scenes, sizeof(Liar::Scene*)*(m_numberChild + 1));
-		}
-		else
-		{
-			m_scenes = (Liar::Scene**)malloc(sizeof(Liar::Scene*));
-		}
-		m_scenes[m_numberChild] = scene;
-		++m_numberChild;
-		return node;
-	}
-
 	Liar::BaseCamera* Stage::AddCamera(Liar::BaseCamera* camera)
 	{
 		if (!camera) return camera;
-		if (m_scenes)
+		if (m_cameras)
 		{
 			m_cameras = (Liar::BaseCamera**)realloc(m_cameras, sizeof(Liar::BaseCamera*)*(m_numberChild + 1));
 		}
@@ -68,6 +40,7 @@ namespace Liar
 		return camera;
 	}
 
+
 	bool Stage::OnEnterFrame(Liar::StageContext& gl, Liar::RenderState& state)
 	{
 		bool rendering = true;
@@ -75,14 +48,13 @@ namespace Liar
 		for (size_t j = 0; j < m_numberCamera; ++j)
 		{
 			Liar::Liar3D::renderState->camera = m_cameras[j];
-			m_cameras[j]->Render(gl, state);
-
+			m_cameras[j]->Render(gl);
+			m_transform3D->CalclateTransformation(m_cameras[j]->GetProjectionViewMatrix());
 			for (size_t i = 0; i < m_numberChild; ++i)
 			{
-				renderCount += m_scenes[i]->CollectRenderUint(state);
+				renderCount += m_childs[i]->CollectRenderUint(state);
 			}
 		}
-
 		return rendering;
 	}
 

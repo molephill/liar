@@ -14,7 +14,12 @@ namespace Liar
 
 	Camera::~Camera()
 	{
-		Destroy();
+		delete m_viewPort;
+		delete m_projectionMatrix;
+		delete m_projectionViewMatrix;
+		m_viewPort = nullptr;
+		m_projectionMatrix = nullptr;
+		m_projectionViewMatrix = nullptr;
 	}
 
 	void Camera::CalculateProjectionMatrix()
@@ -57,21 +62,6 @@ namespace Liar
 		{
 			Liar::Matrix4x4::Multiply(*m_projectionMatrix, m_transform3D->GetMatrix(), *m_projectionViewMatrix);
 		}
-	}
-
-	bool Camera::Destroy(bool destroyChild)
-	{
-		bool destroied = Liar::BaseCamera::Destroy(destroyChild);
-		if (destroied)
-		{
-			delete m_viewPort;
-			delete m_projectionMatrix;
-			delete m_projectionViewMatrix;
-			m_viewPort = nullptr;
-			m_projectionMatrix = nullptr;
-			m_projectionViewMatrix = nullptr;
-		}
-		return destroied;
 	}
 
 }

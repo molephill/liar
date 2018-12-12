@@ -292,12 +292,12 @@ namespace Liar
 	* 设置反射率。
 	* @param value 反射率。
 	*/
-	void BaseMaterial::SetAbedoColor(Liar::Vector4* value)
+	void BaseMaterial::SetAlbedoColor(Liar::Vector4* value)
 	{
 		m_shaderValues->SetColor(Liar::ShaderValueDefine::SHADERVALUE_ALBEDO, value);
 	}
 
-	Liar::Vector4* BaseMaterial::GetAbedoColor()
+	Liar::Vector4* BaseMaterial::GetAlbedoColor()
 	{
 		return m_shaderValues->GetVector4(Liar::ShaderValueDefine::SHADERVALUE_ALBEDO);
 	}
