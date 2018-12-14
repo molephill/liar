@@ -61,9 +61,9 @@ namespace Liar
 		if (calcProjectionViewMatrix)
 		{
 			Liar::Matrix4x4::Multiply(*m_projectionMatrix, m_transform3D->GetWorldMatrix(), *m_projectionViewMatrix);
-			std::cout << m_transform3D->GetWorldMatrix() << std::endl;
+			/*std::cout << m_transform3D->GetWorldMatrix() << std::endl;
 			std::cout << *m_projectionMatrix << std::endl;
-			std::cout << *m_projectionViewMatrix << std::endl;
+			std::cout << *m_projectionViewMatrix << std::endl;*/
 		}
 
 	}
