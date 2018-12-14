@@ -61,18 +61,39 @@ namespace Liar
 	void BoxGeometry::RecreateResource()
 	{
 
+		//Liar::Number halfLong = m_long * 0.5f;
+		//Liar::Number halfWidth = m_width * 0.5f;
+		//Liar::Number halfHeight = m_height * 0.5f;
+
 		//GLfloat vertices[] = {
-		//	0.5f,  0.5f, 0.0f,  // Top Right
-		//	0.5f, -0.5f, 0.0f,  // Bottom Right
-		//	-0.5f, -0.5f, 0.0f,  // Bottom Left
-		//	-0.5f,  0.5f, 0.0f   // Top Left 
+		//	-halfLong, halfHeight, -halfWidth, 0, 1, 0, 0, 0, halfLong, halfHeight, -halfWidth, 0, 1, 0, 1, 0, halfLong, halfHeight, halfWidth, 0, 1, 0, 1, 1, -halfLong, halfHeight, halfWidth, 0, 1, 0, 0, 1,
+		//	//下
+		//	-halfLong, -halfHeight, -halfWidth, 0, -1, 0, 0, 1, halfLong, -halfHeight, -halfWidth, 0, -1, 0, 1, 1, halfLong, -halfHeight, halfWidth, 0, -1, 0, 1, 0, -halfLong, -halfHeight, halfWidth, 0, -1, 0, 0, 0,
+		//	//左
+		//	-halfLong, halfHeight, -halfWidth, -1, 0, 0, 0, 0, -halfLong, halfHeight, halfWidth, -1, 0, 0, 1, 0, -halfLong, -halfHeight, halfWidth, -1, 0, 0, 1, 1, -halfLong, -halfHeight, -halfWidth, -1, 0, 0, 0, 1,
+		//	//右
+		//	halfLong, halfHeight, -halfWidth, 1, 0, 0, 1, 0, halfLong, halfHeight, halfWidth, 1, 0, 0, 0, 0, halfLong, -halfHeight, halfWidth, 1, 0, 0, 0, 1, halfLong, -halfHeight, -halfWidth, 1, 0, 0, 1, 1,
+		//	//前
+		//	-halfLong, halfHeight, halfWidth, 0, 0, 1, 0, 0, halfLong, halfHeight, halfWidth, 0, 0, 1, 1, 0, halfLong, -halfHeight, halfWidth, 0, 0, 1, 1, 1, -halfLong, -halfHeight, halfWidth, 0, 0, 1, 0, 1,
+		//	//后
+		//	-halfLong, halfHeight, -halfWidth, 0, 0, -1, 1, 0, halfLong, halfHeight, -halfWidth, 0, 0, -1, 0, 0, halfLong, -halfHeight, -halfWidth, 0, 0, -1, 0, 1, -halfLong, -halfHeight, -halfWidth, 0, 0, -1, 1, 1
 		//};
 		//GLuint indices[] = {  // Note that we start from 0!
-		//	0, 1, 3,  // First Triangle
-		//	1, 2, 3   // Second Triangle
+		//					  //上
+		//	0, 1, 2, 2, 3, 0,
+		//	//下
+		//	4, 7, 6, 6, 5, 4,
+		//	//左
+		//	8, 9, 10, 10, 11, 8,
+		//	//右
+		//	12, 15, 14, 14, 13, 12,
+		//	//前
+		//	16, 17, 18, 18, 19, 16,
+		//	//后
+		//	20, 23, 22, 22, 21, 20
 		//};
 
-		//m_numberIndices = 6;
+		//m_numberIndices = 36;
 
 		//m_indices = (Liar::Uint*)malloc(sizeof(Liar::Uint)*m_numberIndices);
 		//m_indices[0] = 0; m_indices[1] = 1; m_indices[2] = 3; m_indices[3] = 1; m_indices[4] = 2; m_indices[5] = 3;
@@ -87,10 +108,14 @@ namespace Liar
 		//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_elementBuffer);
-		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_numberIndices * sizeof(Liar::Uint), m_indices, GL_STATIC_DRAW);
+		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_numberIndices * sizeof(Liar::Uint), indices, GL_STATIC_DRAW);
 
-		//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+		//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
 		//glEnableVertexAttribArray(0);
+		//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)3);
+		//glEnableVertexAttribArray(1);
+		//glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)6);
+		//glEnableVertexAttribArray(2);
 
 		//glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
 
