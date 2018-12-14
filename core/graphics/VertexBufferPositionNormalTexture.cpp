@@ -57,13 +57,13 @@ namespace Liar
 		size_t normalOffsize = positionOffsize + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3;
 		size_t texCoordOffseize = normalOffsize + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR2;
 		// position
-		gl.VertexAttribPointer(0, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3, GL_FLOAT, GL_FALSE, stride, (void*)positionOffsize);
+		gl.VertexAttribPointer(0, Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3, GL_FLOAT, GL_FALSE, stride, (void*)positionOffsize);
 		gl.EnableVertexAttribArray(0);
 		// normal
-		gl.VertexAttribPointer(1, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3, GL_FLOAT, GL_FALSE, stride, (void*)normalOffsize);
+		gl.VertexAttribPointer(1, Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3, GL_FLOAT, GL_FALSE, stride, (void*)normalOffsize);
 		gl.EnableVertexAttribArray(1);
 		// texCoordinate
-		gl.VertexAttribPointer(2, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR2, GL_FLOAT, GL_FALSE, stride, (void*)texCoordOffseize);
+		gl.VertexAttribPointer(2, Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR2, GL_FLOAT, GL_FALSE, stride, (void*)texCoordOffseize);
 		gl.EnableVertexAttribArray(2);
 	}
 

@@ -58,9 +58,4 @@ namespace Liar
 		renderUnit->geometry = m_geometry;
 		return renderUnit;
 	}
-
-	Liar::Int Mesh::CollectRenderUint(Liar::RenderState& state, bool buildShader)
-	{
-		return Liar::Node::CollectRenderUint(state, buildShader);
-	}
 }

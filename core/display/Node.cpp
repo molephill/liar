@@ -380,7 +380,7 @@ namespace Liar
 	Liar::RenderUnit* Node::GetRenderUint(Liar::RenderState& state, bool buildShader)
 	{
 		Liar::RenderUnit* unit = Liar::Liar3D::rendering->PopRenderUnit();
-		m_transform3D->CalclateTransformation(state.camera->GetProjectionViewMatrix());
+		m_transform3D->CalclateTransformation(&(state.camera->GetProjectionViewMatrix()));
 		unit->material = m_material;
 		unit->transform = m_transform3D;
 		if (buildShader) BuildShaderProgram(state);
@@ -399,7 +399,7 @@ namespace Liar
 		Liar::Int count = 0;
 		for (size_t i = 0; i < m_numberChild; ++i)
 		{
-			count += m_childs[i]->CollectRenderUint(state);
+			count += m_childs[i]->CollectRenderUint(state, buildShader);
 		}
 		return count;
 	}

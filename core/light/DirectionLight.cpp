@@ -31,7 +31,7 @@ namespace Liar
 		if (state.enableLight)
 		{
 			state.shaderValue->AddShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_DIRECTIONLIGHT);
-			m_transform3d->CalclateTransformation(state.camera->GetProjectionViewMatrix());
+			m_transform3d->CalclateTransformation(&(state.camera->GetProjectionViewMatrix()));
 			m_transform3d->GetWorldMatrix().GetForward(*m_direction);
 			m_direction->Normalize();
 			state.shaderValue->SetVector3(Liar::ShaderValueDefine::SHADERVALUE_LIGHTDIRECTION, m_direction);

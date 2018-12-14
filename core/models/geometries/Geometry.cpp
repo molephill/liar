@@ -105,7 +105,25 @@ namespace Liar
 
 	std::string Geometry::GetAttribDefines()
 	{
+		std::string tmp("#define ");
+		tmp += Liar::VERTEX_ATTRIB_POSITION0;
+		tmp += " 0\n";
+		tmp += "#define ";
+		tmp += Liar::VERTEX_ATTRIB_NORMAL0;
+		tmp += " 1\n";
+		tmp += "#define ";
+		tmp += Liar::VERTEX_ATTRIB_TEXCOORDINATE0;
+		tmp += " 2\n";
+		return tmp;
+
 		if (m_vertices) return m_vertices[0]->GetAttribDefines();
 		else return "";
+	}
+
+	void Geometry::Draws()
+	{
+		glBindVertexArray(m_vertexArray);
+		glDrawElements(GL_TRIANGLES, m_numberIndices, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
 	}
 }

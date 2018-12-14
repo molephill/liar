@@ -31,7 +31,7 @@ namespace Liar
 		bool m_transformChanged;
 		Liar::CameraClearType m_clearFlag;
 
-		virtual void CalculateProjectionMatrix() {};
+		virtual void CalculateProjectionMatrix();
 
 	public:
 		Liar::Number GetNearPlane() const { return m_nearPlane; };

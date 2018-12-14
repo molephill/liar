@@ -30,7 +30,7 @@ namespace Liar
 		void Translate(Liar::Number, Liar::Number, Liar::Number);
 		void Rotate(const Liar::Vector3& rotation, bool isRadian = true);
 		void Rotate(Liar::Number, Liar::Number, Liar::Number, bool isRadian = true);
-		void CalclateTransformation(const Liar::Matrix4x4&);
+		void CalclateTransformation(Liar::Matrix4x4* mat = nullptr);
 
 		void SetPosition(const Liar::Vector3& rhs);
 		void SetPosition(Liar::Number x, Liar::Number y, Liar::Number z);

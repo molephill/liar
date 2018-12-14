@@ -14,8 +14,8 @@ uniform mat4 model;
 
 void main()
 {
-    gl_Position = projection * viewMatrix * viewExtentionMatrix * model * vec4(aPos, 1.0);
-    //gl_Position = projection * vec4(aPos, 1.0);
-    ourColor = aColor;
+    //gl_Position = projection * viewMatrix * viewExtentionMatrix * model * vec4(aPos, 1.0);
+    gl_Position = vec4(aPos, 1.0);
+    ourColor = vec3(1, 0, 0);
     TextCoord = vec2(aUV.x, aUV.y);
 }

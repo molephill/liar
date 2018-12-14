@@ -21,7 +21,7 @@ namespace Liar
 		{
 			state.shaderValue->AddShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_POINTLIGHT);
 			Liar::Vector3* tmp = &(Liar::MathUtils3D::TEMPVector30);
-			m_transform3d->CalclateTransformation(state.camera->GetProjectionViewMatrix());
+			m_transform3d->CalclateTransformation(&(state.camera->GetProjectionViewMatrix()));
 			Liar::Matrix4x4& worldMatrix = m_transform3d->GetWorldMatrix();
 			tmp->Set(worldMatrix[12], worldMatrix[13], worldMatrix[14]);
 			state.shaderValue->SetVector3(Liar::ShaderValueDefine::SHADERVALUE_POINTLIGHTPOS, tmp);

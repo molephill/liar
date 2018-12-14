@@ -42,5 +42,6 @@ namespace Liar
 		virtual size_t GetNumberTriangles();
 		virtual Liar::IVertexBuffer* GetVertexBuff(size_t);
 		virtual std::string GetAttribDefines();
+		virtual void Draws();
 	};
 }

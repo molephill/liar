@@ -3,6 +3,7 @@
 #include <LiarType.h>
 #include <core/resource/shader/ShaderValue.h>
 #include <core/render/StageContext.h>
+#include <core/resource/shader/ShaderProgram.h>
 
 namespace Liar
 {

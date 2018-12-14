@@ -5,11 +5,10 @@ e:\c++\liar\liar\debug\stb_image.obj
 e:\c++\liar\liar\debug\basecamera.obj
 e:\c++\liar\liar\debug\mesh.obj
 e:\c++\liar\liar\debug\geometryfactory.obj
+e:\c++\liar\liar\debug\geometry.obj
 e:\c++\liar\liar\debug\boxgeometry.obj
 e:\c++\liar\liar\debug\standardmaterial.obj
-e:\c++\liar\liar\debug\spotlight.obj
-e:\c++\liar\liar\debug\pointlight.obj
-e:\c++\liar\liar\debug\directionlight.obj
+e:\c++\liar\liar\debug\basematerial.obj
 e:\c++\liar\liar\debug\baselight.obj
 e:\c++\liar\liar\debug\liar3d.obj
 e:\c++\liar\liar\debug\vertexfactory.obj
@@ -17,8 +16,6 @@ e:\c++\liar\liar\debug\vertexbufferpositionnormaltexture.obj
 e:\c++\liar\liar\debug\rawvertexbufferspositionnormaltexture.obj
 e:\c++\liar\liar\debug\irawvertexbuffers.obj
 e:\c++\liar\liar\debug\transform3d.obj
-e:\c++\liar\liar\debug\stage.obj
-e:\c++\liar\liar\debug\node.obj
 e:\c++\liar\liar\debug\eventdispatcher.obj
 e:\c++\liar\liar\debug\viewport.obj
 e:\c++\liar\liar\debug\vector4.obj
@@ -28,11 +25,13 @@ e:\c++\liar\liar\debug\matrix4x4.obj
 e:\c++\liar\liar\debug\matrix3x3.obj
 e:\c++\liar\liar\debug\mathutils.obj
 e:\c++\liar\liar\debug\main.obj
+e:\c++\liar\liar\debug\texture2d.obj
 e:\c++\liar\liar\debug\solidcolortexture.obj
 e:\c++\liar\liar\debug\shadervalue.obj
 e:\c++\liar\liar\debug\shaderprogram.obj
 e:\c++\liar\liar\debug\shadercompile.obj
 e:\c++\liar\liar\debug\resource.obj
+e:\c++\liar\liar\debug\baseteture.obj
 e:\c++\liar\liar\debug\renderunit.obj
 e:\c++\liar\liar\debug\renderstate.obj
 e:\c++\liar\liar\debug\renderqueue.obj

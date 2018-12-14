@@ -4,6 +4,7 @@
 #include <core/material/BaseMaterial.h>
 #include <core/models/geometries/Geometry.h>
 #include <core/resource/shader/ShaderProgram.h>
+#include <core/render/RenderState.h>
 
 namespace Liar
 {
@@ -21,5 +22,6 @@ namespace Liar
 
 	public:
 		void Clear();
+		void Render(Liar::RenderState&);
 	};
 }

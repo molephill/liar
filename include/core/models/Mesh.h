@@ -17,7 +17,6 @@ namespace Liar
 		virtual bool BuildShaderProgram(Liar::RenderState&);
 
 	public:
-		virtual Liar::Int CollectRenderUint(Liar::RenderState&, bool buildShader = true);
 		void SetGeometryType(Liar::GeometryType);
 	};
 }

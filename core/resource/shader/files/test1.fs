@@ -13,6 +13,6 @@ uniform Material material;
 
 void main()
 {
-    //FragColor = vec4(ourColor, 1.0f);
-    FragColor = texture(material.diffuse, TextCoord);
+    FragColor = vec4(ourColor, 1.0f);
+    //FragColor = texture(material.diffuse, TextCoord);
 }

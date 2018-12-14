@@ -138,7 +138,7 @@ namespace Liar
 	}
 
 	// ------------------------------------------------------------------------
-	void ShaderProgram::SetMat4(const std::string&name, const Liar::Matrix4x4& m) const
+	void ShaderProgram::SetMat4(const std::string& name, const Liar::Matrix4x4& m) const
 	{
 		glUniformMatrix4fv(glGetUniformLocation(m_programId, name.c_str()), 1, GL_FALSE, m.Get());
 	}

@@ -41,6 +41,7 @@ namespace Liar
 	{
 		for (size_t i = 0; i < m_curNumber; ++i)
 		{
+			m_renderUnits[i]->Render(state);
 			Liar::Liar3D::rendering->PushRenderUnit(m_renderUnits[i]);
 			m_renderUnits[i] = nullptr;
 		}

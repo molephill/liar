@@ -69,6 +69,11 @@ namespace Liar
 		m_clearColor->Set(r, g, b, alpha);
 	}
 
+	void BaseCamera::CalculateProjectionMatrix()
+	{
+		m_transform3D->CalclateTransformation();
+	}
+
 	bool BaseCamera::Render(Liar::RenderState& state)
 	{
 		const Liar::BaseCamera& camera = *this;

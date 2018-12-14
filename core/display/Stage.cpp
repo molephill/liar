@@ -50,8 +50,8 @@ namespace Liar
 		{
 			Liar::Liar3D::renderState->camera = m_cameras[j];
 			m_cameras[j]->Render(state);
-			m_transform3D->CalclateTransformation(m_cameras[j]->GetProjectionViewMatrix());
-			renderCount += CollectRenderUint(state);
+			m_transform3D->CalclateTransformation(&(m_cameras[j]->GetProjectionViewMatrix()));
+			renderCount += CollectRenderUint(state, true);
 		}
 		return rendering;
 	}

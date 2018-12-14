@@ -60,6 +60,44 @@ namespace Liar
 
 	void BoxGeometry::RecreateResource()
 	{
+
+		//GLfloat vertices[] = {
+		//	0.5f,  0.5f, 0.0f,  // Top Right
+		//	0.5f, -0.5f, 0.0f,  // Bottom Right
+		//	-0.5f, -0.5f, 0.0f,  // Bottom Left
+		//	-0.5f,  0.5f, 0.0f   // Top Left 
+		//};
+		//GLuint indices[] = {  // Note that we start from 0!
+		//	0, 1, 3,  // First Triangle
+		//	1, 2, 3   // Second Triangle
+		//};
+
+		//m_numberIndices = 6;
+
+		//m_indices = (Liar::Uint*)malloc(sizeof(Liar::Uint)*m_numberIndices);
+		//m_indices[0] = 0; m_indices[1] = 1; m_indices[2] = 3; m_indices[3] = 1; m_indices[4] = 2; m_indices[5] = 3;
+
+		//glGenVertexArrays(1, &m_vertexArray);
+		//glGenBuffers(1, &m_vertexBuffer);
+		//glGenBuffers(1, &m_elementBuffer);
+		//// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
+		//glBindVertexArray(m_vertexArray);
+
+		//glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
+		//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_elementBuffer);
+		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_numberIndices * sizeof(Liar::Uint), m_indices, GL_STATIC_DRAW);
+
+		//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+		//glEnableVertexAttribArray(0);
+
+		//glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
+
+		//glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/ar
+
+		//return;
+
 		Liar::Geometry::RecreateResource();
 		InitVertices(24);
 
@@ -235,5 +273,8 @@ namespace Liar
 		m_indices[24] = 16; m_indices[25] = 17; m_indices[26] = 18; m_indices[27] = 18; m_indices[28] = 19; m_indices[29] = 16;
 		// 后
 		m_indices[30] = 20; m_indices[31] = 23; m_indices[32] = 22; m_indices[33] = 22; m_indices[34] = 21; m_indices[35] = 20;
+
+		// 开始绑定
+		GenAndBindVertex();
 	}
 }

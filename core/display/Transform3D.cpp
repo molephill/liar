@@ -6,7 +6,7 @@ namespace Liar
 	Transform3D::Transform3D():
 		m_position(new Liar::Vector3()),
 		m_rotation(new Liar::Quaternion()),
-		m_scale(new Liar::Vector3()),
+		m_scale(new Liar::Vector3(1.0f, 1.0f, 1.0f)),
 		m_matrix(new Liar::Matrix4x4()),
 		m_worldMatrix(new Liar::Matrix4x4()),
 		m_projectViewMatrix(new Liar::Matrix4x4()),
@@ -88,7 +88,7 @@ namespace Liar
 		}
 	}
 
-	void Transform3D::CalclateTransformation(const Liar::Matrix4x4& projectionViewMatrix)
+	void Transform3D::CalclateTransformation(Liar::Matrix4x4* projectionViewMatrix)
 	{
 		if (m_transformChanged)
 		{
@@ -125,7 +125,10 @@ namespace Liar
 			}
 		}
 
-		Liar::Matrix4x4::Multiply(projectionViewMatrix, *m_worldMatrix, *m_projectViewMatrix);
+		if (projectionViewMatrix)
+		{
+			Liar::Matrix4x4::Multiply(*projectionViewMatrix, *m_worldMatrix, *m_projectViewMatrix);
+		}
 	}
 
 	void Transform3D::SetPosition(const Liar::Vector3& rhs)

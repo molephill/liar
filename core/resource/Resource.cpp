@@ -41,7 +41,6 @@ namespace Liar
 		ReleaseResource(true);
 		m_destroyed = true;
 		return true;
-
 	}
 
 	void Resource::RecreateResource()
