@@ -5,9 +5,9 @@
 
 namespace Liar
 {
-	Geometry::Geometry(GLenum type):
+	Geometry::Geometry(Liar::GeometryVertexType geometryType, GLenum type):
 		Liar::Resource(),
-		m_geometryVertexType(Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_NONE),
+		m_geometryVertexType(geometryType),
 		m_bufferSubType(type),
 		m_rawVertexBuffers(nullptr), m_numberVertices(0),
 		m_vertexArray(0), m_vertexBuffer(0), m_elementBuffer(0),
@@ -58,7 +58,7 @@ namespace Liar
 		gl.BindVertexArray(m_vertexArray);
 
 		gl.GenBuffers(1, &m_vertexBuffer);
-		gl.BindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
+		gl.BindBuffer(m_bufferSubType, m_vertexBuffer);
 
 		// indices data
 		size_t indicesSize = m_numberIndices * sizeof(Liar::Uint);
@@ -69,8 +69,8 @@ namespace Liar
 		// vertex data
 		size_t i = 0;
 		size_t stride = m_vertices[i]->GetStride();
-		size_t bufferSize = m_numberVertices * stride;
-		gl.BufferData(GL_ARRAY_BUFFER, bufferSize, nullptr, GL_STATIC_DRAW);
+		size_t bufferSize = (m_numberIndices - 1) * stride;
+		gl.BufferData(m_bufferSubType, bufferSize, nullptr, GL_STATIC_DRAW);
 
 		for (i = 0; i < m_numberIndices; ++i)
 		{

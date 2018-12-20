@@ -51,6 +51,10 @@ namespace Liar
 		void SetClearColor(const Liar::Vector4&);
 		void SetClearColor(Liar::Number, Liar::Number, Liar::Number, Liar::Number alpha = 1.0f);
 
+		void MoveForward(Liar::Number);
+		void MoveHorizontal(Liar::Number);
+		void MoveVertical(Liar::Number);
+
 		virtual bool Render(Liar::RenderState& gl);
 
 		virtual bool GetTransformChanged() const { return m_transformChanged || m_transform3D->GetTransformChanged(); };

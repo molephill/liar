@@ -117,4 +117,30 @@ namespace Liar
 		return true;
 	}
 
+	// 前后移动 
+	void BaseCamera::MoveForward(Liar::Number distance)
+	{
+		Liar::Vector3& tmp = Liar::MathUtils3D::TEMPVector30;
+		tmp[0] = tmp[1] = 0.0f;
+		tmp[2] = distance;
+		m_transform3D->Translate(tmp);
+	}
+
+	// 水平移动 
+	void BaseCamera::MoveHorizontal(Liar::Number distance)
+	{
+		Liar::Vector3& tmp = Liar::MathUtils3D::TEMPVector30;
+		tmp[1] = tmp[2] = 0.0f;
+		tmp[0] = distance;
+		m_transform3D->Translate(tmp);
+	}
+
+	// 垂直移动
+	void BaseCamera::MoveVertical(Liar::Number distance)
+	{
+		Liar::Vector3& tmp = Liar::MathUtils3D::TEMPVector30;
+		tmp[0] = tmp[2] = 0.0f;
+		tmp[1] = distance;
+		m_transform3D->Translate(tmp);
+	}
 }

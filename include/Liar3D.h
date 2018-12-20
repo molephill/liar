@@ -8,6 +8,8 @@
 #include <core/models/GeometryFactory.h>
 #include <utils/URL.h>
 #include <core/render/Renderer.h>
+#include <core/events/EventController.h>
+#include <utils/CameraMoveScript.h>
 
 namespace Liar
 {
@@ -36,6 +38,8 @@ namespace Liar
 		static Liar::Uint m_numberRenderUnit;
 		static Liar::Uint m_curIndexRenderUnit;
 		static Liar::Renderer* rendering;
+		static Liar::EventController* events;
+		static Liar::CameraMoveScript* cameraMoveScript;
 
 	public:
 		static void Init(Liar::Int w = Liar::WINDOW_W, Liar::Int h = Liar::WINDOW_H, const Liar::Char* title = "LiarOpenGL");

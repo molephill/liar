@@ -71,20 +71,21 @@ namespace Liar
 	{
 		if (x != 0 || y != 0 || z != 0)
 		{
-			Liar::MathUtils3D::TEMPVector30.Set(x, y, z);
 			if (!isRadian)
 			{
+				Liar::MathUtils3D::TEMPVector30.Set(x, y, z);
 				Liar::Vector3::Scale(Liar::MathUtils3D::TEMPVector30, Liar::MathUtils3D::AngleToRandin, Liar::MathUtils3D::TEMPVector30);
 			}
 
 			Liar::Quaternion::CreateFromYawPitchRoll(
-				Liar::MathUtils3D::TEMPVector30.x,
-				Liar::MathUtils3D::TEMPVector30.y,
-				Liar::MathUtils3D::TEMPVector30.z,
+				x,
+				y,
+				z,
 				Liar::MathUtils3D::TEMPQuaternion0
 			);
 
 			Liar::Quaternion::Multiply(*m_rotation, Liar::MathUtils3D::TEMPQuaternion0, *m_rotation);
+			m_transformChanged = true;
 		}
 	}
 

@@ -70,27 +70,10 @@ namespace Liar
 	* @param	right  right¾ØÕó
 	* @param	out  Êä³ö¾ØÕó
 	*/
-	void Matrix4x4::Multiply(const Liar::Matrix4x4& a, const Liar::Matrix4x4& tb, Liar::Matrix4x4& e)
+	void Matrix4x4::Multiply(const Liar::Matrix4x4& a, const Liar::Matrix4x4& b, Liar::Matrix4x4& e)
 	{
 		int i = 0;
 		Liar::Number ai0 = 0.0f, ai1 = 0.0f, ai2 = 0.0f, ai3 = 0.0f;
-
-		const Liar::Matrix4x4* TEMPBPoint = nullptr;
-		if (&tb == &e)
-		{
-			for (i = 0; i < 16; ++i)
-			{
-				Liar::MathUtils3D::TEMPMatrix0[i] = e[i];
-			}
-
-			TEMPBPoint = &(Liar::MathUtils3D::TEMPMatrix0);
-		}
-		else
-		{
-			TEMPBPoint = &tb;
-		}
-
-		const Liar::Matrix4x4& b = *TEMPBPoint;
 
 		for (i = 0; i < 4; i++)
 		{
@@ -157,6 +140,18 @@ namespace Liar
 		oe[11] = -1.0f;
 		oe[14] = (2.0f * f * nearPlane) * nf;
 		oe[1] = oe[2] = oe[3] = oe[4] = oe[6] = oe[7] = oe[8] = oe[9] = oe[12] = oe[13] = oe[15] = 0.0f;
+	}
+
+	void Matrix4x4::CreatePerspective(Liar::Number l, Liar::Number r, Liar::Number b, Liar::Number t, Liar::Number n, Liar::Number f, Liar::Matrix4x4& oe)
+	{
+		oe[0] = 2 * n / (r - l);
+		oe[5] = 2 * n / (t - b);
+		oe[8] = (r + l) / (r - l);
+		oe[9] = (t + b) / (t - b);
+		oe[10] = -(f + n) / (f - n);
+		oe[11] = -1.0f;
+		oe[14] = -(2 * f * n) / (f - n);
+		oe[15] = 0.0f;
 	}
 
 	/**

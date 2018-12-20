@@ -32,6 +32,11 @@ namespace Liar
 		oe[3] = (cosYaw * cosPitch * cosRoll) + (sinYaw * sinPitch * sinRoll);
 	}
 
+	void Quaternion::CreateFromYawPitchRoll(const Liar::Vector3& rhs, Liar::Quaternion& oe)
+	{
+		CreateFromYawPitchRoll(rhs.x, rhs.y, rhs.z, oe);
+	}
+
 	/**
 	* 计算两个四元数相乘
 	* @param	left left四元数

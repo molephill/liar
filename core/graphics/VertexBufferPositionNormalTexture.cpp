@@ -54,8 +54,8 @@ namespace Liar
 		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
 		size_t stride = Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3 * 2 + Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR2;
 		size_t positionOffsize = 0;
-		size_t normalOffsize = positionOffsize + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3 * Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3;
-		size_t texCoordOffseize = normalOffsize + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3 * Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3;
+		size_t normalOffsize = positionOffsize + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3;
+		size_t texCoordOffseize = normalOffsize + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3;
 		// position
 		gl.VertexAttribPointer(0, Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3, GL_FLOAT, GL_FALSE, stride, (void*)positionOffsize);
 		gl.EnableVertexAttribArray(0);

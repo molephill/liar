@@ -11,12 +11,17 @@ namespace Liar
 	{
 	public:
 		Matrix4x4(
-			Liar::Number m00 = 1.0f, Liar::Number m01 = 0.0f, Liar::Number m02 = 0.0f, Liar::Number m03 = 0.0f,
-			Liar::Number m04 = 0.0f, Liar::Number m05 = 1.0f, Liar::Number m06 = 0.0f, Liar::Number m07 = 0.0f,
-			Liar::Number m08 = 0.0f, Liar::Number m09 = 0.0f, Liar::Number m10 = 1.0f, Liar::Number m11 = 0.0f,
-			Liar::Number m12 = 0.0f, Liar::Number m13 = 0.0f, Liar::Number m14 = 0.0f, Liar::Number m15 = 1.0f)
+			Liar::Number m00 = 1.0f, Liar::Number m04 = 0.0f, Liar::Number m08 = 0.0f, Liar::Number m12 = 0.0f,
+			Liar::Number m01 = 0.0f, Liar::Number m05 = 1.0f, Liar::Number m09 = 0.0f, Liar::Number m13 = 0.0f,
+			Liar::Number m02 = 0.0f, Liar::Number m06 = 0.0f, Liar::Number m10 = 1.0f, Liar::Number m14 = 0.0f,
+			Liar::Number m03 = 0.0f, Liar::Number m07 = 0.0f, Liar::Number m11 = 0.0f, Liar::Number m15 = 1.0f)
 		{
-			Set(m00, m01, m02, m03, m04, m05, m06, m07, m08, m09, m10, m11, m12, m13, m14, m15);
+			Set(
+				m00, m04, m08, m12, 
+				m01, m05, m09, m13,
+				m02, m06, m10, m14,
+				m03, m07, m11, m15
+			);
 		};
 		Matrix4x4(const Liar::Matrix4x4& rhs)
 		{
@@ -77,6 +82,7 @@ namespace Liar
 		* @param	out 输出矩阵。
 		*/
 		static void CreatePerspective(Liar::Number fov, Liar::Number aspect, Liar::Number nearPlane, Liar::Number farPlane, Liar::Matrix4x4& oe);
+		static void CreatePerspective(Liar::Number l, Liar::Number r, Liar::Number b, Liar::Number t, Liar::Number n, Liar::Number f, Liar::Matrix4x4& oe);
 
 		/**
 		* 计算正交投影矩阵。
@@ -108,10 +114,10 @@ namespace Liar
 
 	public:
 		inline void Set(
-			Liar::Number m00 = 1.0f, Liar::Number m01 = 0.0f, Liar::Number m02 = 0.0f, Liar::Number m03 = 0.0f,
-			Liar::Number m04 = 0.0f, Liar::Number m05 = 1.0f, Liar::Number m06 = 0.0f, Liar::Number m07 = 0.0f,
-			Liar::Number m08 = 0.0f, Liar::Number m09 = 0.0f, Liar::Number m10 = 1.0f, Liar::Number m11 = 0.0f,
-			Liar::Number m12 = 0.0f, Liar::Number m13 = 0.0f, Liar::Number m14 = 0.0f, Liar::Number m15 = 1.0f)
+			Liar::Number m00 = 1.0f, Liar::Number m04 = 0.0f, Liar::Number m08 = 0.0f, Liar::Number m12 = 0.0f,
+			Liar::Number m01 = 0.0f, Liar::Number m05 = 1.0f, Liar::Number m09 = 0.0f, Liar::Number m13 = 0.0f,
+			Liar::Number m02 = 0.0f, Liar::Number m06 = 0.0f, Liar::Number m10 = 1.0f, Liar::Number m14 = 0.0f,
+			Liar::Number m03 = 0.0f, Liar::Number m07 = 0.0f, Liar::Number m11 = 0.0f, Liar::Number m15 = 1.0f)
 		{
 			m[0] = m00;  m[1] = m01;  m[2] = m02;  m[3] = m03;
 			m[4] = m04;  m[5] = m05;  m[6] = m06;  m[7] = m07;

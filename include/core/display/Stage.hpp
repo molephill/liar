@@ -18,10 +18,6 @@ namespace Liar
 	private:
 		Liar::Uint m_width;
 		Liar::Uint m_height;
-        
-		bool m_isFirstMove;
-		Liar::DNumber m_lastMouseX;
-		Liar::DNumber m_lastMouseY;
 
 	private:
 		Liar::BaseCamera** m_cameras;
@@ -32,8 +28,6 @@ namespace Liar
 		Liar::Uint GetHeight() const { return m_height; };
 		
 		void SetSize(Liar::Uint, Liar::Uint);
-		void MouseEvent(Liar::DNumber, Liar::DNumber, Liar::Int);
-		void ScrollEvent(Liar::DNumber, Liar::DNumber);
 
 		Liar::BaseCamera* AddCamera(Liar::BaseCamera*);
 		bool OnEnterFrame(Liar::RenderState& state);

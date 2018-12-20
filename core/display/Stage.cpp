@@ -6,8 +6,7 @@ namespace Liar
     Stage::Stage(Liar::Int w, Liar::Int h):
 		Liar::Node(),
 		m_cameras(nullptr), m_numberCamera(0),
-		m_width(w), m_height(h),
-		m_isFirstMove(true), m_lastMouseX(0.0), m_lastMouseY(0.0)
+		m_width(w), m_height(h)
 	{
 	}
 
@@ -77,30 +76,4 @@ namespace Liar
 		}
 	}
 
-	void Stage::MouseEvent(Liar::DNumber x, Liar::DNumber y, Liar::Int state)
-	{
-		if (state == GLFW_PRESS)
-		{
-			if (m_isFirstMove)
-			{
-				m_isFirstMove = false;
-			}
-			else
-			{
-				double offsetx = x - m_lastMouseX;
-				double offsety = y - m_lastMouseY;
-			}
-			m_lastMouseX = x;
-			m_lastMouseY = y;
-		}
-		else
-		{
-			m_isFirstMove = true;
-		}
-	}
-
-	void Stage::ScrollEvent(Liar::DNumber, Liar::DNumber)
-	{
-
-	}
 }

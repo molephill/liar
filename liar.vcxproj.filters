@@ -91,6 +91,12 @@
     <Filter Include="源文件\utils">
       <UniqueIdentifier>{f801e564-f52e-4b13-9306-4c15ec3c66f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\core\events">
+      <UniqueIdentifier>{bef03407-515f-433f-9fc1-44b39274ae57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\events">
+      <UniqueIdentifier>{7651684b-f5f3-4ce6-857a-f7dea33cc0f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -221,6 +227,18 @@
     </ClCompile>
     <ClCompile Include="..\..\VSOpenGL\OpenGL\stb_load\deprecated\stb_image.c">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\CameraMoveScript.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="core\events\EventController.cpp">
+      <Filter>源文件\core\events</Filter>
+    </ClCompile>
+    <ClCompile Include="core\events\Event.cpp">
+      <Filter>源文件\core\events</Filter>
+    </ClCompile>
+    <ClCompile Include="core\events\MouseEvent.cpp">
+      <Filter>源文件\core\events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -373,6 +391,27 @@
     </ClInclude>
     <ClInclude Include="include\core\render\Renderer.h">
       <Filter>头文件\core\render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\CameraMoveScript.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\events\EventController.h">
+      <Filter>头文件\core\events</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\events\EventType.h">
+      <Filter>头文件\core\events</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\events\Event.h">
+      <Filter>头文件\core\events</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\events\MouseEvent.h">
+      <Filter>头文件\core\events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

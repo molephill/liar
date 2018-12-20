@@ -19,6 +19,7 @@ namespace Liar
 		* @param	out 输出四元数
 		*/
 		static void CreateFromYawPitchRoll(Liar::Number yaw, Liar::Number pitch, Liar::Number roll, Liar::Quaternion& oe);
+		static void CreateFromYawPitchRoll(const Liar::Vector3&, Liar::Quaternion&);
 
 		/**
 		* 计算两个四元数相乘

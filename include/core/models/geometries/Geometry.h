@@ -10,7 +10,8 @@ namespace Liar
 	class Geometry :public Liar::Resource
 	{
 	public:
-		Geometry(GLenum type = GL_ARRAY_BUFFER);
+		Geometry(Liar::GeometryVertexType geometryType = Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_NONE, 
+			GLenum type = GL_ARRAY_BUFFER);
 		virtual ~Geometry();
 
 	protected:

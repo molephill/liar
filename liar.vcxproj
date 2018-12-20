@@ -127,6 +127,9 @@
     <ClCompile Include="core\display\Node.cpp" />
     <ClCompile Include="core\display\Stage.cpp" />
     <ClCompile Include="core\display\Transform3D.cpp" />
+    <ClCompile Include="core\events\Event.cpp" />
+    <ClCompile Include="core\events\EventController.cpp" />
+    <ClCompile Include="core\events\MouseEvent.cpp" />
     <ClCompile Include="core\graphics\raws\IRawVertexBuffers.cpp" />
     <ClCompile Include="core\graphics\raws\RawVertexBuffersPositionNormalTexture.cpp" />
     <ClCompile Include="core\graphics\VertexBufferPositionNormalTexture.cpp" />
@@ -163,14 +166,20 @@
     <ClCompile Include="math\Vector3.cpp" />
     <ClCompile Include="math\Vector4.cpp" />
     <ClCompile Include="math\Viewport.cpp" />
+    <ClCompile Include="utils\CameraMoveScript.cpp" />
     <ClCompile Include="utils\URL.cpp" />
     <ClCompile Include="_common\glad\src\glad.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Event.h" />
     <ClInclude Include="include\core\display\EventDispatcher.h" />
     <ClInclude Include="include\core\display\Node.h" />
     <ClInclude Include="include\core\display\Stage.hpp" />
     <ClInclude Include="include\core\display\Transform3D.h" />
+    <ClInclude Include="include\core\events\Event.h" />
+    <ClInclude Include="include\core\events\EventController.h" />
+    <ClInclude Include="include\core\events\EventType.h" />
+    <ClInclude Include="include\core\events\MouseEvent.h" />
     <ClInclude Include="include\core\graphics\IVertexBuffer.h" />
     <ClInclude Include="include\core\graphics\raws\IRawVertexBuffers.h" />
     <ClInclude Include="include\core\graphics\raws\RawVertexBuffersPositionNormalTexture.h" />
@@ -215,8 +224,10 @@
     <ClInclude Include="include\math\Vector3.h" />
     <ClInclude Include="include\math\Vector4.h" />
     <ClInclude Include="include\math\Viewport.h" />
+    <ClInclude Include="include\utils\CameraMoveScript.h" />
     <ClInclude Include="include\utils\StringParse.h" />
     <ClInclude Include="include\utils\URL.h" />
+    <ClInclude Include="MouseEvent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

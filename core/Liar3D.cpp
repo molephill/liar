@@ -5,6 +5,7 @@ bool check_in_window(GLFWwindow* window, Liar::DNumber, Liar::DNumber);
 void framebuffer_size_callback(GLFWwindow* window, Liar::Int width, Liar::Int height);
 void mouse_callback(GLFWwindow* window, Liar::DNumber xpos, Liar::DNumber ypos);
 void scroll_callback(GLFWwindow* window, Liar::DNumber xoffset, Liar::DNumber yoffset);
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 namespace Liar
 {
@@ -47,6 +48,8 @@ namespace Liar
 		Liar::Liar3D::urlFormat->basePath = "E:\\c++\\liar\\liar\\core\\";
 		Liar::Liar3D::urlFormat->baseshaderFolder = "resource\\shader\\files\\";
 #endif
+		Liar::Liar3D::cameraMoveScript = new Liar::CameraMoveScript();
+		Liar::Liar3D::events = new Liar::EventController();
 		Liar::Liar3D::stage = new Liar::Stage(w, h);
 		Liar::Liar3D::renderState = new Liar::RenderState();
 		Liar::Liar3D::geometryFactory = new Liar::GeometryFactory();
@@ -60,11 +63,6 @@ namespace Liar
 		GLFWwindow* window = Liar::Liar3D::m_window;
 		while (run)
 		{
-			if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-			{
-				glfwSetWindowShouldClose(window, true);
-			}
-
 			if (!glfwWindowShouldClose(window))
 			{
 				glfwSwapBuffers(window);
@@ -112,6 +110,12 @@ namespace Liar
 			Liar::Liar3D::rendering = nullptr;
 		}
 
+		if (Liar::Liar3D::cameraMoveScript)
+		{
+			delete Liar::Liar3D::cameraMoveScript;
+			Liar::Liar3D::cameraMoveScript = nullptr;
+		}
+
 		/*  ·Å×îºóÉ¾³ý */
 		if (Liar::Liar3D::stage)
 		{
@@ -125,6 +129,12 @@ namespace Liar
 			Liar::Liar3D::renderState = nullptr;
 		}
 
+		if (Liar::Liar3D::events)
+		{
+			delete Liar::Liar3D::events;
+			Liar::Liar3D::events = nullptr;
+		}
+
 		glfwTerminate();
 		Liar::Liar3D::m_window = nullptr;
 	}
@@ -135,6 +145,8 @@ namespace Liar
 	Liar::ShaderCompile* Liar3D::shaderCompile = nullptr;
 	Liar::URL* Liar3D::urlFormat = nullptr;
 	Liar::Renderer* Liar3D::rendering = nullptr;
+	Liar::EventController* Liar3D::events = nullptr;
+	Liar::CameraMoveScript* Liar3D::cameraMoveScript = nullptr;
 	GLFWwindow* Liar3D::m_window = nullptr;
 }
 
@@ -168,7 +180,8 @@ void mouse_callback(GLFWwindow* window, Liar::DNumber x, Liar::DNumber y)
 	if (inWindow)
 	{
 		int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
-		Liar::Liar3D::stage->MouseEvent(x, y, state);
+		bool mouseDown = state == GLFW_PRESS;
+		Liar::Liar3D::cameraMoveScript->MouseEvent(x, y, mouseDown);
 	}
 }
 
@@ -177,5 +190,19 @@ void mouse_callback(GLFWwindow* window, Liar::DNumber x, Liar::DNumber y)
 void scroll_callback(GLFWwindow* window, Liar::DNumber x, Liar::DNumber y)
 {
 	bool inWindow = check_in_window(window, x, y);
-	if (inWindow) Liar::Liar3D::stage->ScrollEvent(x, y);
+	//if (inWindow) Liar::Liar3D::stage->ScrollEvent(x, y);
+}
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	if (action != GLFW_PRESS)
+		return;
+	switch (key)
+	{
+	case GLFW_KEY_ESCAPE:
+		glfwSetWindowShouldClose(window, GL_TRUE);
+		break;
+	default:
+		break;
+	}
 }
