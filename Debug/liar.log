@@ -1,54 +1,31 @@
-﻿  stb_image.c
-  glad.c
-  正在生成代码...
+﻿  Liar3D.cpp
   EventDispatcher.cpp
   Node.cpp
   Stage.cpp
-  Transform3D.cpp
-  Event.cpp
   EventController.cpp
-  MouseEvent.cpp
   IRawVertexBuffers.cpp
   RawVertexBuffersPositionNormalTexture.cpp
   VertexFactory.cpp
-  Liar3D.cpp
-  BaseLight.cpp
   DirectionLight.cpp
   PointLight.cpp
   SpotLight.cpp
   BaseMaterial.cpp
-  StandardMaterial.cpp
+  GeometryFactory.cpp
+  Mesh.cpp
   BoxGeometry.cpp
   Geometry.cpp
-  GeometryFactory.cpp
-  正在生成代码...
-  正在编译...
-  Mesh.cpp
   BaseCamera.cpp
   Camera.cpp
-  Renderer.cpp
   RenderQueue.cpp
   RenderState.cpp
-  RenderUnit.cpp
-  BaseTeture.cpp
-  Resource.cpp
-  ShaderCompile.cpp
-  ShaderProgram.cpp
-  ShaderValue.cpp
-  SolidColorTexture.cpp
-  Texture2D.cpp
-  main.cpp
-  MathUtils.cpp
-  Matrix3x3.cpp
-  Matrix4x4.cpp
-  Quaternion.cpp
-  Vector3.cpp
   正在生成代码...
   正在编译...
-  Vector4.cpp
-  Viewport.cpp
+  RenderUnit.cpp
+  Renderer.cpp
+  BaseTeture.cpp
+  Texture2D.cpp
+  ShaderCompile.cpp
+  main.cpp
   CameraMoveScript.cpp
-  URL.cpp
   正在生成代码...
-LINK : warning LNK4098: 默认库“MSVCRT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
   liar.vcxproj -> E:\c++\liar\Debug\liar.exe
