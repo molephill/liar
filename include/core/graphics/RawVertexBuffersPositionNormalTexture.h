@@ -44,13 +44,15 @@ namespace Liar
 		virtual void AddPositonVertex(Liar::Number x, Liar::Number y, Liar::Number z);
 		virtual void AddNormalVertex(Liar::Number x, Liar::Number y, Liar::Number z);
 		virtual void AddTexCoordVertex(Liar::Number x, Liar::Number y);
+		virtual void UploadSubData(GLenum);
 
 	public:
 		virtual void AddSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number);
 		virtual void* GetSubVertexBuffer(Liar::VertexElementAttr, size_t);
 
 		virtual Liar::Int GetStride() const;
-		virtual void UploadData(GLenum);
+		virtual void VertexAttrbPointer();
+		virtual std::string GetAttribDefines();
 
 		virtual void PrintData();
 	};

@@ -88,6 +88,12 @@ namespace Liar
 		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
 		size_t indicesSize = sizeof(Liar::Uint)*m_numberIndices;
 		gl.BufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, m_indices, GL_STATIC_DRAW);
+
+		// 提交具体数据
+		UploadSubData(type);
+
+		// 绑定
+		VertexAttrbPointer();
 	}
 
 	void IRawVertexBuffers::Destroy()

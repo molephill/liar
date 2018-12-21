@@ -67,11 +67,12 @@ namespace Liar
 
 		// 提交顶点数据
 		m_rawVertexBuffers->UploadData(m_bufferSubType);
-
-		// 绑定顶点
-		VertexAttrbPointer();
 	}
 
+	std::string Geometry::GetAttribDefines()
+	{
+		return m_rawVertexBuffers->GetAttribDefines();
+	}
 
 	void Geometry::SetGeometryVertexType(Liar::GeometryVertexType geometryVertexType)
 	{
@@ -88,25 +89,10 @@ namespace Liar
 		return m_rawVertexBuffers->GetNumberTriangles();
 	}
 
-	std::string Geometry::GetAttribDefines()
-	{
-		std::string tmp("#define ");
-		tmp += Liar::VERTEX_ATTRIB_POSITION0;
-		tmp += " 0\n";
-		tmp += "#define ";
-		tmp += Liar::VERTEX_ATTRIB_NORMAL0;
-		tmp += " 1\n";
-		tmp += "#define ";
-		tmp += Liar::VERTEX_ATTRIB_TEXCOORDINATE0;
-		tmp += " 2\n";
-		return tmp;
-	}
-
 	void Geometry::Draws()
 	{
 		glBindVertexArray(m_vertexArray);
 		glDrawElements(GL_TRIANGLES, m_rawVertexBuffers->GetNumberLength(), GL_UNSIGNED_INT, 0);
-		//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
 }

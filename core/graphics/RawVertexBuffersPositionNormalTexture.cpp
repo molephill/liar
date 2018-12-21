@@ -172,10 +172,8 @@ namespace Liar
 		return  Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3 + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3 + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR2;
 	}
 
-	void RawVertexBuffersPositionNormalTexture::UploadData(GLenum type)
+	void RawVertexBuffersPositionNormalTexture::UploadSubData(GLenum type)
 	{
-		Liar::IRawVertexBuffers::UploadData(type);
-
 		Liar::Int stride = GetStride();
 		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
 		for (Liar::Int i = 0; i < m_numberVertexKeys; ++i)
@@ -189,6 +187,38 @@ namespace Liar
 			gl.BufferSubData(type, normalOffsize, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL));
 			gl.BufferSubData(type, texCoordOffseize, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR2, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE));
 		}
+	}
+
+	void RawVertexBuffersPositionNormalTexture::VertexAttrbPointer()
+	{
+		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
+		size_t stride = Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3 * 2 + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR2;
+		size_t positionOffsize = 0;
+		size_t normalOffsize = positionOffsize + Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3;
+		size_t texCoordOffseize = normalOffsize + Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3;
+		// position
+		gl.VertexAttribPointer(0, Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3, GL_FLOAT, GL_FALSE, stride, (void*)positionOffsize);
+		gl.EnableVertexAttribArray(0);
+		// normal
+		gl.VertexAttribPointer(1, Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3, GL_FLOAT, GL_FALSE, stride, (void*)normalOffsize);
+		gl.EnableVertexAttribArray(1);
+		// texCoordinate
+		gl.VertexAttribPointer(2, Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR2, GL_FLOAT, GL_FALSE, stride, (void*)texCoordOffseize);
+		gl.EnableVertexAttribArray(2);
+	}
+
+	std::string RawVertexBuffersPositionNormalTexture::GetAttribDefines()
+	{
+		std::string tmp("#define ");
+		tmp += Liar::VERTEX_ATTRIB_POSITION0;
+		tmp += " 0\n";
+		tmp += "#define ";
+		tmp += Liar::VERTEX_ATTRIB_NORMAL0;
+		tmp += " 1\n";
+		tmp += "#define ";
+		tmp += Liar::VERTEX_ATTRIB_TEXCOORDINATE0;
+		tmp += " 2\n";
+		return tmp;
 	}
 
 	void RawVertexBuffersPositionNormalTexture::PrintData()

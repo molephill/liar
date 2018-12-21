@@ -44,6 +44,7 @@ namespace Liar
 		Liar::Int m_numberVertexKeys;
 
 		void* GetVertexBuffer(Liar::VertexElementAttr, void**, size_t, Liar::Number, Liar::Number, Liar::Number z = 0.0f, Liar::Number w = 0.0f);
+		virtual void UploadSubData(GLenum) = 0;
 		virtual void Destroy();
 
 	public:
@@ -76,6 +77,12 @@ namespace Liar
 
 		// 获得提交指定顶点属性信息
 		virtual void* GetUploadVertexBuffer(Liar::Int, Liar::VertexElementAttr);
+
+		// 绑定
+		virtual void VertexAttrbPointer() = 0;
+
+		// 定义
+		virtual std::string GetAttribDefines() = 0;
 
 		// 打印数据
 		virtual void PrintData() = 0;
