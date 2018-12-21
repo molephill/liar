@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Event.h"
+#include "EventType.h"
 
 namespace Liar
 {
@@ -11,14 +12,14 @@ namespace Liar
 		~MouseEvent();
 
 	private:
-		Liar::DNumber m_mouseX;
-		Liar::DNumber m_mouseY;
+		Liar::Number m_mouseX;
+		Liar::Number m_mouseY;
 		bool m_leftDown;
 		bool m_rightDown;
 		bool m_midDown;
 
 	public:
-
+		Liar::EventTypeDefine CheckMouseEventType(Liar::Number, Liar::Number, Liar::Boolen, Liar::Boolen, Liar::Boolen);
 		virtual void Clear();
 	};
 }

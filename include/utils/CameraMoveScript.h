@@ -2,10 +2,11 @@
 
 #include <math/Vector3.h>
 #include <core/render/BaseCamera.h>
+#include <core/display/EventDispatcher.h>
 
 namespace Liar
 {
-	class CameraMoveScript
+	class CameraMoveScript:public Liar::EventDispatcher
 	{
 	public:
 		CameraMoveScript();
@@ -13,16 +14,18 @@ namespace Liar
 
 	private:
 		Liar::Vector3* m_yawPitchRoll;
-		Liar::DNumber m_lastMouseX;
-		Liar::DNumber m_lastMouseY;
+		Liar::Number m_lastMouseX;
+		Liar::Number m_lastMouseY;
 		Liar::BaseCamera* m_camera;
+		Liar::Number m_rotaionSpeed;
 		bool m_isMouseDown;
 
 	public:
-		void MouseEvent(Liar::DNumber, Liar::DNumber, bool);
 		void SetCamera(Liar::BaseCamera*);
+		virtual void DoEvent(Liar::EventTypeDefine, const Liar::Event&);
 
 	private:
+		void UpdateCamera();
 		void UpdateRotation();
 	};
 }

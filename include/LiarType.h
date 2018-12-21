@@ -12,4 +12,10 @@ namespace Liar
 	typedef double DNumber;
 	typedef unsigned char UChar;
 	typedef char Char;
+	typedef bool Boolen;
+
+
+	// funcction
+	class Event;
+	typedef void(*EventFun)(const Liar::Event&);
 }

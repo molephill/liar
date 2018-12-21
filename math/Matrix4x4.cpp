@@ -138,7 +138,7 @@ namespace Liar
 		oe[5] = f;
 		oe[10] = (farPlane + nearPlane) * nf;
 		oe[11] = -1.0f;
-		oe[14] = (2.0f * f * nearPlane) * nf;
+		oe[14] = (2.0f * farPlane * nearPlane) * nf;
 		oe[1] = oe[2] = oe[3] = oe[4] = oe[6] = oe[7] = oe[8] = oe[9] = oe[12] = oe[13] = oe[15] = 0.0f;
 	}
 

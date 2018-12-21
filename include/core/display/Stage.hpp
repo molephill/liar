@@ -18,10 +18,12 @@ namespace Liar
 	private:
 		Liar::Uint m_width;
 		Liar::Uint m_height;
-
-	private:
 		Liar::BaseCamera** m_cameras;
 		Liar::Uint m_numberCamera;
+
+	public:
+		Liar::Number mouseX;
+		Liar::Number mouseY;
 
 	public:
 		Liar::Uint GetWidth() const { return m_width; };

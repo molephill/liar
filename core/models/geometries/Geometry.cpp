@@ -9,9 +9,8 @@ namespace Liar
 		Liar::Resource(),
 		m_geometryVertexType(geometryType),
 		m_bufferSubType(type),
-		m_rawVertexBuffers(nullptr), m_numberVertices(0),
-		m_vertexArray(0), m_vertexBuffer(0), m_elementBuffer(0),
-		m_vertices(nullptr), m_numberIndices(0)
+		m_rawVertexBuffers(nullptr),
+		m_vertexArray(0), m_vertexBuffer(0), m_elementBuffer(0)
 	{
 	}
 
@@ -24,6 +23,12 @@ namespace Liar
 	{
 		Liar::Resource::RecreateResource();
 		m_rawVertexBuffers = Liar::Liar3D::geometryFactory->GetVertexFactory().GetRawVertexBuffers(m_geometryVertexType);
+
+		// 创建具体的数据
+		RecreateSubResource();
+
+		// 提交数据
+		UploadData();
 	}
 
 	void Geometry::DisposeResource()
@@ -33,25 +38,19 @@ namespace Liar
 		if (m_vertexBuffer > 0) gl.DeleteBuffers(1, &m_vertexBuffer);
 		if (m_elementBuffer > 0) gl.DeleteBuffers(1, &m_elementBuffer);
 
-		for (size_t i = 0; i < m_numberVertices; ++i)
-		{
-			delete m_vertices[i];
-			m_vertices[i] = nullptr;
-		}
-		if (m_vertices) free(m_vertices);
-		m_vertices = nullptr;
-
 		if (m_rawVertexBuffers)
 		{
 			delete m_rawVertexBuffers;
 			m_rawVertexBuffers = nullptr;
 		}
-
-		if (m_indices) free(m_indices);
-		m_indices = nullptr;
 	}
 
-	void Geometry::GenAndBindVertex()
+	IVertexKey* Geometry::PopVertexKey()
+	{
+		return Liar::Liar3D::geometryFactory->GetVertexFactory().GetVertexKey(m_geometryVertexType);
+	}
+
+	void Geometry::UploadData()
 	{
 		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
 		gl.GenVertexArrays(1, &m_vertexArray);
@@ -60,27 +59,19 @@ namespace Liar
 		gl.GenBuffers(1, &m_vertexBuffer);
 		gl.BindBuffer(m_bufferSubType, m_vertexBuffer);
 
-		// indices data
-		size_t indicesSize = m_numberIndices * sizeof(Liar::Uint);
 		gl.GenBuffers(1, &m_elementBuffer);
 		gl.BindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_elementBuffer);
-		gl.BufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, m_indices, GL_STATIC_DRAW);
 
-		// vertex data
-		size_t i = 0;
-		size_t stride = m_vertices[i]->GetStride();
-		size_t bufferSize = (m_numberIndices - 1) * stride;
+		size_t bufferSize = m_rawVertexBuffers->GetBufferSize();
 		gl.BufferData(m_bufferSubType, bufferSize, nullptr, GL_STATIC_DRAW);
 
-		for (i = 0; i < m_numberIndices; ++i)
-		{
-			size_t start = i * stride;
-			size_t vertexIndex = m_indices[i];
-			m_vertices[vertexIndex]->BufferSubData(m_bufferSubType, start);
-		}
+		// 提交顶点数据
+		m_rawVertexBuffers->UploadData(m_bufferSubType);
 
-		m_vertices[0]->VertexAttrbPointer();
+		// 绑定顶点
+		VertexAttrbPointer();
 	}
+
 
 	void Geometry::SetGeometryVertexType(Liar::GeometryVertexType geometryVertexType)
 	{
@@ -92,15 +83,9 @@ namespace Liar
 		}
 	}
 
-	Liar::IVertexBuffer* Geometry::GetVertexBuff(size_t index)
-	{
-		if (index >= m_numberVertices) return nullptr;
-		return m_vertices[index];
-	}
-
 	Liar::Uint Geometry::GetNumberTriangles() 
 	{
-		return m_numberIndices / 3;
+		return m_rawVertexBuffers->GetNumberTriangles();
 	}
 
 	std::string Geometry::GetAttribDefines()
@@ -115,15 +100,13 @@ namespace Liar
 		tmp += Liar::VERTEX_ATTRIB_TEXCOORDINATE0;
 		tmp += " 2\n";
 		return tmp;
-
-		if (m_vertices) return m_vertices[0]->GetAttribDefines();
-		else return "";
 	}
 
 	void Geometry::Draws()
 	{
 		glBindVertexArray(m_vertexArray);
-		glDrawElements(GL_TRIANGLES, m_numberIndices, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, m_rawVertexBuffers->GetNumberLength(), GL_UNSIGNED_INT, 0);
+		//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
 }

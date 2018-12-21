@@ -1,8 +1,8 @@
 #pragma once
 
 #include <core/resource/Resource.h>
-#include <core/graphics/IVertexBuffer.h>
-#include <core/graphics/raws/IRawVertexBuffers.h>
+#include <core/graphics/IRawVertexBuffers.h>
+#include <core/graphics/VertexType.h>
 
 
 namespace Liar
@@ -20,12 +20,6 @@ namespace Liar
 		GLenum m_bufferSubType;
 		Liar::IRawVertexBuffers* m_rawVertexBuffers;
 
-		Liar::IVertexBuffer** m_vertices;
-		Liar::Uint m_numberVertices;
-
-		Liar::Uint* m_indices;
-		Liar::Uint m_numberIndices;
-
 		Liar::Uint m_vertexArray;
 		Liar::Uint m_vertexBuffer;
 		Liar::Uint m_elementBuffer;
@@ -33,15 +27,16 @@ namespace Liar
 	protected:
 		virtual void DisposeResource();
 		virtual void RecreateResource();
-		virtual void InitVertices(Liar::Uint) = 0;
+		virtual void VertexAttrbPointer() = 0;
+		virtual void RecreateSubResource() = 0;
+		virtual IVertexKey* PopVertexKey();
+		void UploadData();
 
 	public:
 		void SetGeometryVertexType(Liar::GeometryVertexType);
 
 	public:
-		virtual void GenAndBindVertex();
 		virtual size_t GetNumberTriangles();
-		virtual Liar::IVertexBuffer* GetVertexBuff(size_t);
 		virtual std::string GetAttribDefines();
 		virtual void Draws();
 	};

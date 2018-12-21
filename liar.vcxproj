@@ -130,9 +130,8 @@
     <ClCompile Include="core\events\Event.cpp" />
     <ClCompile Include="core\events\EventController.cpp" />
     <ClCompile Include="core\events\MouseEvent.cpp" />
-    <ClCompile Include="core\graphics\raws\IRawVertexBuffers.cpp" />
-    <ClCompile Include="core\graphics\raws\RawVertexBuffersPositionNormalTexture.cpp" />
-    <ClCompile Include="core\graphics\VertexBufferPositionNormalTexture.cpp" />
+    <ClCompile Include="core\graphics\IRawVertexBuffers.cpp" />
+    <ClCompile Include="core\graphics\RawVertexBuffersPositionNormalTexture.cpp" />
     <ClCompile Include="core\graphics\VertexFactory.cpp" />
     <ClCompile Include="core\Liar3D.cpp" />
     <ClCompile Include="core\light\BaseLight.cpp" />
@@ -180,10 +179,8 @@
     <ClInclude Include="include\core\events\EventController.h" />
     <ClInclude Include="include\core\events\EventType.h" />
     <ClInclude Include="include\core\events\MouseEvent.h" />
-    <ClInclude Include="include\core\graphics\IVertexBuffer.h" />
-    <ClInclude Include="include\core\graphics\raws\IRawVertexBuffers.h" />
-    <ClInclude Include="include\core\graphics\raws\RawVertexBuffersPositionNormalTexture.h" />
-    <ClInclude Include="include\core\graphics\VertexBufferPositionNormalTexture.h" />
+    <ClInclude Include="include\core\graphics\IRawVertexBuffers.h" />
+    <ClInclude Include="include\core\graphics\RawVertexBuffersPositionNormalTexture.h" />
     <ClInclude Include="include\core\graphics\VertexFactory.h" />
     <ClInclude Include="include\core\graphics\VertexType.h" />
     <ClInclude Include="include\core\light\BaseLight.h" />

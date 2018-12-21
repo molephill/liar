@@ -1,8 +1,55 @@
 
-#include <core/graphics/raws/RawVertexBuffersPositionNormalTexture.h>
+#include <core/graphics/RawVertexBuffersPositionNormalTexture.h>
+#include <Liar3D.h>
 
 namespace Liar
 {
+	VertexPositionNormalTextureKey::VertexPositionNormalTextureKey() :
+		m_positonIndex(0), m_normalIndex(0), m_texCoordIndex(0)
+	{}
+
+	void VertexPositionNormalTextureKey::SetVertexIndex(Liar::VertexElementAttr attr, Liar::Uint index)
+	{
+		switch (attr)
+		{
+		case Liar::VertexElementAttr::ELEMENT_ATTR_POSITION:
+			m_positonIndex = index;
+			break;
+		case Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL:
+			m_normalIndex = index;
+			break;
+		case Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE:
+			m_texCoordIndex = index;;
+			break;
+		}
+	}
+
+	Liar::Uint VertexPositionNormalTextureKey::GetVertexIndex(Liar::VertexElementAttr attr)
+	{
+		switch (attr)
+		{
+		case Liar::VertexElementAttr::ELEMENT_ATTR_POSITION:
+			return m_positonIndex;
+			break;
+		case Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL:
+			return m_normalIndex;
+			break;
+		case Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE:
+			return m_texCoordIndex;;
+			break;
+		default:
+			return 0;
+		}
+	}
+
+	void VertexPositionNormalTextureKey::PrintData()
+	{
+		std::cout << "posIndex: " << m_positonIndex << " normalIndex: " << m_normalIndex << " texIndex: " << m_texCoordIndex;
+	}
+
+	/*
+	* 具体数据
+	*/
 	RawVertexBuffersPositionNormalTexture::RawVertexBuffersPositionNormalTexture():
 		Liar::IRawVertexBuffers(),
 		m_positons(nullptr), m_normals(nullptr), m_texCoords(nullptr),
@@ -118,5 +165,47 @@ namespace Liar
 		default:
 			return nullptr;
 		}
+	}
+
+	Liar::Int RawVertexBuffersPositionNormalTexture::GetStride() const
+	{
+		return  Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3 + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3 + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR2;
+	}
+
+	void RawVertexBuffersPositionNormalTexture::UploadData(GLenum type)
+	{
+		Liar::IRawVertexBuffers::UploadData(type);
+
+		Liar::Int stride = GetStride();
+		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
+		for (Liar::Int i = 0; i < m_numberVertexKeys; ++i)
+		{
+			size_t start = i * stride;
+			size_t positionOffsize = start;
+			size_t normalOffsize = positionOffsize + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3;
+			size_t texCoordOffseize = normalOffsize + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3;
+
+			gl.BufferSubData(type, positionOffsize, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_POSITION));
+			gl.BufferSubData(type, normalOffsize, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL));
+			gl.BufferSubData(type, texCoordOffseize, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR2, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE));
+		}
+	}
+
+	void RawVertexBuffersPositionNormalTexture::PrintData()
+	{
+		std::cout << "indices:\n";
+		Liar::Int i = 0;
+		for (i = 0; i < m_numberIndices; ++i)
+		{
+			std::cout << "index: " << i << " : " << m_indices[i] << "\n";
+		}
+		std::cout << "vertex:\n";
+		for (i = 0; i < m_numberVertexKeys; ++i)
+		{
+			std::cout << "index: " << i << " : ";
+			m_vertexKeys[i]->PrintData();
+			std::cout << "\n";
+		}
+		std::cout << std::endl;
 	}
 }

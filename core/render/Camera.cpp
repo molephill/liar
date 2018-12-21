@@ -25,12 +25,6 @@ namespace Liar
 	void Camera::CalculateProjectionMatrix()
 	{
 		bool calcProjectionViewMatrix = GetTransformChanged();
-
-		if (calcProjectionViewMatrix)
-		{
-			std::cout << calcProjectionViewMatrix << std::endl;
-		}
-
 		Liar::BaseCamera::CalculateProjectionMatrix();
 
 		if (m_transformChanged)
@@ -53,22 +47,9 @@ namespace Liar
 			}
 			else
 			{
-				/*Liar::Matrix4x4::CreatePerspective(
+				Liar::Matrix4x4::CreatePerspective(
 					Liar::MathUtils3D::RandinToAngle * m_fieldOfView,
 					m_viewPort->GetAspect(),
-					m_nearPlane,
-					m_farPlane,
-					*m_projectionMatrix
-				);*/
-
-				Liar::Number tang = tanf(m_fieldOfView*0.5*Liar::MathUtils3D::RandinToAngle);
-				Liar::Number halfHeight = m_nearPlane * tang;
-				Liar::Number halfWidth = halfHeight * m_viewPort->GetAspect();
-				Liar::Matrix4x4::CreatePerspective(
-					-halfWidth,
-					halfWidth,
-					-halfHeight,
-					halfHeight,
 					m_nearPlane,
 					m_farPlane,
 					*m_projectionMatrix
@@ -79,9 +60,9 @@ namespace Liar
 		if (calcProjectionViewMatrix)
 		{
 			Liar::Matrix4x4::Multiply(*m_projectionMatrix, m_transform3D->GetWorldMatrix(), *m_projectionViewMatrix);
-			std::cout << m_transform3D->GetWorldMatrix() << std::endl;
+			/*std::cout << m_transform3D->GetWorldMatrix() << std::endl;
 			std::cout << *m_projectionMatrix << std::endl;
-			std::cout << *m_projectionViewMatrix << std::endl;
+			std::cout << *m_projectionViewMatrix << std::endl;*/
 		}
 
 	}

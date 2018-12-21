@@ -10,12 +10,12 @@ namespace Liar
 	{
 	}
 
-	Liar::IVertexBuffer* VertexFactory::GetVertexBuffer(Liar::GeometryVertexType attr)
+	Liar::IVertexKey* VertexFactory::GetVertexKey(Liar::GeometryVertexType attr)
 	{
 		switch (attr)
 		{
 		case Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_TEXTURE:
-			return new Liar::VertexBufferPositionNormalTexture();
+			return new Liar::VertexPositionNormalTextureKey();
 		default:
 			return nullptr;
 		}

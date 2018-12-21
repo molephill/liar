@@ -24,7 +24,14 @@ namespace Liar
 		void SetHeight(Liar::Number value);
 
 	protected:
-		virtual void RecreateResource();
-		virtual void InitVertices(Liar::Uint);
+		//virtual void RecreateResource();
+		virtual void RecreateSubResource();
+		virtual void VertexAttrbPointer();
+
+		/*
+		* ÉèÖÃ¶¥µãË÷Òý
+		* 
+		*/
+		void SetVertexKey(Liar::Int, Liar::Uint, Liar::Uint normalIndex = 0, Liar::Uint texIndex = 0);
 	};
 }

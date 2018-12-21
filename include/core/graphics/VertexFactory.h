@@ -1,7 +1,6 @@
 #pragma once
 
-#include <core/graphics/raws/RawVertexBuffersPositionNormalTexture.h>
-#include <core/graphics/VertexBufferPositionNormalTexture.h>
+#include <core/graphics/RawVertexBuffersPositionNormalTexture.h>
 
 namespace Liar
 {
@@ -12,7 +11,7 @@ namespace Liar
 		~VertexFactory();
 
 	public:
-		Liar::IVertexBuffer* GetVertexBuffer(Liar::GeometryVertexType attr);
+		Liar::IVertexKey* GetVertexKey(Liar::GeometryVertexType attr);
 		Liar::IRawVertexBuffers* GetRawVertexBuffers(Liar::GeometryVertexType attr);
 	};
 }

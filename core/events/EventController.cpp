@@ -1,5 +1,6 @@
 
 #include <core/events/EventController.h>
+#include <Liar3D.h>
 
 namespace Liar
 {
@@ -68,20 +69,21 @@ namespace Liar
 		return dispatcher;
 	}
 
-	void TypeEvent::DoAllEvents()
+	void TypeEvent::DoAllEvents(const Liar::Event& e)
 	{
 		for (int i = 0; i < m_numberEventDispatchers; ++i)
 		{
 			if (m_eventDispatchers[i])
 			{
-				m_eventDispatchers[i]->DoEvent(type);
+				m_eventDispatchers[i]->DoEvent(type, e);
 			}
 		}
 	}
 
 	// ================================== 事件总控制 =====================
 	EventController::EventController():
-		m_typeEvents(nullptr), m_numberTypeEvents(0)
+		m_typeEvents(nullptr), m_numberTypeEvents(0),
+		m_mouseEvent(new Liar::MouseEvent())
 	{
 	}
 
@@ -97,6 +99,8 @@ namespace Liar
 			free(m_typeEvents);
 			m_typeEvents = nullptr;
 		}
+		delete m_mouseEvent;
+		m_mouseEvent = nullptr;
 	}
 
 	// ================= 增加事件 ==============
@@ -136,10 +140,10 @@ namespace Liar
 		return dispatcher;
 	}
 
-	void EventController::DoEvent(Liar::EventTypeDefine type)
+	void EventController::DoEvent(Liar::EventTypeDefine type, const Liar::Event& e)
 	{
 		Liar::TypeEvent* typeEvent = GetTypeEvent(type);
-		if (typeEvent) typeEvent->DoAllEvents();
+		if (typeEvent) typeEvent->DoAllEvents(e);
 	}
 
 	Liar::TypeEvent* EventController::GetTypeEvent(Liar::EventTypeDefine type)
@@ -155,5 +159,16 @@ namespace Liar
 			}
 		}
 		return nullptr;
+	}
+
+	void EventController::SetMouseEvent(Liar::Number x, Liar::Number y, Liar::Boolen leftMouseDown, Liar::Boolen rightMouseDown, Liar::Boolen midMouseDown)
+	{
+		Liar::Liar3D::stage->mouseX = x;
+		Liar::Liar3D::stage->mouseY = y;
+		Liar::EventTypeDefine type = m_mouseEvent->CheckMouseEventType(x, y, leftMouseDown, rightMouseDown, midMouseDown);
+		if (type != Liar::EventTypeDefine::EVENT_TYPE_NONE)
+		{
+			DoEvent(type, *m_mouseEvent);
+		}
 	}
 }

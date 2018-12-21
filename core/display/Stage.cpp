@@ -3,10 +3,11 @@
 
 namespace Liar
 {
-    Stage::Stage(Liar::Int w, Liar::Int h):
+	Stage::Stage(Liar::Int w, Liar::Int h) :
 		Liar::Node(),
 		m_cameras(nullptr), m_numberCamera(0),
-		m_width(w), m_height(h)
+		m_width(w), m_height(h),
+		mouseX(0.0f), mouseY(0.0f)
 	{
 	}
 

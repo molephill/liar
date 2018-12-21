@@ -78,7 +78,7 @@ namespace Liar
 
 	void Quaternion::AngleTo(const Liar::Vector3& from, const Liar::Vector3& location, Liar::Vector3& angle)
 	{
-		Liar::Vector3& TEMPVector30 = MathUtils3D::TEMPVector30;
+		Liar::Vector3& TEMPVector30 = Liar::MathUtils3D::TEMPVector30;
 		Vector3::Subtract(location, from, TEMPVector30);
 		Vector3::Normalize(TEMPVector30, TEMPVector30);
 		angle[0] = asinf(TEMPVector30.y);

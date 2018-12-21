@@ -48,13 +48,13 @@ namespace Liar
 		Liar::Liar3D::urlFormat->basePath = "E:\\c++\\liar\\liar\\core\\";
 		Liar::Liar3D::urlFormat->baseshaderFolder = "resource\\shader\\files\\";
 #endif
-		Liar::Liar3D::cameraMoveScript = new Liar::CameraMoveScript();
 		Liar::Liar3D::events = new Liar::EventController();
 		Liar::Liar3D::stage = new Liar::Stage(w, h);
 		Liar::Liar3D::renderState = new Liar::RenderState();
 		Liar::Liar3D::geometryFactory = new Liar::GeometryFactory();
 		Liar::Liar3D::shaderCompile = new Liar::ShaderCompile();
 		Liar::Liar3D::rendering = new Liar::Renderer();
+		Liar::Liar3D::cameraMoveScript = new Liar::CameraMoveScript();
 	}
 
 	void Liar3D::Run()
@@ -162,7 +162,7 @@ bool check_in_window(GLFWwindow* window, Liar::DNumber x, Liar::DNumber y)
 	int ex = sx + w;
 	int ey = sy + h;
 
-	bool inWindow = x >= sx && x <= ex && y >= sy && y <= ey;
+	bool inWindow = x >= 0 && x <= ex && y >= 0 && y <= ey;
 	return inWindow;
 }
 
@@ -179,9 +179,14 @@ void mouse_callback(GLFWwindow* window, Liar::DNumber x, Liar::DNumber y)
 	bool inWindow = check_in_window(window, x, y);
 	if (inWindow)
 	{
-		int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
-		bool mouseDown = state == GLFW_PRESS;
-		Liar::Liar3D::cameraMoveScript->MouseEvent(x, y, mouseDown);
+		int state1 = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
+		int state2 = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT);
+		int state3 = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_MIDDLE);
+		bool mouseLDown = state1 == GLFW_PRESS;
+		bool mouseRDown = state2 == GLFW_PRESS;
+		bool mouseMDown = state3 == GLFW_PRESS;
+		Liar::Liar3D::events->SetMouseEvent(static_cast<Liar::Number>(x), static_cast<Liar::Number>(y), 
+			mouseLDown, mouseRDown, mouseMDown);
 	}
 }
 

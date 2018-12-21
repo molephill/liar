@@ -18,9 +18,6 @@ int main() {
 
 	Liar::Liar3D::cameraMoveScript->SetCamera(camera3D);
 
-	/*Liar::Liar3D::stage->AddEvent(Liar::EventTypeDefine::EVENT_TYPE_MOUSE_DOWN);
-	Liar::Liar3D::stage->AddEvent(Liar::EventTypeDefine::EVENT_TYPE_MOUSE_UP);*/
-
 	Liar::Mesh* mesh = new Liar::Mesh(Liar::GeometryType::GEOMETRY_TYPE_BOX);
 	Liar::Liar3D::stage->AddChild(mesh);
 

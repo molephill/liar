@@ -43,9 +43,6 @@
     <Filter Include="头文件\core\graphics">
       <UniqueIdentifier>{1853381a-682a-4b5a-8f39-1c374cbf6d58}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\core\graphics\raws">
-      <UniqueIdentifier>{7890bc7f-b0b4-4e07-b922-bbf18cc7c787}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\core\light">
       <UniqueIdentifier>{d3608db4-625c-4c91-b518-b7338c9f679c}</UniqueIdentifier>
     </Filter>
@@ -57,9 +54,6 @@
     </Filter>
     <Filter Include="源文件\core\models">
       <UniqueIdentifier>{f835ea70-f652-41b1-b4ad-8da39cbdf117}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\core\graphics\raws">
-      <UniqueIdentifier>{a33c3cfd-0cba-4466-b843-f8b18a456fc5}</UniqueIdentifier>
     </Filter>
     <Filter Include="源文件\core\display">
       <UniqueIdentifier>{2289040a-d4b8-4d38-9072-8b97f1273a77}</UniqueIdentifier>
@@ -111,12 +105,6 @@
     <ClCompile Include="core\Liar3D.cpp">
       <Filter>源文件\core</Filter>
     </ClCompile>
-    <ClCompile Include="core\graphics\raws\RawVertexBuffersPositionNormalTexture.cpp">
-      <Filter>源文件\core\graphics\raws</Filter>
-    </ClCompile>
-    <ClCompile Include="core\graphics\VertexFactory.cpp">
-      <Filter>源文件\core\graphics</Filter>
-    </ClCompile>
     <ClCompile Include="core\light\BaseLight.cpp">
       <Filter>源文件\core\light</Filter>
     </ClCompile>
@@ -143,12 +131,6 @@
     </ClCompile>
     <ClCompile Include="core\resource\Texture2D.cpp">
       <Filter>源文件\core\resource</Filter>
-    </ClCompile>
-    <ClCompile Include="core\graphics\raws\IRawVertexBuffers.cpp">
-      <Filter>源文件\core\graphics\raws</Filter>
-    </ClCompile>
-    <ClCompile Include="core\graphics\VertexBufferPositionNormalTexture.cpp">
-      <Filter>源文件\core\graphics</Filter>
     </ClCompile>
     <ClCompile Include="core\display\Node.cpp">
       <Filter>源文件\core\display</Filter>
@@ -185,12 +167,6 @@
     </ClCompile>
     <ClCompile Include="math\Vector4.cpp">
       <Filter>源文件\match</Filter>
-    </ClCompile>
-    <ClCompile Include="core\models\geometries\Geometry.cpp">
-      <Filter>源文件\core\models\geometries</Filter>
-    </ClCompile>
-    <ClCompile Include="core\models\geometries\BoxGeometry.cpp">
-      <Filter>源文件\core\models\geometries</Filter>
     </ClCompile>
     <ClCompile Include="core\models\GeometryFactory.cpp">
       <Filter>源文件\core\models</Filter>
@@ -239,6 +215,21 @@
     </ClCompile>
     <ClCompile Include="core\events\MouseEvent.cpp">
       <Filter>源文件\core\events</Filter>
+    </ClCompile>
+    <ClCompile Include="core\models\geometries\BoxGeometry.cpp">
+      <Filter>源文件\core\models\geometries</Filter>
+    </ClCompile>
+    <ClCompile Include="core\models\geometries\Geometry.cpp">
+      <Filter>源文件\core\models\geometries</Filter>
+    </ClCompile>
+    <ClCompile Include="core\graphics\IRawVertexBuffers.cpp">
+      <Filter>源文件\core\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="core\graphics\RawVertexBuffersPositionNormalTexture.cpp">
+      <Filter>源文件\core\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="core\graphics\VertexFactory.cpp">
+      <Filter>源文件\core\graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -289,18 +280,6 @@
     </ClInclude>
     <ClInclude Include="include\core\graphics\VertexType.h">
       <Filter>头文件\core\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\graphics\IVertexBuffer.h">
-      <Filter>头文件\core\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\graphics\VertexBufferPositionNormalTexture.h">
-      <Filter>头文件\core\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\graphics\raws\IRawVertexBuffers.h">
-      <Filter>头文件\core\graphics\raws</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\graphics\raws\RawVertexBuffersPositionNormalTexture.h">
-      <Filter>头文件\core\graphics\raws</Filter>
     </ClInclude>
     <ClInclude Include="include\core\graphics\VertexFactory.h">
       <Filter>头文件\core\graphics</Filter>
@@ -412,6 +391,12 @@
     </ClInclude>
     <ClInclude Include="include\core\events\MouseEvent.h">
       <Filter>头文件\core\events</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\graphics\IRawVertexBuffers.h">
+      <Filter>头文件\core\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\graphics\RawVertexBuffersPositionNormalTexture.h">
+      <Filter>头文件\core\graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

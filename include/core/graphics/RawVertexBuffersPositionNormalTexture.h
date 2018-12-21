@@ -1,11 +1,28 @@
 #pragma once
 
-#include <core/graphics/raws/IRawVertexBuffers.h>
+#include <core/graphics/IRawVertexBuffers.h>
 #include <math/Vector3.h>
 #include <math/Vector2.h>
 
 namespace Liar
 {
+	class VertexPositionNormalTextureKey :public Liar::IVertexKey
+	{
+	public:
+		VertexPositionNormalTextureKey();
+		virtual ~VertexPositionNormalTextureKey() {};
+
+	private:
+		Liar::Uint m_positonIndex;
+		Liar::Uint m_normalIndex;
+		Liar::Uint m_texCoordIndex;
+
+	public:
+		virtual void SetVertexIndex(Liar::VertexElementAttr, Liar::Uint);
+		virtual Liar::Uint GetVertexIndex(Liar::VertexElementAttr);
+		virtual void PrintData();
+	};
+
 	class RawVertexBuffersPositionNormalTexture :public Liar::IRawVertexBuffers
 	{
 	public:
@@ -31,5 +48,10 @@ namespace Liar
 	public:
 		virtual void AddSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number);
 		virtual void* GetSubVertexBuffer(Liar::VertexElementAttr, size_t);
+
+		virtual Liar::Int GetStride() const;
+		virtual void UploadData(GLenum);
+
+		virtual void PrintData();
 	};
 }

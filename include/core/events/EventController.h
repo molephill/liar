@@ -1,6 +1,7 @@
 #pragma once
 
 #include <core/display/EventDispatcher.h>
+#include <core/events/MouseEvent.h>
 #include <LiarType.h>
 
 namespace Liar
@@ -21,7 +22,7 @@ namespace Liar
 	public:
 		Liar::EventDispatcher* AddEvent(Liar::EventDispatcher*);
 		Liar::EventDispatcher* RemoveEvent(Liar::EventDispatcher*);
-		void DoAllEvents();
+		void DoAllEvents(const Liar::Event&);
 	};
 
 	class EventController
@@ -33,11 +34,13 @@ namespace Liar
 	private:
 		Liar::TypeEvent** m_typeEvents;
 		Liar::Int m_numberTypeEvents;
+		Liar::MouseEvent* m_mouseEvent;
 
 	public:
 		Liar::EventDispatcher* AddEvent(Liar::EventTypeDefine, Liar::EventDispatcher*);
 		Liar::EventDispatcher* RemoveEvent(Liar::EventTypeDefine, Liar::EventDispatcher*);
-		void DoEvent(Liar::EventTypeDefine);
+		void DoEvent(Liar::EventTypeDefine, const Liar::Event&);
+		void SetMouseEvent(Liar::Number, Liar::Number, Liar::Boolen, Liar::Boolen, Liar::Boolen);
 
 	private:
 		Liar::TypeEvent* GetTypeEvent(Liar::EventTypeDefine);
