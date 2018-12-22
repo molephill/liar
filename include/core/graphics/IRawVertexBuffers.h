@@ -23,8 +23,10 @@ namespace Liar
 
 	public:
 		virtual void SetVertexIndex(Liar::VertexElementAttr, Liar::Uint) = 0;
-		virtual Liar::Uint GetVertexIndex(Liar::VertexElementAttr) = 0;
+		virtual Liar::Uint GetVertexIndex(Liar::VertexElementAttr) const = 0;
 		virtual void PrintData() = 0;
+		virtual Liar::Boolen operator==(const Liar::IVertexKey&) const = 0;
+		virtual Liar::IVertexKey* Clone() const = 0;
 	};
 
 	/*
@@ -33,7 +35,7 @@ namespace Liar
 	class IRawVertexBuffers
 	{
 	public:
-		IRawVertexBuffers();
+		IRawVertexBuffers(Liar::Boolen createTmp = true);
 		virtual ~IRawVertexBuffers();
 
 	protected:
@@ -43,9 +45,12 @@ namespace Liar
 		Liar::IVertexKey** m_vertexKeys;
 		Liar::Int m_numberVertexKeys;
 
+		// 用来检测的临时数据
+		Liar::IVertexKey* m_tmpKey;
+		Liar::Uint m_tmpIndex;
+
 		void* GetVertexBuffer(Liar::VertexElementAttr, void**, size_t, Liar::Number, Liar::Number, Liar::Number z = 0.0f, Liar::Number w = 0.0f);
 		virtual void UploadSubData(GLenum) = 0;
-		virtual void Destroy();
 
 	public:
 		virtual void AddSubVertexBuffer(Liar::VertexElementAttr, Liar::Number, Liar::Number, Liar::Number = 0.0f, Liar::Number = 0.0f) = 0;
@@ -59,6 +64,9 @@ namespace Liar
 		// 设置顶点数据索引
 		virtual void SetVertexKeyLength(Liar::Int);
 		virtual void SetVertexKey(Liar::Int, Liar::IVertexKey*);
+
+		// 检测并是否增加顶点索引数据
+		virtual void CheckAddVertexKey(const Liar::IVertexKey&);
 
 		// 获得三角形数据
 		Liar::Int GetNumberTriangles() const { return m_numberIndices / 3; };

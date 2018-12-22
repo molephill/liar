@@ -5,15 +5,26 @@
 
 namespace Liar
 {
-	IRawVertexBuffers::IRawVertexBuffers():
+	IRawVertexBuffers::IRawVertexBuffers(Liar::Boolen createTmp) :
 		m_indices(nullptr), m_numberIndices(0),
-		m_vertexKeys(nullptr), m_numberVertexKeys(0)
+		m_vertexKeys(nullptr), m_numberVertexKeys(0),
+		m_tmpKey(nullptr), m_tmpIndex(0)
 	{
 	}
 
 	IRawVertexBuffers::~IRawVertexBuffers()
 	{
-		Destroy();
+		if (m_indices) free(m_indices);
+		for (Liar::Int i = 0; i < m_numberVertexKeys; ++i)
+		{
+			if (m_vertexKeys[i])
+			{
+				delete m_vertexKeys[i];
+				m_vertexKeys[i] = nullptr;
+			}
+		}
+		if (m_vertexKeys) free(m_vertexKeys);
+		m_vertexKeys = nullptr;
 	}
 
 	void* IRawVertexBuffers::GetVertexBuffer(Liar::VertexElementAttr attr, void** buffers, size_t len, Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w)
@@ -83,6 +94,29 @@ namespace Liar
 		return GetSubVertexBuffer(attr, vertexIndex);
 	}
 
+	void IRawVertexBuffers::CheckAddVertexKey(const Liar::IVertexKey& check)
+	{
+		Liar::IVertexKey* tmpKey = nullptr;
+		Liar::Int findIndex = m_numberIndices;
+		for (Liar::Int i = 0; i < m_numberVertexKeys; ++i)
+		{
+			Liar::IVertexKey& hasKey = *(m_vertexKeys[i]);
+			if (hasKey == check)
+			{
+				tmpKey = m_vertexKeys[i];
+				findIndex = i;
+				break;
+			}
+		}
+		if (!tmpKey)
+		{
+			tmpKey = check.Clone();
+			SetVertexKey(m_tmpIndex, tmpKey);
+		}
+		SetIndex(m_tmpIndex, findIndex);
+		m_tmpIndex++;
+	}
+
 	void IRawVertexBuffers::UploadData(GLenum type)
 	{
 		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
@@ -96,18 +130,4 @@ namespace Liar
 		VertexAttrbPointer();
 	}
 
-	void IRawVertexBuffers::Destroy()
-	{
-		if (m_indices) free(m_indices);
-		for (Liar::Int i = 0; i < m_numberVertexKeys; ++i)
-		{
-			if (m_vertexKeys[i])
-			{
-				delete m_vertexKeys[i];
-				m_vertexKeys[i] = nullptr;
-			}
-		}
-		if (m_vertexKeys) free(m_vertexKeys);
-		m_vertexKeys = nullptr;
-	}
 }

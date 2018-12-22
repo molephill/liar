@@ -24,7 +24,7 @@ namespace Liar
 		}
 	}
 
-	Liar::Uint VertexPositionNormalTextureKey::GetVertexIndex(Liar::VertexElementAttr attr)
+	Liar::Uint VertexPositionNormalTextureKey::GetVertexIndex(Liar::VertexElementAttr attr) const
 	{
 		switch (attr)
 		{
@@ -42,6 +42,23 @@ namespace Liar
 		}
 	}
 
+	Liar::Boolen VertexPositionNormalTextureKey::operator==(const Liar::IVertexKey& rhs) const
+	{
+		return
+			m_positonIndex == rhs.GetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) &&
+			m_normalIndex == rhs.GetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) &&
+			m_texCoordIndex == rhs.GetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE);
+	}
+
+	Liar::IVertexKey* VertexPositionNormalTextureKey::Clone() const
+	{
+		Liar::VertexPositionNormalTextureKey* tmp = new Liar::VertexPositionNormalTextureKey();
+		tmp->SetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION, m_positonIndex);
+		tmp->SetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL, m_normalIndex);
+		tmp->SetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE, m_texCoordIndex);
+		return tmp;
+	}
+
 	void VertexPositionNormalTextureKey::PrintData()
 	{
 		std::cout << "posIndex: " << m_positonIndex << " normalIndex: " << m_normalIndex << " texIndex: " << m_texCoordIndex;
@@ -50,19 +67,15 @@ namespace Liar
 	/*
 	* 具体数据
 	*/
-	RawVertexBuffersPositionNormalTexture::RawVertexBuffersPositionNormalTexture():
+	RawVertexBuffersPositionNormalTexture::RawVertexBuffersPositionNormalTexture(Liar::Boolen createTmp):
 		Liar::IRawVertexBuffers(),
 		m_positons(nullptr), m_normals(nullptr), m_texCoords(nullptr),
 		m_numberPostions(0), m_numberNormals(0), m_numberTexCoodrs(0)
 	{
+		if (createTmp) m_tmpKey = new Liar::VertexPositionNormalTextureKey();
 	}
 
 	RawVertexBuffersPositionNormalTexture::~RawVertexBuffersPositionNormalTexture()
-	{
-		Destroy();
-	}
-
-	void RawVertexBuffersPositionNormalTexture::Destroy()
 	{
 		size_t i = 0;
 		for (i = 0; i < m_numberPostions; ++i)
@@ -89,6 +102,9 @@ namespace Liar
 		}
 		if (m_texCoords) free(m_texCoords);
 		m_texCoords = nullptr;
+
+		delete m_tmpKey;
+		m_tmpKey = nullptr;
 	}
 
 	void RawVertexBuffersPositionNormalTexture::AddPositonVertex(Liar::Number x, Liar::Number y, Liar::Number z)

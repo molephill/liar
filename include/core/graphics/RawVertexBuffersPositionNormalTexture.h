@@ -19,14 +19,16 @@ namespace Liar
 
 	public:
 		virtual void SetVertexIndex(Liar::VertexElementAttr, Liar::Uint);
-		virtual Liar::Uint GetVertexIndex(Liar::VertexElementAttr);
+		virtual Liar::Uint GetVertexIndex(Liar::VertexElementAttr) const;
 		virtual void PrintData();
+		virtual Liar::Boolen operator==(const Liar::IVertexKey&) const;
+		virtual Liar::IVertexKey* Clone() const;
 	};
 
 	class RawVertexBuffersPositionNormalTexture :public Liar::IRawVertexBuffers
 	{
 	public:
-		RawVertexBuffersPositionNormalTexture();
+		RawVertexBuffersPositionNormalTexture(Liar::Boolen createTmp = true);
 		virtual ~RawVertexBuffersPositionNormalTexture();
 
 	private:
@@ -40,7 +42,6 @@ namespace Liar
 		Liar::Uint m_numberTexCoodrs;
 
 	protected:
-		virtual void Destroy();
 		virtual void AddPositonVertex(Liar::Number x, Liar::Number y, Liar::Number z);
 		virtual void AddNormalVertex(Liar::Number x, Liar::Number y, Liar::Number z);
 		virtual void AddTexCoordVertex(Liar::Number x, Liar::Number y);
