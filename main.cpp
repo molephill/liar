@@ -15,6 +15,7 @@ int main() {
 	camera3D->SetClearColor(0.2f, 0.3f, 0.3f);
 	camera3D->GetViewPort()->SetViewSize(Liar::WINDOW_W, Liar::WINDOW_H);
 	camera3D->GetTransform3D().SetPosition(0, 0, -5);
+	camera3D->GetTransform3D().Rotate(3, 0, 0);
 
 	Liar::Liar3D::cameraMoveScript->SetCamera(camera3D);
 

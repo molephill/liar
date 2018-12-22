@@ -23,5 +23,7 @@ namespace Liar
 		Liar::ShaderValue* shaderValue;
 		Liar::Int publicDefine;
 		Liar::StageContext* stageContext;
+		Liar::Int lastCurrentTime;
+		Liar::Int elapsedTime;
 	};
 }

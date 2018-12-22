@@ -37,6 +37,8 @@ namespace Liar
 
 		void SetRotation(const Liar::Quaternion& rhs);
 		void SetRotation(Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w);
+		void SetRotation(const Liar::Vector3&);
+		void SetRotation(Liar::Number, Liar::Number, Liar::Number);
 
 		void SetScale(const Liar::Vector3& rhs);
 		void SetScale(Liar::Number x, Liar::Number y, Liar::Number z);

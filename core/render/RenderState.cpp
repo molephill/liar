@@ -9,7 +9,8 @@ namespace Liar
 		clientWidth(0), clientHeight(0),
 		camera(nullptr), enableLight(true),
 		shaderValue(new Liar::ShaderValue()), publicDefine(-1),
-		stageContext(new Liar::StageContext())
+		stageContext(new Liar::StageContext()),
+		lastCurrentTime(0), elapsedTime(0)
 	{
 	}
 

@@ -33,7 +33,6 @@ namespace Liar
 			m_isMouseDown = true;
 			m_lastMouseX = Liar::Liar3D::stage->mouseX;
 			m_lastMouseY = Liar::Liar3D::stage->mouseY;
-			std::cout << "down:" << *m_yawPitchRoll << std::endl;
 			break;
 		}
 		case Liar::EventTypeDefine::EVENT_TYPE_MOUSE_UP:
@@ -62,8 +61,9 @@ namespace Liar
 		{
 			Liar::Number offsetX = x - m_lastMouseX;
 			Liar::Number offsetY = y - m_lastMouseY;
-			m_yawPitchRoll->x = m_yawPitchRoll->x - offsetX * m_rotaionSpeed;
-			m_yawPitchRoll->y = m_yawPitchRoll->y - offsetY * m_rotaionSpeed;
+			Liar::Int elapsedTime = Liar::Liar3D::renderState->elapsedTime;
+			m_yawPitchRoll->x = m_yawPitchRoll->x - offsetX * m_rotaionSpeed * elapsedTime;
+			m_yawPitchRoll->y = m_yawPitchRoll->y - offsetY * m_rotaionSpeed * elapsedTime;
 			UpdateRotation();
 		}
 		m_lastMouseX = x;
@@ -74,7 +74,7 @@ namespace Liar
 	{
 		if (m_yawPitchRoll->y < 1.50f)
 		{
-			m_camera->GetTransform3D().Rotate(*m_yawPitchRoll, false);
+			m_camera->GetTransform3D().SetRotation(*m_yawPitchRoll);
 		}
 	}
 }

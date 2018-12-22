@@ -158,6 +158,17 @@ namespace Liar
 		}
 	}
 
+	void Transform3D::SetRotation(const Liar::Vector3& rhs)
+	{
+		SetRotation(rhs.x, rhs.y, rhs.z);
+	}
+
+	void Transform3D::SetRotation(Liar::Number yaw, Liar::Number pitch, Liar::Number roll)
+	{
+		Liar::Quaternion::CreateFromYawPitchRoll(yaw, pitch, roll, Liar::MathUtils3D::TEMPQuaternion0);
+		SetRotation(Liar::MathUtils3D::TEMPQuaternion0);
+	}
+
 	void Transform3D::SetScale(const Liar::Vector3& rhs)
 	{
 		SetScale(rhs.x, rhs.y, rhs.z);

@@ -1,5 +1,6 @@
 
 #include <Liar3D.h>
+#include <time.h>
 
 bool check_in_window(GLFWwindow* window, Liar::DNumber, Liar::DNumber);
 void framebuffer_size_callback(GLFWwindow* window, Liar::Int width, Liar::Int height);
@@ -69,6 +70,12 @@ namespace Liar
 				glfwPollEvents();
 
 				Liar::RenderState& state = *(Liar::Liar3D::renderState);
+
+				// calc runtime
+				clock_t start;
+				start = clock();
+				state.elapsedTime = state.lastCurrentTime > 0 ? start - state.lastCurrentTime : 0;
+				state.lastCurrentTime = start;
 
 				run = Liar::Liar3D::stage->OnEnterFrame(state);
 				rendering->Render(state);
