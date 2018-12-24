@@ -67,12 +67,11 @@ namespace Liar
 	/*
 	* 具体数据
 	*/
-	RawVertexBuffersPositionNormalTexture::RawVertexBuffersPositionNormalTexture(Liar::Boolen createTmp):
-		Liar::IRawVertexBuffers(),
+	RawVertexBuffersPositionNormalTexture::RawVertexBuffersPositionNormalTexture(Liar::GeometryVertexType type):
+		Liar::IRawVertexBuffers(type),
 		m_positons(nullptr), m_normals(nullptr), m_texCoords(nullptr),
 		m_numberPostions(0), m_numberNormals(0), m_numberTexCoodrs(0)
 	{
-		if (createTmp) m_tmpKey = new Liar::VertexPositionNormalTextureKey();
 	}
 
 	RawVertexBuffersPositionNormalTexture::~RawVertexBuffersPositionNormalTexture()

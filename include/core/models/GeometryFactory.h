@@ -17,5 +17,6 @@ namespace Liar
 	public:
 		Liar::VertexFactory& GetVertexFactory() { return *m_vertexFactory; };
 		Liar::Geometry* GetGeometry(Liar::GeometryType);
+		Liar::Int GetVertexNumberFloat(Liar::GeometryVertexType);
 	};
 }

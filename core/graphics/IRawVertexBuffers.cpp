@@ -5,11 +5,11 @@
 
 namespace Liar
 {
-	IRawVertexBuffers::IRawVertexBuffers(Liar::Boolen createTmp) :
+	IRawVertexBuffers::IRawVertexBuffers(Liar::GeometryVertexType vertextype) :
 		m_indices(nullptr), m_numberIndices(0),
-		m_vertexKeys(nullptr), m_numberVertexKeys(0),
-		m_tmpKey(nullptr), m_tmpIndex(0)
+		m_vertexKeys(nullptr), m_numberVertexKeys(0)
 	{
+		m_tmpKey = Liar::Liar3D::geometryFactory->GetVertexFactory().GetVertexKey(vertextype);;
 	}
 
 	IRawVertexBuffers::~IRawVertexBuffers()
@@ -94,6 +94,25 @@ namespace Liar
 		return GetSubVertexBuffer(attr, vertexIndex);
 	}
 
+	/*
+	* 不知数据长度时推入
+	*/
+	void IRawVertexBuffers::PushIndices(Liar::Uint index)
+	{
+		++m_numberIndices;
+		if (m_indices) m_indices = (Liar::Uint*)realloc(m_indices, sizeof(Liar::Uint)*m_numberIndices);
+		else m_indices = (Liar::Uint*)malloc(sizeof(Liar::Uint)*m_numberIndices);
+		m_indices[m_numberIndices - 1] = index;
+	}
+
+	void IRawVertexBuffers::PushVertexKey(Liar::IVertexKey* key)
+	{
+		++m_numberVertexKeys;
+		if (m_vertexKeys) m_vertexKeys = (Liar::IVertexKey**)realloc(m_vertexKeys, sizeof(Liar::IVertexKey*)*m_numberVertexKeys);
+		else m_vertexKeys = (Liar::IVertexKey**)malloc(sizeof(Liar::IVertexKey*)*m_numberVertexKeys);
+		m_vertexKeys[m_numberVertexKeys - 1] = key;
+	}
+
 	void IRawVertexBuffers::CheckAddVertexKey(const Liar::IVertexKey& check)
 	{
 		Liar::IVertexKey* tmpKey = nullptr;
@@ -111,10 +130,9 @@ namespace Liar
 		if (!tmpKey)
 		{
 			tmpKey = check.Clone();
-			SetVertexKey(m_tmpIndex, tmpKey);
+			PushVertexKey(tmpKey);
 		}
-		SetIndex(m_tmpIndex, findIndex);
-		m_tmpIndex++;
+		PushIndices(findIndex);
 	}
 
 	void IRawVertexBuffers::UploadData(GLenum type)

@@ -28,7 +28,7 @@ namespace Liar
 	class RawVertexBuffersPositionNormalTexture :public Liar::IRawVertexBuffers
 	{
 	public:
-		RawVertexBuffersPositionNormalTexture(Liar::Boolen createTmp = true);
+		RawVertexBuffersPositionNormalTexture(Liar::GeometryVertexType type = Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_NONE);
 		virtual ~RawVertexBuffersPositionNormalTexture();
 
 	private:

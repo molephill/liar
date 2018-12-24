@@ -26,7 +26,7 @@ namespace Liar
 		switch (attr)
 		{
 		case Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_TEXTURE:
-			return new Liar::RawVertexBuffersPositionNormalTexture();
+			return new Liar::RawVertexBuffersPositionNormalTexture(attr);
 		default:
 			return nullptr;
 		}

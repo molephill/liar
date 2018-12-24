@@ -35,7 +35,7 @@ namespace Liar
 	class IRawVertexBuffers
 	{
 	public:
-		IRawVertexBuffers(Liar::Boolen createTmp = true);
+		IRawVertexBuffers(Liar::GeometryVertexType type = Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_NONE);
 		virtual ~IRawVertexBuffers();
 
 	protected:
@@ -47,10 +47,13 @@ namespace Liar
 
 		// 用来检测的临时数据
 		Liar::IVertexKey* m_tmpKey;
-		Liar::Uint m_tmpIndex;
 
 		void* GetVertexBuffer(Liar::VertexElementAttr, void**, size_t, Liar::Number, Liar::Number, Liar::Number z = 0.0f, Liar::Number w = 0.0f);
 		virtual void UploadSubData(GLenum) = 0;
+
+		//
+		void PushIndices(Liar::Uint);
+		void PushVertexKey(Liar::IVertexKey*);
 
 	public:
 		virtual void AddSubVertexBuffer(Liar::VertexElementAttr, Liar::Number, Liar::Number, Liar::Number = 0.0f, Liar::Number = 0.0f) = 0;
