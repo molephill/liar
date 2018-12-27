@@ -16,12 +16,19 @@ namespace Liar
 
 	public:
 		Liar::Transform3D* transform;
-		Liar::BaseMaterial* material;
-		Liar::Geometry* geometry;
 		Liar::ShaderProgram* shaderProgram;
+
+	private:
+		Liar::Geometry** m_geometries;
+		Liar::Int m_numberGeometries;
+		Liar::BaseMaterial** m_materials;
+		Liar::Int m_numberMaterials;
 
 	public:
 		void Clear();
 		void Render(Liar::RenderState&);
+
+		void AddGeometry(Liar::Geometry*);
+		void AddMaterial(Liar::BaseMaterial*);
 	};
 }

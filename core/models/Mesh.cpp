@@ -5,7 +5,8 @@
 namespace Liar
 {
 	Mesh::Mesh(Liar::GeometryType type):
-		Liar::Node()
+		Liar::Node(),
+		m_geometry(nullptr)
 	{
 		SetGeometryType(type);
 		m_preCompileShader = Liar::Liar3D::shaderCompile->GetPreCompileShader("TEST");
@@ -28,6 +29,16 @@ namespace Liar
 		m_geometry = Liar::Liar3D::geometryFactory->GetGeometry(type);
 	}
 
+	void Mesh::SetGeometryType(const char* path)
+	{
+		if (m_geometry)
+		{
+			m_geometry->ReduceRefrence();
+			m_geometry = nullptr;
+		}
+		m_geometry = Liar::Liar3D::geometryFactory->GetGeometry(path);
+	}
+
 	bool Mesh::BuildShaderProgram(Liar::RenderState& state)
 	{
 		if (!m_shaderProgram) m_shaderProgram = new Liar::ShaderProgram();
@@ -37,7 +48,8 @@ namespace Liar
 		{
 			m_shaderProgram->Clear();
 			m_shaderProgram->vertexDefine = 0;
-			m_shaderProgram->fragementDefine = m_material ? m_material->GetShaderValue().GetShaderDefineValue() : m_shaderProgram->fragementDefine;
+			m_shaderProgram->fragementDefine = m_shaderProgram->fragementDefine;
+			//m_shaderProgram->fragementDefine = m_material ? m_material->GetShaderValue().GetShaderDefineValue() : m_shaderProgram->fragementDefine;
 
 			std::string vertexCode(Liar::Liar3D::shaderCompile->GetVersion());
 			vertexCode += m_geometry->GetAttribDefines();
@@ -55,7 +67,7 @@ namespace Liar
 	Liar::RenderUnit* Mesh::GetRenderUint(Liar::RenderState& state, bool buildShader)
 	{
 		Liar::RenderUnit* renderUnit = Liar::Node::GetRenderUint(state, buildShader);
-		renderUnit->geometry = m_geometry;
+		renderUnit->AddGeometry(m_geometry);
 		return renderUnit;
 	}
 }

@@ -16,9 +16,9 @@ namespace Liar
 		virtual ~BaseMaterial();
 
 	protected:
+		std::string m_name;
 		Liar::BaseTexture** m_textures;
 		Liar::Uint m_numberTexture;
-
 		bool m_alphaTest;
 
 	protected:
@@ -76,6 +76,7 @@ namespace Liar
 		void SetRenderQueue(Liar::RenderQueueDefine type) { m_renderQueue = type; };
 		Liar::RenderQueueDefine GetRenderQueue() const { return m_renderQueue; };
 		Liar::ShaderValue& GetShaderValue() { return *m_shaderValues; };
+		std::string& GetName() { return m_name; };
 
 	public:
 		/**

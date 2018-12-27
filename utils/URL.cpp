@@ -58,8 +58,10 @@ namespace Liar
 
 		if (!base)
 		{
-			std::string formatURL = basePath ? basePath : "";
-			formatURL = baseSourceFolder ? formatURL : formatURL + baseSourceFolder;
+			/*std::string formatURL = basePath ? basePath : "";
+			formatURL = baseSourceFolder ? formatURL + baseSourceFolder : formatURL;*/
+			std::string formatURL = "";
+			formatURL = baseSourceFolder ? formatURL + baseSourceFolder : formatURL;
 			return FormatURL(url, formatURL.c_str());
 		}
 		else

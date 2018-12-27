@@ -39,25 +39,31 @@ namespace Liar
 		virtual ~IRawVertexBuffers();
 
 	protected:
+		Liar::GeometryVertexType m_geomtryVertexType;
+
 		Liar::Uint* m_indices;
 		Liar::Int m_numberIndices;
 
 		Liar::IVertexKey** m_vertexKeys;
 		Liar::Int m_numberVertexKeys;
 
-		// 用来检测的临时数据
-		Liar::IVertexKey* m_tmpKey;
+		Liar::Uint* m_mtlIndices;
+		Liar::Int m_numberMTLIndices;
 
 		void* GetVertexBuffer(Liar::VertexElementAttr, void**, size_t, Liar::Number, Liar::Number, Liar::Number z = 0.0f, Liar::Number w = 0.0f);
 		virtual void UploadSubData(GLenum) = 0;
 
-		//
+		// 不知长度时推入
 		void PushIndices(Liar::Uint);
 		void PushVertexKey(Liar::IVertexKey*);
 
 	public:
 		virtual void AddSubVertexBuffer(Liar::VertexElementAttr, Liar::Number, Liar::Number, Liar::Number = 0.0f, Liar::Number = 0.0f) = 0;
 		virtual void* GetSubVertexBuffer(Liar::VertexElementAttr, size_t) = 0;
+
+		// 已知 vertexBuffer 长度
+		virtual void SetSubVertexBufferLen(Liar::VertexElementAttr, Liar::Int);
+		virtual void SetSubVertexBuffer(Liar::VertexElementAttr, Liar::Int, Liar::Number, Liar::Number = 0.0f, Liar::Number = 0.0f, Liar::Number = 0.0f);
 
 		// 设置顶点索引
 		virtual void SetIndicesLength(Liar::Int);

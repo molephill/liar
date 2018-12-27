@@ -48,6 +48,7 @@ namespace Liar
 #else
 		Liar::Liar3D::urlFormat->basePath = "E:\\c++\\liar\\liar\\core\\";
 		Liar::Liar3D::urlFormat->baseshaderFolder = "resource\\shader\\files\\";
+		Liar::Liar3D::urlFormat->baseSourceFolder = "C:\\Users\\Administrator\\Desktop\\model\\new\\";
 #endif
 		Liar::Liar3D::events = new Liar::EventController();
 		Liar::Liar3D::stage = new Liar::Stage(w, h);
@@ -201,8 +202,7 @@ void mouse_callback(GLFWwindow* window, Liar::DNumber x, Liar::DNumber y)
 // ----------------------------------------------------------------------
 void scroll_callback(GLFWwindow* window, Liar::DNumber x, Liar::DNumber y)
 {
-	bool inWindow = check_in_window(window, x, y);
-	//if (inWindow) Liar::Liar3D::stage->ScrollEvent(x, y);
+	Liar::Liar3D::events->ScrollMouseEvent(static_cast<Liar::Number>(x), static_cast<Liar::Number>(y));
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)

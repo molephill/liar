@@ -24,6 +24,8 @@ namespace Liar
 	public:
 		Liar::Number mouseX;
 		Liar::Number mouseY;
+		Liar::Number scrollX;
+		Liar::Number scrollY;
 
 	public:
 		Liar::Uint GetWidth() const { return m_width; };

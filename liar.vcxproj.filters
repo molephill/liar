@@ -168,9 +168,6 @@
     <ClCompile Include="math\Vector4.cpp">
       <Filter>源文件\match</Filter>
     </ClCompile>
-    <ClCompile Include="core\models\GeometryFactory.cpp">
-      <Filter>源文件\core\models</Filter>
-    </ClCompile>
     <ClCompile Include="core\models\Mesh.cpp">
       <Filter>源文件\core\models</Filter>
     </ClCompile>
@@ -230,6 +227,15 @@
     </ClCompile>
     <ClCompile Include="core\graphics\VertexFactory.cpp">
       <Filter>源文件\core\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="core\models\GeometryFactory.cpp">
+      <Filter>源文件\core\models</Filter>
+    </ClCompile>
+    <ClCompile Include="core\models\Model.cpp">
+      <Filter>源文件\core\models</Filter>
+    </ClCompile>
+    <ClCompile Include="core\models\geometries\NetGeometry.cpp">
+      <Filter>源文件\core\models\geometries</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -383,9 +389,6 @@
     <ClInclude Include="Event.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="MouseEvent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="include\core\events\Event.h">
       <Filter>头文件\core\events</Filter>
     </ClInclude>
@@ -397,6 +400,12 @@
     </ClInclude>
     <ClInclude Include="include\core\graphics\RawVertexBuffersPositionNormalTexture.h">
       <Filter>头文件\core\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\models\Model.h">
+      <Filter>头文件\core\models</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\models\geometries\NetGeometry.h">
+      <Filter>头文件\core\models\geometries</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

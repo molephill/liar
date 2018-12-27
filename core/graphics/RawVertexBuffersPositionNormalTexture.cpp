@@ -61,7 +61,8 @@ namespace Liar
 
 	void VertexPositionNormalTextureKey::PrintData()
 	{
-		std::cout << "posIndex: " << m_positonIndex << " normalIndex: " << m_normalIndex << " texIndex: " << m_texCoordIndex;
+		//std::cout << "posIndex: " << m_positonIndex << " normalIndex: " << m_normalIndex << " texIndex: " << m_texCoordIndex;
+		std::cout << m_positonIndex << "," << m_normalIndex << "," << m_texCoordIndex << ")";
 	}
 
 	/*
@@ -101,9 +102,6 @@ namespace Liar
 		}
 		if (m_texCoords) free(m_texCoords);
 		m_texCoords = nullptr;
-
-		delete m_tmpKey;
-		m_tmpKey = nullptr;
 	}
 
 	void RawVertexBuffersPositionNormalTexture::AddPositonVertex(Liar::Number x, Liar::Number y, Liar::Number z)
@@ -160,6 +158,48 @@ namespace Liar
 			break;
 		case Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE:
 			AddTexCoordVertex(x, y);
+			break;
+		}
+	}
+
+	void RawVertexBuffersPositionNormalTexture::SetSubVertexBufferLen(Liar::VertexElementAttr attr, Liar::Int len)
+	{
+		switch (attr)
+		{
+		case Liar::VertexElementAttr::ELEMENT_ATTR_POSITION:
+			m_numberPostions = len;
+			m_positons = (Liar::Vector3**)realloc(m_positons, sizeof(Liar::Vector3*)*m_numberPostions);
+			break;
+		case Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL:
+			m_numberNormals = len;
+			m_normals = (Liar::Vector3**)realloc(m_normals, sizeof(Liar::Vector3*)*m_numberNormals);
+			break;
+		case Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE:
+			m_numberTexCoodrs = len;
+			m_texCoords = (Liar::Vector2**)realloc(m_texCoords, sizeof(Liar::Vector2*)*m_numberTexCoodrs);
+			break;
+		default:
+			Liar::IRawVertexBuffers::SetSubVertexBufferLen(attr, len);
+			break;
+		}
+	}
+
+	void RawVertexBuffersPositionNormalTexture::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index,
+		Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w)
+	{
+		switch (attr)
+		{
+		case Liar::VertexElementAttr::ELEMENT_ATTR_POSITION:
+			m_positons[index] = new Liar::Vector3(x, y, z);
+			break;
+		case Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL:
+			m_normals[index] = new Liar::Vector3(x, y, z);
+			break;
+		case Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE:
+			m_texCoords[index] = new Liar::Vector2(x, y);
+			break;
+		default:
+			Liar::IRawVertexBuffers::SetSubVertexBuffer(attr, index, x, y, z);
 			break;
 		}
 	}
@@ -238,7 +278,7 @@ namespace Liar
 
 	void RawVertexBuffersPositionNormalTexture::PrintData()
 	{
-		std::cout << "indices:\n";
+		/*std::cout << "indices:\n";
 		Liar::Int i = 0;
 		for (i = 0; i < m_numberIndices; ++i)
 		{
@@ -250,6 +290,17 @@ namespace Liar
 			std::cout << "index: " << i << " : ";
 			m_vertexKeys[i]->PrintData();
 			std::cout << "\n";
+		}*/
+		Liar::Int i = 0;
+		for (i = 0; i < m_numberIndices; ++i)
+		{
+			std::cout << "m_rawVertexBuffers->SetIndex(" << i << "," << m_indices[i] << ");" << std::endl;
+		}
+		for (i = 0; i < m_numberVertexKeys; ++i)
+		{
+			std::cout << "SetVertexKey(" << i << ",";
+			m_vertexKeys[i]->PrintData();
+			std::cout << ";\n";
 		}
 		std::cout << std::endl;
 	}

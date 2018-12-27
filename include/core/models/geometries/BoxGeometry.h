@@ -26,7 +26,6 @@ namespace Liar
 	protected:
 		//virtual void RecreateResource();
 		virtual void RecreateSubResource();
-		virtual void VertexAttrbPointer();
 
 		/*
 		* ÉèÖÃ¶¥µãË÷Òı

@@ -46,24 +46,6 @@ namespace Liar
 		}
 	}
 
-	void BoxGeometry::VertexAttrbPointer()
-	{
-		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
-		size_t stride = Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3 * 2 + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR2;
-		size_t positionOffsize = 0;
-		size_t normalOffsize = positionOffsize + Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3;
-		size_t texCoordOffseize = normalOffsize + Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3;
-		// position
-		gl.VertexAttribPointer(0, Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3, GL_FLOAT, GL_FALSE, stride, (void*)positionOffsize);
-		gl.EnableVertexAttribArray(0);
-		// normal
-		gl.VertexAttribPointer(1, Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3, GL_FLOAT, GL_FALSE, stride, (void*)normalOffsize);
-		gl.EnableVertexAttribArray(1);
-		// texCoordinate
-		gl.VertexAttribPointer(2, Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR2, GL_FLOAT, GL_FALSE, stride, (void*)texCoordOffseize);
-		gl.EnableVertexAttribArray(2);
-	}
-
 	//void BoxGeometry::RecreateResource()
 	//{
 	//	Liar::Resource::RecreateResource();
@@ -179,77 +161,66 @@ namespace Liar
 		m_rawVertexBuffers->SetIndex(0, 0);
 		m_rawVertexBuffers->SetIndex(1, 1);
 		m_rawVertexBuffers->SetIndex(2, 2);
-		m_rawVertexBuffers->SetIndex(3, 1);
-		m_rawVertexBuffers->SetIndex(4, 0);
-		m_rawVertexBuffers->SetIndex(5, 4);
-		m_rawVertexBuffers->SetIndex(6, 6);
-		m_rawVertexBuffers->SetIndex(7, 7);
-		m_rawVertexBuffers->SetIndex(8, 8);
-		m_rawVertexBuffers->SetIndex(9, 7);
-		m_rawVertexBuffers->SetIndex(10, 6);
-		m_rawVertexBuffers->SetIndex(11, 10);
-		m_rawVertexBuffers->SetIndex(12, 12);
-		m_rawVertexBuffers->SetIndex(13, 13);
-		m_rawVertexBuffers->SetIndex(14, 14);
-		m_rawVertexBuffers->SetIndex(15, 13);
-		m_rawVertexBuffers->SetIndex(16, 12);
-		m_rawVertexBuffers->SetIndex(17, 16);
-		m_rawVertexBuffers->SetIndex(18, 18);
-		m_rawVertexBuffers->SetIndex(19, 19);
-		m_rawVertexBuffers->SetIndex(20, 20);
-		m_rawVertexBuffers->SetIndex(21, 19);
-		m_rawVertexBuffers->SetIndex(22, 18);
-		m_rawVertexBuffers->SetIndex(23, 22);
-		m_rawVertexBuffers->SetIndex(24, 24);
-		m_rawVertexBuffers->SetIndex(25, 25);
-		m_rawVertexBuffers->SetIndex(26, 26);
-		m_rawVertexBuffers->SetIndex(27, 25);
-		m_rawVertexBuffers->SetIndex(28, 24);
-		m_rawVertexBuffers->SetIndex(29, 28);
-		m_rawVertexBuffers->SetIndex(30, 30);
-		m_rawVertexBuffers->SetIndex(31, 31);
-		m_rawVertexBuffers->SetIndex(32, 32);
-		m_rawVertexBuffers->SetIndex(33, 31);
-		m_rawVertexBuffers->SetIndex(34, 30);
-		m_rawVertexBuffers->SetIndex(35, 34);
+		m_rawVertexBuffers->SetIndex(3, 2);
+		m_rawVertexBuffers->SetIndex(4, 3);
+		m_rawVertexBuffers->SetIndex(5, 0);
+		m_rawVertexBuffers->SetIndex(6, 4);
+		m_rawVertexBuffers->SetIndex(7, 5);
+		m_rawVertexBuffers->SetIndex(8, 6);
+		m_rawVertexBuffers->SetIndex(9, 6);
+		m_rawVertexBuffers->SetIndex(10, 7);
+		m_rawVertexBuffers->SetIndex(11, 4);
+		m_rawVertexBuffers->SetIndex(12, 8);
+		m_rawVertexBuffers->SetIndex(13, 9);
+		m_rawVertexBuffers->SetIndex(14, 10);
+		m_rawVertexBuffers->SetIndex(15, 10);
+		m_rawVertexBuffers->SetIndex(16, 11);
+		m_rawVertexBuffers->SetIndex(17, 8);
+		m_rawVertexBuffers->SetIndex(18, 12);
+		m_rawVertexBuffers->SetIndex(19, 13);
+		m_rawVertexBuffers->SetIndex(20, 14);
+		m_rawVertexBuffers->SetIndex(21, 14);
+		m_rawVertexBuffers->SetIndex(22, 15);
+		m_rawVertexBuffers->SetIndex(23, 12);
+		m_rawVertexBuffers->SetIndex(24, 16);
+		m_rawVertexBuffers->SetIndex(25, 17);
+		m_rawVertexBuffers->SetIndex(26, 18);
+		m_rawVertexBuffers->SetIndex(27, 18);
+		m_rawVertexBuffers->SetIndex(28, 19);
+		m_rawVertexBuffers->SetIndex(29, 16);
+		m_rawVertexBuffers->SetIndex(30, 20);
+		m_rawVertexBuffers->SetIndex(31, 21);
+		m_rawVertexBuffers->SetIndex(32, 22);
+		m_rawVertexBuffers->SetIndex(33, 22);
+		m_rawVertexBuffers->SetIndex(34, 23);
+		m_rawVertexBuffers->SetIndex(35, 20);
 
 		// 顶点索引数据
-		m_rawVertexBuffers->SetVertexKeyLength(35);
-		SetVertexKey(0, 0);
-		SetVertexKey(1, 3);
-		SetVertexKey(2, 2);
-		SetVertexKey(3, 0);
-		SetVertexKey(4, 1);
-		SetVertexKey(5, 0);
-		SetVertexKey(6, 4);
-		SetVertexKey(7, 7);
-		SetVertexKey(8, 5);
-		SetVertexKey(9, 0);
-		SetVertexKey(10, 6);
-		SetVertexKey(11, 0);
-		SetVertexKey(12, 0);
-		SetVertexKey(13, 5);
-		SetVertexKey(14, 1);
-		SetVertexKey(15, 0);
-		SetVertexKey(16, 4);
-		SetVertexKey(17, 0);
-		SetVertexKey(18, 1);
-		SetVertexKey(19, 7);
-		SetVertexKey(20, 3);
-		SetVertexKey(21, 0);
-		SetVertexKey(22, 5);
-		SetVertexKey(23, 0);
-		SetVertexKey(24, 3);
-		SetVertexKey(25, 6);
-		SetVertexKey(26, 2);
-		SetVertexKey(27, 0);
-		SetVertexKey(28, 7);
-		SetVertexKey(29, 0);
-		SetVertexKey(30, 2);
-		SetVertexKey(31, 4);
-		SetVertexKey(32, 0);
-		SetVertexKey(33, 0);
-		SetVertexKey(34, 6);
+		m_rawVertexBuffers->SetVertexKeyLength(24);
+		SetVertexKey(0, 0, 0, 0);
+		SetVertexKey(1, 1, 0, 1);
+		SetVertexKey(2, 2, 0, 2);
+		SetVertexKey(3, 3, 0, 3);
+		SetVertexKey(4, 4, 1, 3);
+		SetVertexKey(5, 5, 1, 0);
+		SetVertexKey(6, 6, 1, 1);
+		SetVertexKey(7, 7, 1, 2);
+		SetVertexKey(8, 0, 2, 3);
+		SetVertexKey(9, 3, 2, 0);
+		SetVertexKey(10, 5, 2, 1);
+		SetVertexKey(11, 4, 2, 2);
+		SetVertexKey(12, 3, 3, 3);
+		SetVertexKey(13, 2, 3, 0);
+		SetVertexKey(14, 6, 3, 1);
+		SetVertexKey(15, 5, 3, 2);
+		SetVertexKey(16, 2, 4, 3);
+		SetVertexKey(17, 1, 4, 0);
+		SetVertexKey(18, 7, 4, 1);
+		SetVertexKey(19, 6, 4, 2);
+		SetVertexKey(20, 1, 5, 3);
+		SetVertexKey(21, 0, 5, 0);
+		SetVertexKey(22, 4, 5, 1);
+		SetVertexKey(23, 7, 5, 2);
 	}
 
 	void BoxGeometry::SetVertexKey(Liar::Int index, Liar::Uint posIndex, Liar::Uint normalIndex, Liar::Uint texIndex)

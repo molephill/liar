@@ -49,6 +49,8 @@ namespace Liar
 		static bool NearEqual(Liar::DNumber, Liar::DNumber);
 		static Liar::DNumber FastInvSqrt(Liar::DNumber);
 		static bool IsPOT(Liar::Uint, Liar::Uint);
+		static void ReadString(std::string&, FILE*);
+		static std::string ReadString(FILE*);
 	};
 
 }

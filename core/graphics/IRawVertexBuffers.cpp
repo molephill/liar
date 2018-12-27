@@ -6,10 +6,11 @@
 namespace Liar
 {
 	IRawVertexBuffers::IRawVertexBuffers(Liar::GeometryVertexType vertextype) :
+		m_geomtryVertexType(vertextype),
 		m_indices(nullptr), m_numberIndices(0),
-		m_vertexKeys(nullptr), m_numberVertexKeys(0)
+		m_vertexKeys(nullptr), m_numberVertexKeys(0),
+		m_mtlIndices(nullptr), m_numberMTLIndices(0)
 	{
-		m_tmpKey = Liar::Liar3D::geometryFactory->GetVertexFactory().GetVertexKey(vertextype);;
 	}
 
 	IRawVertexBuffers::~IRawVertexBuffers()
@@ -25,6 +26,9 @@ namespace Liar
 		}
 		if (m_vertexKeys) free(m_vertexKeys);
 		m_vertexKeys = nullptr;
+		
+		if (m_mtlIndices) free(m_mtlIndices);
+		m_mtlIndices = nullptr;
 	}
 
 	void* IRawVertexBuffers::GetVertexBuffer(Liar::VertexElementAttr attr, void** buffers, size_t len, Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w)
@@ -133,6 +137,59 @@ namespace Liar
 			PushVertexKey(tmpKey);
 		}
 		PushIndices(findIndex);
+	}
+
+	void IRawVertexBuffers::SetSubVertexBufferLen(Liar::VertexElementAttr attr, Liar::Int len)
+	{
+		switch (attr)
+		{
+		case Liar::VertexElementAttr::ELEMENT_ATTR_RAW_KEY:
+		{
+			m_numberVertexKeys = len;
+			m_vertexKeys = (Liar::IVertexKey**)malloc(sizeof(Liar::IVertexKey*)*m_numberVertexKeys);
+			break;
+		}
+		case Liar::VertexElementAttr::ELEMENT_ATTR_RAW_INDICES:
+		{
+			m_numberIndices = len;
+			m_indices = (Liar::Uint*)malloc(sizeof(Liar::Uint)*m_numberIndices);
+			break;
+		}
+		case Liar::VertexElementAttr::ELEMENT_ATTR_RAW_MTL_INDICES:
+		{
+			m_numberMTLIndices = len;
+			m_mtlIndices = (Liar::Uint*)malloc(sizeof(Liar::Uint)*m_numberMTLIndices);
+			break;
+		}
+		default:
+			break;
+		}
+	}
+
+	void IRawVertexBuffers::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index,
+		Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w)
+	{
+		switch (attr)
+		{
+		case Liar::VertexElementAttr::ELEMENT_ATTR_RAW_KEY:
+		{
+			IVertexKey* key = Liar::Liar3D::geometryFactory->GetVertexFactory().GetVertexKey(m_geomtryVertexType);
+			key->SetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION, static_cast<Liar::Uint>(x));
+			key->SetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL, static_cast<Liar::Uint>(y));
+			key->SetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE, static_cast<Liar::Uint>(z));
+			key->SetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_COLOR, static_cast<Liar::Uint>(w));
+			m_vertexKeys[index] = key;
+			break;
+		}
+		case Liar::VertexElementAttr::ELEMENT_ATTR_RAW_INDICES:
+			m_indices[index] = static_cast<Liar::Uint>(x);
+			break;
+		case Liar::VertexElementAttr::ELEMENT_ATTR_RAW_MTL_INDICES:
+			m_mtlIndices[index] = static_cast<Liar::Uint>(x);
+			break;
+		default:
+			break;
+		}
 	}
 
 	void IRawVertexBuffers::UploadData(GLenum type)

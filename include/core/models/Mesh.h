@@ -18,5 +18,6 @@ namespace Liar
 
 	public:
 		void SetGeometryType(Liar::GeometryType);
+		void SetGeometryType(const char*);
 	};
 }

@@ -142,8 +142,10 @@
     <ClCompile Include="core\material\StandardMaterial.cpp" />
     <ClCompile Include="core\models\geometries\BoxGeometry.cpp" />
     <ClCompile Include="core\models\geometries\Geometry.cpp" />
+    <ClCompile Include="core\models\geometries\NetGeometry.cpp" />
     <ClCompile Include="core\models\GeometryFactory.cpp" />
     <ClCompile Include="core\models\Mesh.cpp" />
+    <ClCompile Include="core\models\Model.cpp" />
     <ClCompile Include="core\render\BaseCamera.cpp" />
     <ClCompile Include="core\render\Camera.cpp" />
     <ClCompile Include="core\render\Renderer.cpp" />
@@ -192,8 +194,10 @@
     <ClInclude Include="include\core\material\StandardMaterial.h" />
     <ClInclude Include="include\core\models\geometries\BoxGeometry.h" />
     <ClInclude Include="include\core\models\geometries\Geometry.h" />
+    <ClInclude Include="include\core\models\geometries\NetGeometry.h" />
     <ClInclude Include="include\core\models\GeometryFactory.h" />
     <ClInclude Include="include\core\models\Mesh.h" />
+    <ClInclude Include="include\core\models\Model.h" />
     <ClInclude Include="include\core\render\BaseCamera.h" />
     <ClInclude Include="include\core\render\Camera.h" />
     <ClInclude Include="include\core\render\RenderDefine.h" />
@@ -224,7 +228,6 @@
     <ClInclude Include="include\utils\CameraMoveScript.h" />
     <ClInclude Include="include\utils\StringParse.h" />
     <ClInclude Include="include\utils\URL.h" />
-    <ClInclude Include="MouseEvent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -13,6 +13,7 @@ namespace Liar
 	{
 		AddEvent(Liar::EventTypeDefine::EVENT_TYPE_MOUSE_DOWN);
 		AddEvent(Liar::EventTypeDefine::EVENT_TYPE_MOUSE_UP);
+		AddEvent(Liar::EventTypeDefine::EVENT_TYPE_MOUSE_SCROLL);
 	}
 
 	CameraMoveScript::~CameraMoveScript()
@@ -42,6 +43,14 @@ namespace Liar
 		case Liar::EventTypeDefine::EVENT_TYPE_MOUSE_MOVE:
 			UpdateCamera();
 			break;
+		case Liar::EventTypeDefine::EVENT_TYPE_MOUSE_SCROLL:
+		{
+			Liar::Vector3& tmp = Liar::MathUtils3D::TEMPVector30;
+			tmp.Set(m_camera->GetTransform3D().GetPosition());
+			tmp.z -= Liar::Liar3D::stage->scrollY;
+			m_camera->GetTransform3D().SetPosition(tmp);
+			break;
+		}
 		default:
 			break;
 		}

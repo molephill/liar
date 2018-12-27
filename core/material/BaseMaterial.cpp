@@ -6,6 +6,7 @@ namespace Liar
 {
 	BaseMaterial::BaseMaterial() :
 		Liar::Resource(),
+		m_name(""),
 		m_textures(nullptr), m_numberTexture(0),
 		m_alphaTest(false),
 		m_cull(Liar::CullTypeDefine::CULL_BACK),

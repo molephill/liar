@@ -27,7 +27,7 @@ namespace Liar
 	protected:
 		virtual void DisposeResource();
 		virtual void RecreateResource();
-		virtual void VertexAttrbPointer() = 0;
+		//virtual void VertexAttrbPointer() = 0;
 		virtual void RecreateSubResource() = 0;
 		virtual IVertexKey* PopVertexKey();
 		void UploadData();

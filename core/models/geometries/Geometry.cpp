@@ -66,6 +66,7 @@ namespace Liar
 		gl.BufferData(m_bufferSubType, bufferSize, nullptr, GL_STATIC_DRAW);
 
 		// 提交顶点数据
+		m_rawVertexBuffers->PrintData();
 		m_rawVertexBuffers->UploadData(m_bufferSubType);
 	}
 

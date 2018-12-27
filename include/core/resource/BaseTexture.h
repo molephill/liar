@@ -32,6 +32,7 @@ namespace Liar
 		bool GetRepeat() const { return m_repeat; };
 		bool GetMipmap() const { return m_mipmap; };
 		Liar::Uint GetFormat() const { return m_format; };
+		Liar::Uint GetTextureID() const { return m_textureID; };
 		virtual void SetURL(const char*);
 
 	protected:

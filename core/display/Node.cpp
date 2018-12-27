@@ -6,9 +6,9 @@ namespace Liar
 	Node::Node() :
 		Liar::EventDispatcher(),
 		m_bits(0), m_numberChild(0), m_childs(nullptr),
-		m_parent(nullptr), m_name(nullptr),
+		m_parent(nullptr), m_name(""),
 		m_visible(true), m_transform3D(new Liar::Transform3D()),
-		m_material(nullptr), m_shaderProgram(nullptr), m_preCompileShader(nullptr)
+		m_shaderProgram(nullptr), m_preCompileShader(nullptr)
 	{
 	}
 
@@ -25,12 +25,6 @@ namespace Liar
 
 		delete m_transform3D;
 		m_transform3D = nullptr;
-
-		if (m_material)
-		{
-			m_material->ReduceRefrence();
-			m_material = nullptr;
-		}
 
 		if (m_shaderProgram)
 		{
@@ -276,7 +270,7 @@ namespace Liar
 		for (Liar::Uint i = 0; i < m_numberChild; ++i)
 		{
 			Liar::Node* node = m_childs[i];
-			if (strcmp(node->m_name, name)) return node;
+			if (strcmp((node->m_name).c_str(), name)) return node;
 		}
 		return nullptr;
 	}
@@ -381,7 +375,6 @@ namespace Liar
 	{
 		Liar::RenderUnit* unit = Liar::Liar3D::rendering->PopRenderUnit();
 		m_transform3D->CalclateTransformation(&(state.camera->GetProjectionViewMatrix()));
-		unit->material = m_material;
 		unit->transform = m_transform3D;
 		if (buildShader) BuildShaderProgram(state);
 		unit->shaderProgram = m_shaderProgram;
@@ -407,10 +400,6 @@ namespace Liar
 	bool Node::BuildShaderProgram(Liar::RenderState& state)
 	{
 		bool recreate = state.shaderValue->GetShaderDefineValue() != state.publicDefine;
-		if (!recreate && m_shaderProgram && m_material)
-		{
-			recreate = m_shaderProgram->fragementDefine != m_material->GetShaderValue().GetShaderDefineValue();
-		}
 		return recreate;
 	}
 }

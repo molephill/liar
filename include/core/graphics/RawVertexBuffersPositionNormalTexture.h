@@ -51,6 +51,9 @@ namespace Liar
 		virtual void AddSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number);
 		virtual void* GetSubVertexBuffer(Liar::VertexElementAttr, size_t);
 
+		virtual void SetSubVertexBufferLen(Liar::VertexElementAttr, Liar::Int);
+		virtual void SetSubVertexBuffer(Liar::VertexElementAttr, Liar::Int, Liar::Number, Liar::Number, Liar::Number = 0.0f, Liar::Number = 0.0f);
+
 		virtual Liar::Int GetStride() const;
 		virtual void VertexAttrbPointer();
 		virtual std::string GetAttribDefines();

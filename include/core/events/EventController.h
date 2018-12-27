@@ -41,6 +41,7 @@ namespace Liar
 		Liar::EventDispatcher* RemoveEvent(Liar::EventTypeDefine, Liar::EventDispatcher*);
 		void DoEvent(Liar::EventTypeDefine, const Liar::Event&);
 		void SetMouseEvent(Liar::Number, Liar::Number, Liar::Boolen, Liar::Boolen, Liar::Boolen);
+		void ScrollMouseEvent(Liar::Number, Liar::Number);
 
 	private:
 		Liar::TypeEvent* GetTypeEvent(Liar::EventTypeDefine);

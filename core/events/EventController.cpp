@@ -171,4 +171,11 @@ namespace Liar
 			DoEvent(type, *m_mouseEvent);
 		}
 	}
+
+	void EventController::ScrollMouseEvent(Liar::Number x, Liar::Number y)
+	{
+		Liar::Liar3D::stage->scrollX = x;
+		Liar::Liar3D::stage->scrollY = y;
+		DoEvent(Liar::EventTypeDefine::EVENT_TYPE_MOUSE_SCROLL, *m_mouseEvent);
+	}
 }

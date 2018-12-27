@@ -25,7 +25,7 @@ namespace Liar
 		{
 			ReleaseResource();
 			m_url = url;
-			std::string formatPath = Liar3D::urlFormat->ForamtShaderURL(url);
+			std::string formatPath = Liar3D::urlFormat->FormatSourceURL(url);
 			int nrComponents = 0;
 			m_data = stbi_load(formatPath.c_str(), &m_width, &m_height, &nrComponents, 0);
 			if (m_data)

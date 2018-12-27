@@ -22,10 +22,9 @@ namespace Liar
 		Liar::Node** m_childs;
 		Liar::Uint m_numberChild;
 		Liar::Node* m_parent;
-		const char* m_name;
+		std::string m_name;
 		bool m_visible;
 		Liar::Transform3D* m_transform3D;
-		Liar::BaseMaterial* m_material;
 		Liar::ShaderProgram* m_shaderProgram;
 		Liar::PreCompileShader* m_preCompileShader;
 
@@ -50,6 +49,8 @@ namespace Liar
 		virtual bool Contains(Liar::Node*) const;
 		virtual void SetParent(Liar::Node*);
 		virtual void SetVisible(bool);
+
+		void SetName(const char* name) { m_name = name; };
 
 	protected:
 		virtual void ChildChange(Liar::Node* child = nullptr) {};

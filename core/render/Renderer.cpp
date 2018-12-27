@@ -41,7 +41,7 @@ namespace Liar
 	Liar::RenderUnit* Renderer::AddRenderUnit(Liar::RenderUnit* unit, Liar::RenderQueueDefine type)
 	{
 		if (!unit) return unit;
-		if (unit->material) type = unit->material->GetRenderQueue();
+		//if (unit->material) type = unit->material->GetRenderQueue();
 		if (type >= m_numberRenderQueue)
 		{
 			m_numberRenderQueue = type + 1;
