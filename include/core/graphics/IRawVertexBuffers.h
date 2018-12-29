@@ -47,8 +47,8 @@ namespace Liar
 		Liar::IVertexKey** m_vertexKeys;
 		Liar::Int m_numberVertexKeys;
 
-		Liar::Uint* m_mtlIndices;
-		Liar::Int m_numberMTLIndices;
+		// 共享材质
+		Liar::Int m_mtlIndex;
 
 		void* GetVertexBuffer(Liar::VertexElementAttr, void**, size_t, Liar::Number, Liar::Number, Liar::Number z = 0.0f, Liar::Number w = 0.0f);
 		virtual void UploadSubData(GLenum) = 0;
@@ -69,6 +69,10 @@ namespace Liar
 		virtual void SetIndicesLength(Liar::Int);
 		virtual void SetIndex(Liar::Int, Liar::Uint);
 		Liar::Int GetNumberLength() const { return m_numberIndices; };
+
+		// 获得材质索引信息
+		Liar::Int GetMtlIndex() const { return m_mtlIndex; };
+		void SetMtlIndex(Liar::Int index) { m_mtlIndex = index; };
 
 		// 设置顶点数据索引
 		virtual void SetVertexKeyLength(Liar::Int);
@@ -97,9 +101,6 @@ namespace Liar
 
 		// 绑定
 		virtual void VertexAttrbPointer() = 0;
-
-		// 定义
-		virtual std::string GetAttribDefines() = 0;
 
 		// 打印数据
 		virtual void PrintData() = 0;

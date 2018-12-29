@@ -2,6 +2,7 @@
 
 #include <core/display/Node.h>
 #include <core/models/GeometryFactory.h>
+#include <core/material/BaseMaterial.h>
 
 namespace Liar
 {
@@ -13,11 +14,18 @@ namespace Liar
 
 	protected:
 		Liar::Geometry* m_geometry;
-		virtual Liar::RenderUnit* GetRenderUint(Liar::RenderState&, bool buildShader = true);
-		virtual bool BuildShaderProgram(Liar::RenderState&);
+		Liar::BaseMaterial* m_sharedMaterial;
+
+		virtual Liar::RenderUnit* GetRenderUint(Liar::RenderState&);
+
+		virtual void Release();
 
 	public:
 		void SetGeometryType(Liar::GeometryType);
 		void SetGeometryType(const char*);
+
+		void SetSharedMaterials(Liar::BaseMaterial*);
+
+		Liar::Geometry* GetGeometry() { return m_geometry; };
 	};
 }

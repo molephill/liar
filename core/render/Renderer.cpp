@@ -97,11 +97,14 @@ namespace Liar
 
 	void Renderer::Render(Liar::RenderState& state)
 	{
+		Liar::Geometry* curGeom = nullptr;
+		Liar::BaseMaterial* curMat = nullptr;
+		Liar::ShaderCompile* curCompile = nullptr;
 		for (int i = 0; i < m_numberRenderQueue; ++i)
 		{
 			if (m_renderQueues[i])
 			{
-				m_renderQueues[i]->Render(state);
+				m_renderQueues[i]->Render(state, curGeom, curMat, curCompile);
 			}
 		}
 	}

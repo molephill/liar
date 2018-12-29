@@ -6,6 +6,7 @@ namespace Liar
 {
 	ShaderCompile::ShaderCompile():
 		m_shaders(nullptr), m_numberShaders(0),
+		m_shaderPrograms(nullptr), m_numberShaderPragrams(0),
 		m_szVersion("#version 410 core\n")
 	{
 		AddPreComileShader("TEST", "test2.vs", "test2.fs");
@@ -22,6 +23,7 @@ namespace Liar
 				m_shaders[i] = nullptr;
 			}
 			free(m_shaders);
+			m_shaders = nullptr;
 			m_numberShaders = 0;
 		}
 
@@ -33,7 +35,20 @@ namespace Liar
 				m_preShaders[i] = nullptr;
 			}
 			free(m_preShaders);
+			m_preShaders = nullptr;
 			m_numberPreShaders = 0;
+		}
+
+		if (m_shaderPrograms)
+		{
+			for (i = 0; i < m_numberShaderPragrams; ++i)
+			{
+				delete m_shaderPrograms[i];
+				m_shaderPrograms[i] = nullptr;
+			}
+			free(m_shaderPrograms);
+			m_shaderPrograms = nullptr;
+			m_numberShaderPragrams = 0;
 		}
 	}
 

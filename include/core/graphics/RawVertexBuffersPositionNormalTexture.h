@@ -56,7 +56,6 @@ namespace Liar
 
 		virtual Liar::Int GetStride() const;
 		virtual void VertexAttrbPointer();
-		virtual std::string GetAttribDefines();
 
 		virtual void PrintData();
 	};

@@ -37,11 +37,11 @@ namespace Liar
 		return unit;
 	}
 
-	void RenderQueue::Render(Liar::RenderState& state)
+	void RenderQueue::Render(Liar::RenderState& state, Liar::Geometry* preGeometry, Liar::BaseMaterial* preMaterial, Liar::ShaderCompile* preShaderCompile)
 	{
 		for (size_t i = 0; i < m_curNumber; ++i)
 		{
-			m_renderUnits[i]->Render(state);
+			m_renderUnits[i]->Render(state, preGeometry, preMaterial, preShaderCompile);
 			Liar::Liar3D::rendering->PushRenderUnit(m_renderUnits[i]);
 			m_renderUnits[i] = nullptr;
 		}

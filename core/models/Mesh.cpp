@@ -6,6 +6,7 @@ namespace Liar
 {
 	Mesh::Mesh(Liar::GeometryType type):
 		Liar::Node(),
+		m_sharedMaterial(nullptr),
 		m_geometry(nullptr)
 	{
 		SetGeometryType(type);
@@ -15,59 +16,40 @@ namespace Liar
 
 	Mesh::~Mesh()
 	{
-		m_geometry->ReduceRefrence();
-		m_geometry = nullptr;
+		Release();
 	}
 
-	void Mesh::SetGeometryType(Liar::GeometryType type)
+	void Mesh::Release()
 	{
 		if (m_geometry)
 		{
 			m_geometry->ReduceRefrence();
 			m_geometry = nullptr;
 		}
+	}
+
+	void Mesh::SetGeometryType(Liar::GeometryType type)
+	{
+		Release();
 		m_geometry = Liar::Liar3D::geometryFactory->GetGeometry(type);
 	}
 
 	void Mesh::SetGeometryType(const char* path)
 	{
-		if (m_geometry)
-		{
-			m_geometry->ReduceRefrence();
-			m_geometry = nullptr;
-		}
+		Release();
 		m_geometry = Liar::Liar3D::geometryFactory->GetGeometry(path);
 	}
 
-	bool Mesh::BuildShaderProgram(Liar::RenderState& state)
+	void Mesh::SetSharedMaterials(Liar::BaseMaterial* shared)
 	{
-		if (!m_shaderProgram) m_shaderProgram = new Liar::ShaderProgram();
-		bool recreate = Liar::Node::BuildShaderProgram(state);
-		if (!recreate) recreate = m_shaderProgram->vertexDefine >= 0;
-		if (recreate)
-		{
-			m_shaderProgram->Clear();
-			m_shaderProgram->vertexDefine = 0;
-			m_shaderProgram->fragementDefine = m_shaderProgram->fragementDefine;
-			//m_shaderProgram->fragementDefine = m_material ? m_material->GetShaderValue().GetShaderDefineValue() : m_shaderProgram->fragementDefine;
-
-			std::string vertexCode(Liar::Liar3D::shaderCompile->GetVersion());
-			vertexCode += m_geometry->GetAttribDefines();
-			vertexCode += m_preCompileShader->vertexShaderCode;
-
-			std::string fragmentCode(Liar::Liar3D::shaderCompile->GetVersion());
-			fragmentCode += m_preCompileShader->fragmentShaderCode;
-
-			m_shaderProgram->LinkProgram(vertexCode.c_str(), fragmentCode.c_str());
-		}
-
-		return recreate;
+		m_sharedMaterial = shared;
 	}
 
-	Liar::RenderUnit* Mesh::GetRenderUint(Liar::RenderState& state, bool buildShader)
+	Liar::RenderUnit* Mesh::GetRenderUint(Liar::RenderState& state)
 	{
-		Liar::RenderUnit* renderUnit = Liar::Node::GetRenderUint(state, buildShader);
-		renderUnit->AddGeometry(m_geometry);
+		Liar::RenderUnit* renderUnit = Liar::Node::GetRenderUint(state);
+		renderUnit->geometry = m_geometry;
+		renderUnit->material = m_sharedMaterial;
 		return renderUnit;
 	}
 }

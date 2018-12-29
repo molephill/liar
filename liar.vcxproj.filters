@@ -237,6 +237,9 @@
     <ClCompile Include="core\models\geometries\NetGeometry.cpp">
       <Filter>源文件\core\models\geometries</Filter>
     </ClCompile>
+    <ClCompile Include="core\material\MTL.cpp">
+      <Filter>源文件\core\material</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\math\Matrix3x3.h">
@@ -406,6 +409,9 @@
     </ClInclude>
     <ClInclude Include="include\core\models\geometries\NetGeometry.h">
       <Filter>头文件\core\models\geometries</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\material\MTL.h">
+      <Filter>头文件\core\material</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -27,17 +27,17 @@ namespace Liar
 	protected:
 		virtual void DisposeResource();
 		virtual void RecreateResource();
-		//virtual void VertexAttrbPointer() = 0;
 		virtual void RecreateSubResource() = 0;
 		virtual IVertexKey* PopVertexKey();
 		void UploadData();
 
 	public:
 		void SetGeometryVertexType(Liar::GeometryVertexType);
+		Liar::IRawVertexBuffers* GetRawVertexBuffers() { return m_rawVertexBuffers; };
+		Liar::GeometryVertexType GetGeoVertexType() const { return m_geometryVertexType; };
 
 	public:
 		virtual size_t GetNumberTriangles();
-		virtual std::string GetAttribDefines();
 		virtual void Draws();
 	};
 }

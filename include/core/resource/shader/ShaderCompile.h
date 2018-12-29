@@ -5,9 +5,9 @@
 #include <sstream>
 #include <iostream>
 
-#include <core/resource/shader/ShaderDefine.h>
 #include <LiarType.h>
 #include <utils/StringParse.h>
+#include <core/resource/shader/ShaderProgram.h>
 
 namespace Liar
 {
@@ -40,6 +40,9 @@ namespace Liar
 
 		Liar::PreCompileShader** m_preShaders;
 		Liar::Uint m_numberPreShaders;
+
+		Liar::ShaderProgram** m_shaderPrograms;
+		Liar::Uint m_numberShaderPragrams;
 
 		const char* m_szVersion;
 

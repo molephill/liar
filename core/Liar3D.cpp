@@ -51,6 +51,7 @@ namespace Liar
 		Liar::Liar3D::urlFormat->baseSourceFolder = "C:\\Users\\Administrator\\Desktop\\model\\new\\";
 #endif
 		Liar::Liar3D::events = new Liar::EventController();
+		Liar::Liar3D::mtl = new Liar::MTL();
 		Liar::Liar3D::stage = new Liar::Stage(w, h);
 		Liar::Liar3D::renderState = new Liar::RenderState();
 		Liar::Liar3D::geometryFactory = new Liar::GeometryFactory();
@@ -143,6 +144,12 @@ namespace Liar
 			Liar::Liar3D::events = nullptr;
 		}
 
+		if (Liar::Liar3D::mtl)
+		{
+			delete Liar::Liar3D::mtl;
+			Liar::Liar3D::mtl = nullptr;
+		}
+
 		glfwTerminate();
 		Liar::Liar3D::m_window = nullptr;
 	}
@@ -154,6 +161,7 @@ namespace Liar
 	Liar::URL* Liar3D::urlFormat = nullptr;
 	Liar::Renderer* Liar3D::rendering = nullptr;
 	Liar::EventController* Liar3D::events = nullptr;
+	Liar::MTL* Liar3D::mtl = nullptr;
 	Liar::CameraMoveScript* Liar3D::cameraMoveScript = nullptr;
 	GLFWwindow* Liar3D::m_window = nullptr;
 }

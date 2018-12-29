@@ -262,23 +262,9 @@ namespace Liar
 		gl.EnableVertexAttribArray(2);
 	}
 
-	std::string RawVertexBuffersPositionNormalTexture::GetAttribDefines()
-	{
-		std::string tmp("#define ");
-		tmp += Liar::VERTEX_ATTRIB_POSITION0;
-		tmp += " 0\n";
-		tmp += "#define ";
-		tmp += Liar::VERTEX_ATTRIB_NORMAL0;
-		tmp += " 1\n";
-		tmp += "#define ";
-		tmp += Liar::VERTEX_ATTRIB_TEXCOORDINATE0;
-		tmp += " 2\n";
-		return tmp;
-	}
-
 	void RawVertexBuffersPositionNormalTexture::PrintData()
 	{
-		/*std::cout << "indices:\n";
+		std::cout << "indices:\n";
 		Liar::Int i = 0;
 		for (i = 0; i < m_numberIndices; ++i)
 		{
@@ -290,18 +276,6 @@ namespace Liar
 			std::cout << "index: " << i << " : ";
 			m_vertexKeys[i]->PrintData();
 			std::cout << "\n";
-		}*/
-		Liar::Int i = 0;
-		for (i = 0; i < m_numberIndices; ++i)
-		{
-			std::cout << "m_rawVertexBuffers->SetIndex(" << i << "," << m_indices[i] << ");" << std::endl;
 		}
-		for (i = 0; i < m_numberVertexKeys; ++i)
-		{
-			std::cout << "SetVertexKey(" << i << ",";
-			m_vertexKeys[i]->PrintData();
-			std::cout << ";\n";
-		}
-		std::cout << std::endl;
 	}
 }

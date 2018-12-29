@@ -9,7 +9,7 @@ namespace Liar
 		m_geomtryVertexType(vertextype),
 		m_indices(nullptr), m_numberIndices(0),
 		m_vertexKeys(nullptr), m_numberVertexKeys(0),
-		m_mtlIndices(nullptr), m_numberMTLIndices(0)
+		m_mtlIndex(-1)
 	{
 	}
 
@@ -26,9 +26,6 @@ namespace Liar
 		}
 		if (m_vertexKeys) free(m_vertexKeys);
 		m_vertexKeys = nullptr;
-		
-		if (m_mtlIndices) free(m_mtlIndices);
-		m_mtlIndices = nullptr;
 	}
 
 	void* IRawVertexBuffers::GetVertexBuffer(Liar::VertexElementAttr attr, void** buffers, size_t len, Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w)
@@ -155,12 +152,6 @@ namespace Liar
 			m_indices = (Liar::Uint*)malloc(sizeof(Liar::Uint)*m_numberIndices);
 			break;
 		}
-		case Liar::VertexElementAttr::ELEMENT_ATTR_RAW_MTL_INDICES:
-		{
-			m_numberMTLIndices = len;
-			m_mtlIndices = (Liar::Uint*)malloc(sizeof(Liar::Uint)*m_numberMTLIndices);
-			break;
-		}
 		default:
 			break;
 		}
@@ -183,9 +174,6 @@ namespace Liar
 		}
 		case Liar::VertexElementAttr::ELEMENT_ATTR_RAW_INDICES:
 			m_indices[index] = static_cast<Liar::Uint>(x);
-			break;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_RAW_MTL_INDICES:
-			m_mtlIndices[index] = static_cast<Liar::Uint>(x);
 			break;
 		default:
 			break;

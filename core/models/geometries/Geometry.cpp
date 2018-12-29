@@ -66,13 +66,8 @@ namespace Liar
 		gl.BufferData(m_bufferSubType, bufferSize, nullptr, GL_STATIC_DRAW);
 
 		// 提交顶点数据
-		m_rawVertexBuffers->PrintData();
+		//m_rawVertexBuffers->PrintData();
 		m_rawVertexBuffers->UploadData(m_bufferSubType);
-	}
-
-	std::string Geometry::GetAttribDefines()
-	{
-		return m_rawVertexBuffers->GetAttribDefines();
 	}
 
 	void Geometry::SetGeometryVertexType(Liar::GeometryVertexType geometryVertexType)

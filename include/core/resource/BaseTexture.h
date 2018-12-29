@@ -1,6 +1,7 @@
 #pragma once
 
 #include <core/resource/Resource.h>
+
 #include <stb_image.h>
 #include <string>
 #include <algorithm>
@@ -34,6 +35,7 @@ namespace Liar
 		Liar::Uint GetFormat() const { return m_format; };
 		Liar::Uint GetTextureID() const { return m_textureID; };
 		virtual void SetURL(const char*);
+		std::string GetURL() const { return m_url; };
 
 	protected:
 		virtual void DisposeResource();

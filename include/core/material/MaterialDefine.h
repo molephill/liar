@@ -2,6 +2,20 @@
 
 namespace Liar
 {
+	/*材质类型定义*/
+	enum MaterialTypeDefine
+	{
+		/*标准材质*/
+		MATERIAL_STANDARD
+	};
+
+	/*纹理类型定义*/
+	enum TextureTypeDefine
+	{
+		/*2d*/
+		TEXTURE_2D
+	};
+
 	enum CullTypeDefine
 	{
 		/**剔除枚举_不剔除。*/

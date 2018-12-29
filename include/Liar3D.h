@@ -10,7 +10,7 @@
 #include <core/render/Renderer.h>
 #include <core/events/EventController.h>
 #include <utils/CameraMoveScript.h>
-#include <core/material/BaseMaterial.h>
+#include <core/material/MTL.h>
 
 namespace Liar
 {
@@ -41,6 +41,7 @@ namespace Liar
 		static Liar::Renderer* rendering;
 		static Liar::EventController* events;
 		static Liar::CameraMoveScript* cameraMoveScript;
+		static Liar::MTL* mtl;
 
 	public:
 		static void Init(Liar::Int w = Liar::WINDOW_W, Liar::Int h = Liar::WINDOW_H, const Liar::Char* title = "LiarOpenGL");

@@ -139,6 +139,7 @@
     <ClCompile Include="core\light\PointLight.cpp" />
     <ClCompile Include="core\light\SpotLight.cpp" />
     <ClCompile Include="core\material\BaseMaterial.cpp" />
+    <ClCompile Include="core\material\MTL.cpp" />
     <ClCompile Include="core\material\StandardMaterial.cpp" />
     <ClCompile Include="core\models\geometries\BoxGeometry.cpp" />
     <ClCompile Include="core\models\geometries\Geometry.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="include\core\light\SpotLight.h" />
     <ClInclude Include="include\core\material\BaseMaterial.h" />
     <ClInclude Include="include\core\material\MaterialDefine.h" />
+    <ClInclude Include="include\core\material\MTL.h" />
     <ClInclude Include="include\core\material\StandardMaterial.h" />
     <ClInclude Include="include\core\models\geometries\BoxGeometry.h" />
     <ClInclude Include="include\core\models\geometries\Geometry.h" />

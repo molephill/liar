@@ -16,6 +16,7 @@ namespace Liar
 
 	BaseTexture::~BaseTexture()
 	{
+		Liar::Liar3D::mtl->DelShareTexture(m_url.c_str());
 		Destroy();
 	}
 

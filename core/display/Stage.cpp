@@ -52,14 +52,14 @@ namespace Liar
 			Liar::Liar3D::renderState->camera = m_cameras[j];
 			m_cameras[j]->Render(state);
 			m_transform3D->CalclateTransformation(&(m_cameras[j]->GetProjectionViewMatrix()));
-			renderCount += CollectRenderUint(state, true);
+			renderCount += CollectRenderUint(state);
 		}
 		return rendering;
 	}
 
-	Liar::Int Stage::CollectRenderUint(Liar::RenderState& state, bool buildShader)
+	Liar::Int Stage::CollectRenderUint(Liar::RenderState& state)
 	{
-		return CollectChildrenRenderUint(state, buildShader);
+		return CollectChildrenRenderUint(state);
 	}
 
 	void Stage::SetSize(Liar::Uint w, Liar::Uint h)

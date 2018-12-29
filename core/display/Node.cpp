@@ -8,7 +8,7 @@ namespace Liar
 		m_bits(0), m_numberChild(0), m_childs(nullptr),
 		m_parent(nullptr), m_name(""),
 		m_visible(true), m_transform3D(new Liar::Transform3D()),
-		m_shaderProgram(nullptr), m_preCompileShader(nullptr)
+		m_preCompileShader(nullptr)
 	{
 	}
 
@@ -25,12 +25,6 @@ namespace Liar
 
 		delete m_transform3D;
 		m_transform3D = nullptr;
-
-		if (m_shaderProgram)
-		{
-			delete m_shaderProgram;
-			m_shaderProgram = nullptr;
-		}
 
 		m_preCompileShader = nullptr;
 	}
@@ -371,35 +365,28 @@ namespace Liar
 		}
 	}
 
-	Liar::RenderUnit* Node::GetRenderUint(Liar::RenderState& state, bool buildShader)
+	Liar::RenderUnit* Node::GetRenderUint(Liar::RenderState& state)
 	{
 		Liar::RenderUnit* unit = Liar::Liar3D::rendering->PopRenderUnit();
 		m_transform3D->CalclateTransformation(&(state.camera->GetProjectionViewMatrix()));
 		unit->transform = m_transform3D;
-		if (buildShader) BuildShaderProgram(state);
-		unit->shaderProgram = m_shaderProgram;
 		return unit;
 	}
 
-	Liar::Int Node::CollectRenderUint(Liar::RenderState& state, bool buildShader)
+	Liar::Int Node::CollectRenderUint(Liar::RenderState& state)
 	{
-		Liar::Liar3D::rendering->AddRenderUnit(GetRenderUint(state, buildShader));
-		return CollectChildrenRenderUint(state, buildShader) + 1;
+		Liar::Liar3D::rendering->AddRenderUnit(GetRenderUint(state));
+		return CollectChildrenRenderUint(state) + 1;
 	}
 
-	Liar::Int Node::CollectChildrenRenderUint(Liar::RenderState& state, bool buildShader)
+	Liar::Int Node::CollectChildrenRenderUint(Liar::RenderState& state)
 	{
 		Liar::Int count = 0;
 		for (size_t i = 0; i < m_numberChild; ++i)
 		{
-			count += m_childs[i]->CollectRenderUint(state, buildShader);
+			count += m_childs[i]->CollectRenderUint(state);
 		}
 		return count;
 	}
 
-	bool Node::BuildShaderProgram(Liar::RenderState& state)
-	{
-		bool recreate = state.shaderValue->GetShaderDefineValue() != state.publicDefine;
-		return recreate;
-	}
 }

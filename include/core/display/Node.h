@@ -25,7 +25,6 @@ namespace Liar
 		std::string m_name;
 		bool m_visible;
 		Liar::Transform3D* m_transform3D;
-		Liar::ShaderProgram* m_shaderProgram;
 		Liar::PreCompileShader* m_preCompileShader;
 
 	public:
@@ -54,8 +53,7 @@ namespace Liar
 
 	protected:
 		virtual void ChildChange(Liar::Node* child = nullptr) {};
-		virtual Liar::RenderUnit* GetRenderUint(Liar::RenderState&, bool buildShader = false);
-		virtual bool BuildShaderProgram(Liar::RenderState&);
+		virtual Liar::RenderUnit* GetRenderUint(Liar::RenderState&);
 
 	public:
 		inline bool GetBit(int type) const { return (m_bits & type) != 0; };
@@ -63,8 +61,8 @@ namespace Liar
 		Liar::Node* GetParent() const { return m_parent; };
 		virtual Liar::Uint NumChildren() const { return m_numberChild; };
 		bool GetVisible() const { return m_visible; };
-		virtual Liar::Int CollectRenderUint(Liar::RenderState&, bool buildShader = false);
-		virtual Liar::Int CollectChildrenRenderUint(Liar::RenderState&, bool buildShader = true);
+		virtual Liar::Int CollectRenderUint(Liar::RenderState&);
+		virtual Liar::Int CollectChildrenRenderUint(Liar::RenderState&);
 		Liar::Transform3D& GetTransform3D() { return *m_transform3D; };
 
 	private:

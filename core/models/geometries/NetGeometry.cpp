@@ -52,7 +52,10 @@ namespace Liar
 		ReadTypeVertex(pFile);			// colors
 		ReadTypeVertex(pFile);			// keys
 		ReadTypeVertex(pFile);			// indices
-		ReadTypeVertex(pFile);			// mtlIndices
+		// 引用材质索引
+		Liar::Int mtlIndex = 0;
+		fread(&mtlIndex, sizeof(Liar::Int), 1, pFile);
+		m_rawVertexBuffers->SetMtlIndex(mtlIndex);
 
 		fclose(pFile);
 	}
@@ -74,10 +77,7 @@ namespace Liar
 
 	void NetGeometry::ReadTypeVertex(Liar::VertexElementAttr attr, Liar::Int index, FILE* pFile)
 	{
-		if (
-			attr == Liar::VertexElementAttr::ELEMENT_ATTR_RAW_INDICES ||
-			attr == Liar::VertexElementAttr::ELEMENT_ATTR_RAW_MTL_INDICES
-			)
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_RAW_INDICES)
 		{
 			Liar::Uint x = 0;
 			fread(&x, sizeof(Liar::Uint), 1, pFile);

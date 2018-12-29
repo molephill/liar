@@ -46,27 +46,32 @@ namespace Liar
 				m_textures[i] = nullptr;
 			}
 		}
-		free(m_textures);
+		if(m_textures) free(m_textures);
 		m_textures = nullptr;
+		m_numberTexture = 0;
 	}
 
 	void BaseMaterial::SetTexture(Liar::BaseTexture* texture, size_t index)
 	{
 		if (!texture) return;
-		if (index < 0 || index == m_numberTexture) index = m_numberTexture + 1;
+		
 		if (index >= m_numberTexture)
 		{
-			if(index > 0) m_textures = (Liar::BaseTexture**)realloc(m_textures, sizeof(Liar::BaseTexture*)*index);
-			for (size_t i = m_numberTexture; i < index; ++i) m_textures[i] = nullptr;
-			m_numberTexture = index;
+			size_t strip = sizeof(Liar::BaseTexture*)*(index+1);
+			if(m_textures) m_textures = (Liar::BaseTexture**)realloc(m_textures, strip);
+			else m_textures = (Liar::BaseTexture**)malloc(strip);
+			for (size_t i = m_numberTexture; i <= index; ++i) m_textures[i] = nullptr;
 		}
-		else
+
+		m_numberTexture = index + 1;
+		if (m_textures[index])
 		{
 			m_textures[index]->ReduceRefrence();
 			m_textures[index] = nullptr;
 		}
-		texture->AddRefrence();
+
 		m_textures[index] = texture;
+
 	}
 
 	Liar::BaseTexture* BaseMaterial::GetTexture(size_t index)
@@ -90,15 +95,24 @@ namespace Liar
 
 	Liar::Int BaseMaterial::ReduceRefrence()
 	{
-		Liar::Int val = Liar::Resource::ReduceRefrence();
-		if (val > 0 && m_textures)
+		Liar::Int val = 0;
+		if (m_textures)
 		{
 			for (size_t i = 0; i < m_numberTexture; ++i)
 			{
-				m_textures[i]->ReduceRefrence();
+				if (m_textures[i])
+				{
+					std::string name = m_textures[i]->GetURL();
+					val = m_textures[i]->ReduceRefrence();
+					if (val <= 0)
+					{
+						m_textures[i] = nullptr;
+						Liar::Liar3D::mtl->DelShareTexture(name.c_str());
+					}
+				}
 			}
 		}
-		return val;
+		return Liar::Resource::ReduceRefrence();
 	}
 
 	void BaseMaterial::SetRenderStateBlendDepth()

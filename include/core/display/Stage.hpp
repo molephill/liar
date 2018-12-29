@@ -36,7 +36,7 @@ namespace Liar
 		Liar::BaseCamera* AddCamera(Liar::BaseCamera*);
 		bool OnEnterFrame(Liar::RenderState& state);
 
-		virtual Liar::Int CollectRenderUint(Liar::RenderState&, bool buildShader = true);
+		virtual Liar::Int CollectRenderUint(Liar::RenderState&);
 	};
 }
 

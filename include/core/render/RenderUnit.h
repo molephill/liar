@@ -5,6 +5,7 @@
 #include <core/models/geometries/Geometry.h>
 #include <core/resource/shader/ShaderProgram.h>
 #include <core/render/RenderState.h>
+#include <core/resource/shader/ShaderCompile.h>
 
 namespace Liar
 {
@@ -16,19 +17,15 @@ namespace Liar
 
 	public:
 		Liar::Transform3D* transform;
-		Liar::ShaderProgram* shaderProgram;
+		Liar::Geometry* geometry;
+		Liar::BaseMaterial* material;
+		Liar::ShaderCompile* shaderCompile;
 
 	private:
-		Liar::Geometry** m_geometries;
-		Liar::Int m_numberGeometries;
-		Liar::BaseMaterial** m_materials;
-		Liar::Int m_numberMaterials;
+
 
 	public:
 		void Clear();
-		void Render(Liar::RenderState&);
-
-		void AddGeometry(Liar::Geometry*);
-		void AddMaterial(Liar::BaseMaterial*);
+		void Render(Liar::RenderState&, Liar::Geometry* = nullptr, Liar::BaseMaterial* = nullptr, Liar::ShaderCompile* = nullptr);
 	};
 }

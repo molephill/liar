@@ -25,8 +25,7 @@ namespace Liar
 		Liar::Uint m_programId;
 
 	public:
-		Liar::Int vertexDefine;					// 顶点定义数值
-		Liar::Int fragementDefine;				// 片段定义数值
+		std::string name;
 
 	public:
 		void LinkProgram(const char*, const char*);

@@ -20,12 +20,12 @@ int main() {
 
 	Liar::Liar3D::cameraMoveScript->SetCamera(camera3D);
 
-	Liar::Mesh* mesh = new Liar::Mesh(Liar::GeometryType::GEOMETRY_TYPE_BOX);
-	Liar::Liar3D::stage->AddChild(mesh);
+	/*Liar::Mesh* mesh = new Liar::Mesh(Liar::GeometryType::GEOMETRY_TYPE_BOX);
+	Liar::Liar3D::stage->AddChild(mesh);*/
 
-	/*Liar::Model* model = new Liar::Model();
+	Liar::Model* model = new Liar::Model();
 	model->SetURL("box");
-	Liar::Liar3D::stage->AddChild(model);*/
+	Liar::Liar3D::stage->AddChild(model);
 
 	Liar::Liar3D::Run();
 

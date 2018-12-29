@@ -5,8 +5,7 @@ namespace Liar
 {
 
 	ShaderProgram::ShaderProgram():
-		m_programId(0),
-		vertexDefine(-1), fragementDefine(-1)
+		m_programId(0)
 	{
 	}
 
