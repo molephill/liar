@@ -1,6 +1,5 @@
 #pragma once
 
-#include <algorithm>
 #include <LiarType.h>
 
 namespace Liar

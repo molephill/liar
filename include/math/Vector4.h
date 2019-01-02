@@ -236,7 +236,7 @@ namespace Liar
 		{
 			Liar::Number xxyyzzww = x * x + y * y + z * z + w * w;
 			if (xxyyzzww > 0) {
-				Liar::Number len = 1.0f / sqrtf(len);
+				Liar::Number len = 1.0f / sqrtf(xxyyzzww);
 				e[0] = x * len;
 				e[1] = y * len;
 				e[2] = z * len;
@@ -347,6 +347,7 @@ namespace Liar
 			y = ay * bw - ax * bz;
 			z = az * bw + aw * bz;
 			w = aw * bw - az * bz;
+			return *this;
 		};
 
 		inline void RotateZ(Liar::Number rad, Liar::Vector4& e)

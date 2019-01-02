@@ -47,7 +47,7 @@ namespace Liar
 
 		inline Liar::Number Distance(const Liar::Vector2& rhs) const
 		{
-			Distance(rhs.x, rhs.y);
+			return Distance(rhs.x, rhs.y);
 		};
 
 		inline Liar::Number Distance(Liar::Number cx, Liar::Number cy) const
