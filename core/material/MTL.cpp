@@ -156,4 +156,49 @@ namespace Liar
 		}
 	}
 
+	void MTL::DelShareMaterial(const char* name)
+	{
+		for (Liar::Int i = 0; i < m_numberShareMaterials; ++i)
+		{
+			Liar::BaseMaterial* tmp = m_shareMaterials[i];
+			if (tmp && tmp->GetName() == name)
+			{
+				m_shareMaterials[i] = nullptr;
+				return;
+			}
+		}
+	}
+
+	void MTL::DelShareTexture(const Liar::BaseTexture* tex)
+	{
+		if (tex)
+		{
+			for (Liar::Int i = 0; i < m_numberShareTextures; ++i)
+			{
+				Liar::BaseTexture* tmp = m_shareTextures[i];
+				if (tmp == tex)
+				{
+					m_shareTextures[i] = nullptr;
+					return;
+				}
+			}
+		}
+	}
+
+	void MTL::DelShareMaterial(const Liar::BaseMaterial* mat)
+	{
+		if (mat)
+		{
+			for (Liar::Int i = 0; i < m_numberShareMaterials; ++i)
+			{
+				Liar::BaseMaterial* tmp = m_shareMaterials[i];
+				if (tmp == mat)
+				{
+					m_shareMaterials[i] = nullptr;
+					return;
+				}
+			}
+		}
+	}
+
 }

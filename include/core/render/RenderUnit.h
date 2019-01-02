@@ -26,6 +26,6 @@ namespace Liar
 
 	public:
 		void Clear();
-		void Render(Liar::RenderState&, Liar::Geometry* = nullptr, Liar::BaseMaterial* = nullptr, Liar::ShaderCompile* = nullptr);
+		void Render(Liar::RenderState&, const Liar::Geometry* = nullptr, const Liar::BaseMaterial* = nullptr, const Liar::ShaderCompile* = nullptr);
 	};
 }

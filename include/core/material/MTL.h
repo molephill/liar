@@ -29,6 +29,9 @@ namespace Liar
 		Liar::BaseMaterial* GetShareMaterial(const char*, Liar::MaterialTypeDefine);
 		Liar::BaseTexture* GetShareTexture(const char*, Liar::TextureTypeDefine);
 		void DelShareTexture(const char*);
+		void DelShareMaterial(const char*);
+		void DelShareTexture(const Liar::BaseTexture*);
+		void DelShareMaterial(const Liar::BaseMaterial*);
 	};
 
 }

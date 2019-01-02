@@ -102,13 +102,8 @@ namespace Liar
 			{
 				if (m_textures[i])
 				{
-					std::string name = m_textures[i]->GetURL();
 					val = m_textures[i]->ReduceRefrence();
-					if (val <= 0)
-					{
-						m_textures[i] = nullptr;
-						Liar::Liar3D::mtl->DelShareTexture(name.c_str());
-					}
+					if (val <= 0) m_textures[i] = nullptr;
 				}
 			}
 		}
@@ -441,6 +436,8 @@ namespace Liar
 
 			delete m_shaderValues;
 			m_shaderValues = nullptr;
+
+			Liar::Liar3D::mtl->DelShareMaterial(this);
 		}
 		return destroy;
 	}

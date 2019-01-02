@@ -37,7 +37,7 @@ namespace Liar
 		return unit;
 	}
 
-	void RenderQueue::Render(Liar::RenderState& state, Liar::Geometry* preGeometry, Liar::BaseMaterial* preMaterial, Liar::ShaderCompile* preShaderCompile)
+	void RenderQueue::Render(Liar::RenderState& state, const Liar::Geometry* preGeometry, const Liar::BaseMaterial* preMaterial, const Liar::ShaderCompile* preShaderCompile)
 	{
 		for (size_t i = 0; i < m_curNumber; ++i)
 		{

@@ -5,7 +5,7 @@ namespace Liar
 {
 
 	ShaderProgram::ShaderProgram():
-		m_programId(0)
+		m_programId(0), name("")
 	{
 	}
 

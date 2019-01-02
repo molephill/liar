@@ -23,7 +23,7 @@ namespace Liar
 		shaderCompile = nullptr;
 	}
 
-	void RenderUnit::Render(Liar::RenderState& state, Liar::Geometry* preGeometry, Liar::BaseMaterial* preMaterial, Liar::ShaderCompile* preShaderCompile)
+	void RenderUnit::Render(Liar::RenderState& state, const Liar::Geometry* preGeometry, const Liar::BaseMaterial* preMaterial, const Liar::ShaderCompile* preShaderCompile)
 	{
 		/*shaderProgram->Use();
 		shaderProgram->SetMat4("u_MvpMatrix", transform->GetProjectionViewWorldMatrix());
