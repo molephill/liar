@@ -13,7 +13,6 @@ namespace Liar
 
 	private:
 		Liar::Vector3* m_direction;
-		Liar::Transform3D* m_transform3d;
 
 	public:
 		void SetDirection(const Liar::Vector3& rhs) { m_direction->Set(rhs); };
@@ -22,7 +21,6 @@ namespace Liar
 
 	public:
 		void SetShadow(bool) {};
-		virtual bool Destroy(bool destroyChild = true);
 		virtual bool PrepareRender(Liar::RenderState&);
 	};
 }

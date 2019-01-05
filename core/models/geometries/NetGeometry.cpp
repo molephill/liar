@@ -34,7 +34,7 @@ namespace Liar
 	{
 		std::string realPath = Liar::Liar3D::urlFormat->FormatSourceURL(m_url.c_str());
 
-		FILE* pFile;
+		FILE* pFile = nullptr;
 #ifndef __APPLE__
 		fopen_s(&pFile, realPath.c_str(), "rb+");
 #else

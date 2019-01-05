@@ -15,8 +15,16 @@ namespace Liar
 	typedef char Char;
 	typedef bool Boolen;
 
-
 	// funcction
 	class Event;
 	typedef void(*EventFun)(const Liar::Event&);
+
+	// 定义类类型
+	enum ClassType
+	{
+		CLASS_NODE_TYPE_NODE,
+		CLASS_NODE_TYPE_MESH,
+		CLASS_NODE_TYPE_MODEL,
+		CLASS_NODE_TYPE_STAGE
+	};
 }

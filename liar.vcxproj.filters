@@ -389,9 +389,6 @@
     <ClInclude Include="include\core\events\EventType.h">
       <Filter>头文件\core\events</Filter>
     </ClInclude>
-    <ClInclude Include="Event.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="include\core\events\Event.h">
       <Filter>头文件\core\events</Filter>
     </ClInclude>

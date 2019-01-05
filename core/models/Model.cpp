@@ -31,8 +31,8 @@ namespace Liar
 		{
 			for (Liar::Uint i = 0; i < m_numberChild; ++i)
 			{
-				Liar::Mesh* mesh = static_cast<Liar::Mesh*>(m_childs[i]);
-				if (mesh) mesh->RemoveSelf();
+				Liar::Node* node = m_childs[i];
+				if (node->GetNodeType() == Liar::ClassType::CLASS_NODE_TYPE_MESH) node->RemoveSelf();
 			}
 		}
 	}
@@ -78,12 +78,12 @@ namespace Liar
 			SetName(name);
 			RemoveAllMeshs();
 
-			std::string realPath = Liar::Liar3D::urlFormat->FormatSourceURL(m_url.c_str()) + ".MTL";
-			FILE* pFile;
+			std::string realPath = Liar::Liar3D::urlFormat->FormatSourceURL(m_url.c_str()) + Liar::Model::mtlSzChar;
+			FILE* pFile = nullptr;
 #ifndef __APPLE__
 			fopen_s(&pFile, realPath.c_str(), "rb+");
 #else
-			pFile = fopen(path, "rb+");
+			pFile = fopen(realPath.c_str(), "rb+");
 #endif
 
 			// strip
@@ -125,10 +125,13 @@ namespace Liar
 			{
 				Liar::Mesh* subMesh = new Liar::Mesh(Liar::GeometryType::GEOMETRY_NONE);
 				tmpName = name;
-				tmpName = name + std::to_string(i) + ".MESH";
+				tmpName = name + std::to_string(i) + Liar::Model::meshSzChar;
 				subMesh->SetGeometryType(tmpName.c_str());
 				AddChild(subMesh);
 			}
 		}
 	}
+
+	const char* Liar::Model::mtlSzChar = ".MTL";
+	const char* Liar::Model::meshSzChar = ".MESH";
 }

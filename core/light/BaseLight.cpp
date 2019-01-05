@@ -4,6 +4,7 @@
 namespace Liar
 {
 	BaseLight::BaseLight():
+		m_transform3d(new Liar::Transform3D()),
 		m_color(new Liar::Vector3()),
 		m_shadow(false)
 	{
@@ -11,13 +12,10 @@ namespace Liar
 
 	BaseLight::~BaseLight()
 	{
-		Destroy();
-	}
-
-	bool BaseLight::Destroy(bool destroyChild)
-	{
 		delete m_color;
 		m_color = nullptr;
-		return true;
+
+		delete m_transform3d;
+		m_transform3d = nullptr;
 	}
 }

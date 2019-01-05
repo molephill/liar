@@ -6,13 +6,13 @@ namespace Liar
 {
 	PointLight::PointLight() :
 		Liar::BaseLight(),
-		m_range(6.0f), m_transform3d(new Liar::Transform3D())
+		m_range(6.0f)
 	{
 	}
 
 	PointLight::~PointLight()
 	{
-		Destroy();
+		
 	}
 
 	bool PointLight::PrepareRender(Liar::RenderState& state)
@@ -33,16 +33,5 @@ namespace Liar
 			state.shaderValue->RemoveShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_POINTLIGHT);
 			return false;
 		}
-	}
-
-	bool PointLight::Destroy(bool destroyChild)
-	{
-		bool destroy = Liar::BaseLight::Destroy(destroyChild);
-		if (destroy)
-		{
-			delete m_transform3d;
-			m_transform3d = nullptr;
-		}
-		return destroy;
 	}
 }

@@ -63,7 +63,8 @@ namespace Liar
 		bool GetVisible() const { return m_visible; };
 		virtual Liar::Int CollectRenderUint(Liar::RenderState&);
 		virtual Liar::Int CollectChildrenRenderUint(Liar::RenderState&);
-		Liar::Transform3D& GetTransform3D() { return *m_transform3D; };
+		virtual Liar::ClassType GetNodeType() const { return Liar::ClassType::CLASS_NODE_TYPE_NODE; };
+		Liar::Transform3D& GetTransform3D() const { return *m_transform3D; };
 
 	private:
 		void DisplayChild(Liar::Node*, bool);

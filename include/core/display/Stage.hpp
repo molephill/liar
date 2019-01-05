@@ -4,6 +4,7 @@
 
 #include <LiarType.h>
 #include <core/render/BaseCamera.h>
+#include <core/light/BaseLight.h>
 #include <core/display/Node.h>
 
 namespace Liar
@@ -17,9 +18,13 @@ namespace Liar
 
 	private:
 		Liar::Uint m_width;
-		Liar::Uint m_height;
+		Liar::Int m_height;
+
 		Liar::BaseCamera** m_cameras;
 		Liar::Uint m_numberCamera;
+
+		Liar::BaseLight** m_lights;
+		Liar::Int m_numberLight;
 
 	public:
 		Liar::Number mouseX;
@@ -34,9 +39,12 @@ namespace Liar
 		void SetSize(Liar::Uint, Liar::Uint);
 
 		Liar::BaseCamera* AddCamera(Liar::BaseCamera*);
+		Liar::BaseLight* AddLight(Liar::BaseLight*);
+
 		bool OnEnterFrame(Liar::RenderState& state);
 
 		virtual Liar::Int CollectRenderUint(Liar::RenderState&);
+		virtual Liar::ClassType GetNodeType() const { return Liar::ClassType::CLASS_NODE_TYPE_STAGE; };
 	};
 }
 

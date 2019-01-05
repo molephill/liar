@@ -5,6 +5,7 @@ namespace Liar
 	/* 定义 define */
 	enum ShaderTypeDefine
 	{
+		SHADERTYPE_NONE,
 		SHADERTYPE_ALPHATEST,
 		SHADERTYPE_DIFFUSEMAP,
 		SHADERTYPE_NORMALMAP,
@@ -31,6 +32,7 @@ namespace Liar
 	enum ShaderValueDefine
 	{
 		/**着色器变量,透明测试值。*/
+		SHADERVALUE_NONE,
 		SHADERVALUE_ALPHATESTVALUE,
 		SHADERVALUE_DIFFUSETEXTURE,
 		SHADERVALUE_NORMALTEXTURE,

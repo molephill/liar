@@ -10,6 +10,10 @@ namespace Liar
 		Model();
 		virtual ~Model();
 
+	private:
+		static const char* mtlSzChar;
+		static const char* meshSzChar;
+
 	protected:
 		std::string m_url;
 		Liar::BaseMaterial** m_sharedMaterials;
@@ -24,5 +28,6 @@ namespace Liar
 	public:
 		void SetURL(const char*);
 		virtual Liar::Int CollectRenderUint(Liar::RenderState&);
+		virtual Liar::ClassType GetNodeType() const { return Liar::ClassType::CLASS_NODE_TYPE_MODEL; };
 	};
 }

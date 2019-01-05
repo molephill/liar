@@ -12,18 +12,8 @@ namespace Liar
 
 	DirectionLight::~DirectionLight()
 	{
-		Destroy();
-	}
-
-	bool DirectionLight::Destroy(bool destroyChild)
-	{
-		bool destroied = Liar::BaseLight::Destroy(destroyChild);
-		if (destroied)
-		{
-			delete m_direction;
-			m_direction = nullptr;
-		}
-		return destroied;
+		delete m_direction;
+		m_direction = nullptr;
 	}
 
 	bool DirectionLight::PrepareRender(Liar::RenderState& state)

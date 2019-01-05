@@ -173,7 +173,6 @@
     <ClCompile Include="_common\glad\src\glad.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Event.h" />
     <ClInclude Include="include\core\display\EventDispatcher.h" />
     <ClInclude Include="include\core\display\Node.h" />
     <ClInclude Include="include\core\display\Stage.hpp" />
