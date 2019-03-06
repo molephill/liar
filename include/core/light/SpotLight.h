@@ -23,6 +23,5 @@ namespace Liar
 		Liar::Number GetSpot() const { return m_spot; };
 
 		virtual bool PrepareRender(Liar::RenderState&);
-		virtual bool Destroy(bool destroyChild = true);
 	};
 }

@@ -98,8 +98,8 @@ namespace Liar
 		}
 		else
 		{
-			Liar::Number x = 0.0f;
-			Liar::Number y = 0.0f;
+			Liar::Number x = Liar::ZERO;
+			Liar::Number y = Liar::ZERO;
 			size_t len = sizeof(Liar::Number);
 
 			fread(&x, len, 1, pFile);
@@ -111,7 +111,7 @@ namespace Liar
 			case Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL:
 			case Liar::VertexElementAttr::ELEMENT_ATTR_COLOR:
 			{
-				Liar::Number z = 0.0f;
+				Liar::Number z = Liar::ZERO;
 				fread(&z, len, 1, pFile);
 				m_rawVertexBuffers->SetSubVertexBuffer(attr, index, x, y, z);
 				break;
@@ -123,8 +123,8 @@ namespace Liar
 			}
 			case Liar::VertexElementAttr::ELEMENT_ATTR_ROTATION:
 			{
-				Liar::Number z = 0.0f;
-				Liar::Number w = 0.0f;
+				Liar::Number z = Liar::ZERO;
+				Liar::Number w = Liar::ZERO;
 				fread(&z, len, 1, pFile);
 				fread(&w, len, 1, pFile);
 				m_rawVertexBuffers->SetSubVertexBuffer(attr, index, x, y, z, w);

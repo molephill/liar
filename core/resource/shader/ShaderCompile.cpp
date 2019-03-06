@@ -57,7 +57,7 @@ namespace Liar
 		for (size_t i = 0; i < m_numberShaders; ++i)
 		{
 			Liar::ShaderContent* tmp = m_shaders[i];
-			if (strcmp(tmp->name.c_str(), name) == 0)
+			if (tmp->Equals(name))
 			{
 				return tmp;
 			}
@@ -86,7 +86,7 @@ namespace Liar
 		for (size_t i = 0; i < m_numberPreShaders; ++i)
 		{
 			Liar::PreCompileShader* tmp = m_preShaders[i];
-			if (strcmp(tmp->name.c_str(), name) == 0)
+			if (tmp->Equals(name))
 			{
 				return tmp;
 			}

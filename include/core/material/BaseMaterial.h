@@ -79,6 +79,7 @@ namespace Liar
 		std::string GetName() const { return m_name; };
 		void SetName(const char* name) { m_name = name; };
 		Liar::Uint GetNumberTexture() const { return m_numberTexture; };
+		bool Equals(const char* name) const { return m_name == name; };
 
 	public:
 		/**

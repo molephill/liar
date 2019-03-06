@@ -14,7 +14,8 @@ namespace Liar
 
 	SpotLight::~SpotLight()
 	{
-		Destroy();
+		delete m_direction;
+		m_direction = nullptr;
 	}
 
 	bool SpotLight::PrepareRender(Liar::RenderState& state)
@@ -40,16 +41,5 @@ namespace Liar
 			state.shaderValue->RemoveShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_SPOTLIGHT);
 			return false;
 		}
-	}
-
-	bool SpotLight::Destroy(bool destroyChild)
-	{
-		bool destroied = Liar::PointLight::Destroy(destroyChild);
-		if (destroied)
-		{
-			delete m_direction;
-			m_direction = nullptr;
-		}
-		return destroied;
 	}
 }

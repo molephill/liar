@@ -17,6 +17,8 @@ namespace Liar
 		ShaderContent(const std::string& n, const std::string& c) :name(n), content(c) {};
 		std::string name;
 		std::string content;
+
+		bool Equals(const char* n) const { return name == n; };
 	};
 
 	class PreCompileShader
@@ -26,6 +28,8 @@ namespace Liar
 		std::string name;
 		std::string vertexShaderCode;
 		std::string fragmentShaderCode;
+
+		bool Equals(const char* n) const { return name == n; };
 	};
 
 	class ShaderCompile

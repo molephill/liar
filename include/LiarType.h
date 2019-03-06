@@ -19,6 +19,8 @@ namespace Liar
 	class Event;
 	typedef void(*EventFun)(const Liar::Event&);
 
+	const static Number ZERO = 0.0f;
+
 	// 定义类类型
 	enum ClassType
 	{

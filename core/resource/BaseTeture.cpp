@@ -38,8 +38,10 @@ namespace Liar
 				{
 				case 1:
 					m_format = GL_RED;
+					break;
 				case 4:
 					m_format = GL_RGBA;
+					break;
 				case 3:
 				default:
 					m_format = GL_RGB;

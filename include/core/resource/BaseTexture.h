@@ -36,6 +36,7 @@ namespace Liar
 		Liar::Uint GetTextureID() const { return m_textureID; };
 		virtual void SetURL(const char*);
 		std::string GetURL() const { return m_url; };
+		bool Equals(const char* url) const { return m_url == url; };
 
 	protected:
 		virtual void DisposeResource();
