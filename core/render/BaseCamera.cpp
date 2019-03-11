@@ -121,7 +121,7 @@ namespace Liar
 	void BaseCamera::MoveForward(Liar::Number distance)
 	{
 		Liar::Vector3& tmp = Liar::MathUtils3D::TEMPVector30;
-		tmp[0] = tmp[1] = 0.0f;
+		tmp[0] = tmp[1] = Liar::ZERO;
 		tmp[2] = distance;
 		m_transform3D->Translate(tmp);
 	}
@@ -130,7 +130,7 @@ namespace Liar
 	void BaseCamera::MoveHorizontal(Liar::Number distance)
 	{
 		Liar::Vector3& tmp = Liar::MathUtils3D::TEMPVector30;
-		tmp[1] = tmp[2] = 0.0f;
+		tmp[1] = tmp[2] = Liar::ZERO;
 		tmp[0] = distance;
 		m_transform3D->Translate(tmp);
 	}
@@ -139,7 +139,7 @@ namespace Liar
 	void BaseCamera::MoveVertical(Liar::Number distance)
 	{
 		Liar::Vector3& tmp = Liar::MathUtils3D::TEMPVector30;
-		tmp[0] = tmp[2] = 0.0f;
+		tmp[0] = tmp[2] = Liar::ZERO;
 		tmp[1] = distance;
 		m_transform3D->Translate(tmp);
 	}

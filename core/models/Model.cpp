@@ -11,7 +11,7 @@ namespace Liar
 		m_url(""),
 		m_sharedMaterials(nullptr), m_numberSharedMaterials(0)
 	{
-		m_preCompileShader = Liar::Liar3D::shaderCompile->GetPreCompileShader("TEST");
+		//m_preCompileShader = Liar::Liar3D::shaderCompile->GetPreCompileShader("TEST");
 	}
 
 	Model::~Model()
@@ -51,7 +51,7 @@ namespace Liar
 			{
 				if (m_sharedMaterials[i])
 				{
-					delete m_sharedMaterials[i];
+					m_sharedMaterials[i]->ReduceRefrence();
 					free(m_sharedMaterials[i]);
 					m_sharedMaterials[i] = nullptr;
 				}
@@ -126,7 +126,7 @@ namespace Liar
 				Liar::Mesh* subMesh = new Liar::Mesh(Liar::GeometryType::GEOMETRY_NONE);
 				tmpName = name;
 				tmpName = name + std::to_string(i) + Liar::Model::meshSzChar;
-				subMesh->SetGeometryType(tmpName.c_str());
+				subMesh->SetGeometryType(tmpName.c_str(), m_sharedMaterials);
 				AddChild(subMesh);
 			}
 		}

@@ -15,6 +15,7 @@ namespace Liar
 	{
 		Clear();
 		if (m_renderUnits) free(m_renderUnits);
+		m_renderUnits = nullptr;
 	}
 
 	Liar::RenderUnit* RenderQueue::AddRenderUnit(Liar::RenderUnit* unit)

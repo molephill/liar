@@ -7,8 +7,7 @@ namespace Liar
 		Liar::EventDispatcher(),
 		m_bits(0), m_numberChild(0), m_childs(nullptr),
 		m_parent(nullptr), m_name(""),
-		m_visible(true), m_transform3D(new Liar::Transform3D()),
-		m_preCompileShader(nullptr)
+		m_visible(true), m_transform3D(new Liar::Transform3D())
 	{
 	}
 
@@ -25,8 +24,6 @@ namespace Liar
 
 		delete m_transform3D;
 		m_transform3D = nullptr;
-
-		m_preCompileShader = nullptr;
 	}
 
 	void Node::SetUpNoticeType(int type)

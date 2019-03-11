@@ -25,9 +25,6 @@ namespace Liar
 		Liar::Uint m_programId;
 
 	public:
-		std::string name;
-
-	public:
 		void LinkProgram(const char*, const char*);
 		Liar::Uint GetProgramId() { return m_programId; };
 		void Clear();

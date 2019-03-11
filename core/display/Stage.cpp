@@ -3,7 +3,7 @@
 
 namespace Liar
 {
-	Stage::Stage(Liar::Int w, Liar::Int h) :
+	Stage::Stage(Liar::Uint w, Liar::Uint h) :
 		Liar::Node(),
 		m_cameras(nullptr), m_numberCamera(0),
 		m_lights(nullptr), m_numberLight(0),
@@ -15,7 +15,7 @@ namespace Liar
 
 	Stage::~Stage()
 	{
-		Liar::Int i = 0;
+		Liar::Uint i = 0;
 		for (i = 0; i < m_numberCamera; ++i)
 		{
 			delete m_cameras[i];

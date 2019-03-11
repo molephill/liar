@@ -13,18 +13,18 @@ namespace Liar
 	class Stage:public Liar::Node
 	{
 	public:
-		Stage(Liar::Int w, Liar::Int h);
+		Stage(Liar::Uint w, Liar::Uint h);
 		virtual ~Stage();
 
 	private:
 		Liar::Uint m_width;
-		Liar::Int m_height;
+		Liar::Uint m_height;
 
 		Liar::BaseCamera** m_cameras;
 		Liar::Uint m_numberCamera;
 
 		Liar::BaseLight** m_lights;
-		Liar::Int m_numberLight;
+		Liar::Uint m_numberLight;
 
 	public:
 		Liar::Number mouseX;

@@ -39,9 +39,9 @@ namespace Liar
 
 	bool Transform3D::IsFrontFaceInvert()
 	{
-		bool isInvert = m_scale->x < 0;
-		if (!isInvert && m_scale->y < 0) isInvert = !isInvert;
-		if (!isInvert && m_scale->z < 0) isInvert = !isInvert;
+		bool isInvert = m_scale->x < Liar::ZERO;
+		if (!isInvert && m_scale->y < Liar::ZERO) isInvert = !isInvert;
+		if (!isInvert && m_scale->z < Liar::ZERO) isInvert = !isInvert;
 		return isInvert;
 	}
 
@@ -52,7 +52,7 @@ namespace Liar
 
 	void Transform3D::Translate(Liar::Number x, Liar::Number y, Liar::Number z)
 	{
-		if (x != 0 || y != 0 || z != 0)
+		if (x != Liar::ZERO || y != Liar::ZERO || z != Liar::ZERO)
 		{
 			Liar::MathUtils3D::TEMPVector31.Set(x, y, z);
 			Liar::Matrix4x4::CreateFromQuaternion(*m_rotation, Liar::MathUtils3D::TEMPMatrix0);
@@ -69,7 +69,7 @@ namespace Liar
 
 	void Transform3D::Rotate(Liar::Number x, Liar::Number y, Liar::Number z, bool isRadian)
 	{
-		if (x != 0 || y != 0 || z != 0)
+		if (x != Liar::ZERO || y != Liar::ZERO || z != Liar::ZERO)
 		{
 			Liar::MathUtils3D::TEMPVector30.Set(x, y, z);
 			if (!isRadian)
@@ -93,7 +93,7 @@ namespace Liar
 		{
 			m_transformChanged = false;
 
-			if (m_pivot && !m_pivot->Equal(0.0f, 0.0f, 0.0f))
+			if (m_pivot && !m_pivot->Equal(Liar::ZERO, Liar::ZERO, Liar::ZERO))
 			{
 				Liar::Vector3& scalePivot = Liar::MathUtils3D::TEMPVector30;
 				Liar::Vector3::Multiply(*m_pivot, *m_scale, scalePivot);

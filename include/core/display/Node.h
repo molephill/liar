@@ -25,7 +25,6 @@ namespace Liar
 		std::string m_name;
 		bool m_visible;
 		Liar::Transform3D* m_transform3D;
-		Liar::PreCompileShader* m_preCompileShader;
 
 	public:
 		virtual void SetUpNoticeType(int);

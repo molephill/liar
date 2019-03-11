@@ -10,7 +10,6 @@ namespace Liar
 		m_geometry(nullptr)
 	{
 		SetGeometryType(type);
-		m_preCompileShader = Liar::Liar3D::shaderCompile->GetPreCompileShader("TEST");
 	}
 
 
@@ -28,16 +27,25 @@ namespace Liar
 		}
 	}
 
-	void Mesh::SetGeometryType(Liar::GeometryType type)
+	void Mesh::SetGeometryType(Liar::GeometryType type, Liar::BaseMaterial** materials)
 	{
-		Release();
-		m_geometry = Liar::Liar3D::geometryFactory->GetGeometry(type);
+		SetGeometry(Liar::Liar3D::geometryFactory->GetGeometry(type), materials);
 	}
 
-	void Mesh::SetGeometryType(const char* path)
+	void Mesh::SetGeometryType(const char* path, Liar::BaseMaterial** materials)
+	{
+		SetGeometry(Liar::Liar3D::geometryFactory->GetGeometry(path), materials);
+	}
+
+	void Mesh::SetGeometry(Liar::Geometry* geometry, Liar::BaseMaterial** materials)
 	{
 		Release();
-		m_geometry = Liar::Liar3D::geometryFactory->GetGeometry(path);
+		m_geometry = geometry;
+		if (m_geometry && materials)
+		{
+			Liar::IRawVertexBuffers* raw = m_geometry->GetRawVertexBuffers();
+			if (raw)SetSharedMaterials(materials[raw->GetMtlIndex()]);
+		}
 	}
 
 	void Mesh::SetSharedMaterials(Liar::BaseMaterial* shared)

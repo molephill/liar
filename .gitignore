@@ -15,3 +15,8 @@ core/resource/shader/files/test.ps
 *.pdb
 *.tlog
 *.idb
+*.log
+*.obj
+*.tlog
+*.idb
+*.pdb

@@ -17,12 +17,12 @@ namespace Liar
 		Liar::BaseMaterial* m_sharedMaterial;
 
 		virtual Liar::RenderUnit* GetRenderUint(Liar::RenderState&);
-
+		virtual void SetGeometry(Liar::Geometry*, Liar::BaseMaterial** = nullptr);
 		virtual void Release();
 
 	public:
-		void SetGeometryType(Liar::GeometryType);
-		void SetGeometryType(const char*);
+		void SetGeometryType(Liar::GeometryType, Liar::BaseMaterial** = nullptr);
+		void SetGeometryType(const char*, Liar::BaseMaterial** = nullptr);
 
 		void SetSharedMaterials(Liar::BaseMaterial*);
 

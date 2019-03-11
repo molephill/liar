@@ -55,15 +55,13 @@ namespace Liar
 
 		Liar::ShaderContent* GetShaderContent(const char*);
 		void AddShaderContent(const std::string&, const std::string&);
-
 		void AddPreComileShader(const char*, const char*, const char*);
-
 		std::string ParseInclude(std::string);
+		std::string LoadGLSL(const char*);
 
 	public:
-		std::string LoadGLSL(const char*);
-		std::string GetVersion() { return m_szVersion; };
-		Liar::PreCompileShader* GetPreCompileShader(const char*);
+		std::string GetVersion() const { return m_szVersion; };
+		Liar::PreCompileShader* GetPreCompileShader(const char*) const;
 	};
 }
 
