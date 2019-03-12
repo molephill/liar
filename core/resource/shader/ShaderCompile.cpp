@@ -57,10 +57,7 @@ namespace Liar
 		for (size_t i = 0; i < m_numberShaders; ++i)
 		{
 			Liar::ShaderContent* tmp = m_shaders[i];
-			if (tmp->Equals(name))
-			{
-				return tmp;
-			}
+			if (tmp->Equals(name)) return tmp;
 		}
 
 		return nullptr;
@@ -81,10 +78,7 @@ namespace Liar
 		for (size_t i = 0; i < m_numberPreShaders; ++i)
 		{
 			Liar::PreCompileShader* tmp = m_preShaders[i];
-			if (tmp->Equals(name))
-			{
-				return tmp;
-			}
+			if (tmp->Equals(name)) return tmp;
 		}
 
 		return nullptr;
@@ -165,6 +159,68 @@ namespace Liar
 				std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
 				return "";
 			}
+		}
+	}
+
+	// 拼shader定义
+	std::string ShaderCompile::ConcatShaderDefine(const char* c, Liar::VertexAttribPointer ap)
+	{
+		std::string tmp("#define ");
+		tmp += c;
+		tmp += " ";
+		tmp += std::to_string(ap);
+		tmp += "\n";
+		return tmp;
+	}
+
+	// 获得单个属性的定义
+	std::string ShaderCompile::GetSingleShaderDefine(Liar::VertexElementAttr type)
+	{
+		switch (type)
+		{
+		case Liar::ELEMENT_ATTR_POSITION:
+			return ConcatShaderDefine("POSITION0", Liar::VertexAttribPointer::ATTRIB_POINTER_POSITION);
+		case Liar::ELEMENT_ATTR_NORMAL:
+			return ConcatShaderDefine("NORMAL0", Liar::VertexAttribPointer::ATTRIB_POINTER_NORMAL);
+		case Liar::ELEMENT_ATTR_TEXTURECOORDINATE:
+			return ConcatShaderDefine("TEXCOORDNIATE0", Liar::VertexAttribPointer::ATTRIB_POINTER_TEXTURECOORDINATE);
+		case Liar::ELEMENT_ATTR_COLOR:
+			return ConcatShaderDefine("COLOR0", Liar::VertexAttribPointer::ATTRIB_POINTER_COLOR);
+		default:
+			return "";
+		}
+	}
+
+	std::string ShaderCompile::GetShaderDefine(Liar::GeometryVertexType type)
+	{
+		switch (type)
+		{
+		case Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_POSITION:
+			return GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION);
+		case Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_POSITION_COLOR:
+			return GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) +
+				GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_COLOR);
+		case Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL:
+			return GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) +
+				GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL);
+		case Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_COLOR:
+			return GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) +
+				GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) +
+				GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_COLOR);
+		case Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_COLOR_TEXTURE:
+			return GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) +
+				GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) +
+				GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_COLOR) +
+				GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE);
+		case Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_TEXTURE:
+			return GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) +
+				GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) +
+				GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE);
+		case Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_POSITION_TEXTURE:
+			return GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) +
+				GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE);
+		default:
+			return "";
 		}
 	}
 

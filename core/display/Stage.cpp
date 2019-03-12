@@ -41,14 +41,8 @@ namespace Liar
 		if (!camera) return camera;
 		++m_numberCamera;
 		size_t strip = sizeof(Liar::BaseCamera*)*m_numberCamera;
-		if (m_cameras)
-		{
-			m_cameras = (Liar::BaseCamera**)realloc(m_cameras, strip);
-		}
-		else
-		{
-			m_cameras = (Liar::BaseCamera**)malloc(strip);
-		}
+		if (m_cameras) m_cameras = (Liar::BaseCamera**)realloc(m_cameras, strip);
+		else m_cameras = (Liar::BaseCamera**)malloc(strip);
 		camera->GetTransform3D().SetParent(m_transform3D);
 		m_cameras[m_numberCamera - 1] = camera;
 		return camera;

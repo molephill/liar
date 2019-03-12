@@ -1,21 +1,17 @@
 #pragma once
 
-#include <core/graphics/IRawVertexBuffers.h>
-#include <math/Vector3.h>
-#include <math/Vector2.h>
+#include "RawVertexBuffersPosition.h"
 
 namespace Liar
 {
-	class VertexPositionNormalTextureKey :public Liar::IVertexKey
+	class VertexPositionNormalKey :virtual public Liar::VertexPositionKey
 	{
 	public:
-		VertexPositionNormalTextureKey();
-		virtual ~VertexPositionNormalTextureKey() {};
+		VertexPositionNormalKey();
+		virtual ~VertexPositionNormalKey() {};
 
 	protected:
-		Liar::Uint m_positonIndex;
 		Liar::Uint m_normalIndex;
-		Liar::Uint m_texCoordIndex;
 
 	public:
 		virtual void SetVertexIndex(Liar::VertexElementAttr, Liar::Uint);
@@ -25,27 +21,20 @@ namespace Liar
 		virtual Liar::IVertexKey* Clone() const;
 	};
 
-	class RawVertexBuffersPositionNormalTexture :public Liar::IRawVertexBuffers
+	class RawVertexBuffersPositonNormal :virtual public RawVertexBuffersPosition
 	{
 	public:
-		RawVertexBuffersPositionNormalTexture(Liar::GeometryVertexType type = Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_NONE);
-		virtual ~RawVertexBuffersPositionNormalTexture();
+		RawVertexBuffersPositonNormal(Liar::GeometryVertexType type = Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_NONE);
+		~RawVertexBuffersPositonNormal();
 
 	protected:
-		Liar::Vector3** m_positons;
-		Liar::Uint m_numberPostions;
-
 		Liar::Vector3** m_normals;
 		Liar::Uint m_numberNormals;
 
-		Liar::Vector2** m_texCoords;
-		Liar::Uint m_numberTexCoodrs;
-
 	protected:
-		virtual void AddPositonVertex(Liar::Number x, Liar::Number y, Liar::Number z);
 		virtual void AddNormalVertex(Liar::Number x, Liar::Number y, Liar::Number z);
-		virtual void AddTexCoordVertex(Liar::Number x, Liar::Number y);
-		virtual void UploadSubData(GLenum);
+		virtual size_t LoopUploadSubData(Liar::StageContext&, GLenum, Liar::Int, size_t);
+		virtual size_t VertexAttrbSubPointer(Liar::StageContext&, size_t);
 
 	public:
 		virtual void AddSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number);
@@ -55,8 +44,5 @@ namespace Liar
 		virtual void SetSubVertexBuffer(Liar::VertexElementAttr, Liar::Int, Liar::Number, Liar::Number, Liar::Number = 0.0f, Liar::Number = 0.0f);
 
 		virtual Liar::Int GetStride() const;
-		virtual void VertexAttrbPointer();
-
-		virtual void PrintData();
 	};
 }

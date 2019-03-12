@@ -131,7 +131,10 @@ namespace Liar
 		Liar::Uint preIndex = CalcNumberIndex(shaderIndex, m_numberInt);
 		if (m_intValues)
 		{
-			if (m_numberInt > preIndex) m_intValues = (Liar::Int*)realloc(m_intValues, sizeof(Liar::Int)*m_numberInt);
+			if (m_numberInt > preIndex)
+			{
+				m_intValues = (Liar::Int*)realloc(m_intValues, sizeof(Liar::Int)*m_numberInt);
+			}
 		}
 		else
 		{
@@ -161,7 +164,10 @@ namespace Liar
 		Liar::Uint preIndex = CalcNumberIndex(shaderIndex, m_numberFloat);
 		if (m_floatValues)
 		{
-			if (m_numberFloat > preIndex) m_floatValues = (Liar::Number*)realloc(m_floatValues, sizeof(Liar::Number)*m_numberFloat);
+			if (m_numberFloat > preIndex)
+			{
+				m_floatValues = (Liar::Number*)realloc(m_floatValues, sizeof(Liar::Number)*m_numberFloat);
+			}
 		}
 		else
 		{
@@ -190,7 +196,10 @@ namespace Liar
 		Liar::Uint preIndex = CalcNumberIndex(shaderIndex, m_numberBool);
 		if (m_boolValues)
 		{
-			if (m_numberBool > preIndex) m_boolValues = (bool*)realloc(m_boolValues, sizeof(bool)*m_numberBool);
+			if (m_numberBool > preIndex)
+			{
+				m_boolValues = (bool*)realloc(m_boolValues, sizeof(bool)*m_numberBool);
+			}
 		}
 		else
 		{
@@ -231,14 +240,8 @@ namespace Liar
 				m_matrix4x4Values = (Liar::Matrix4x4**)malloc(sizeof(Liar::Matrix4x4*)*m_numberMatrix4x4);
 			}
 			for (Liar::Uint i = preIndex; i < m_numberMatrix4x4; ++i) m_matrix4x4Values[i] = nullptr;
-			if (m_matrix4x4Values[shaderIndex])
-			{
-				m_matrix4x4Values[shaderIndex]->Set(*mat);
-			}
-			else
-			{
-				m_matrix4x4Values[shaderIndex] = new Liar::Matrix4x4(*mat);
-			}
+			if (m_matrix4x4Values[shaderIndex]) m_matrix4x4Values[shaderIndex]->Set(*mat);
+			else m_matrix4x4Values[shaderIndex] = new Liar::Matrix4x4(*mat);
 		}
 		else
 		{
@@ -269,14 +272,8 @@ namespace Liar
 				m_vec2Values = (Liar::Vector2**)malloc(sizeof(Liar::Vector2*)*m_numberVec2);
 			}
 			for (Liar::Uint i = preIndex; i < m_numberVec2; ++i) m_vec2Values[i] = nullptr;
-			if (m_vec2Values[shaderIndex])
-			{
-				m_vec2Values[shaderIndex]->Set(*value);
-			}
-			else
-			{
-				m_vec2Values[shaderIndex] = new Liar::Vector2(*value);
-			}
+			if (m_vec2Values[shaderIndex]) m_vec2Values[shaderIndex]->Set(*value);
+			else m_vec2Values[shaderIndex] = new Liar::Vector2(*value);
 		}
 		else
 		{
@@ -317,14 +314,8 @@ namespace Liar
 				m_vec3Values = (Liar::Vector3**)malloc(sizeof(Liar::Vector3*)*m_numberVec3);
 			}
 			for (Liar::Uint i = preIndex; i < m_numberVec3; ++i) m_vec3Values[i] = nullptr;
-			if (m_vec3Values[shaderIndex])
-			{
-				m_vec3Values[shaderIndex]->Set(*value);
-			}
-			else
-			{
-				m_vec3Values[shaderIndex] = new Liar::Vector3(*value);
-			}
+			if (m_vec3Values[shaderIndex]) m_vec3Values[shaderIndex]->Set(*value);
+			else m_vec3Values[shaderIndex] = new Liar::Vector3(*value);
 		}
 		else
 		{
@@ -365,14 +356,8 @@ namespace Liar
 				m_vec4Values = (Liar::Vector4**)malloc(sizeof(Liar::Vector4*)*m_numberVec4);
 			}
 			for (Liar::Uint i = preIndex; i < m_numberVec4; ++i) m_vec4Values[i] = nullptr;
-			if (m_vec4Values[shaderIndex])
-			{
-				m_vec4Values[shaderIndex]->Set(*value);
-			}
-			else
-			{
-				m_vec4Values[shaderIndex] = new Liar::Vector4(*value);
-			}
+			if (m_vec4Values[shaderIndex]) m_vec4Values[shaderIndex]->Set(*value);
+			else m_vec4Values[shaderIndex] = new Liar::Vector4(*value);
 		}
 		else
 		{

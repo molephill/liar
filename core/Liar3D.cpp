@@ -80,8 +80,8 @@ namespace Liar
 				state.lastCurrentTime = start;
 
 				run = Liar::Liar3D::stage->OnEnterFrame(state);
-				rendering->Render(state);
 				state.publicDefine = state.shaderValue->GetShaderDefineValue();
+				rendering->Render(state);
 
 			}
 			else

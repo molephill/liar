@@ -8,6 +8,7 @@
 #include <LiarType.h>
 #include <utils/StringParse.h>
 #include <core/resource/shader/ShaderProgram.h>
+#include <core/graphics/VertexType.h>
 
 namespace Liar
 {
@@ -59,9 +60,17 @@ namespace Liar
 		std::string ParseInclude(std::string);
 		std::string LoadGLSL(const char*);
 
+		// 拼shader定义
+		std::string ConcatShaderDefine(const char*, Liar::VertexAttribPointer);
+		// 获得属性定义
+		std::string GetSingleShaderDefine(Liar::VertexElementAttr);
+		// 获得定义shader
+		std::string GetShaderDefine(Liar::GeometryVertexType);
+
 	public:
-		std::string GetVersion() const { return m_szVersion; };
+		const char* GetVersion() const { return m_szVersion; };
 		Liar::PreCompileShader* GetPreCompileShader(const char*) const;
+		//Liar::ShaderProgram* GetShaderProgram(Liar::GeometryVertexType, );
 	};
 }
 

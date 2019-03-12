@@ -25,10 +25,13 @@ namespace Liar
 		Liar::Uint m_programId;
 
 	public:
+		std::string name;
+		bool Equals(const char* n) const { return name == n; };
+		bool Equals(const Liar::ShaderProgram& p) const { return p.name == name; };
+
 		void LinkProgram(const char*, const char*);
 		Liar::Uint GetProgramId() { return m_programId; };
 		void Clear();
-
 		void Use();
 		// ------------------------------------------------------------------------
 		void SetBool(const std::string&, bool value) const;

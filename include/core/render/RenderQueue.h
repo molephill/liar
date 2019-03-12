@@ -18,7 +18,7 @@ namespace Liar
 
 	public:
 		Liar::RenderUnit* AddRenderUnit(Liar::RenderUnit*);
-		void Render(Liar::RenderState&, const Liar::Geometry* = nullptr, const Liar::BaseMaterial* = nullptr, const Liar::ShaderCompile* = nullptr);
+		void Render(Liar::RenderState&);
 		void Clear();
 	};
 }

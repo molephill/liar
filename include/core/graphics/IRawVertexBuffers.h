@@ -8,10 +8,6 @@
 
 namespace Liar
 {
-	static const char* VERTEX_ATTRIB_POSITION0 = "POSITION0";
-	static const char* VERTEX_ATTRIB_NORMAL0 = "NORMAL0";
-	static const char* VERTEX_ATTRIB_TEXCOORDINATE0 = "TEXCOORDNIATE0";
-
 	/**
 	* ¶¥µãË÷Òý
 	*/

@@ -1,21 +1,19 @@
 #pragma once
 
 #include <core/graphics/IRawVertexBuffers.h>
+#include <core/render/RenderState.h>
 #include <math/Vector3.h>
-#include <math/Vector2.h>
 
 namespace Liar
 {
-	class VertexPositionNormalTextureKey :public Liar::IVertexKey
+	class VertexPositionKey :public Liar::IVertexKey
 	{
 	public:
-		VertexPositionNormalTextureKey();
-		virtual ~VertexPositionNormalTextureKey() {};
+		VertexPositionKey();
+		virtual ~VertexPositionKey() {};
 
 	protected:
 		Liar::Uint m_positonIndex;
-		Liar::Uint m_normalIndex;
-		Liar::Uint m_texCoordIndex;
 
 	public:
 		virtual void SetVertexIndex(Liar::VertexElementAttr, Liar::Uint);
@@ -25,27 +23,21 @@ namespace Liar
 		virtual Liar::IVertexKey* Clone() const;
 	};
 
-	class RawVertexBuffersPositionNormalTexture :public Liar::IRawVertexBuffers
+	class RawVertexBuffersPosition :public Liar::IRawVertexBuffers
 	{
 	public:
-		RawVertexBuffersPositionNormalTexture(Liar::GeometryVertexType type = Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_NONE);
-		virtual ~RawVertexBuffersPositionNormalTexture();
+		RawVertexBuffersPosition(Liar::GeometryVertexType type = Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_NONE);
+		~RawVertexBuffersPosition();
 
 	protected:
 		Liar::Vector3** m_positons;
 		Liar::Uint m_numberPostions;
 
-		Liar::Vector3** m_normals;
-		Liar::Uint m_numberNormals;
-
-		Liar::Vector2** m_texCoords;
-		Liar::Uint m_numberTexCoodrs;
-
 	protected:
 		virtual void AddPositonVertex(Liar::Number x, Liar::Number y, Liar::Number z);
-		virtual void AddNormalVertex(Liar::Number x, Liar::Number y, Liar::Number z);
-		virtual void AddTexCoordVertex(Liar::Number x, Liar::Number y);
 		virtual void UploadSubData(GLenum);
+		virtual size_t LoopUploadSubData(Liar::StageContext&, GLenum, Liar::Int, size_t);
+		virtual size_t VertexAttrbSubPointer(Liar::StageContext&, size_t);
 
 	public:
 		virtual void AddSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number);

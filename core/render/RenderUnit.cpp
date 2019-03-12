@@ -1,12 +1,12 @@
 
 #include <core/render/RenderUnit.h>
+#include <Liar3D.h>
 
 namespace Liar
 {
 	RenderUnit::RenderUnit() :
 		transform(nullptr),
-		geometry(nullptr), material(nullptr),
-		shaderCompile(nullptr)
+		geometry(nullptr), material(nullptr)
 	{
 	}
 
@@ -20,17 +20,12 @@ namespace Liar
 		transform = nullptr;
 		geometry = nullptr;
 		material = nullptr;
-		shaderCompile = nullptr;
 	}
 
-	void RenderUnit::Render(Liar::RenderState& state, const Liar::Geometry* preGeometry, const Liar::BaseMaterial* preMaterial, const Liar::ShaderCompile* preShaderCompile)
+	void RenderUnit::Render(Liar::RenderState& state)
 	{
 		/*shaderProgram->Use();
 		shaderProgram->SetMat4("u_MvpMatrix", transform->GetProjectionViewWorldMatrix());
 		geometry->Draws();*/
-
-		preGeometry = geometry;
-		preMaterial = material;
-		preShaderCompile = shaderCompile;
 	}
 }
