@@ -45,11 +45,6 @@ namespace Liar
 		}
 	}
 
-	IVertexKey* Geometry::PopVertexKey()
-	{
-		return Liar::Liar3D::geometryFactory->GetVertexFactory().GetVertexKey(m_geometryVertexType);
-	}
-
 	void Geometry::UploadData()
 	{
 		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);

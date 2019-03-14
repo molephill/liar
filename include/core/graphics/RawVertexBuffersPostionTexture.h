@@ -4,18 +4,17 @@
 
 namespace Liar
 {
-	class VertexPositionTextureKey :virtual public Liar::VertexPositionKey
+	class VertexPositionTextureKey :public Liar::VertexPositionKey
 	{
 	public:
 		VertexPositionTextureKey();
 		virtual ~VertexPositionTextureKey() {};
 
 	protected:
-		Liar::Uint m_texIndex;
+		Liar::Uint m_texCoordIndex;
+		virtual void SetTexCoordIndex(Liar::Uint val) { m_texCoordIndex = val; };
 
 	public:
-		virtual void SetVertexIndex(Liar::VertexElementAttr, Liar::Uint);
-		virtual Liar::Uint GetVertexIndex(Liar::VertexElementAttr) const;
 		virtual void PrintData();
 		virtual Liar::Boolen operator==(const Liar::IVertexKey&) const;
 		virtual Liar::IVertexKey* Clone() const;
@@ -24,28 +23,31 @@ namespace Liar
 	/*
 	* 具体数据
 	*/
-	class RawVertexBuffersPostionTexture:virtual public RawVertexBuffersPosition
+	class RawVertexBuffersPostionTexture:public RawVertexBuffersPosition
 	{
 	public:
 		RawVertexBuffersPostionTexture(Liar::GeometryVertexType = Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_NONE);
-		~RawVertexBuffersPostionTexture();
+		virtual ~RawVertexBuffersPostionTexture();
 
 	protected:
-		Liar::Vector3** m_colors;
-		Liar::Uint m_numberColors;
+		Liar::SubVector2VertexBuffer* m_texCoord;
 
 	protected:
-		virtual void AddTextureVertex(Liar::Number x, Liar::Number y, Liar::Number z);
+		// 增加texcoord信息
+		virtual void AddTexCoordVertexBuffer(Liar::Number, Liar::Number, Liar::Number = Liar::ZERO);
+		virtual void AddTexCoordVertexBuffer(const Liar::Vector2&);
+		// 设置texcoord信息
+		virtual void SetTexCoordVertexBuffer(size_t, Liar::Number, Liar::Number, Liar::Number = Liar::ZERO);
+		virtual void SetTexCoordVertexBuffer(size_t, Liar::Vector2*);
+		// 设置texcoord长度
+		virtual void SetTexCoordVertexBufferLen(Liar::Int);
+		// 获得texcoord信息
+		virtual void* GetTexCoordVertexBuffer(size_t) const;
+
 		virtual size_t LoopUploadSubData(Liar::StageContext&, GLenum, Liar::Int, size_t);
 		virtual size_t VertexAttrbSubPointer(Liar::StageContext&, size_t);
 
 	public:
-		virtual void AddSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number);
-		virtual void* GetSubVertexBuffer(Liar::VertexElementAttr, size_t);
-
-		virtual void SetSubVertexBufferLen(Liar::VertexElementAttr, Liar::Int);
-		virtual void SetSubVertexBuffer(Liar::VertexElementAttr, Liar::Int, Liar::Number, Liar::Number, Liar::Number = 0.0f, Liar::Number = 0.0f);
-
 		virtual Liar::Int GetStride() const;
 	};
 }

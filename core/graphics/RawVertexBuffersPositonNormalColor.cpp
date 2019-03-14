@@ -3,42 +3,16 @@
 namespace Liar
 {
 	VertexPositionNormalColorKey::VertexPositionNormalColorKey() :
-		Liar::VertexPositionNormalKey(),
-		Liar::VertexPositionColorKey()
+		Liar::VertexPositionKey(), 
+		m_normalIndex(0), m_colorIndex(0)
 	{}
-
-	void VertexPositionNormalColorKey::SetVertexIndex(Liar::VertexElementAttr attr, Liar::Uint index)
-	{
-		switch (attr)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_COLOR:
-			m_colorIndex = index;
-			break;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL:
-			m_normalIndex = index;
-			break;
-		default:
-			Liar::VertexPositionKey::SetVertexIndex(attr, index);
-			break;
-		}
-	}
-
-	Liar::Uint VertexPositionNormalColorKey::GetVertexIndex(Liar::VertexElementAttr attr) const
-	{
-		switch (attr)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_COLOR:
-			return m_colorIndex;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL:
-			return m_normalIndex;
-		default:
-			return Liar::VertexPositionKey::GetVertexIndex(attr);
-		}
-	}
 
 	Liar::Boolen VertexPositionNormalColorKey::operator==(const Liar::IVertexKey& rhs) const
 	{
-		return (Liar::VertexPositionNormalKey::operator==(rhs)) && (Liar::VertexPositionColorKey::operator==(rhs));
+		return
+			m_normalIndex == rhs.GetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) &&
+			m_colorIndex == rhs.GetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_COLOR) &&
+			m_positonIndex == rhs.GetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION);
 	}
 
 	Liar::IVertexKey* VertexPositionNormalColorKey::Clone() const
@@ -52,116 +26,133 @@ namespace Liar
 
 	void VertexPositionNormalColorKey::PrintData()
 	{
-		Liar::VertexPositionKey::PrintData();
-		std::cout << "," << m_normalIndex << "," << m_colorIndex;
+		std::cout << m_positonIndex << "," << m_normalIndex << "," << m_colorIndex;
 	}
 
 	/*
 	* 具体数据
 	*/
 	RawVertexBuffersPositonNormalColor::RawVertexBuffersPositonNormalColor(Liar::GeometryVertexType type):
-		Liar::RawVertexBuffersPositonNormal(type),
-		Liar::RawVertexBuffersPositonColor(type)
+		Liar::RawVertexBuffersPosition(type),
+		m_normal(new Liar::SubVector3VertexBuffer()),
+		m_color(new Liar::SubVector3VertexBuffer())
 	{
 	}
 
 
 	RawVertexBuffersPositonNormalColor::~RawVertexBuffersPositonNormalColor()
 	{
+		delete m_normal;
+		m_normal = nullptr;
+
+		delete m_color;
+		m_color = nullptr;
 	}
 
-	void RawVertexBuffersPositonNormalColor::AddSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w)
+	// 增加normal信息
+	void RawVertexBuffersPositonNormalColor::AddNormalVertexBuffer(Liar::Number x, Liar::Number y, Liar::Number z)
 	{
-		switch (attr)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_COLOR:
-			AddColorVertex(x, y, z);
-			break;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL:
-			AddNormalVertex(x, y, z);
-			break;
-		default:
-			Liar::RawVertexBuffersPosition::AddSubVertexBuffer(attr, x, y, z, w);
-			break;
-		}
+		m_normal->AddVertexBuffer(x, y, z);
 	}
 
-	void RawVertexBuffersPositonNormalColor::SetSubVertexBufferLen(Liar::VertexElementAttr attr, Liar::Int len)
+	void RawVertexBuffersPositonNormalColor::AddNormalVertexBuffer(const Liar::Vector3& normal)
 	{
-		switch (attr)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_COLOR:
-			m_numberColors = len;
-			m_colors = (Liar::Vector3**)realloc(m_colors, sizeof(Liar::Vector3*)*m_numberColors);
-			break;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL:
-			m_numberNormals = len;
-			m_normals = (Liar::Vector3**)realloc(m_normals, sizeof(Liar::Vector3*)*m_numberNormals);
-			break;
-		default:
-			Liar::RawVertexBuffersPosition::SetSubVertexBufferLen(attr, len);
-			break;
-		}
+		AddNormalVertexBuffer(normal.x, normal.y, normal.z);
 	}
 
-	void RawVertexBuffersPositonNormalColor::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index,
-		Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w)
+	// 设置normal信息
+	void RawVertexBuffersPositonNormalColor::SetNormalVertexBuffer(size_t index, Liar::Number x, Liar::Number y, Liar::Number z)
 	{
-		switch (attr)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_COLOR:
-			m_colors[index] = new Liar::Vector3(x, y, z);
-			break;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL:
-			m_normals[index] = new Liar::Vector3(x, y, z);
-			break;
-		default:
-			Liar::RawVertexBuffersPosition::SetSubVertexBuffer(attr, index, x, y, z);
-			break;
-		}
+		SetNormalVertexBuffer(index, new Liar::Vector3(x, y, z));
 	}
 
-	void* RawVertexBuffersPositonNormalColor::GetSubVertexBuffer(Liar::VertexElementAttr attr, size_t index)
+	void RawVertexBuffersPositonNormalColor::SetNormalVertexBuffer(size_t index, Liar::Vector3* normal)
 	{
-		switch (attr)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_COLOR:
-			return m_colors[index];
-		case Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL:
-			return m_normals[index];
-		default:
-			return Liar::RawVertexBuffersPosition::GetSubVertexBuffer(attr, index);
-		}
+		m_normal->SetVertexBuffer(index, normal);
+	}
+
+	// 设置normal长度
+	void RawVertexBuffersPositonNormalColor::SetNormalVertexBufferLen(Liar::Int len)
+	{
+		m_normal->SetVertexBufferLen(len);
+	}
+
+	// 获得normal信息
+	void* RawVertexBuffersPositonNormalColor::GetNormalVertexBuffer(size_t index) const
+	{
+		return m_normal->GetVertexBuffer(index);
+	}
+
+	// 增加color信息
+	void RawVertexBuffersPositonNormalColor::AddColorVertexBuffer(Liar::Number r, Liar::Number g, Liar::Number b, Liar::Number a)
+	{
+		m_color->AddVertexBuffer(r, g, b, a);
+	}
+
+	void RawVertexBuffersPositonNormalColor::AddColorVertexBuffer(const Liar::Vector3& color)
+	{
+		AddColorVertexBuffer(color.x, color.y, color.z);
+	}
+
+	// 设置color信息
+	void RawVertexBuffersPositonNormalColor::SetColorVertexBuffer(size_t index, Liar::Number r, Liar::Number g, Liar::Number b, Liar::Number)
+	{
+		SetColorVertexBuffer(index, new Liar::Vector3(r, g, b));
+	}
+
+	void RawVertexBuffersPositonNormalColor::SetColorVertexBuffer(size_t index, Liar::Vector3* color)
+	{
+		m_color->SetVertexBuffer(index, (void*)color);
+	}
+
+	// 设置color长度
+	void RawVertexBuffersPositonNormalColor::SetColorVertexBufferLen(Liar::Int len)
+	{
+		m_color->SetVertexBufferLen(len);
+	}
+
+	// 获得color信息
+	void* RawVertexBuffersPositonNormalColor::GetColorVertexBuffer(size_t index) const
+	{
+		return m_color->GetVertexBuffer(index);
 	}
 
 	Liar::Int RawVertexBuffersPositonNormalColor::GetStride() const
 	{
-		return  Liar::RawVertexBuffersPositonNormal::GetStride() + Liar::RawVertexBuffersPositonColor::GetStride() - Liar::RawVertexBuffersPosition::GetStride();
+		return  m_normal->GetStride() + m_position->GetStride() + m_color->GetStride();
 	}
 
 	size_t RawVertexBuffersPositonNormalColor::LoopUploadSubData(Liar::StageContext& gl, GLenum type, Liar::Int i, size_t start)
 	{
 		size_t positionOffsize = Liar::RawVertexBuffersPosition::LoopUploadSubData(gl, type, i, start);
-		size_t normalOffsize = positionOffsize + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3;
-		size_t colorOffsize = normalOffsize + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3;
 
-		gl.BufferSubData(type, normalOffsize, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL));
-		gl.BufferSubData(type, colorOffsize, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_COLOR));
-		return colorOffsize;
+		Liar::Int positionOffset = m_position->GetStride();
+		Liar::Int normalOffset = m_normal->GetStride();
+		Liar::Int colorOffset = m_color->GetStride();
+
+		size_t normalOffsize = positionOffsize + positionOffset;
+		size_t colorOffsize = normalOffsize + colorOffset;
+
+		gl.BufferSubData(type, normalOffsize, normalOffset, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL));
+		gl.BufferSubData(type, colorOffsize, colorOffset, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_COLOR));
+
+		return normalOffsize;
 	}
 
 	size_t RawVertexBuffersPositonNormalColor::VertexAttrbSubPointer(Liar::StageContext& gl, size_t stride)
 	{
+		// position
 		size_t positionOffsize = Liar::RawVertexBuffersPosition::VertexAttrbSubPointer(gl, stride);
-
-		size_t normalOffsize = positionOffsize + Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3;
-		gl.VertexAttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_NORMAL, Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3, GL_FLOAT, GL_FALSE, stride, (void*)normalOffsize);
+		// normal
+		size_t normalOffisze = positionOffsize + m_position->GetStride();
+		Liar::Int normalFormat = m_normal->GetFormat();
+		gl.VertexAttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_NORMAL, normalFormat, GL_FLOAT, GL_FALSE, stride, (void*)normalOffisze);
 		gl.EnableVertexAttribArray(Liar::VertexAttribPointer::ATTRIB_POINTER_NORMAL);
-
-		size_t colorOffsize = normalOffsize + Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3;
-		gl.VertexAttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_COLOR, Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3, GL_FLOAT, GL_FALSE, stride, (void*)colorOffsize);
+		// color
+		size_t colorOffisze = normalOffisze + m_normal->GetStride();
+		Liar::Int colorFormat = m_color->GetFormat();
+		gl.VertexAttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_COLOR, colorFormat, GL_FLOAT, GL_FALSE, stride, (void*)colorOffisze);
 		gl.EnableVertexAttribArray(Liar::VertexAttribPointer::ATTRIB_POINTER_COLOR);
-
-		return colorOffsize;
+		return colorOffisze;
 	}
 }

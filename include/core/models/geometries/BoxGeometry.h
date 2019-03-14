@@ -26,11 +26,5 @@ namespace Liar
 	protected:
 		//virtual void RecreateResource();
 		virtual void RecreateSubResource();
-
-		/*
-		* ÉèÖÃ¶¥µãË÷Òı
-		* 
-		*/
-		void SetVertexKey(Liar::Int, Liar::Uint, Liar::Uint normalIndex = 0, Liar::Uint texIndex = 0);
 	};
 }

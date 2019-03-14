@@ -28,7 +28,6 @@ namespace Liar
 		virtual void DisposeResource();
 		virtual void RecreateResource();
 		virtual void RecreateSubResource() = 0;
-		virtual IVertexKey* PopVertexKey();
 		void UploadData();
 
 	public:

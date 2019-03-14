@@ -7,32 +7,9 @@ namespace Liar
 		m_positonIndex(0)
 	{}
 
-	void VertexPositionKey::SetVertexIndex(Liar::VertexElementAttr attr, Liar::Uint index)
-	{
-		switch (attr)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_POSITION:
-			m_positonIndex = index;
-			break;
-		default:
-			break;
-		}
-	}
-
-	Liar::Uint VertexPositionKey::GetVertexIndex(Liar::VertexElementAttr attr) const
-	{
-		switch (attr)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_POSITION:
-			return m_positonIndex;
-		default:
-			return 0;
-		}
-	}
-
 	Liar::Boolen VertexPositionKey::operator==(const Liar::IVertexKey& rhs) const
 	{
-		return	m_positonIndex == rhs.GetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION);
+		return m_positonIndex == rhs.GetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION);
 	}
 
 	Liar::IVertexKey* VertexPositionKey::Clone() const
@@ -44,7 +21,6 @@ namespace Liar
 
 	void VertexPositionKey::PrintData()
 	{
-		//std::cout << "posIndex: " << m_positonIndex << " normalIndex: " << m_normalIndex << " texIndex: " << m_texCoordIndex;
 		std::cout << m_positonIndex;
 	}
 
@@ -53,121 +29,71 @@ namespace Liar
 	*/
 	RawVertexBuffersPosition::RawVertexBuffersPosition(Liar::GeometryVertexType type):
 		Liar::IRawVertexBuffers(type),
-		m_positons(nullptr), m_numberPostions(0)
+		m_position(new Liar::SubVector3VertexBuffer())
 	{
 	}
 
 	RawVertexBuffersPosition::~RawVertexBuffersPosition()
 	{
-		if (m_positons)
-		{
-			for (size_t i = 0; i < m_numberPostions; ++i)
-			{
-				delete m_positons[i];
-				m_positons[i] = nullptr;
-			}
-			free(m_positons);
-			m_positons = nullptr;
-		}
-	}
-
-	void RawVertexBuffersPosition::AddPositonVertex(Liar::Number x, Liar::Number y, Liar::Number z)
-	{
-		void* buffer = GetVertexBuffer(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION, (void**)m_positons, m_numberPostions, x, y, z);
-		Liar::Vector3* positon = static_cast<Liar::Vector3*>(buffer);
-		if (!positon)
-		{
-			++m_numberPostions;
-			size_t blockSize = sizeof(Liar::Vector3*)*m_numberPostions;
-			if (!m_positons) m_positons = (Liar::Vector3**)malloc(blockSize);
-			else m_positons = (Liar::Vector3**)realloc(m_positons, blockSize);
-			positon = new Liar::Vector3(x, y, z);
-			m_positons[m_numberPostions - 1] = positon;
-		}
-	}
-
-	void RawVertexBuffersPosition::AddSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number)
-	{
-		switch (attr)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_POSITION:
-			AddPositonVertex(x, y, z);
-			break;
-		default:
-			break;
-		}
-	}
-
-	void RawVertexBuffersPosition::SetSubVertexBufferLen(Liar::VertexElementAttr attr, Liar::Int len)
-	{
-		switch (attr)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_POSITION:
-			m_numberPostions = len;
-			m_positons = (Liar::Vector3**)realloc(m_positons, sizeof(Liar::Vector3*)*m_numberPostions);
-			break;
-		default:
-			Liar::IRawVertexBuffers::SetSubVertexBufferLen(attr, len);
-			break;
-		}
-	}
-
-	void RawVertexBuffersPosition::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index,
-		Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w)
-	{
-		switch (attr)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_POSITION:
-			m_positons[index] = new Liar::Vector3(x, y, z);
-			break;
-		default:
-			Liar::IRawVertexBuffers::SetSubVertexBuffer(attr, index, x, y, z);
-			break;
-		}
-	}
-
-	void* RawVertexBuffersPosition::GetSubVertexBuffer(Liar::VertexElementAttr attr, size_t index)
-	{
-		switch (attr)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_POSITION:
-			return m_positons[index];
-			break;
-		default:
-			return nullptr;
-		}
+		delete m_position;
+		m_position = nullptr;
 	}
 
 	Liar::Int RawVertexBuffersPosition::GetStride() const
 	{
-		return  Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3;
+		return m_position->GetStride();
+	}
+
+	// 增加position信息
+	void RawVertexBuffersPosition::AddPositionVertexBuffer(Liar::Number x, Liar::Number y, Liar::Number z)
+	{
+		m_position->AddVertexBuffer(x, y, z);
+	}
+
+	void RawVertexBuffersPosition::AddPositionVertexBuffer(const Liar::Vector3& pos)
+	{
+		AddPositionVertexBuffer(pos.x, pos.y, pos.z);
+	}
+
+	// 设置position信息
+	void RawVertexBuffersPosition::SetPositionVertexBuffer(size_t index, Liar::Number x, Liar::Number y, Liar::Number z)
+	{
+		SetPositionVertexBuffer(index, new Liar::Vector3(x, y, z));
+	}
+
+	void RawVertexBuffersPosition::SetPositionVertexBuffer(size_t index, Liar::Vector3* pos)
+	{
+		m_position->SetVertexBuffer(index, pos);
+	}
+
+	// 设置position长度
+	void RawVertexBuffersPosition::SetPositionVertexBufferLen(Liar::Int len)
+	{
+		m_position->SetVertexBufferLen(len);
+	}
+
+	// 获得position信息
+	void* RawVertexBuffersPosition::GetPostionVertexBuffer(size_t index) const
+	{
+		return m_position->GetVertexBuffer(index);
 	}
 
 	size_t RawVertexBuffersPosition::LoopUploadSubData(Liar::StageContext& gl, GLenum type, Liar::Int i, size_t start)
 	{
 		size_t positionOffsize = start;
-		gl.BufferSubData(type, positionOffsize, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_POSITION));
+		Liar::Int offset = m_position->GetStride();
+		gl.BufferSubData(type, positionOffsize, offset, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_POSITION));
 		return positionOffsize;
 	}
 
 	size_t RawVertexBuffersPosition::VertexAttrbSubPointer(Liar::StageContext& gl, size_t stride)
 	{
-		size_t positonOffsie = 0;
 		// position
-		gl.VertexAttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_POSITION, Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3, GL_FLOAT, GL_FALSE, stride, (void*)positonOffsie);
+		size_t positonOffsie = 0;
+		Liar::Int positonFormat = m_position->GetFormat();
+		gl.VertexAttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_POSITION, positonFormat, GL_FLOAT, GL_FALSE, stride, (void*)positonOffsie);
 		gl.EnableVertexAttribArray(Liar::VertexAttribPointer::ATTRIB_POINTER_POSITION);
 		return positonOffsie;
-	}
-
-	void RawVertexBuffersPosition::UploadSubData(GLenum type)
-	{
-		Liar::Int stride = GetStride();
-		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
-		for (Liar::Int i = 0; i < m_numberVertexKeys; ++i)
-		{
-			size_t start = i * stride;
-			LoopUploadSubData(gl, type, i, start);
-		}
 	}
 
 	void RawVertexBuffersPosition::VertexAttrbPointer()

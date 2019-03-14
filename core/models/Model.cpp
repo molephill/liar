@@ -124,7 +124,6 @@ namespace Liar
 			for (Liar::Int i = 0; i < meshSize; ++i)
 			{
 				Liar::Mesh* subMesh = new Liar::Mesh(Liar::GeometryType::GEOMETRY_NONE);
-				tmpName = name;
 				tmpName = name + std::to_string(i) + Liar::Model::meshSzChar;
 				subMesh->SetGeometryType(tmpName.c_str(), m_sharedMaterials);
 				AddChild(subMesh);

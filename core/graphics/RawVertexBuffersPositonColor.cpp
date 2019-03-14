@@ -8,33 +8,11 @@ namespace Liar
 		m_colorIndex(0)
 	{}
 
-	void VertexPositionColorKey::SetVertexIndex(Liar::VertexElementAttr attr, Liar::Uint index)
-	{
-		switch (attr)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_COLOR:
-			m_colorIndex = index;
-			break;
-		default:
-			Liar::VertexPositionKey::SetVertexIndex(attr, index);
-			break;
-		}
-	}
-
-	Liar::Uint VertexPositionColorKey::GetVertexIndex(Liar::VertexElementAttr attr) const
-	{
-		switch (attr)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_COLOR:
-			return m_colorIndex;
-		default:
-			return Liar::VertexPositionKey::GetVertexIndex(attr);
-		}
-	}
-
 	Liar::Boolen VertexPositionColorKey::operator==(const Liar::IVertexKey& rhs) const
 	{
-		return	m_colorIndex == rhs.GetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_COLOR) && Liar::VertexPositionKey::operator==(rhs);
+		return
+			m_colorIndex == rhs.GetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_COLOR) &&
+			m_positonIndex == rhs.GetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION);
 	}
 
 	Liar::IVertexKey* VertexPositionColorKey::Clone() const
@@ -47,8 +25,7 @@ namespace Liar
 
 	void VertexPositionColorKey::PrintData()
 	{
-		Liar::VertexPositionKey::PrintData();
-		std::cout << "," << m_colorIndex;
+		std::cout << m_positonIndex << "," << m_colorIndex;
 	}
 
 	/*
@@ -56,110 +33,76 @@ namespace Liar
 	*/
 	RawVertexBuffersPositonColor::RawVertexBuffersPositonColor(Liar::GeometryVertexType type):
 		Liar::RawVertexBuffersPosition(type),
-		m_colors(nullptr), m_numberColors(0)
+		m_color(new Liar::SubVector3VertexBuffer())
 	{
 	}
 
 
 	RawVertexBuffersPositonColor::~RawVertexBuffersPositonColor()
 	{
-		if (m_colors)
-		{
-			for (size_t i = 0; i < m_numberColors; ++i)
-			{
-				delete m_colors[i];
-				m_colors[i] = nullptr;
-			}
-			free(m_colors);
-			m_colors = nullptr;
-		}
+		delete m_color;
+		m_color = nullptr;
 	}
 
-	void RawVertexBuffersPositonColor::AddColorVertex(Liar::Number x, Liar::Number y, Liar::Number z)
+	// 增加color信息
+	void RawVertexBuffersPositonColor::AddColorVertexBuffer(Liar::Number r, Liar::Number g, Liar::Number b, Liar::Number a)
 	{
-		void* buffer = GetVertexBuffer(Liar::VertexElementAttr::ELEMENT_ATTR_COLOR, (void**)m_colors, m_numberColors, x, y, z);
-		Liar::Vector3* color = static_cast<Liar::Vector3*>(buffer);
-		if (!color)
-		{
-			++m_numberColors;
-			size_t blockSize = sizeof(Liar::Vector3*)*m_numberColors;
-			if (!m_colors) m_colors = (Liar::Vector3**)malloc(blockSize);
-			else m_colors = (Liar::Vector3**)realloc(m_colors, blockSize);
-			color = new Liar::Vector3(x, y, z);
-			m_colors[m_numberColors - 1] = color;
-		}
+		m_color->AddVertexBuffer(r, g, b, a);
 	}
 
-	void RawVertexBuffersPositonColor::AddSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w)
+	void RawVertexBuffersPositonColor::AddColorVertexBuffer(const Liar::Vector3& color)
 	{
-		switch (attr)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_COLOR:
-			AddColorVertex(x, y, z);
-			break;
-		default:
-			Liar::RawVertexBuffersPosition::AddSubVertexBuffer(attr, x, y, z, w);
-			break;
-		}
+		AddColorVertexBuffer(color.x, color.y, color.z);
 	}
 
-	void RawVertexBuffersPositonColor::SetSubVertexBufferLen(Liar::VertexElementAttr attr, Liar::Int len)
+	// 设置color信息
+	void RawVertexBuffersPositonColor::SetColorVertexBuffer(size_t index, Liar::Number r, Liar::Number g, Liar::Number b, Liar::Number)
 	{
-		switch (attr)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_COLOR:
-			m_numberColors = len;
-			m_colors = (Liar::Vector3**)realloc(m_colors, sizeof(Liar::Vector3*)*m_numberColors);
-			break;
-		default:
-			Liar::RawVertexBuffersPosition::SetSubVertexBufferLen(attr, len);
-			break;
-		}
+		SetColorVertexBuffer(index, new Liar::Vector3(r, g, b));
 	}
 
-	void RawVertexBuffersPositonColor::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index,
-		Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w)
+	void RawVertexBuffersPositonColor::SetColorVertexBuffer(size_t index, Liar::Vector3* color)
 	{
-		switch (attr)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_COLOR:
-			m_colors[index] = new Liar::Vector3(x, y, z);
-			break;
-		default:
-			Liar::RawVertexBuffersPosition::SetSubVertexBuffer(attr, index, x, y, z);
-			break;
-		}
+		m_color->SetVertexBuffer(index, (void*)color);
 	}
 
-	void* RawVertexBuffersPositonColor::GetSubVertexBuffer(Liar::VertexElementAttr attr, size_t index)
+	// 设置color长度
+	void RawVertexBuffersPositonColor::SetColorVertexBufferLen(Liar::Int len)
 	{
-		switch (attr)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_COLOR:
-			return m_colors[index];
-		default:
-			return Liar::RawVertexBuffersPosition::GetSubVertexBuffer(attr, index);
-		}
+		m_color->SetVertexBufferLen(len);
+	}
+
+	// 获得color信息
+	void* RawVertexBuffersPositonColor::GetColorVertexBuffer(size_t index) const
+	{
+		return m_color->GetVertexBuffer(index);
 	}
 
 	Liar::Int RawVertexBuffersPositonColor::GetStride() const
 	{
-		return  Liar::RawVertexBuffersPosition::GetStride() + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3;
+		return  Liar::RawVertexBuffersPosition::GetStride() + m_color->GetStride();
 	}
 
 	size_t RawVertexBuffersPositonColor::LoopUploadSubData(Liar::StageContext& gl, GLenum type, Liar::Int i, size_t start)
 	{
 		size_t positionOffsize = Liar::RawVertexBuffersPosition::LoopUploadSubData(gl, type, i, start);
-		size_t colorOffsize = positionOffsize + Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3;
-		gl.BufferSubData(type, colorOffsize, Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_COLOR));
+
+		Liar::Int positionOffset = m_position->GetStride();
+		Liar::Int colorOffset = m_color->GetStride();
+
+		size_t colorOffsize = positionOffsize + positionOffset;
+		gl.BufferSubData(type, colorOffsize, colorOffset, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_COLOR));
 		return colorOffsize;
 	}
 
 	size_t RawVertexBuffersPositonColor::VertexAttrbSubPointer(Liar::StageContext& gl, size_t stride)
 	{
+		// position
 		size_t positionOffsize = Liar::RawVertexBuffersPosition::VertexAttrbSubPointer(gl, stride);
-		size_t colorOffisze = positionOffsize + Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3;
-		gl.VertexAttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_COLOR, Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3, GL_FLOAT, GL_FALSE, stride, (void*)colorOffisze);
+		// color
+		size_t colorOffisze = positionOffsize + m_position->GetStride();
+		Liar::Int colorFormat = m_color->GetFormat();
+		gl.VertexAttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_COLOR, colorFormat, GL_FLOAT, GL_FALSE, stride, (void*)colorOffisze);
 		gl.EnableVertexAttribArray(Liar::VertexAttribPointer::ATTRIB_POINTER_COLOR);
 		return colorOffisze;
 	}
