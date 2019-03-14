@@ -224,6 +224,39 @@ namespace Liar
 		}
 	}
 
+	void ShaderCompile::AddShaderProgram(Liar::ShaderProgram* shader)
+	{
+		++m_numberShaderPragrams;
+		size_t blockSize = sizeof(Liar::ShaderProgram*)*m_numberShaderPragrams;
+		if (m_shaderPrograms) m_shaderPrograms = (Liar::ShaderProgram**)realloc(m_shaderPrograms, blockSize);
+		else m_shaderPrograms = (Liar::ShaderProgram**)malloc(blockSize);
+		m_shaderPrograms[m_numberShaderPragrams - 1] = shader;
+	}
+
+	Liar::ShaderProgram* ShaderCompile::GetShaderProgram(Liar::GeometryVertexType type, Liar::Uint, Liar::Uint)
+	{
+		const char* shaderName = "TEST";
+
+		for (Liar::Uint i = 0; i < m_numberShaderPragrams; ++i)
+		{
+			if (m_shaderPrograms[i]->Equals(shaderName)) return m_shaderPrograms[i];
+		}
+
+		std::string define = GetShaderDefine(type);
+		Liar::PreCompileShader* preCompile = GetPreCompileShader("TEST");
+		std::string vs = preCompile->vertexShaderCode;
+		std::string fs = preCompile->fragmentShaderCode;
+
+		vs = m_szVersion + define + vs;
+		fs = m_szVersion + fs;
+
+		Liar::ShaderProgram* program = new Liar::ShaderProgram();
+		program->name = shaderName;
+		program->LinkProgram(vs.c_str(), fs.c_str());
+		AddShaderProgram(program);
+		return program;
+	}
+
 	const char* ShaderCompile::GetShaderDefineChar(Liar::ShaderTypeDefine type) const
 	{
 		switch (type)

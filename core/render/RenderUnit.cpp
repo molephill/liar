@@ -27,5 +27,10 @@ namespace Liar
 		/*shaderProgram->Use();
 		shaderProgram->SetMat4("u_MvpMatrix", transform->GetProjectionViewWorldMatrix());
 		geometry->Draws();*/
+		if (!geometry) return;
+		Liar::ShaderProgram* shaderProgram = Liar::Liar3D::shaderCompile->GetShaderProgram(geometry->GetGeoVertexType());
+		shaderProgram->Use();
+		shaderProgram->SetMat4("u_MvpMatrix", transform->GetProjectionViewWorldMatrix());
+		geometry->Draws();
 	}
 }

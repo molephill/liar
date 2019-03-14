@@ -49,7 +49,7 @@ namespace Liar
 		Liar::ShaderProgram** m_shaderPrograms;
 		Liar::Uint m_numberShaderPragrams;
 
-		const char* m_szVersion;
+		std::string m_szVersion;
 
 	private:
 		const char* GetShaderDefineChar(Liar::ShaderTypeDefine) const;
@@ -67,10 +67,13 @@ namespace Liar
 		// 获得定义shader
 		std::string GetShaderDefine(Liar::GeometryVertexType);
 
+		// 增加ShaderProgram
+		void AddShaderProgram(Liar::ShaderProgram*);
+
 	public:
-		const char* GetVersion() const { return m_szVersion; };
+		std::string GetVersion() const { return m_szVersion; };
 		Liar::PreCompileShader* GetPreCompileShader(const char*) const;
-		//Liar::ShaderProgram* GetShaderProgram(Liar::GeometryVertexType, );
+		Liar::ShaderProgram* GetShaderProgram(Liar::GeometryVertexType, Liar::Uint = 0, Liar::Uint = 0);
 	};
 }
 
