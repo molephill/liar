@@ -8,8 +8,8 @@ namespace Liar
 		m_cameras(nullptr), m_numberCamera(0),
 		m_lights(nullptr), m_numberLight(0),
 		m_width(w), m_height(h),
-		mouseX(0.0f), mouseY(0.0f),
-		scrollX(0.0f), scrollY(0.0f)
+		mouseX(Liar::ZERO), mouseY(Liar::ZERO),
+		scrollX(Liar::ZERO), scrollY(Liar::ZERO)
 	{
 	}
 

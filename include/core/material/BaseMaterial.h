@@ -228,5 +228,7 @@ namespace Liar
 		virtual bool Destroy();
 
 		virtual void SetRenderMode(Liar::RenderModeDefine) = 0;
+
+		virtual void Draws(Liar::ShaderProgram&) = 0;
 	};
 }

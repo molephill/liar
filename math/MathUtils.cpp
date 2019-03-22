@@ -64,15 +64,15 @@ namespace Liar
 	const Liar::Number MathUtils3D::AngleToRandin = 180 / MathUtils3D::PI;
 	const Liar::Number MathUtils3D::RandinToAngle = MathUtils3D::PI / 180;
 
-	const Liar::Vector3 MathUtils3D::ZERO = Liar::Vector3(0.0f, 0.0f, 0.0f);
+	const Liar::Vector3 MathUtils3D::ZERO = Liar::Vector3(Liar::ZERO, Liar::ZERO, Liar::ZERO);
 	const Liar::Vector3 MathUtils3D::ONE = Liar::Vector3(1.0f, 1.0f, 1.0f);
-	const Liar::Vector3 MathUtils3D::NegativeUnitX = Liar::Vector3(-1.0f, 0.0f, 0.0f);
-	const Liar::Vector3 MathUtils3D::UnitX = Liar::Vector3(1.0f, 0.0f, 0.0f);
-	const Liar::Vector3 MathUtils3D::UnitY = Liar::Vector3(0.0f, 1.0f, 0.0f);
-	const Liar::Vector3 MathUtils3D::UnitZ = Liar::Vector3(0.0f, 0.0f, 1.0f);
-	const Liar::Vector3 MathUtils3D::ForwardRH = Liar::Vector3(0.0f, 0.0f, -1.0f);
-	const Liar::Vector3 MathUtils3D::ForwardLH = Liar::Vector3(0.0f, 0.0f, 1.0f);
-	const Liar::Vector3 MathUtils3D::Up = Liar::Vector3(0.0f, 1.0f, 0.0f);
+	const Liar::Vector3 MathUtils3D::NegativeUnitX = Liar::Vector3(-1.0f, Liar::ZERO, Liar::ZERO);
+	const Liar::Vector3 MathUtils3D::UnitX = Liar::Vector3(1.0f, Liar::ZERO, Liar::ZERO);
+	const Liar::Vector3 MathUtils3D::UnitY = Liar::Vector3(Liar::ZERO, 1.0f, Liar::ZERO);
+	const Liar::Vector3 MathUtils3D::UnitZ = Liar::Vector3(Liar::ZERO, Liar::ZERO, 1.0f);
+	const Liar::Vector3 MathUtils3D::ForwardRH = Liar::Vector3(Liar::ZERO, Liar::ZERO, -1.0f);
+	const Liar::Vector3 MathUtils3D::ForwardLH = Liar::Vector3(Liar::ZERO, Liar::ZERO, 1.0f);
+	const Liar::Vector3 MathUtils3D::Up = Liar::Vector3(Liar::ZERO, 1.0f, Liar::ZERO);
 	const Liar::Quaternion MathUtils3D::TEMP_QUA = Liar::Quaternion();
 
 	Liar::Vector3 MathUtils3D::TEMPVector30 = Liar::Vector3();

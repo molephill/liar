@@ -18,13 +18,13 @@ namespace Liar
 	}
 
 	// 增加texcoord信息
-	void RawVertexBuffersPostionTexture::AddTexCoordVertexBuffer(Liar::IHeapOperator* data)
+	void RawVertexBuffersPostionTexture::AddTexCoordVertexBuffer(void* data)
 	{
 		m_texCoord->AddVertexBuffer(data);
 	}
 
 	// 设置texcoord信息
-	void RawVertexBuffersPostionTexture::SetTexCoordVertexBuffer(Liar::Int index, Liar::IHeapOperator* data)
+	void RawVertexBuffersPostionTexture::SetTexCoordVertexBuffer(Liar::Int index, void* data)
 	{
 		m_texCoord->SetVertexBuffer(index, data);
 	}
@@ -41,19 +41,19 @@ namespace Liar
 		return m_texCoord->GetVertexBuffer(index);
 	}
 
-	Liar::Int RawVertexBuffersPostionTexture::GetStride() const
+	Liar::Int RawVertexBuffersPostionTexture::GetSize() const
 	{
-		return  Liar::RawVertexBuffersPosition::GetStride() + m_texCoord->GetStride();
+		return  Liar::RawVertexBuffersPosition::GetSize() + m_texCoord->GetSize();
 	}
 
 	// 设置 buffer 信息
-	void RawVertexBuffersPostionTexture::AddSubVertexBuffer(Liar::VertexElementAttr attr, Liar::IHeapOperator* data)
+	void RawVertexBuffersPostionTexture::AddSubVertexBuffer(Liar::VertexElementAttr attr, void* data)
 	{
 		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) AddTexCoordVertexBuffer(data);
 		else Liar::RawVertexBuffersPosition::AddSubVertexBuffer(attr, data);
 	}
 
-	void RawVertexBuffersPostionTexture::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index, Liar::IHeapOperator* data)
+	void RawVertexBuffersPostionTexture::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index, void* data)
 	{
 		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) SetTexCoordVertexBuffer(index, data);
 		else Liar::RawVertexBuffersPosition::SetSubVertexBuffer(attr, index, data);
@@ -91,8 +91,8 @@ namespace Liar
 	{
 		size_t positionOffsize = Liar::RawVertexBuffersPosition::LoopUploadSubData(gl, type, i, start);
 
-		Liar::Int texCoordOffset = m_texCoord->GetStride();
-		size_t texCoordOffsize = positionOffsize + m_position->GetStride();
+		Liar::Int texCoordOffset = m_texCoord->GetSize();
+		size_t texCoordOffsize = positionOffsize + m_position->GetSize();
 
 		gl.BufferSubData(type, texCoordOffsize, texCoordOffset, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE));
 		return texCoordOffsize;
@@ -103,7 +103,7 @@ namespace Liar
 		// position
 		size_t positionOffsize = Liar::RawVertexBuffersPosition::VertexAttrbSubPointer(gl, stride);
 		// texCoord
-		size_t texCoordOffisze = positionOffsize + m_position->GetStride();
+		size_t texCoordOffisze = positionOffsize + m_position->GetSize();
 		Liar::Int texCoordFormat = m_texCoord->GetFormat();
 		gl.VertexAttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_TEXTURECOORDINATE, texCoordFormat, GL_FLOAT, GL_FALSE, stride, (void*)texCoordOffisze);
 		gl.EnableVertexAttribArray(Liar::VertexAttribPointer::ATTRIB_POINTER_TEXTURECOORDINATE);

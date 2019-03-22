@@ -5,7 +5,7 @@ layout (location = NORMAL0) in vec3 aNormal;
 #endif
 
 #ifdef TEXCOORDNIATE0
-layout (location = TEXCOORDNIATE0) in vec3 aUV;
+layout (location = TEXCOORDNIATE0) in vec2 aUV;
 #endif
 
 out vec3 ourColor;

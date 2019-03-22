@@ -114,11 +114,11 @@ namespace Liar
 		Liar::Number ax = a[0], ay = a[1], az = a[2], aw = a[3];
 		Liar::Number bx = b[0], by = a[1], bz = a[2], bw = b[3];
 
-		Liar::Number omega = 0.0f, cosom = 0.0f, sinom = 0.0f, scale0 = 0.0f, scale1 = 0.0f;
+		Liar::Number omega = Liar::ZERO, cosom = Liar::ZERO, sinom = Liar::ZERO, scale0 = Liar::ZERO, scale1 = Liar::ZERO;
 		// calc cosine 
 		cosom = ax * bx + ay * by + az * bz + aw * bw;
 		// adjust signs (if necessary) 
-		if (cosom < 0.0f)
+		if (cosom < Liar::ZERO)
 		{
 			cosom = -cosom;
 			bx = -bx;
@@ -299,7 +299,7 @@ namespace Liar
 		Liar::Number yz = rotationY * rotationZ;
 		Liar::Number xw = rotationX * rotationW;
 
-		resultE[3] = resultE[7] = resultE[11] = resultE[12] = resultE[13] = resultE[14] = 0.0f;
+		resultE[3] = resultE[7] = resultE[11] = resultE[12] = resultE[13] = resultE[14] = Liar::ZERO;
 		resultE[15] = 1.0f;
 		resultE[0] = 1.0f - (2.0f * (yy + zz));
 		resultE[1] = 2.0f * (xy + zw);
@@ -320,8 +320,8 @@ namespace Liar
 	void Quaternion::CreateFromMatrix3x3(const Liar::Matrix3x3& f, Liar::Quaternion& e)
 	{
 		Liar::Number fTrace = f[0] + f[4] + f[8];
-		Liar::Number fRoot = 0.0f;
-		if (fTrace > 0.0f) {
+		Liar::Number fRoot = Liar::ZERO;
+		if (fTrace > Liar::ZERO) {
 			// |w| > 1/2, may as well choose w > 1/2
 			fRoot = sqrtf(fTrace + 1.0f);  // 2w
 			e[3] = 0.5f * fRoot;
@@ -361,9 +361,9 @@ namespace Liar
 	*/
 	void Quaternion::CreateFromMatrix4x4(const Liar::Matrix4x4& me, Liar::Quaternion& oe)
 	{
-		Liar::Number sqrt = 0.0f, half = 0.0f;
+		Liar::Number sqrt = Liar::ZERO, half = Liar::ZERO;
 		Liar::Number scale = me[0] + me[5] + me[10];
-		if (scale > 0.0f)
+		if (scale > Liar::ZERO)
 		{
 			sqrt = sqrtf(scale + 1.0f);
 			oe[3] = sqrt * 0.5f;
@@ -475,7 +475,7 @@ namespace Liar
 	{
 		Liar::Number a0 = x, a1 = y, a2 = z, a3 = w;
 		Liar::Number dot = a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3;
-		Liar::Number invDot = dot ? 1.0f / dot : 0.0f;
+		Liar::Number invDot = dot ? 1.0f / dot : Liar::ZERO;
 		x = -a0 * invDot;
 		y = -a1 * invDot;
 		z = -a2 * invDot;

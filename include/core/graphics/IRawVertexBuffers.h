@@ -6,6 +6,7 @@
 #include <math/Vector3.h>
 #include <math/Vector2.h>
 #include <math/Quaternion.h>
+#include "ISubVertexBuffers.h"
 
 namespace Liar
 {
@@ -33,6 +34,7 @@ namespace Liar
 		Liar::Int m_vertexIndex;
 
 	protected:
+		virtual size_t VertexAttrbSubPointer(Liar::StageContext&, size_t) = 0;
 		virtual size_t LoopUploadSubData(Liar::StageContext&, GLenum, Liar::Int, size_t) { return 0; };
 
 		void AddRawKeyVertexBuffer(Liar::IntHeapOperator*);
@@ -44,10 +46,9 @@ namespace Liar
 		void* GetRawIndex(Liar::Int) const;
 
 	public:
-
 		// 设置 buffer 信息
-		virtual void AddSubVertexBuffer(Liar::VertexElementAttr, Liar::IHeapOperator*);
-		virtual void SetSubVertexBuffer(Liar::VertexElementAttr, Liar::Int index, Liar::IHeapOperator*);
+		virtual void AddSubVertexBuffer(Liar::VertexElementAttr, void*);
+		virtual void SetSubVertexBuffer(Liar::VertexElementAttr, Liar::Int index, void*);
 
 		// 已知 vertexBuffer 长度
 		virtual void SetSubVertexBufferLen(Liar::VertexElementAttr, Liar::Int);
@@ -75,7 +76,7 @@ namespace Liar
 		Liar::Uint* GetIndices() { return m_indices; };
 
 		// 获得步长
-		virtual Liar::Int GetStride() const = 0;
+		virtual Liar::Int GetSize() const = 0;
 
 		// 获得顶点数据总长度
 		virtual Liar::Int GetBufferSize() const;
@@ -83,7 +84,5 @@ namespace Liar
 		// 提交数据
 		virtual void UploadData(GLenum);
 
-		// 绑定
-		virtual void VertexAttrbPointer() = 0;
 	};
 }

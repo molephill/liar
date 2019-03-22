@@ -19,13 +19,13 @@ namespace Liar
 	}
 
 	// 增加color信息
-	void RawVertexBuffersPositonNormalColor::AddColorVertexBuffer(Liar::IHeapOperator* data)
+	void RawVertexBuffersPositonNormalColor::AddColorVertexBuffer(void* data)
 	{
 		m_color->AddVertexBuffer(data);
 	}
 
 	// 设置color信息
-	void RawVertexBuffersPositonNormalColor::SetColorVertexBuffer(Liar::Int index, Liar::IHeapOperator* data)
+	void RawVertexBuffersPositonNormalColor::SetColorVertexBuffer(Liar::Int index, void* data)
 	{
 		m_color->SetVertexBuffer(index, data);
 	}
@@ -42,19 +42,19 @@ namespace Liar
 		return m_color->GetVertexBuffer(index);
 	}
 
-	Liar::Int RawVertexBuffersPositonNormalColor::GetStride() const
+	Liar::Int RawVertexBuffersPositonNormalColor::GetSize() const
 	{
-		return  Liar::RawVertexBuffersPositonNormal::GetStride() + m_color->GetStride();
+		return  Liar::RawVertexBuffersPositonNormal::GetSize() + m_color->GetSize();
 	}
 
 	// 设置 buffer 信息
-	void RawVertexBuffersPositonNormalColor::AddSubVertexBuffer(Liar::VertexElementAttr attr, Liar::IHeapOperator* data)
+	void RawVertexBuffersPositonNormalColor::AddSubVertexBuffer(Liar::VertexElementAttr attr, void* data)
 	{
 		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_COLOR) AddColorVertexBuffer(data);
 		else Liar::RawVertexBuffersPositonNormal::AddSubVertexBuffer(attr, data);
 	}
 
-	void RawVertexBuffersPositonNormalColor::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index, Liar::IHeapOperator* data)
+	void RawVertexBuffersPositonNormalColor::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index, void* data)
 	{
 		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_COLOR) SetColorVertexBuffer(index, data);
 		else Liar::RawVertexBuffersPositonNormal::SetSubVertexBuffer(attr, index, data);
@@ -92,8 +92,8 @@ namespace Liar
 	{
 		size_t normalOffsize = Liar::RawVertexBuffersPositonNormal::LoopUploadSubData(gl, type, i, start);
 
-		Liar::Int colorOffset = m_color->GetStride();
-		size_t colorOffsize = normalOffsize + m_normal->GetStride();
+		Liar::Int colorOffset = m_color->GetSize();
+		size_t colorOffsize = normalOffsize + m_normal->GetSize();
 
 		gl.BufferSubData(type, colorOffsize, colorOffset, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_COLOR));
 		return normalOffsize;
@@ -104,7 +104,7 @@ namespace Liar
 		// normal
 		size_t normalOffisze = Liar::RawVertexBuffersPositonNormal::VertexAttrbSubPointer(gl, stride);
 		// color
-		size_t colorOffisze = normalOffisze + m_normal->GetStride();
+		size_t colorOffisze = normalOffisze + m_normal->GetSize();
 		Liar::Int colorFormat = m_color->GetFormat();
 		gl.VertexAttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_COLOR, colorFormat, GL_FLOAT, GL_FALSE, stride, (void*)colorOffisze);
 		gl.EnableVertexAttribArray(Liar::VertexAttribPointer::ATTRIB_POINTER_COLOR);

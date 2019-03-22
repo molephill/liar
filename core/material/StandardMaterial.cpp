@@ -17,7 +17,7 @@ namespace Liar
 		SetSpecularColor(tmpv4);
 		tmpv4->Set(1.0f, 1.0f, 1.0f, 1.0f);
 		SetAlbedoColor(tmpv4);
-		tmpv4->Set(1.0f, 1.0f, 0.0f, 0.0f);
+		tmpv4->Set(1.0f, 1.0f, Liar::ZERO, Liar::ZERO);
 		SetTilingOffset(tmpv4);
 
 		SetAlphaTestValue(0.5f);
@@ -217,6 +217,15 @@ namespace Liar
 		}
 		default:
 			break;
+		}
+	}
+
+	void StandardMaterial::Draws(Liar::ShaderProgram& shader)
+	{
+		Liar::Int index = 0;
+		for (Liar::Uint i = 0; i < m_numberTexture; ++i)
+		{
+			if(m_textures[i]) m_textures[i]->Draws(shader, index++);
 		}
 	}
 }

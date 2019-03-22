@@ -19,7 +19,7 @@ namespace Liar
 		m_y = cy;
 		m_width = w;
 		m_height = h;
-		m_minDepth = 0.0f;
+		m_minDepth = Liar::ZERO;
 		m_maxDepth = 1.0f;
 	}
 

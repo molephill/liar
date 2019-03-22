@@ -2,14 +2,13 @@
 
 #include <iostream>
 #include "MathUtils3D.h"
-#include "IHeapOperator.h"
 
 namespace Liar
 {
-	class Vector4:public Liar::IFloatHeapOperator
+	class Vector4
 	{
 	public:
-		Vector4(Liar::Number cx = 0.0f, Liar::Number cy = 0.0f, Liar::Number cz = 0.0f, Liar::Number cw = 0.0f):Liar::IFloatHeapOperator() { Set(cx, cy, cz, cw); };
+		Vector4(Liar::Number cx = Liar::ZERO, Liar::Number cy = Liar::ZERO, Liar::Number cz = Liar::ZERO, Liar::Number cw = Liar::ZERO) { Set(cx, cy, cz, cw); };
 		virtual ~Vector4() {};
 
 	public:
@@ -39,7 +38,7 @@ namespace Liar
 		friend std::ostream& operator<<(std::ostream&, const Vector4&);
 
 	public:
-		inline void Set(Liar::Number cx = 0.0f, Liar::Number cy = 0.0f, Liar::Number cz = 0.0f, Liar::Number cw = 0.0f)
+		inline void Set(Liar::Number cx = Liar::ZERO, Liar::Number cy = Liar::ZERO, Liar::Number cz = Liar::ZERO, Liar::Number cw = Liar::ZERO)
 		{
 			x = cx;
 			y = cy;
@@ -194,11 +193,6 @@ namespace Liar
 		inline Liar::Number& operator[](size_t index)
 		{
 			return (&x)[index];
-		};
-
-		virtual bool operator==(const IFloatHeapOperator& rhs) const
-		{
-			return rhs[0] == x && rhs[1] == y && rhs[2] == z && rhs[3] == w;
 		};
 
 		inline Liar::Number Distance(Liar::Number cx, Liar::Number cy, Liar::Number cz, Liar::Number cw) const

@@ -8,7 +8,7 @@ namespace Liar
 	class Camera:public BaseCamera
 	{
 	public:
-		Camera(Liar::Number nearPlane = 0.1f, Liar::Number farPlane = 1000.0f);
+		Camera(Liar::Number nearPlane = 0.1f, Liar::Number farPlane = 100.0f);
 		virtual ~Camera();
 
 	private:

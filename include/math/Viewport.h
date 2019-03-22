@@ -7,7 +7,7 @@ namespace Liar
 	class Viewport
 	{
 	public:
-		Viewport(Liar::Number cx = 0.0f, Liar::Number cy = 0.0f, Liar::Number w = 0.0f, Liar::Number h = 0.0f);
+		Viewport(Liar::Number cx = Liar::ZERO, Liar::Number cy = Liar::ZERO, Liar::Number w = Liar::ZERO, Liar::Number h = Liar::ZERO);
 		~Viewport();
 
 	private:
@@ -19,7 +19,7 @@ namespace Liar
 		Liar::Number m_maxDepth;
 
 	public:
-		void Init(Liar::Number cx = 0.0f, Liar::Number cy = 0.0f, Liar::Number w = 0.0f, Liar::Number h = 0.0f);
+		void Init(Liar::Number cx = Liar::ZERO, Liar::Number cy = Liar::ZERO, Liar::Number w = Liar::ZERO, Liar::Number h = Liar::ZERO);
 		void Project(const Liar::Vector3& sourceEleme, const Liar::Matrix4x4& matrixEleme, Liar::Vector3& outEleme);
 
 		/**

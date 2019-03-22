@@ -25,9 +25,12 @@ namespace Liar
 
 	void NetGeometry::SetURL(const char* url)
 	{
-		m_url = url;
-		DisposeResource();
-		RecreateResource();
+		if (m_url != url)
+		{
+			m_url = url;
+			DisposeResource();
+			RecreateResource();
+		}
 	}
 
 	void NetGeometry::RecreateSubResource()
@@ -143,13 +146,13 @@ namespace Liar
 
 			for (Liar::Int i = 0; i < len; ++i)
 			{
-				Liar::IHeapOperator* vec = ReadFloatVector(elementType, pFile);
+				void* vec = ReadFloatVector(elementType, pFile);
 				m_rawVertexBuffers->SetSubVertexBuffer(vexType, i, vec);
 			}
 		}
 	}
 
-	Liar::IHeapOperator* NetGeometry::ReadFloatVector(Liar::VertexFormatType type, FILE* pFile)
+	void* NetGeometry::ReadFloatVector(Liar::VertexFormatType type, FILE* pFile)
 	{
 		size_t floatSize = sizeof(Liar::Number);
 		switch (type)
@@ -213,9 +216,10 @@ namespace Liar
 		Liar::Int perSize = 0;
 		fread(&perSize, blockSize, 1, pFile);
 
+		Liar::VertexFormatType format = static_cast<Liar::VertexFormatType>(perSize - 2);
 		for (Liar::Int i = 0; i < len; ++i)
 		{
-			Liar::IHeapOperator* it = ReadFloatVector(static_cast<Liar::VertexFormatType>(perSize - 2), pFile);
+			void* it = ReadFloatVector(format, pFile);
 			m_rawVertexBuffers->SetSubVertexBuffer(type, i, it);
 		}
 	}

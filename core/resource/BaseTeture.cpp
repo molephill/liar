@@ -29,6 +29,7 @@ namespace Liar
 			ReleaseResource();
 			m_url = url;
 			std::string formatPath = Liar3D::urlFormat->FormatSourceURL(url);
+
 			int nrComponents = 0;
 			m_data = stbi_load(formatPath.c_str(), &m_width, &m_height, &nrComponents, 0);
 			if (m_data)
@@ -90,5 +91,12 @@ namespace Liar
 		if (m_data) free(m_data);
 		m_released = true;
 		if(m_textureID > 0) glDeleteTextures(1, &m_textureID);
+	}
+
+	void BaseTexture::Draws(Liar::ShaderProgram& shader, Liar::Int index)
+	{
+		glActiveTexture(GL_TEXTURE0 + index);
+		glBindTexture(GL_TEXTURE_2D, m_textureID);
+		shader.SetInt("material.diffuse", index);
 	}
 }

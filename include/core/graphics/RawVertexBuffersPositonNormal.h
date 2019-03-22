@@ -15,9 +15,9 @@ namespace Liar
 
 	protected:
 		// 增加normal信息
-		virtual void AddNormalVertexBuffer(Liar::IHeapOperator*);
+		virtual void AddNormalVertexBuffer(void*);
 		// 设置normal信息
-		virtual void SetNormalVertexBuffer(Liar::Int, Liar::IHeapOperator*);
+		virtual void SetNormalVertexBuffer(Liar::Int, void*);
 		// 设置normal长度
 		virtual void SetNormalVertexBufferLen(Liar::Int);
 		// 获得normal信息
@@ -28,8 +28,8 @@ namespace Liar
 
 	public:
 		// 设置 buffer 信息
-		virtual void AddSubVertexBuffer(Liar::VertexElementAttr, Liar::IHeapOperator*);
-		virtual void SetSubVertexBuffer(Liar::VertexElementAttr, Liar::Int, Liar::IHeapOperator*);
+		virtual void AddSubVertexBuffer(Liar::VertexElementAttr, void*);
+		virtual void SetSubVertexBuffer(Liar::VertexElementAttr, Liar::Int, void*);
 
 		// 已知 vertexBuffer 长度
 		virtual void SetSubVertexBufferLen(Liar::VertexElementAttr, Liar::Int);
@@ -40,6 +40,6 @@ namespace Liar
 		// 获得提交指定顶点属性信息
 		virtual void* GetUploadVertexBuffer(Liar::Int, Liar::VertexElementAttr);
 
-		virtual Liar::Int GetStride() const;
+		virtual Liar::Int GetSize() const;
 	};
 }

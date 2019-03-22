@@ -19,13 +19,13 @@ namespace Liar
 	}
 
 	// 增加normal信息
-	void RawVertexBuffersPositonNormal::AddNormalVertexBuffer(Liar::IHeapOperator* data)
+	void RawVertexBuffersPositonNormal::AddNormalVertexBuffer(void* data)
 	{
 		m_normal->AddVertexBuffer(data);
 	}
 
 	// 设置normal信息
-	void RawVertexBuffersPositonNormal::SetNormalVertexBuffer(Liar::Int index, Liar::IHeapOperator* data)
+	void RawVertexBuffersPositonNormal::SetNormalVertexBuffer(Liar::Int index, void* data)
 	{
 		m_normal->SetVertexBuffer(index, data);
 	}
@@ -42,19 +42,19 @@ namespace Liar
 		return m_normal->GetVertexBuffer(index);
 	}
 
-	Liar::Int RawVertexBuffersPositonNormal::GetStride() const
+	Liar::Int RawVertexBuffersPositonNormal::GetSize() const
 	{
-		return  Liar::RawVertexBuffersPosition::GetStride() + m_normal->GetStride();
+		return  Liar::RawVertexBuffersPosition::GetSize() + m_normal->GetSize();
 	}
 
 	// 设置 buffer 信息
-	void RawVertexBuffersPositonNormal::AddSubVertexBuffer(Liar::VertexElementAttr attr, Liar::IHeapOperator* data)
+	void RawVertexBuffersPositonNormal::AddSubVertexBuffer(Liar::VertexElementAttr attr, void* data)
 	{
 		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) AddNormalVertexBuffer(data);
 		else Liar::RawVertexBuffersPosition::AddSubVertexBuffer(attr, data);
 	}
 
-	void RawVertexBuffersPositonNormal::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index, Liar::IHeapOperator* data)
+	void RawVertexBuffersPositonNormal::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index, void* data)
 	{
 		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) SetNormalVertexBuffer(index, data);
 		else Liar::RawVertexBuffersPosition::SetSubVertexBuffer(attr, index, data);
@@ -90,25 +90,27 @@ namespace Liar
 
 	size_t RawVertexBuffersPositonNormal::LoopUploadSubData(Liar::StageContext& gl, GLenum type, Liar::Int i, size_t start)
 	{
-		size_t positionOffsize = Liar::RawVertexBuffersPosition::LoopUploadSubData(gl, type, i, start);
+		size_t positionOffset = Liar::RawVertexBuffersPosition::LoopUploadSubData(gl, type, i, start);
 
-		Liar::Int normalOffset = m_normal->GetStride();
-		size_t normalOffsize = positionOffsize + m_position->GetStride();
-
-		gl.BufferSubData(type, normalOffsize, normalOffset, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL));
-		return normalOffsize;
+		Liar::Int normalSize = m_normal->GetSize();
+		size_t normalOffset = positionOffset + m_position->GetSize();
+		void* normal = GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL);
+		gl.BufferSubData(type, normalOffset, normalSize, normal);
+		return normalOffset;
 	}
 
 	size_t RawVertexBuffersPositonNormal::VertexAttrbSubPointer(Liar::StageContext& gl, size_t stride)
 	{
 		// position
-		size_t positionOffsize = Liar::RawVertexBuffersPosition::VertexAttrbSubPointer(gl, stride);
+		size_t positionOffset = Liar::RawVertexBuffersPosition::VertexAttrbSubPointer(gl, stride);
 		// normal
-		size_t normalOffisze = positionOffsize + m_position->GetStride();
+		size_t normalOffset = positionOffset + m_position->GetSize();
 		Liar::Int normalFormat = m_normal->GetFormat();
-		gl.VertexAttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_NORMAL, normalFormat, GL_FLOAT, GL_FALSE, stride, (void*)normalOffisze);
+		gl.VertexAttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_NORMAL, normalFormat, GL_FLOAT, GL_FALSE, stride, (void*)normalOffset);
 		gl.EnableVertexAttribArray(Liar::VertexAttribPointer::ATTRIB_POINTER_NORMAL);
 
-		return normalOffisze;
+		std::cout << "bind == normal stride:" << stride << " offset:" << normalOffset << " format:" << normalFormat << " pointer:" << Liar::VertexAttribPointer::ATTRIB_POINTER_NORMAL << std::endl;
+
+		return normalOffset;
 	}
 }

@@ -11,10 +11,10 @@ namespace Liar
 	{
 	public:
 		Matrix4x4(
-			Liar::Number m00 = 1.0f, Liar::Number m04 = 0.0f, Liar::Number m08 = 0.0f, Liar::Number m12 = 0.0f,
-			Liar::Number m01 = 0.0f, Liar::Number m05 = 1.0f, Liar::Number m09 = 0.0f, Liar::Number m13 = 0.0f,
-			Liar::Number m02 = 0.0f, Liar::Number m06 = 0.0f, Liar::Number m10 = 1.0f, Liar::Number m14 = 0.0f,
-			Liar::Number m03 = 0.0f, Liar::Number m07 = 0.0f, Liar::Number m11 = 0.0f, Liar::Number m15 = 1.0f)
+			Liar::Number m00 = 1.0f, Liar::Number m04 = Liar::ZERO, Liar::Number m08 = Liar::ZERO, Liar::Number m12 = Liar::ZERO,
+			Liar::Number m01 = Liar::ZERO, Liar::Number m05 = 1.0f, Liar::Number m09 = Liar::ZERO, Liar::Number m13 = Liar::ZERO,
+			Liar::Number m02 = Liar::ZERO, Liar::Number m06 = Liar::ZERO, Liar::Number m10 = 1.0f, Liar::Number m14 = Liar::ZERO,
+			Liar::Number m03 = Liar::ZERO, Liar::Number m07 = Liar::ZERO, Liar::Number m11 = Liar::ZERO, Liar::Number m15 = 1.0f)
 		{
 			Set(
 				m00, m04, m08, m12, 
@@ -114,10 +114,10 @@ namespace Liar
 
 	public:
 		inline void Set(
-			Liar::Number m00 = 1.0f, Liar::Number m04 = 0.0f, Liar::Number m08 = 0.0f, Liar::Number m12 = 0.0f,
-			Liar::Number m01 = 0.0f, Liar::Number m05 = 1.0f, Liar::Number m09 = 0.0f, Liar::Number m13 = 0.0f,
-			Liar::Number m02 = 0.0f, Liar::Number m06 = 0.0f, Liar::Number m10 = 1.0f, Liar::Number m14 = 0.0f,
-			Liar::Number m03 = 0.0f, Liar::Number m07 = 0.0f, Liar::Number m11 = 0.0f, Liar::Number m15 = 1.0f)
+			Liar::Number m00 = 1.0f, Liar::Number m04 = Liar::ZERO, Liar::Number m08 = Liar::ZERO, Liar::Number m12 = Liar::ZERO,
+			Liar::Number m01 = Liar::ZERO, Liar::Number m05 = 1.0f, Liar::Number m09 = Liar::ZERO, Liar::Number m13 = Liar::ZERO,
+			Liar::Number m02 = Liar::ZERO, Liar::Number m06 = Liar::ZERO, Liar::Number m10 = 1.0f, Liar::Number m14 = Liar::ZERO,
+			Liar::Number m03 = Liar::ZERO, Liar::Number m07 = Liar::ZERO, Liar::Number m11 = Liar::ZERO, Liar::Number m15 = 1.0f)
 		{
 			m[0] = m00;  m[1] = m01;  m[2] = m02;  m[3] = m03;
 			m[4] = m04;  m[5] = m05;  m[6] = m06;  m[7] = m07;
@@ -136,7 +136,7 @@ namespace Liar
 		inline void Identity()
 		{
 			m[0] = m[5] = m[10] = m[15] = 1.0f;
-			m[1] = m[2] = m[3] = m[4] = m[6] = m[7] = m[8] = m[9] = m[11] = m[12] = m[13] = m[14] = 0.0f;
+			m[1] = m[2] = m[3] = m[4] = m[6] = m[7] = m[8] = m[9] = m[11] = m[12] = m[13] = m[14] = Liar::ZERO;
 		};
 
 		inline Liar::Number operator[](int index) const

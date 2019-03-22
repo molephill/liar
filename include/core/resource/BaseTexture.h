@@ -1,6 +1,7 @@
 #pragma once
 
 #include <core/resource/Resource.h>
+#include <core/resource/shader/ShaderProgram.h>
 
 #include <stb_image.h>
 #include <string>
@@ -45,5 +46,6 @@ namespace Liar
 	public:
 		void SetRepeat(bool value);
 		void SetMipMap(bool value);
+		virtual void Draws(Liar::ShaderProgram& shader, Liar::Int);
 	};
 }

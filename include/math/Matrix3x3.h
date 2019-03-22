@@ -11,9 +11,9 @@ namespace Liar
 	{
 	public:
 		Matrix3x3(
-			Liar::Number m0 = 1.0f, Liar::Number m1 = 0.0f, Liar::Number m2 = 0.0f,
-			Liar::Number m3 = 0.0f, Liar::Number m4 = 0.0f, Liar::Number m5 = 0.0f,
-			Liar::Number m6 = 0.0f, Liar::Number m7 = 0.0f, Liar::Number m8 = 1.0f)
+			Liar::Number m0 = 1.0f, Liar::Number m1 = Liar::ZERO, Liar::Number m2 = Liar::ZERO,
+			Liar::Number m3 = Liar::ZERO, Liar::Number m4 = Liar::ZERO, Liar::Number m5 = Liar::ZERO,
+			Liar::Number m6 = Liar::ZERO, Liar::Number m7 = Liar::ZERO, Liar::Number m8 = 1.0f)
 		{
 			Set(m0, m1, m2, m3, m4, m5, m6, m7, m8);
 		};
@@ -51,9 +51,9 @@ namespace Liar
 		};
 
 		inline void Set(
-			Liar::Number m0 = 1.0f, Liar::Number m1 = 0.0f, Liar::Number m2 = 0.0f,
-			Liar::Number m3 = 0.0f, Liar::Number m4 = 0.0f, Liar::Number m5 = 0.0f,
-			Liar::Number m6 = 0.0f, Liar::Number m7 = 0.0f, Liar::Number m8 = 1.0f)
+			Liar::Number m0 = 1.0f, Liar::Number m1 = Liar::ZERO, Liar::Number m2 = Liar::ZERO,
+			Liar::Number m3 = Liar::ZERO, Liar::Number m4 = Liar::ZERO, Liar::Number m5 = Liar::ZERO,
+			Liar::Number m6 = Liar::ZERO, Liar::Number m7 = Liar::ZERO, Liar::Number m8 = 1.0f)
 		{
 			m[0] = m0;  m[1] = m1;  m[2] = m2;
 			m[3] = m3;  m[4] = m4;  m[5] = m5;
@@ -102,7 +102,7 @@ namespace Liar
 		inline Matrix3x3& Identity()
 		{
 			m[0] = m[4] = m[8] = 1.0f;
-			m[1] = m[2] = m[3] = m[5] = m[6] = m[7] = 0.0f;
+			m[1] = m[2] = m[3] = m[5] = m[6] = m[7] = Liar::ZERO;
 			return *this;
 		};
 

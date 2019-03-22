@@ -33,7 +33,7 @@ namespace Liar
 
 	Liar::Int IRawVertexBuffers::GetBufferSize() const
 	{
-		return GetStride() * m_numberVertexKeys;
+		return GetSize() * m_numberVertexKeys;
 	}
 
 	void IRawVertexBuffers::AddRawKeyVertexBuffer(Liar::IntHeapOperator* data)
@@ -97,7 +97,7 @@ namespace Liar
 		return &(m_indices[index]);
 	}
 
-	void IRawVertexBuffers::AddSubVertexBuffer(Liar::VertexElementAttr type, Liar::IHeapOperator* data)
+	void IRawVertexBuffers::AddSubVertexBuffer(Liar::VertexElementAttr type, void* data)
 	{
 		switch (type)
 		{
@@ -124,7 +124,7 @@ namespace Liar
 		}
 	}
 
-	void IRawVertexBuffers::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index, Liar::IHeapOperator* data)
+	void IRawVertexBuffers::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index, void* data)
 	{
 		switch (attr)
 		{
@@ -156,7 +156,7 @@ namespace Liar
 		gl.BufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, m_indices, GL_STATIC_DRAW);
 
 		// 提交具体数据
-		Liar::Int stride = GetStride();
+		Liar::Int stride = GetSize();
 		for (Liar::Int i = 0; i < m_numberVertexKeys; ++i)
 		{
 			m_vertexIndex = 0;
@@ -165,7 +165,7 @@ namespace Liar
 		}
 
 		// 绑定
-		VertexAttrbPointer();
+		VertexAttrbSubPointer(gl, stride);
 	}
 
 }

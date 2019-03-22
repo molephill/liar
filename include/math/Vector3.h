@@ -2,16 +2,15 @@
 
 #include <iostream>
 #include "MathUtils3D.h"
-#include "IHeapOperator.h"
 
 namespace Liar
 {
-	class Vector3:public Liar::IFloatHeapOperator
+	class Vector3
 	{
 	public:
-		Vector3(Liar::Number sx = 0.0f, Liar::Number sy = 0.0f, Liar::Number sz = 0.0f):Liar::IFloatHeapOperator() { Set(sx, sy, sz); };
+		Vector3(Liar::Number sx = Liar::ZERO, Liar::Number sy = Liar::ZERO, Liar::Number sz = Liar::ZERO) { Set(sx, sy, sz); };
 		Vector3(const Liar::Vector3& rhs) { Set(rhs); };
-		virtual ~Vector3() {};
+		~Vector3() {};
 
 	public:
 		Liar::Number x;
@@ -47,7 +46,7 @@ namespace Liar
 		friend std::ostream& operator<<(std::ostream&, const Liar::Vector3&);
 
 	public:
-		inline void Set(Liar::Number sx = 0.0f, Liar::Number sy = 0.0f, Liar::Number sz = 0.0f)
+		inline void Set(Liar::Number sx = Liar::ZERO, Liar::Number sy = Liar::ZERO, Liar::Number sz = Liar::ZERO)
 		{
 			x = sx;
 			y = sy;
@@ -196,11 +195,6 @@ namespace Liar
 		inline Liar::Number& operator[](size_t index)
 		{
 			return (&x)[index];
-		};
-
-		virtual bool operator==(const IFloatHeapOperator& rhs) const
-		{
-			return rhs[0] == x && rhs[1] == y && rhs[2] == z;
 		};
 
 		inline Liar::Number Length() const

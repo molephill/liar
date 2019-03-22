@@ -23,7 +23,7 @@ namespace Liar
 		}
 	}
 
-	Liar::Int SubVector2VertexBuffer::GetStride() const
+	Liar::Int SubVector2VertexBuffer::GetSize() const
 	{
 		return  Liar::VertexElementSize::ELEMENT_SIZE_VECTOR2;
 	}
@@ -77,6 +77,16 @@ namespace Liar
 		return m_buffers[index];
 	}
 
+	void SubVector2VertexBuffer::ToString()
+	{
+		std::cout << "vector2 num:" << m_numberBuffers << std::endl;
+		for (Liar::Int i = 0; i < m_numberBuffers; ++i)
+		{
+			std::cout << "index:" << i << " ";
+			std::cout << *(m_buffers[i]) << std::endl;
+		}
+	}
+
 	/**
 	* vector3
 	*/
@@ -98,7 +108,7 @@ namespace Liar
 		}
 	}
 
-	Liar::Int SubVector3VertexBuffer::GetStride() const
+	Liar::Int SubVector3VertexBuffer::GetSize() const
 	{
 		return  Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3;
 	}
@@ -152,6 +162,16 @@ namespace Liar
 		return m_buffers[index];
 	}
 
+	void SubVector3VertexBuffer::ToString()
+	{
+		std::cout << "vector3 num:" << m_numberBuffers << std::endl;
+		for (Liar::Int i = 0; i < m_numberBuffers; ++i)
+		{
+			std::cout << "index:" << i << " ";
+			std::cout << *(m_buffers[i]) << std::endl;
+		}
+	}
+
 	/**
 	* Vector4
 	*/
@@ -173,7 +193,7 @@ namespace Liar
 		}
 	}
 
-	Liar::Int SubVector4VertexBuffer::GetStride() const
+	Liar::Int SubVector4VertexBuffer::GetSize() const
 	{
 		return  Liar::VertexElementSize::ELEMENT_SIZE_VECTOR4;
 	}
@@ -228,6 +248,16 @@ namespace Liar
 		return m_buffers[index];
 	}
 
+	void SubVector4VertexBuffer::ToString()
+	{
+		std::cout << "vector4 num:" << m_numberBuffers << std::endl;
+		for (Liar::Int i = 0; i < m_numberBuffers; ++i)
+		{
+			std::cout << "index:" << i << " ";
+			std::cout << *(m_buffers[i]) << std::endl;
+		}
+	}
+
 	/**
 	* Quat
 	*/
@@ -249,7 +279,7 @@ namespace Liar
 		}
 	}
 
-	Liar::Int SubQuatVertexBuffer::GetStride() const
+	Liar::Int SubQuatVertexBuffer::GetSize() const
 	{
 		return  Liar::VertexElementSize::ELEMENT_SIZE_QUATERNION;
 	}
@@ -301,6 +331,16 @@ namespace Liar
 	{
 		if (index >= m_numberBuffers) return nullptr;
 		return m_buffers[index];
+	}
+
+	void SubQuatVertexBuffer::ToString()
+	{
+		std::cout << "quat num:" << m_numberBuffers << std::endl;
+		for (Liar::Int i = 0; i < m_numberBuffers; ++i)
+		{
+			std::cout << "index:" << i << " ";
+			std::cout << *(m_buffers[i]) << std::endl;
+		}
 	}
 
 }

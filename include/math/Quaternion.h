@@ -7,7 +7,7 @@ namespace Liar
 	class Quaternion:public Vector4
 	{
 	public:
-		Quaternion(Liar::Number cx = 0.0f, Liar::Number cy = 0.0f, Liar::Number cz = 0.0f, Liar::Number cw = 1.0f) { Liar::Vector4::Set(cx, cy, cz, cw); };
+		Quaternion(Liar::Number cx = Liar::ZERO, Liar::Number cy = Liar::ZERO, Liar::Number cz = Liar::ZERO, Liar::Number cw = 1.0f):Liar::Vector4(cx, cy, cz, cw) {};
 		virtual ~Quaternion() {};
 
 	public:
@@ -122,7 +122,7 @@ namespace Liar
 
 		inline void Identity()
 		{
-			x = y = z = 0.0f;
+			x = y = z = Liar::ZERO;
 			w = 1.0f;
 		}
 

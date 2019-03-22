@@ -20,7 +20,7 @@ namespace Liar
 		void SetURL(const char*);
 
 	public:
-		static Liar::IHeapOperator* ReadFloatVector(Liar::VertexFormatType, FILE*);
+		static void* ReadFloatVector(Liar::VertexFormatType, FILE*);
 
 	protected:
 		virtual void RecreateSubResource();

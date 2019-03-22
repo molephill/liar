@@ -22,13 +22,14 @@ namespace Liar
 		Liar::Int m_numberBuffers;
 
 	public:
-		virtual Liar::Int GetStride() const;
+		virtual Liar::Int GetSize() const;
 		virtual Liar::Int GetFormat() const;
 
 		virtual void AddVertexBuffer(void*);
 		virtual void SetVertexBuffer(Liar::Int, void*);
 		virtual void SetVertexBufferLen(Liar::Int);
 		virtual void* GetVertexBuffer(Liar::Int) const;
+		virtual void ToString();
 	};
 
 	/**
@@ -45,13 +46,14 @@ namespace Liar
 		Liar::Int m_numberBuffers;
 
 	public:
-		virtual Liar::Int GetStride() const;
+		virtual Liar::Int GetSize() const;
 		virtual Liar::Int GetFormat() const;
 
 		virtual void AddVertexBuffer(void*);
 		virtual void SetVertexBuffer(Liar::Int, void*);
 		virtual void SetVertexBufferLen(Liar::Int);
 		virtual void* GetVertexBuffer(Liar::Int) const;
+		virtual void ToString();
 	};
 
 	/**
@@ -68,13 +70,14 @@ namespace Liar
 		Liar::Int m_numberBuffers;
 
 	public:
-		virtual Liar::Int GetStride() const;
+		virtual Liar::Int GetSize() const;
 		virtual Liar::Int GetFormat() const;
 
 		virtual void AddVertexBuffer(void*);
 		virtual void SetVertexBuffer(Liar::Int, void*);
 		virtual void SetVertexBufferLen(Liar::Int);
 		virtual void* GetVertexBuffer(Liar::Int) const;
+		virtual void ToString();
 	};
 
 	/**
@@ -91,13 +94,14 @@ namespace Liar
 		Liar::Int m_numberBuffers;
 
 	public:
-		virtual Liar::Int GetStride() const;
+		virtual Liar::Int GetSize() const;
 		virtual Liar::Int GetFormat() const;
 
 		virtual void AddVertexBuffer(void*);
 		virtual void SetVertexBuffer(Liar::Int, void*);
 		virtual void SetVertexBufferLen(Liar::Int);
 		virtual void* GetVertexBuffer(Liar::Int) const;
+		virtual void ToString();
 	};
 
 }

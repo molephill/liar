@@ -23,7 +23,7 @@ namespace Liar
 		Liar::Number xz = x * z;
 		Liar::Number yz = y * z;
 
-		resultE[3] = resultE[7] = resultE[11] = resultE[12] = resultE[13] = resultE[14] = 0.0f;
+		resultE[3] = resultE[7] = resultE[11] = resultE[12] = resultE[13] = resultE[14] = Liar::ZERO;
 		resultE[15] = 1.0f;
 		resultE[0] = xx + (cos * (1.0f - xx));
 		resultE[1] = (xy - (cos * xy)) + (sin * z);
@@ -73,7 +73,7 @@ namespace Liar
 	void Matrix4x4::Multiply(const Liar::Matrix4x4& a, const Liar::Matrix4x4& b, Liar::Matrix4x4& e)
 	{
 		int i = 0;
-		Liar::Number ai0 = 0.0f, ai1 = 0.0f, ai2 = 0.0f, ai3 = 0.0f;
+		Liar::Number ai0 = Liar::ZERO, ai1 = Liar::ZERO, ai2 = Liar::ZERO, ai3 = Liar::ZERO;
 
 		for (i = 0; i < 4; i++)
 		{
@@ -139,7 +139,7 @@ namespace Liar
 		oe[10] = (farPlane + nearPlane) * nf;
 		oe[11] = -1.0f;
 		oe[14] = (2.0f * farPlane * nearPlane) * nf;
-		oe[1] = oe[2] = oe[3] = oe[4] = oe[6] = oe[7] = oe[8] = oe[9] = oe[12] = oe[13] = oe[15] = 0.0f;
+		oe[1] = oe[2] = oe[3] = oe[4] = oe[6] = oe[7] = oe[8] = oe[9] = oe[12] = oe[13] = oe[15] = Liar::ZERO;
 	}
 
 	void Matrix4x4::CreatePerspective(Liar::Number l, Liar::Number r, Liar::Number b, Liar::Number t, Liar::Number n, Liar::Number f, Liar::Matrix4x4& oe)
@@ -151,7 +151,7 @@ namespace Liar
 		oe[10] = -(f + n) / (f - n);
 		oe[11] = -1.0f;
 		oe[14] = -(2 * f * n) / (f - n);
-		oe[15] = 0.0f;
+		oe[15] = Liar::ZERO;
 	}
 
 	/**
@@ -311,7 +311,7 @@ namespace Liar
 		}
 		else
 		{
-			m[0] = m[1] = m[2] = 0.0f;
+			m[0] = m[1] = m[2] = Liar::ZERO;
 			return;
 		}
 		g = 1.0f / g;
@@ -461,15 +461,15 @@ namespace Liar
 		oe[0] = (1.0f - (yy + zz)) * sx;
 		oe[1] = (xy + wz) * sx;
 		oe[2] = (xz - wy) * sx;
-		oe[3] = 0.0f;
+		oe[3] = Liar::ZERO;
 		oe[4] = (xy - wz) * sy;
 		oe[5] = (1.0f - (xx + zz)) * sy;
 		oe[6] = (yz + wx) * sy;
-		oe[7] = 0.0f;
+		oe[7] = Liar::ZERO;
 		oe[8] = (xz + wy) * sz;
 		oe[9] = (yz - wx) * sz;
 		oe[10] = (1.0f - (xx + yy)) * sz;
-		oe[11] = 0.0f;
+		oe[11] = Liar::ZERO;
 		oe[12] = te[0];
 		oe[13] = te[1];
 		oe[14] = te[2];

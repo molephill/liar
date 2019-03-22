@@ -12,6 +12,7 @@ namespace Liar
 
 	public:
 		virtual void SetRenderMode(Liar::RenderModeDefine);
+		virtual void Draws(Liar::ShaderProgram&);
 	};
 }
 
