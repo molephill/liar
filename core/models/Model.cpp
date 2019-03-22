@@ -94,6 +94,9 @@ namespace Liar
 			std::string tmpName = name;
 			fread(&meshSize, strip, 1, pFile);
 
+			std::string folderName = Liar::StringParse::GetHead(m_url, "\\");
+			folderName += "\\";
+
 			// materials
 			Liar::Int materialSize = 0;
 			fread(&materialSize, strip, 1, pFile);
@@ -113,6 +116,7 @@ namespace Liar
 					Liar::Int mapSlot = 0;
 					fread(&mapSlot, strip, 1, pFile);
 					std::string tmpBitmapPath = Liar::MathUtils3D::ReadString(pFile);
+					tmpBitmapPath = folderName + tmpBitmapPath;
 					
 					Liar::BaseTexture* tex = Liar::Liar3D::mtl->GetShareTexture(tmpBitmapPath.c_str(), Liar::TextureTypeDefine::TEXTURE_2D);
 					mat->SetAmbientTexture(tex);

@@ -48,7 +48,7 @@ namespace Liar
 #else
 		Liar::Liar3D::urlFormat->basePath = "E:\\c++\\liar\\liar\\core\\";
 		Liar::Liar3D::urlFormat->baseshaderFolder = "resource\\shader\\files\\";
-		Liar::Liar3D::urlFormat->baseSourceFolder = "C:\\Users\\Administrator\\Desktop\\model\\new\\";
+		Liar::Liar3D::urlFormat->baseSourceFolder = "C:\\Users\\Administrator\\Desktop\\model\\";
 #endif
 		Liar::Liar3D::events = new Liar::EventController();
 		Liar::Liar3D::mtl = new Liar::MTL();

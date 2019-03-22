@@ -16,7 +16,7 @@ int main() {
 	camera3D->SetClearColor(0.2f, 0.3f, 0.3f);
 	camera3D->GetViewPort()->SetViewSize(Liar::WINDOW_W, Liar::WINDOW_H);
 	camera3D->GetTransform3D().SetPosition(0, 0, -50);
-	camera3D->GetTransform3D().Rotate(3, 0, 0);
+	//camera3D->GetTransform3D().Rotate(3, 0, 0);
 
 	Liar::Liar3D::cameraMoveScript->SetCamera(camera3D);
 
@@ -24,7 +24,8 @@ int main() {
 	Liar::Liar3D::stage->AddChild(mesh);*/
 
 	Liar::Model* model = new Liar::Model();
-	model->SetURL("box");
+	model->SetURL("new\\box");
+	model->GetTransform3D().SetScale(0.1f, 0.1f, 0.1f);
 	Liar::Liar3D::stage->AddChild(model);
 
 	Liar::Liar3D::Run();
