@@ -5,50 +5,6 @@
 
 namespace Liar
 {
-	void IVertexKey::SetVertexIndex(Liar::VertexElementAttr type, Liar::Uint val)
-	{
-		switch (type)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_POSITION:
-			SetPositionIndex(val);
-			break;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL:
-			SetNormalIndex(val);
-			break;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE:
-			SetTexCoordIndex(val);
-			break;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_COLOR:
-			SetColorIndex(val);
-			break;
-		default:
-			break;
-		}
-	}
-
-	Liar::Uint IVertexKey::GetVertexIndex(Liar::VertexElementAttr type) const
-	{
-		switch (type)
-		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_POSITION:
-			return GetPositionIndex();
-		case Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL:
-			return GetNormalIndex();
-		case Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE:
-			return GetTexCoordIndex();
-		case Liar::VertexElementAttr::ELEMENT_ATTR_COLOR:
-			return GetColorIndex();
-		/*case Liar::ELEMENT_ATTR_ROTATION:
-			break;
-		case Liar::ELEMENT_ATTR_RAW_KEY:
-			break;
-		case Liar::ELEMENT_ATTR_RAW_INDICES:
-			break;*/
-		default:
-			return 0;
-		}
-	}
-
 	/*
 	* 具体数据处理
 	*/
@@ -56,7 +12,7 @@ namespace Liar
 		m_geomtryVertexType(vertextype),
 		m_indices(nullptr), m_numberIndices(0),
 		m_vertexKeys(nullptr), m_numberVertexKeys(0),
-		m_mtlIndex(-1)
+		m_mtlIndex(-1), m_vertexIndex(0)
 	{
 	}
 
@@ -80,53 +36,30 @@ namespace Liar
 		return GetStride() * m_numberVertexKeys;
 	}
 
-	void* IRawVertexBuffers::GetUploadVertexBuffer(Liar::Int index, Liar::VertexElementAttr attr)
+	void IRawVertexBuffers::AddRawKeyVertexBuffer(Liar::IntHeapOperator* data)
 	{
-		Liar::IVertexKey* key = m_vertexKeys[index];
-		Liar::Int vertexIndex = key->GetVertexIndex(attr);
-		return GetSubVertexBuffer(attr, vertexIndex);
+		if (!data) return;
+		SetRawKeyVertexBufferLen(m_numberVertexKeys + 1);
+		m_vertexKeys[m_numberVertexKeys - 1] = data;
 	}
 
-	void IRawVertexBuffers::CheckAddVertexKey(const Liar::IVertexKey& check)
+	void IRawVertexBuffers::SetRawKeyVertexBuffer(Liar::Int index, Liar::IntHeapOperator* data)
 	{
-		Liar::IVertexKey* tmpKey = nullptr;
-		Liar::Int findIndex = m_numberIndices;
-		for (Liar::Int i = 0; i < m_numberVertexKeys; ++i)
-		{
-			Liar::IVertexKey& hasKey = *(m_vertexKeys[i]);
-			if (hasKey == check)
-			{
-				tmpKey = m_vertexKeys[i];
-				findIndex = i;
-				break;
-			}
-		}
-		if (!tmpKey)
-		{
-			tmpKey = check.Clone();
-			AddRawKeyVertexBuffer(tmpKey);
-		}
-		AddRawIndex(findIndex);
-	}
-
-	// 获得一个 raw_key 对象
-	IVertexKey* IRawVertexBuffers::CreateVertexKey(Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w)
-	{
-		IVertexKey* key = Liar::Liar3D::geometryFactory->GetVertexFactory().GetVertexKey(m_geomtryVertexType);
-		key->SetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION, static_cast<Liar::Uint>(x));
-		key->SetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL, static_cast<Liar::Uint>(y));
-		key->SetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE, static_cast<Liar::Uint>(z));
-		key->SetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_COLOR, static_cast<Liar::Uint>(w));
-		return key;
+		if (index >= m_numberVertexKeys) return;
+		if (m_vertexKeys[index] != data && m_vertexKeys[index]) delete m_vertexKeys[index];
+		m_vertexKeys[index] = data;
 	}
 
 	// 设置raw_key长度
 	void IRawVertexBuffers::SetRawKeyVertexBufferLen(Liar::Int len)
 	{
+		if (m_numberVertexKeys == len) return;
+		Liar::Int pre = m_numberVertexKeys;
 		m_numberVertexKeys = len;
-		size_t blockSize = sizeof(Liar::IVertexKey*)*m_numberVertexKeys;
-		if (m_vertexKeys) m_vertexKeys = (Liar::IVertexKey**)realloc(m_vertexKeys, blockSize);
-		else m_vertexKeys = (Liar::IVertexKey**)malloc(blockSize);
+		size_t blockSize = sizeof(Liar::IntHeapOperator*)*m_numberVertexKeys;
+		if (m_vertexKeys) m_vertexKeys = (Liar::IntHeapOperator**)realloc(m_vertexKeys, blockSize);
+		else m_vertexKeys = (Liar::IntHeapOperator**)malloc(blockSize);
+		for (Liar::Int i = pre; i < m_numberVertexKeys; ++i) m_vertexKeys[i] = nullptr;
 	}
 
 	// 设置raw_indexraw_index
@@ -136,32 +69,6 @@ namespace Liar
 		size_t blockSize = sizeof(Liar::Uint)*m_numberIndices;
 		if (m_indices) m_indices = (Liar::Uint*)realloc(m_indices, blockSize);
 		else m_indices = (Liar::Uint*)malloc(blockSize);
-	}
-
-	// 增加raw_key信息
-	void IRawVertexBuffers::AddRawKeyVertexBuffer(Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w)
-	{
-		Liar::IVertexKey* key = CreateVertexKey(x, y, z, w);
-		AddRawKeyVertexBuffer(key);
-	}
-
-	void IRawVertexBuffers::AddRawKeyVertexBuffer(Liar::IVertexKey* key)
-	{
-		if (!key) return;
-		SetRawKeyVertexBufferLen(m_numberVertexKeys + 1);
-		m_vertexKeys[m_numberVertexKeys - 1] = key;
-	}
-
-	// 设置raw_key信息
-	void IRawVertexBuffers::SetRawKeyVertexBuffer(size_t index, Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w)
-	{
-		Liar::IVertexKey* key = CreateVertexKey(x, y, z, w);
-		SetRawKeyVertexBuffer(index, key);
-	}
-
-	void IRawVertexBuffers::SetRawKeyVertexBuffer(size_t index, Liar::IVertexKey* key)
-	{
-		m_vertexKeys[index] = key;
 	}
 
 	// 获得raw_key信息
@@ -179,41 +86,23 @@ namespace Liar
 	}
 
 	// 设置raw_index信息
-	void IRawVertexBuffers::SetRawIndex(size_t index, Liar::Number x)
+	void IRawVertexBuffers::SetRawIndex(Liar::Int index, Liar::Uint x)
 	{
-		m_indices[index] = static_cast<Liar::Uint>(x);
+		m_indices[index] = x;
 	}
 
 	// 获得raw_index信息
-	void* IRawVertexBuffers::GetRawIndex(size_t index) const
+	void* IRawVertexBuffers::GetRawIndex(Liar::Int index) const
 	{
 		return &(m_indices[index]);
 	}
 
-	void IRawVertexBuffers::AddSubVertexBuffer(Liar::VertexElementAttr type, Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w)
+	void IRawVertexBuffers::AddSubVertexBuffer(Liar::VertexElementAttr type, Liar::IHeapOperator* data)
 	{
 		switch (type)
 		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_POSITION:
-			AddPositionVertexBuffer(x, y, z);
-			break;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL:
-			AddNormalVertexBuffer(x, y, z);
-			break;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE:
-			AddTexCoordVertexBuffer(x, y, z);
-			break;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_COLOR:
-			AddColorVertexBuffer(x, y, z, w);
-			break;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_ROTATION:
-			AddRotationVertexBuffer(x, y, z, w);
-			break;
 		case Liar::VertexElementAttr::ELEMENT_ATTR_RAW_KEY:
-			AddRawKeyVertexBuffer(x, y, z, w);
-			break;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_RAW_INDICES:
-			AddRawIndex(x);
+			AddRawKeyVertexBuffer(static_cast<Liar::IntHeapOperator*>(data));
 			break;
 		default:
 			break;
@@ -224,21 +113,6 @@ namespace Liar
 	{
 		switch (attr)
 		{
-		case Liar::VertexElementAttr::ELEMENT_ATTR_POSITION:
-			SetPositionVertexBufferLen(len);
-			break;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL:
-			SetNormalVertexBufferLen(len);
-			break;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE:
-			SetTexCoordVertexBufferLen(len);
-			break;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_COLOR:
-			SetColorVertexBufferLen(len);
-			break;
-		case Liar::VertexElementAttr::ELEMENT_ATTR_ROTATION:
-			SetRotationVertexBufferLen(len);
-			break;
 		case Liar::VertexElementAttr::ELEMENT_ATTR_RAW_KEY:
 			SetRawKeyVertexBufferLen(len);
 			break;
@@ -250,54 +124,25 @@ namespace Liar
 		}
 	}
 
-	void IRawVertexBuffers::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index,
-		Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w)
+	void IRawVertexBuffers::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index, Liar::IHeapOperator* data)
 	{
 		switch (attr)
 		{
-		case Liar::ELEMENT_ATTR_POSITION:
-			SetPositionVertexBuffer(index, x, y, z);
-			break;
-		case Liar::ELEMENT_ATTR_NORMAL:
-			SetNormalVertexBuffer(index, x, y, z);
-			break;
-		case Liar::ELEMENT_ATTR_TEXTURECOORDINATE:
-			SetTexCoordVertexBuffer(index, x, y, z);
-			break;
-		case Liar::ELEMENT_ATTR_COLOR:
-			SetColorVertexBuffer(index, x, y, z, w);
-			break;
-		case Liar::ELEMENT_ATTR_ROTATION:
-			SetRotationVertexBuffer(index, x, y, z, w);
-			break;
-		case Liar::ELEMENT_ATTR_RAW_KEY:
-			SetRawKeyVertexBuffer(index, x, y, z, w);
-			break;
-		case Liar::ELEMENT_ATTR_RAW_INDICES:
-			SetRawIndex(index, x);
+		case Liar::VertexElementAttr::ELEMENT_ATTR_RAW_KEY:
+			SetRawKeyVertexBuffer(index, static_cast<Liar::IntHeapOperator*>(data));
 			break;
 		default:
 			break;
 		}
 	}
 
-	void* IRawVertexBuffers::GetSubVertexBuffer(Liar::VertexElementAttr attr, size_t index)
+	void* IRawVertexBuffers::GetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index)
 	{
 		switch (attr)
 		{
-		case Liar::ELEMENT_ATTR_POSITION:
-			return GetPostionVertexBuffer(index);
-		case Liar::ELEMENT_ATTR_NORMAL:
-			return GetNormalVertexBuffer(index);
-		case Liar::ELEMENT_ATTR_TEXTURECOORDINATE:
-			return GetTexCoordVertexBuffer(index);
-		case Liar::ELEMENT_ATTR_COLOR:
-			return GetColorVertexBuffer(index);
-		case Liar::ELEMENT_ATTR_ROTATION:
-			return GetRotationVertexBuffer(index);
-		case Liar::ELEMENT_ATTR_RAW_KEY:
+		case Liar::VertexElementAttr::ELEMENT_ATTR_RAW_KEY:
 			return GetRawKeyVertexBuffer(index);
-		case Liar::ELEMENT_ATTR_RAW_INDICES:
+		case Liar::VertexElementAttr::ELEMENT_ATTR_RAW_INDICES:
 			return GetRawIndex(index);
 		default:
 			return nullptr;
@@ -314,6 +159,7 @@ namespace Liar
 		Liar::Int stride = GetStride();
 		for (Liar::Int i = 0; i < m_numberVertexKeys; ++i)
 		{
+			m_vertexIndex = 0;
 			size_t start = i * stride;
 			LoopUploadSubData(gl, type, i, start);
 		}

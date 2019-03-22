@@ -46,10 +46,7 @@ namespace Liar
 		m_geometryVertexType = static_cast<Liar::GeometryVertexType>(type);
 		m_rawVertexBuffers = Liar::Liar3D::geometryFactory->GetVertexFactory().GetRawVertexBuffers(m_geometryVertexType);
 		// 顶点类型
-		ReadTypeVertex(pFile);			// positions
-		ReadTypeVertex(pFile);			// normals
-		ReadTypeVertex(pFile);			// texCoords
-		ReadTypeVertex(pFile);			// colors
+		ReadDynamicVertex(m_geometryVertexType, pFile);
 		ReadTypeVertex(pFile);			// keys
 		ReadTypeVertex(pFile);			// indices
 		// 引用材质索引
@@ -60,79 +57,166 @@ namespace Liar
 		fclose(pFile);
 	}
 
+	void NetGeometry::ReadDynamicVertex(Liar::GeometryVertexType type, FILE* pFile)
+	{
+		switch (type)
+		{
+		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL:
+		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_COLOR:
+		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_TEXTURE:
+			LoopReadTypeVertex(pFile);
+			break;
+		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_COLOR:
+		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_TEXTURE_SKIN:
+		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_TEXTURE:
+			LoopReadTypeVertex(pFile, 3);
+			break;
+		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_COLOR_TEXTURE:
+		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_COLOR_SKIN:
+		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_TEXTURE_SKIN:
+			LoopReadTypeVertex(pFile, 4);
+			break;
+		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_COLOR_TEXTURE_SKIN:
+			LoopReadTypeVertex(pFile, 5);
+			break;
+		default:
+			break;
+		}
+	}
+
+	void NetGeometry::LoopReadTypeVertex(FILE* pFile, Liar::Int len)
+	{
+		for (Liar::Int i = 0; i < len; ++i) ReadTypeVertex(pFile);
+	}
+
 	void NetGeometry::ReadTypeVertex(FILE* pFile)
 	{
 		Liar::Int type = 0;
 		fread(&type, sizeof(Liar::Int), 1, pFile);
 		Liar::VertexElementAttr vexType = static_cast<Liar::VertexElementAttr>(type);
 
+		// 数组长度
 		Liar::Int len = 0;
 		fread(&len, sizeof(Liar::Int), 1, pFile);
 		m_rawVertexBuffers->SetSubVertexBufferLen(vexType, len);
-		for (Liar::Int i = 0; i < len; ++i)
-		{
-			ReadTypeVertex(vexType, i, pFile);
-		}
-	}
 
-	void NetGeometry::ReadTypeVertex(Liar::VertexElementAttr attr, Liar::Int index, FILE* pFile)
-	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_RAW_INDICES)
+		if (vexType == Liar::VertexElementAttr::ELEMENT_ATTR_BONE_INDICES ||
+			vexType == Liar::VertexElementAttr::ELEMENT_ATTR_RAW_KEY)
 		{
-			Liar::Uint x = 0;
-			fread(&x, sizeof(Liar::Uint), 1, pFile);
-			m_rawVertexBuffers->SetSubVertexBuffer(attr, index, x);
+			ReadIntHeapOperator(vexType, len, pFile);
 		}
-		else if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_RAW_KEY)
+		else if (vexType == Liar::VertexElementAttr::ELEMENT_ATTR_BONE_WEIGHTS)
 		{
-			Liar::Int x = 0;
-			Liar::Int y = 0;
-			Liar::Int z = 0;
-			Liar::Int w = 0;
-			size_t strip = sizeof(Liar::Int);
-			fread(&x, strip, 1, pFile);
-			fread(&y, strip, 1, pFile);
-			fread(&z, strip, 1, pFile);
-			fread(&w, strip, 1, pFile);
-			m_rawVertexBuffers->SetSubVertexBuffer(attr, index, x, y, z, w);
+			ReadFloatHeapOperator(vexType, len, pFile);
+		}
+		else if (vexType == Liar::VertexElementAttr::ELEMENT_ATTR_RAW_INDICES)
+		{
+			size_t blockSize = sizeof(Liar::Uint);
+			for (Liar::Int i = 0; i < len; ++i)
+			{
+				Liar::Int index = 0;
+				fread(&index, blockSize, 1, pFile);
+				m_rawVertexBuffers->SetRawIndex(i, index);
+			}
 		}
 		else
 		{
-			Liar::Number x = Liar::ZERO;
-			Liar::Number y = Liar::ZERO;
-			size_t len = sizeof(Liar::Number);
-
-			fread(&x, len, 1, pFile);
-			fread(&y, len, 1, pFile);
-
-			switch (attr)
+			Liar::VertexFormatType elementType = Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR2;
+			switch (vexType)
 			{
 			case Liar::VertexElementAttr::ELEMENT_ATTR_POSITION:
 			case Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL:
 			case Liar::VertexElementAttr::ELEMENT_ATTR_COLOR:
-			{
-				Liar::Number z = Liar::ZERO;
-				fread(&z, len, 1, pFile);
-				m_rawVertexBuffers->SetSubVertexBuffer(attr, index, x, y, z);
+			case Liar::VertexElementAttr::ELEMENT_ATTR_SCALE:
+				elementType = Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR3;
 				break;
-			}
 			case Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE:
-			{
-				m_rawVertexBuffers->SetSubVertexBuffer(attr, index, x, y);
+				elementType = Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR2;
 				break;
-			}
 			case Liar::VertexElementAttr::ELEMENT_ATTR_ROTATION:
-			{
-				Liar::Number z = Liar::ZERO;
-				Liar::Number w = Liar::ZERO;
-				fread(&z, len, 1, pFile);
-				fread(&w, len, 1, pFile);
-				m_rawVertexBuffers->SetSubVertexBuffer(attr, index, x, y, z, w);
+				elementType = Liar::VertexFormatType::VERTEX_FORMAT_TYPE_QUATERNION;
 				break;
-			}
 			default:
+				elementType = Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR4;
 				break;
 			}
+
+			for (Liar::Int i = 0; i < len; ++i)
+			{
+				Liar::IHeapOperator* vec = ReadFloatVector(elementType, pFile);
+				m_rawVertexBuffers->SetSubVertexBuffer(vexType, i, vec);
+			}
+		}
+	}
+
+	Liar::IHeapOperator* NetGeometry::ReadFloatVector(Liar::VertexFormatType type, FILE* pFile)
+	{
+		size_t floatSize = sizeof(Liar::Number);
+		switch (type)
+		{
+		case Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR2:
+		{
+			Liar::Vector2* vec = new Liar::Vector2();
+			fread(&(vec->x), floatSize, 1, pFile);
+			fread(&(vec->y), floatSize, 1, pFile);
+			return vec;
+		}
+		case Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR3:
+		{
+			Liar::Vector3* vec = new Liar::Vector3();
+			fread(&(vec->x), floatSize, 1, pFile);
+			fread(&(vec->y), floatSize, 1, pFile);
+			fread(&(vec->z), floatSize, 1, pFile);
+			return vec;
+		}
+		case Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR4:
+		{
+			Liar::Vector4* vec = new Liar::Vector4();
+			fread(&(vec->x), floatSize, 1, pFile);
+			fread(&(vec->y), floatSize, 1, pFile);
+			fread(&(vec->z), floatSize, 1, pFile);
+			fread(&(vec->w), floatSize, 1, pFile);
+			return vec;
+		}
+		case Liar::VertexFormatType::VERTEX_FORMAT_TYPE_QUATERNION:
+		{
+			Liar::Quaternion* vec = new Liar::Quaternion();
+			fread(&(vec->x), floatSize, 1, pFile);
+			fread(&(vec->y), floatSize, 1, pFile);
+			fread(&(vec->z), floatSize, 1, pFile);
+			fread(&(vec->w), floatSize, 1, pFile);
+			return vec;
+		}
+		default:
+			return nullptr;
+		}
+	}
+
+	void NetGeometry::ReadIntHeapOperator(Liar::VertexElementAttr type, Liar::Int len, FILE* pFile)
+	{
+		size_t blockSize = sizeof(Liar::Int);
+
+		Liar::Int perSize = 0;
+		fread(&perSize, blockSize, 1, pFile);
+
+		for (Liar::Int i = 0; i < len; ++i)
+		{
+			Liar::IntHeapOperator* it = new Liar::IntHeapOperator(perSize);
+			for (Liar::Int j = 0; j < perSize; ++j) fread(&((*it)[j]), blockSize, 1, pFile);
+			m_rawVertexBuffers->SetSubVertexBuffer(type, i, it);
+		}
+	}
+
+	void NetGeometry::ReadFloatHeapOperator(Liar::VertexElementAttr type, Liar::Int len, FILE* pFile)
+	{
+		size_t blockSize = sizeof(Liar::Int);
+		Liar::Int perSize = 0;
+		fread(&perSize, blockSize, 1, pFile);
+
+		for (Liar::Int i = 0; i < len; ++i)
+		{
+			Liar::IHeapOperator* it = ReadFloatVector(static_cast<Liar::VertexFormatType>(perSize - 2), pFile);
+			m_rawVertexBuffers->SetSubVertexBuffer(type, i, it);
 		}
 	}
 }

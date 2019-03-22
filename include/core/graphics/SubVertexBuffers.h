@@ -25,14 +25,9 @@ namespace Liar
 		virtual Liar::Int GetStride() const;
 		virtual Liar::Int GetFormat() const;
 
-		virtual void AddVertexBuffer(Liar::Number, Liar::Number, Liar::Number = Liar::ZERO, Liar::Number = Liar::ZERO);
 		virtual void AddVertexBuffer(void*);
-
-		virtual void SetVertexBuffer(Liar::Int, Liar::Number, Liar::Number, Liar::Number = Liar::ZERO, Liar::Number = Liar::ZERO);
 		virtual void SetVertexBuffer(Liar::Int, void*);
-
 		virtual void SetVertexBufferLen(Liar::Int);
-
 		virtual void* GetVertexBuffer(Liar::Int) const;
 	};
 
@@ -53,25 +48,43 @@ namespace Liar
 		virtual Liar::Int GetStride() const;
 		virtual Liar::Int GetFormat() const;
 
-		virtual void AddVertexBuffer(Liar::Number, Liar::Number, Liar::Number = Liar::ZERO, Liar::Number = Liar::ZERO);
 		virtual void AddVertexBuffer(void*);
-
-		virtual void SetVertexBuffer(Liar::Int, Liar::Number, Liar::Number, Liar::Number = Liar::ZERO, Liar::Number = Liar::ZERO);
 		virtual void SetVertexBuffer(Liar::Int, void*);
-
 		virtual void SetVertexBufferLen(Liar::Int);
-
 		virtual void* GetVertexBuffer(Liar::Int) const;
 	};
 
 	/**
-	* vector4
+	* Vector4
 	*/
 	class SubVector4VertexBuffer :public Liar::ISubVertexBuffers
 	{
 	public:
 		SubVector4VertexBuffer();
 		virtual ~SubVector4VertexBuffer();
+
+	protected:
+		Liar::Vector4** m_buffers;
+		Liar::Int m_numberBuffers;
+
+	public:
+		virtual Liar::Int GetStride() const;
+		virtual Liar::Int GetFormat() const;
+
+		virtual void AddVertexBuffer(void*);
+		virtual void SetVertexBuffer(Liar::Int, void*);
+		virtual void SetVertexBufferLen(Liar::Int);
+		virtual void* GetVertexBuffer(Liar::Int) const;
+	};
+
+	/**
+	* Quat
+	*/
+	class SubQuatVertexBuffer :public Liar::ISubVertexBuffers
+	{
+	public:
+		SubQuatVertexBuffer();
+		virtual ~SubQuatVertexBuffer();
 
 	protected:
 		Liar::Quaternion** m_buffers;
@@ -81,14 +94,10 @@ namespace Liar
 		virtual Liar::Int GetStride() const;
 		virtual Liar::Int GetFormat() const;
 
-		virtual void AddVertexBuffer(Liar::Number, Liar::Number, Liar::Number = Liar::ZERO, Liar::Number = Liar::ZERO);
 		virtual void AddVertexBuffer(void*);
-
-		virtual void SetVertexBuffer(Liar::Int, Liar::Number, Liar::Number, Liar::Number = Liar::ZERO, Liar::Number = Liar::ZERO);
 		virtual void SetVertexBuffer(Liar::Int, void*);
-
 		virtual void SetVertexBufferLen(Liar::Int);
-
 		virtual void* GetVertexBuffer(Liar::Int) const;
 	};
+
 }

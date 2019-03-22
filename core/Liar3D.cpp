@@ -58,6 +58,8 @@ namespace Liar
 		Liar::Liar3D::shaderCompile = new Liar::ShaderCompile();
 		Liar::Liar3D::rendering = new Liar::Renderer();
 		Liar::Liar3D::cameraMoveScript = new Liar::CameraMoveScript();
+
+		Liar::Liar3D::renderState->stageContext->Enable(GL_DEPTH_TEST);
 	}
 
 	void Liar3D::Run()

@@ -19,9 +19,17 @@ namespace Liar
 
 		void SetURL(const char*);
 
+	public:
+		static Liar::IHeapOperator* ReadFloatVector(Liar::VertexFormatType, FILE*);
+
 	protected:
 		virtual void RecreateSubResource();
+		void ReadDynamicVertex(Liar::GeometryVertexType, FILE*);
 		void ReadTypeVertex(FILE*);
-		void ReadTypeVertex(Liar::VertexElementAttr, Liar::Int, FILE*);
+		void LoopReadTypeVertex(FILE*, Liar::Int = 2);
+
+		// 解析各类型顶点
+		void ReadIntHeapOperator(Liar::VertexElementAttr, Liar::Int, FILE*);
+		void ReadFloatHeapOperator(Liar::VertexElementAttr, Liar::Int, FILE*);
 	};
 }

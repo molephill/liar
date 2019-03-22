@@ -4,23 +4,6 @@
 
 namespace Liar
 {
-	class VertexPositionColorKey :public Liar::VertexPositionKey
-	{
-	public:
-		VertexPositionColorKey();
-		virtual ~VertexPositionColorKey() {};
-
-	protected:
-		Liar::Uint m_colorIndex;
-		virtual void SetColorIndex(Liar::Uint val) { m_colorIndex = val; };
-		virtual Liar::Uint GetColorIndex() const { return m_colorIndex; };
-
-	public:
-		virtual void PrintData();
-		virtual Liar::Boolen operator==(const Liar::IVertexKey&) const;
-		virtual Liar::IVertexKey* Clone() const;
-	};
-
 	class RawVertexBuffersPositonColor:public RawVertexBuffersPosition
 	{
 	public:
@@ -32,11 +15,9 @@ namespace Liar
 
 	protected:
 		// 增加color信息
-		virtual void AddColorVertexBuffer(Liar::Number, Liar::Number, Liar::Number = Liar::ZERO, Liar::Number = Liar::ZERO);
-		virtual void AddColorVertexBuffer(const Liar::Vector3&);
+		virtual void AddColorVertexBuffer(Liar::IHeapOperator*);
 		// 设置color信息
-		virtual void SetColorVertexBuffer(size_t, Liar::Number, Liar::Number, Liar::Number = Liar::ZERO, Liar::Number = Liar::ZERO);
-		virtual void SetColorVertexBuffer(size_t, Liar::Vector3*);
+		virtual void SetColorVertexBuffer(Liar::Int, Liar::IHeapOperator*);
 		// 设置color长度
 		virtual void SetColorVertexBufferLen(Liar::Int);
 		// 获得color信息
@@ -46,6 +27,19 @@ namespace Liar
 		virtual size_t VertexAttrbSubPointer(Liar::StageContext&, size_t);
 
 	public:
+		// 设置 buffer 信息
+		virtual void AddSubVertexBuffer(Liar::VertexElementAttr, Liar::IHeapOperator*);
+		virtual void SetSubVertexBuffer(Liar::VertexElementAttr, Liar::Int, Liar::IHeapOperator*);
+
+		// 已知 vertexBuffer 长度
+		virtual void SetSubVertexBufferLen(Liar::VertexElementAttr, Liar::Int);
+
+		// 取得 buffer
+		virtual void* GetSubVertexBuffer(Liar::VertexElementAttr, Liar::Int);
+
+		// 获得提交指定顶点属性信息
+		virtual void* GetUploadVertexBuffer(Liar::Int, Liar::VertexElementAttr);
+
 		virtual Liar::Int GetStride() const;
 	};
 }

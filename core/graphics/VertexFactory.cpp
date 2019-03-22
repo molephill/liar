@@ -10,23 +10,6 @@ namespace Liar
 	{
 	}
 
-	Liar::IVertexKey* VertexFactory::GetVertexKey(Liar::GeometryVertexType attr)
-	{
-		switch (attr)
-		{
-		case Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_POSITION:
-			return new Liar::VertexPositionKey();
-		case Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_POSITION_COLOR:
-			return new Liar::VertexPositionColorKey();
-		case Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL:
-			return new Liar::VertexPositionNormalKey();
-		case Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_TEXTURE:
-			return new Liar::VertexPositionNormalTextureKey();
-		default:
-			return nullptr;
-		}
-	}
-
 	Liar::IRawVertexBuffers* VertexFactory::GetRawVertexBuffers(Liar::GeometryVertexType attr)
 	{
 		switch (attr)

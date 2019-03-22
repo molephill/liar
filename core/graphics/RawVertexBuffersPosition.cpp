@@ -3,27 +3,6 @@
 
 namespace Liar
 {
-	VertexPositionKey::VertexPositionKey() :
-		m_positonIndex(0)
-	{}
-
-	Liar::Boolen VertexPositionKey::operator==(const Liar::IVertexKey& rhs) const
-	{
-		return m_positonIndex == rhs.GetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION);
-	}
-
-	Liar::IVertexKey* VertexPositionKey::Clone() const
-	{
-		Liar::VertexPositionKey* tmp = new Liar::VertexPositionKey();
-		tmp->SetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION, m_positonIndex);
-		return tmp;
-	}
-
-	void VertexPositionKey::PrintData()
-	{
-		std::cout << m_positonIndex;
-	}
-
 	/*
 	* 具体数据
 	*/
@@ -45,25 +24,15 @@ namespace Liar
 	}
 
 	// 增加position信息
-	void RawVertexBuffersPosition::AddPositionVertexBuffer(Liar::Number x, Liar::Number y, Liar::Number z)
+	void RawVertexBuffersPosition::AddPositionVertexBuffer(Liar::IHeapOperator* data)
 	{
-		m_position->AddVertexBuffer(x, y, z);
-	}
-
-	void RawVertexBuffersPosition::AddPositionVertexBuffer(const Liar::Vector3& pos)
-	{
-		AddPositionVertexBuffer(pos.x, pos.y, pos.z);
+		m_position->AddVertexBuffer(data);
 	}
 
 	// 设置position信息
-	void RawVertexBuffersPosition::SetPositionVertexBuffer(size_t index, Liar::Number x, Liar::Number y, Liar::Number z)
+	void RawVertexBuffersPosition::SetPositionVertexBuffer(Liar::Int index, Liar::IHeapOperator* data)
 	{
-		SetPositionVertexBuffer(index, new Liar::Vector3(x, y, z));
-	}
-
-	void RawVertexBuffersPosition::SetPositionVertexBuffer(size_t index, Liar::Vector3* pos)
-	{
-		m_position->SetVertexBuffer(index, pos);
+		m_position->SetVertexBuffer(index, data);
 	}
 
 	// 设置position长度
@@ -73,9 +42,50 @@ namespace Liar
 	}
 
 	// 获得position信息
-	void* RawVertexBuffersPosition::GetPostionVertexBuffer(size_t index) const
+	void* RawVertexBuffersPosition::GetPostionVertexBuffer(Liar::Int index) const
 	{
 		return m_position->GetVertexBuffer(index);
+	}
+
+	// 设置 buffer 信息
+	void RawVertexBuffersPosition::AddSubVertexBuffer(Liar::VertexElementAttr attr, Liar::IHeapOperator* data)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) AddPositionVertexBuffer(data);
+		else Liar::IRawVertexBuffers::AddSubVertexBuffer(attr, data);
+	}
+
+	void RawVertexBuffersPosition::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index, Liar::IHeapOperator* data)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) SetPositionVertexBuffer(index, data);
+		else Liar::IRawVertexBuffers::SetSubVertexBuffer(attr, index, data);
+	}
+
+	void RawVertexBuffersPosition::SetSubVertexBufferLen(Liar::VertexElementAttr attr, Liar::Int len)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) SetPositionVertexBufferLen(len);
+		else Liar::IRawVertexBuffers::SetSubVertexBufferLen(attr, len);
+	}
+
+	// 取得 buffer
+	void* RawVertexBuffersPosition::GetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) return GetPostionVertexBuffer(index);
+		else return Liar::IRawVertexBuffers::GetSubVertexBuffer(attr, index);
+	}
+
+	// 获得提交指定顶点属性信息
+	void* RawVertexBuffersPosition::GetUploadVertexBuffer(Liar::Int index, Liar::VertexElementAttr attr)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_POSITION)
+		{
+			Liar::IntHeapOperator* key = m_vertexKeys[index];
+			Liar::Int posIndex = (*key)[m_vertexIndex++];
+			return GetSubVertexBuffer(attr, posIndex);
+		}
+		else
+		{
+			return nullptr;
+		}
 	}
 
 	size_t RawVertexBuffersPosition::LoopUploadSubData(Liar::StageContext& gl, GLenum type, Liar::Int i, size_t start)
@@ -101,22 +111,5 @@ namespace Liar
 		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
 		size_t stride = GetStride();
 		VertexAttrbSubPointer(gl, stride);
-	}
-
-	void RawVertexBuffersPosition::PrintData()
-	{
-		std::cout << "indices:\n";
-		Liar::Int i = 0;
-		for (i = 0; i < m_numberIndices; ++i)
-		{
-			std::cout << "index: " << i << " : " << m_indices[i] << "\n";
-		}
-		std::cout << "vertex:\n";
-		for (i = 0; i < m_numberVertexKeys; ++i)
-		{
-			std::cout << "index: " << i << " : ";
-			m_vertexKeys[i]->PrintData();
-			std::cout << "\n";
-		}
 	}
 }

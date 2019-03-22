@@ -30,35 +30,22 @@ namespace Liar
 
 	Liar::Int SubVector2VertexBuffer::GetFormat() const
 	{
-		return Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR2;
-	}
-
-	void SubVector2VertexBuffer::AddVertexBuffer(Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w)
-	{
-		void* buffer = GetSubVertexBuffer(Liar::VertexElementSize::ELEMENT_SIZE_VECTOR2, (void**)m_buffers, m_numberBuffers, x, y, z, w);
-		Liar::Vector2* color = static_cast<Liar::Vector2*>(buffer);
-		if (!color)
-		{
-			SetVertexBufferLen(m_numberBuffers + 1);
-			color = new Liar::Vector2(x, y);
-			m_buffers[m_numberBuffers - 1] = color;
-		}
+		return Liar::VertexElementFormatSize::ELEMENT_FORMAT_VECTOR2;
 	}
 
 	void SubVector2VertexBuffer::AddVertexBuffer(void* c)
 	{
-		Liar::Vector2* color = static_cast<Liar::Vector2*>(c);
-		if (color) AddVertexBuffer(color->x, color->y);
-	}
-
-	void SubVector2VertexBuffer::SetVertexBuffer(Liar::Int index, Liar::Number x, Liar::Number y, Liar::Number, Liar::Number)
-	{
-		SetVertexBuffer(index, (void*)(new Liar::Vector2(x, y)));
+		void* buffer = GetSubVertexBuffer(Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR2, (void**)m_buffers, m_numberBuffers, c);
+		if (!buffer)
+		{
+			SetVertexBufferLen(m_numberBuffers + 1);
+			m_buffers[m_numberBuffers - 1] = static_cast<Liar::Vector2*>(c);
+		}
 	}
 
 	void SubVector2VertexBuffer::SetVertexBuffer(Liar::Int index, void* color)
 	{
-		if (m_buffers[index]) delete m_buffers[index];
+		if (m_buffers[index] != color && m_buffers[index]) delete m_buffers[index];
 		m_buffers[index] = static_cast<Liar::Vector2*>(color);
 	}
 
@@ -118,35 +105,22 @@ namespace Liar
 
 	Liar::Int SubVector3VertexBuffer::GetFormat() const
 	{
-		return Liar::VertexElementFormat::ELEMENT_FORMAT_VECTOR3;
-	}
-
-	void SubVector3VertexBuffer::AddVertexBuffer(Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w)
-	{
-		void* buffer = GetSubVertexBuffer(Liar::VertexElementSize::ELEMENT_SIZE_VECTOR3, (void**)m_buffers, m_numberBuffers, x, y, z, w);
-		Liar::Vector3* color = static_cast<Liar::Vector3*>(buffer);
-		if (!color)
-		{
-			SetVertexBufferLen(m_numberBuffers + 1);
-			color = new Liar::Vector3(x, y, z);
-			m_buffers[m_numberBuffers - 1] = color;
-		}
+		return Liar::VertexElementFormatSize::ELEMENT_FORMAT_VECTOR3;
 	}
 
 	void SubVector3VertexBuffer::AddVertexBuffer(void* c)
 	{
-		Liar::Vector3* color = static_cast<Liar::Vector3*>(c);
-		if (color) AddVertexBuffer(color->x, color->y, color->z);
-	}
-
-	void SubVector3VertexBuffer::SetVertexBuffer(Liar::Int index, Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number)
-	{
-		SetVertexBuffer(index, (void*)(new Liar::Vector3(x, y, z)));
+		void* buffer = GetSubVertexBuffer(Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR3, (void**)m_buffers, m_numberBuffers, c);
+		if (!buffer)
+		{
+			SetVertexBufferLen(m_numberBuffers + 1);
+			m_buffers[m_numberBuffers - 1] = static_cast<Liar::Vector3*>(c);
+		}
 	}
 
 	void SubVector3VertexBuffer::SetVertexBuffer(Liar::Int index, void* color)
 	{
-		if (m_buffers[index]) delete m_buffers[index];
+		if (m_buffers[index] != color && m_buffers[index]) delete m_buffers[index];
 		m_buffers[index] = static_cast<Liar::Vector3*>(color);
 	}
 
@@ -179,7 +153,7 @@ namespace Liar
 	}
 
 	/**
-	* vector4
+	* Vector4
 	*/
 	SubVector4VertexBuffer::SubVector4VertexBuffer() :
 		Liar::ISubVertexBuffers(),
@@ -206,39 +180,102 @@ namespace Liar
 
 	Liar::Int SubVector4VertexBuffer::GetFormat() const
 	{
-		return Liar::VertexElementFormat::ELEMENT_FORMAT_QUATERNION;
+		return Liar::VertexElementFormatSize::ELEMENT_FORMAT_VECTOR4;
 	}
 
-	void SubVector4VertexBuffer::AddVertexBuffer(Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w)
-	{
-		void* buffer = GetSubVertexBuffer(Liar::VertexElementSize::ELEMENT_SIZE_VECTOR4, (void**)m_buffers, m_numberBuffers, x, y, z, w);
-		Liar::Quaternion* color = static_cast<Liar::Quaternion*>(buffer);
-		if (!color)
-		{
-			SetVertexBufferLen(m_numberBuffers + 1);
-			color = new Liar::Quaternion(x, y, z, w);
-			m_buffers[m_numberBuffers - 1] = color;
-		}
-	}
 
 	void SubVector4VertexBuffer::AddVertexBuffer(void* c)
 	{
-		Liar::Quaternion* color = static_cast<Liar::Quaternion*>(c);
-		if (color) AddVertexBuffer(color->x, color->y, color->z, color->w);
-	}
-
-	void SubVector4VertexBuffer::SetVertexBuffer(Liar::Int index, Liar::Number x, Liar::Number y, Liar::Number z, Liar::Number w)
-	{
-		SetVertexBuffer(index, (void*)(new Liar::Quaternion(x, y, z, w)));
+		void* buffer = GetSubVertexBuffer(Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR4, (void**)m_buffers, m_numberBuffers, c);
+		if (!buffer)
+		{
+			SetVertexBufferLen(m_numberBuffers + 1);
+			m_buffers[m_numberBuffers - 1] = static_cast<Liar::Vector4*>(c);
+		}
 	}
 
 	void SubVector4VertexBuffer::SetVertexBuffer(Liar::Int index, void* color)
 	{
-		if (m_buffers[index]) delete m_buffers[index];
-		m_buffers[index] = static_cast<Liar::Quaternion*>(color);
+		if (m_buffers[index] != color && m_buffers[index]) delete m_buffers[index];
+		m_buffers[index] = static_cast<Liar::Vector4*>(color);
 	}
 
 	void SubVector4VertexBuffer::SetVertexBufferLen(Liar::Int len)
+	{
+		if (len == m_numberBuffers) return;
+		Liar::Int i = 0;
+		if (len < m_numberBuffers)
+		{
+			for (i = len; i < m_numberBuffers; ++i)
+			{
+				if (m_buffers[i]) delete m_buffers[i];
+			}
+		}
+		else
+		{
+			size_t blockSize = sizeof(Liar::Vector4*)*len;
+			if (m_buffers) m_buffers = (Liar::Vector4**)realloc(m_buffers, blockSize);
+			else m_buffers = (Liar::Vector4**)malloc(blockSize);
+
+			for (i = m_numberBuffers; i < len; ++i) m_buffers[i] = nullptr;
+		}
+		m_numberBuffers = len;
+	}
+
+	void* SubVector4VertexBuffer::GetVertexBuffer(Liar::Int index) const
+	{
+		if (index >= m_numberBuffers) return nullptr;
+		return m_buffers[index];
+	}
+
+	/**
+	* Quat
+	*/
+	SubQuatVertexBuffer::SubQuatVertexBuffer() :
+		Liar::ISubVertexBuffers(),
+		m_buffers(nullptr), m_numberBuffers(0)
+	{}
+
+	SubQuatVertexBuffer::~SubQuatVertexBuffer()
+	{
+		if (m_buffers)
+		{
+			for (Liar::Int i = 0; i < m_numberBuffers; ++i)
+			{
+				if (m_buffers[i]) delete m_buffers[i];
+			}
+			free(m_buffers);
+			m_buffers = nullptr;
+		}
+	}
+
+	Liar::Int SubQuatVertexBuffer::GetStride() const
+	{
+		return  Liar::VertexElementSize::ELEMENT_SIZE_QUATERNION;
+	}
+
+	Liar::Int SubQuatVertexBuffer::GetFormat() const
+	{
+		return Liar::VertexElementFormatSize::ELEMENT_FORMAT_QUATERNION;
+	}
+
+	void SubQuatVertexBuffer::AddVertexBuffer(void* c)
+	{
+		void* buffer = GetSubVertexBuffer(Liar::VertexFormatType::VERTEX_FORMAT_TYPE_QUATERNION, (void**)m_buffers, m_numberBuffers, c);
+		if (!buffer)
+		{
+			SetVertexBufferLen(m_numberBuffers + 1);
+			m_buffers[m_numberBuffers - 1] = static_cast<Liar::Quaternion*>(c);
+		}
+	}
+
+	void SubQuatVertexBuffer::SetVertexBuffer(Liar::Int index, void* color)
+	{
+		if (m_buffers[index] != color && m_buffers[index]) delete m_buffers[index];
+		m_buffers[index] = static_cast<Liar::Quaternion*>(color);
+	}
+
+	void SubQuatVertexBuffer::SetVertexBufferLen(Liar::Int len)
 	{
 		if (len == m_numberBuffers) return;
 		Liar::Int i = 0;
@@ -260,9 +297,10 @@ namespace Liar
 		m_numberBuffers = len;
 	}
 
-	void* SubVector4VertexBuffer::GetVertexBuffer(Liar::Int index) const
+	void* SubQuatVertexBuffer::GetVertexBuffer(Liar::Int index) const
 	{
 		if (index >= m_numberBuffers) return nullptr;
 		return m_buffers[index];
 	}
+
 }

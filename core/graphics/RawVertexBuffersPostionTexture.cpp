@@ -2,31 +2,6 @@
 
 namespace Liar
 {
-	VertexPositionTextureKey::VertexPositionTextureKey() :
-		Liar::VertexPositionKey(),
-		m_texCoordIndex(0)
-	{}
-
-	Liar::Boolen VertexPositionTextureKey::operator==(const Liar::IVertexKey& rhs) const
-	{
-		return
-			m_texCoordIndex == rhs.GetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) && 
-			m_positonIndex == rhs.GetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION);
-	}
-
-	Liar::IVertexKey* VertexPositionTextureKey::Clone() const
-	{
-		Liar::VertexPositionTextureKey* tmp = new Liar::VertexPositionTextureKey();
-		tmp->SetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION, m_positonIndex);
-		tmp->SetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE, m_texCoordIndex);
-		return tmp;
-	}
-
-	void VertexPositionTextureKey::PrintData()
-	{
-		std::cout << m_positonIndex << "," << m_texCoordIndex;
-	}
-
 	/*
 	* 具体数据
 	*/
@@ -43,25 +18,15 @@ namespace Liar
 	}
 
 	// 增加texcoord信息
-	void RawVertexBuffersPostionTexture::AddTexCoordVertexBuffer(Liar::Number x, Liar::Number y, Liar::Number z)
+	void RawVertexBuffersPostionTexture::AddTexCoordVertexBuffer(Liar::IHeapOperator* data)
 	{
-		m_texCoord->AddVertexBuffer(x, y, z);
-	}
-
-	void RawVertexBuffersPostionTexture::AddTexCoordVertexBuffer(const Liar::Vector2& tex)
-	{
-		AddTexCoordVertexBuffer(tex.x, tex.y);
+		m_texCoord->AddVertexBuffer(data);
 	}
 
 	// 设置texcoord信息
-	void RawVertexBuffersPostionTexture::SetTexCoordVertexBuffer(size_t index, Liar::Number x, Liar::Number y, Liar::Number)
+	void RawVertexBuffersPostionTexture::SetTexCoordVertexBuffer(Liar::Int index, Liar::IHeapOperator* data)
 	{
-		SetTexCoordVertexBuffer(index, new Liar::Vector2(x, y));
-	}
-
-	void RawVertexBuffersPostionTexture::SetTexCoordVertexBuffer(size_t index, Liar::Vector2* tex)
-	{
-		m_texCoord->SetVertexBuffer(index, tex);
+		m_texCoord->SetVertexBuffer(index, data);
 	}
 
 	// 设置texcoord长度
@@ -71,24 +36,64 @@ namespace Liar
 	}
 
 	// 获得texcoord信息
-	void* RawVertexBuffersPostionTexture::GetTexCoordVertexBuffer(size_t index) const
+	void* RawVertexBuffersPostionTexture::GetTexCoordVertexBuffer(Liar::Int index) const
 	{
 		return m_texCoord->GetVertexBuffer(index);
 	}
 
 	Liar::Int RawVertexBuffersPostionTexture::GetStride() const
 	{
-		return  m_position->GetStride() + m_texCoord->GetStride();
+		return  Liar::RawVertexBuffersPosition::GetStride() + m_texCoord->GetStride();
+	}
+
+	// 设置 buffer 信息
+	void RawVertexBuffersPostionTexture::AddSubVertexBuffer(Liar::VertexElementAttr attr, Liar::IHeapOperator* data)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) AddTexCoordVertexBuffer(data);
+		else Liar::RawVertexBuffersPosition::AddSubVertexBuffer(attr, data);
+	}
+
+	void RawVertexBuffersPostionTexture::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index, Liar::IHeapOperator* data)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) SetTexCoordVertexBuffer(index, data);
+		else Liar::RawVertexBuffersPosition::SetSubVertexBuffer(attr, index, data);
+	}
+
+	void RawVertexBuffersPostionTexture::SetSubVertexBufferLen(Liar::VertexElementAttr attr, Liar::Int len)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) SetTexCoordVertexBufferLen(len);
+		else Liar::RawVertexBuffersPosition::SetSubVertexBufferLen(attr, len);
+	}
+
+	// 取得 buffer
+	void* RawVertexBuffersPostionTexture::GetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) return GetTexCoordVertexBuffer(index);
+		else return Liar::RawVertexBuffersPosition::GetSubVertexBuffer(attr, index);
+	}
+
+	// 获得提交指定顶点属性信息
+	void* RawVertexBuffersPostionTexture::GetUploadVertexBuffer(Liar::Int index, Liar::VertexElementAttr attr)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE)
+		{
+			Liar::IntHeapOperator* key = m_vertexKeys[index];
+			Liar::Int posIndex = (*key)[m_vertexIndex++];
+			return GetSubVertexBuffer(attr, posIndex);
+		}
+		else
+		{
+			return Liar::RawVertexBuffersPosition::GetUploadVertexBuffer(index, attr);
+		}
 	}
 
 	size_t RawVertexBuffersPostionTexture::LoopUploadSubData(Liar::StageContext& gl, GLenum type, Liar::Int i, size_t start)
 	{
 		size_t positionOffsize = Liar::RawVertexBuffersPosition::LoopUploadSubData(gl, type, i, start);
 
-		Liar::Int positionOffset = m_position->GetStride();
 		Liar::Int texCoordOffset = m_texCoord->GetStride();
+		size_t texCoordOffsize = positionOffsize + m_position->GetStride();
 
-		size_t texCoordOffsize = positionOffsize + positionOffset;
 		gl.BufferSubData(type, texCoordOffsize, texCoordOffset, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE));
 		return texCoordOffsize;
 	}

@@ -2,31 +2,6 @@
 
 namespace Liar
 {
-	VertexPositionNormalKey::VertexPositionNormalKey() :
-		Liar::VertexPositionKey(),
-		m_normalIndex(0)
-	{}
-
-	Liar::Boolen VertexPositionNormalKey::operator==(const Liar::IVertexKey& rhs) const
-	{
-		return
-			m_normalIndex == rhs.GetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) &&
-			m_positonIndex == rhs.GetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION);
-	}
-
-	Liar::IVertexKey* VertexPositionNormalKey::Clone() const
-	{
-		Liar::VertexPositionNormalKey* tmp = new Liar::VertexPositionNormalKey();
-		tmp->SetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION, m_positonIndex);
-		tmp->SetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL, m_normalIndex);
-		return tmp;
-	}
-
-	void VertexPositionNormalKey::PrintData()
-	{
-		std::cout << m_positonIndex << "," << m_normalIndex;
-	}
-
 	/*
 	* 具体数据
 	*/
@@ -44,25 +19,15 @@ namespace Liar
 	}
 
 	// 增加normal信息
-	void RawVertexBuffersPositonNormal::AddNormalVertexBuffer(Liar::Number x, Liar::Number y, Liar::Number z)
+	void RawVertexBuffersPositonNormal::AddNormalVertexBuffer(Liar::IHeapOperator* data)
 	{
-		m_normal->AddVertexBuffer(x, y, z);
-	}
-
-	void RawVertexBuffersPositonNormal::AddNormalVertexBuffer(const Liar::Vector3& normal)
-	{
-		AddNormalVertexBuffer(normal.x, normal.y, normal.z);
+		m_normal->AddVertexBuffer(data);
 	}
 
 	// 设置normal信息
-	void RawVertexBuffersPositonNormal::SetNormalVertexBuffer(size_t index, Liar::Number x, Liar::Number y, Liar::Number z)
+	void RawVertexBuffersPositonNormal::SetNormalVertexBuffer(Liar::Int index, Liar::IHeapOperator* data)
 	{
-		SetNormalVertexBuffer(index, new Liar::Vector3(x, y, z));
-	}
-
-	void RawVertexBuffersPositonNormal::SetNormalVertexBuffer(size_t index, Liar::Vector3* normal)
-	{
-		m_normal->SetVertexBuffer(index, normal);
+		m_normal->SetVertexBuffer(index, data);
 	}
 
 	// 设置normal长度
@@ -82,15 +47,55 @@ namespace Liar
 		return  Liar::RawVertexBuffersPosition::GetStride() + m_normal->GetStride();
 	}
 
+	// 设置 buffer 信息
+	void RawVertexBuffersPositonNormal::AddSubVertexBuffer(Liar::VertexElementAttr attr, Liar::IHeapOperator* data)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) AddNormalVertexBuffer(data);
+		else Liar::RawVertexBuffersPosition::AddSubVertexBuffer(attr, data);
+	}
+
+	void RawVertexBuffersPositonNormal::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index, Liar::IHeapOperator* data)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) SetNormalVertexBuffer(index, data);
+		else Liar::RawVertexBuffersPosition::SetSubVertexBuffer(attr, index, data);
+	}
+
+	void RawVertexBuffersPositonNormal::SetSubVertexBufferLen(Liar::VertexElementAttr attr, Liar::Int len)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) SetNormalVertexBufferLen(len);
+		else Liar::RawVertexBuffersPosition::SetSubVertexBufferLen(attr, len);
+	}
+
+	// 取得 buffer
+	void* RawVertexBuffersPositonNormal::GetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) return GetNormalVertexBuffer(index);
+		else return Liar::RawVertexBuffersPosition::GetSubVertexBuffer(attr, index);
+	}
+
+	// 获得提交指定顶点属性信息
+	void* RawVertexBuffersPositonNormal::GetUploadVertexBuffer(Liar::Int index, Liar::VertexElementAttr attr)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL)
+		{
+			Liar::IntHeapOperator* key = m_vertexKeys[index];
+			Liar::Int posIndex = (*key)[m_vertexIndex++];
+			return GetSubVertexBuffer(attr, posIndex);
+		}
+		else
+		{
+			return Liar::RawVertexBuffersPosition::GetUploadVertexBuffer(index, attr);
+		}
+	}
+
 	size_t RawVertexBuffersPositonNormal::LoopUploadSubData(Liar::StageContext& gl, GLenum type, Liar::Int i, size_t start)
 	{
 		size_t positionOffsize = Liar::RawVertexBuffersPosition::LoopUploadSubData(gl, type, i, start);
 
-		Liar::Int positionOffset = m_position->GetStride();
 		Liar::Int normalOffset = m_normal->GetStride();
+		size_t normalOffsize = positionOffsize + m_position->GetStride();
 
-		size_t normalOffsize = positionOffsize + positionOffset;
-		gl.BufferSubData(type, normalOffsize, normalOffset, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_COLOR));
+		gl.BufferSubData(type, normalOffsize, normalOffset, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL));
 		return normalOffsize;
 	}
 

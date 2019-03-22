@@ -3,31 +3,6 @@
 
 namespace Liar
 {
-	VertexPositionColorKey::VertexPositionColorKey() :
-		Liar::VertexPositionKey(),
-		m_colorIndex(0)
-	{}
-
-	Liar::Boolen VertexPositionColorKey::operator==(const Liar::IVertexKey& rhs) const
-	{
-		return
-			m_colorIndex == rhs.GetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_COLOR) &&
-			m_positonIndex == rhs.GetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION);
-	}
-
-	Liar::IVertexKey* VertexPositionColorKey::Clone() const
-	{
-		Liar::VertexPositionColorKey* tmp = new Liar::VertexPositionColorKey();
-		tmp->SetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION, m_positonIndex);
-		tmp->SetVertexIndex(Liar::VertexElementAttr::ELEMENT_ATTR_COLOR, m_colorIndex);
-		return tmp;
-	}
-
-	void VertexPositionColorKey::PrintData()
-	{
-		std::cout << m_positonIndex << "," << m_colorIndex;
-	}
-
 	/*
 	* 具体数据
 	*/
@@ -45,25 +20,15 @@ namespace Liar
 	}
 
 	// 增加color信息
-	void RawVertexBuffersPositonColor::AddColorVertexBuffer(Liar::Number r, Liar::Number g, Liar::Number b, Liar::Number a)
+	void RawVertexBuffersPositonColor::AddColorVertexBuffer(Liar::IHeapOperator* data)
 	{
-		m_color->AddVertexBuffer(r, g, b, a);
-	}
-
-	void RawVertexBuffersPositonColor::AddColorVertexBuffer(const Liar::Vector3& color)
-	{
-		AddColorVertexBuffer(color.x, color.y, color.z);
+		m_color->AddVertexBuffer(data);
 	}
 
 	// 设置color信息
-	void RawVertexBuffersPositonColor::SetColorVertexBuffer(size_t index, Liar::Number r, Liar::Number g, Liar::Number b, Liar::Number)
+	void RawVertexBuffersPositonColor::SetColorVertexBuffer(Liar::Int index, Liar::IHeapOperator* data)
 	{
-		SetColorVertexBuffer(index, new Liar::Vector3(r, g, b));
-	}
-
-	void RawVertexBuffersPositonColor::SetColorVertexBuffer(size_t index, Liar::Vector3* color)
-	{
-		m_color->SetVertexBuffer(index, (void*)color);
+		m_color->SetVertexBuffer(index, data);
 	}
 
 	// 设置color长度
@@ -81,6 +46,47 @@ namespace Liar
 	Liar::Int RawVertexBuffersPositonColor::GetStride() const
 	{
 		return  Liar::RawVertexBuffersPosition::GetStride() + m_color->GetStride();
+	}
+
+	// 设置 buffer 信息
+	void RawVertexBuffersPositonColor::AddSubVertexBuffer(Liar::VertexElementAttr attr, Liar::IHeapOperator* data)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_COLOR) AddColorVertexBuffer(data);
+		else Liar::RawVertexBuffersPosition::AddSubVertexBuffer(attr, data);
+	}
+
+	void RawVertexBuffersPositonColor::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index, Liar::IHeapOperator* data)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_COLOR) SetColorVertexBuffer(index, data);
+		else Liar::RawVertexBuffersPosition::SetSubVertexBuffer(attr, index, data);
+	}
+
+	void RawVertexBuffersPositonColor::SetSubVertexBufferLen(Liar::VertexElementAttr attr, Liar::Int len)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_COLOR) SetColorVertexBufferLen(len);
+		else Liar::RawVertexBuffersPosition::SetSubVertexBufferLen(attr, len);
+	}
+
+	// 取得 buffer
+	void* RawVertexBuffersPositonColor::GetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_COLOR) return GetColorVertexBuffer(index);
+		else return Liar::RawVertexBuffersPosition::GetSubVertexBuffer(attr, index);
+	}
+
+	// 获得提交指定顶点属性信息
+	void* RawVertexBuffersPositonColor::GetUploadVertexBuffer(Liar::Int index, Liar::VertexElementAttr attr)
+	{
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_COLOR)
+		{
+			Liar::IntHeapOperator* key = m_vertexKeys[index];
+			Liar::Int posIndex = (*key)[m_vertexIndex++];
+			return GetSubVertexBuffer(attr, posIndex);
+		}
+		else
+		{
+			return Liar::RawVertexBuffersPosition::GetUploadVertexBuffer(index, attr);
+		}
 	}
 
 	size_t RawVertexBuffersPositonColor::LoopUploadSubData(Liar::StageContext& gl, GLenum type, Liar::Int i, size_t start)

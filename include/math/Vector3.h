@@ -2,15 +2,16 @@
 
 #include <iostream>
 #include "MathUtils3D.h"
+#include "IHeapOperator.h"
 
 namespace Liar
 {
-	class Vector3
+	class Vector3:public Liar::IFloatHeapOperator
 	{
 	public:
-		Vector3(Liar::Number sx = 0.0f, Liar::Number sy = 0.0f, Liar::Number sz = 0.0f) { Set(sx, sy, sz); };
+		Vector3(Liar::Number sx = 0.0f, Liar::Number sy = 0.0f, Liar::Number sz = 0.0f):Liar::IFloatHeapOperator() { Set(sx, sy, sz); };
 		Vector3(const Liar::Vector3& rhs) { Set(rhs); };
-		~Vector3() {};
+		virtual ~Vector3() {};
 
 	public:
 		Liar::Number x;
@@ -195,6 +196,11 @@ namespace Liar
 		inline Liar::Number& operator[](size_t index)
 		{
 			return (&x)[index];
+		};
+
+		virtual bool operator==(const IFloatHeapOperator& rhs) const
+		{
+			return rhs[0] == x && rhs[1] == y && rhs[2] == z;
 		};
 
 		inline Liar::Number Length() const
