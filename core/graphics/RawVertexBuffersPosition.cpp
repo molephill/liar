@@ -104,9 +104,6 @@ namespace Liar
 		Liar::Int positonFormat = m_position->GetFormat();
 		gl.VertexAttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_POSITION, positonFormat, GL_FLOAT, GL_FALSE, stride, (void*)positonOffset);
 		gl.EnableVertexAttribArray(Liar::VertexAttribPointer::ATTRIB_POINTER_POSITION);
-
-		std::cout << "bind == pos stride:" << stride << " offset:" << positonOffset << " format:" << positonFormat << " pointer:" << Liar::VertexAttribPointer::ATTRIB_POINTER_POSITION << std::endl;
-
 		return positonOffset;
 	}
 }

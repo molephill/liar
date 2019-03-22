@@ -108,9 +108,6 @@ namespace Liar
 		Liar::Int normalFormat = m_normal->GetFormat();
 		gl.VertexAttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_NORMAL, normalFormat, GL_FLOAT, GL_FALSE, stride, (void*)normalOffset);
 		gl.EnableVertexAttribArray(Liar::VertexAttribPointer::ATTRIB_POINTER_NORMAL);
-
-		std::cout << "bind == normal stride:" << stride << " offset:" << normalOffset << " format:" << normalFormat << " pointer:" << Liar::VertexAttribPointer::ATTRIB_POINTER_NORMAL << std::endl;
-
 		return normalOffset;
 	}
 }
