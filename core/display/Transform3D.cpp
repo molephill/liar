@@ -174,6 +174,11 @@ namespace Liar
 		SetScale(rhs.x, rhs.y, rhs.z);
 	}
 
+	void Transform3D::SetScale(Liar::Number scale)
+	{
+		SetScale(scale, scale, scale);
+	}
+
 	void Transform3D::SetScale(Liar::Number x, Liar::Number y, Liar::Number z)
 	{
 		if (!m_scale->Equal(x, y, z))

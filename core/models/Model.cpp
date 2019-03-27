@@ -67,6 +67,7 @@ namespace Liar
 
 	Liar::Int Model::CollectRenderUint(Liar::RenderState& state)
 	{
+		m_transform3D->CalclateTransformation(&(state.camera->GetProjectionViewMatrix()));
 		return CollectChildrenRenderUint(state);
 	}
 
@@ -124,6 +125,10 @@ namespace Liar
 			}
 
 			fclose(pFile);
+
+			/*Liar::Mesh* mesh = new Liar::Mesh(Liar::GeometryType::GEOMETRY_TYPE_BOX);
+			mesh->SetSharedMaterials(m_sharedMaterials[0]);
+			AddChild(mesh);*/
 
 			for (Liar::Int i = 0; i < meshSize; ++i)
 			{

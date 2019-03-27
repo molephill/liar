@@ -97,8 +97,8 @@ namespace Liar
 
 	void BaseTexture::Draws(Liar::ShaderProgram& shader, Liar::Int index)
 	{
-		glActiveTexture(GL_TEXTURE0 + index);
+		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, m_textureID);
-		shader.SetInt("material.diffuse", index);
+		shader.SetInt("ourTexture", 0);
 	}
 }

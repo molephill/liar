@@ -44,7 +44,7 @@ namespace Liar
 		if (m_geometry && materials)
 		{
 			Liar::IRawVertexBuffers* raw = m_geometry->GetRawVertexBuffers();
-			if (raw)SetSharedMaterials(materials[raw->GetMtlIndex()]);
+			if (raw) SetSharedMaterials(materials[raw->GetMtlIndex()]);
 		}
 	}
 

@@ -25,7 +25,7 @@ int main() {
 
 	Liar::Model* model = new Liar::Model();
 	model->SetURL("new\\box");
-	model->GetTransform3D().SetScale(0.1f, 0.1f, 0.1f);
+	//model->GetTransform3D().SetScale(0.5f);
 	Liar::Liar3D::stage->AddChild(model);
 
 	Liar::Liar3D::Run();

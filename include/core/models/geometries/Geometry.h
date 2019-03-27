@@ -28,6 +28,7 @@ namespace Liar
 		virtual void DisposeResource();
 		virtual void RecreateResource();
 		virtual void RecreateSubResource() = 0;
+		virtual Liar::Uint GetNumberLength() const;
 		void UploadData();
 
 	public:
@@ -36,7 +37,7 @@ namespace Liar
 		Liar::GeometryVertexType GetGeoVertexType() const { return m_geometryVertexType; };
 
 	public:
-		virtual size_t GetNumberTriangles();
+		virtual size_t GetNumberTriangles() const;
 		virtual void Draws();
 	};
 }

@@ -17,5 +17,5 @@ void main()
 {
     gl_Position = u_MvpMatrix * vec4(aPos, 1.0);
     ourColor = vec3(1.0, 0.0, 0.0);
-    TextCoord = vec2(aUV.x, aUV.y);
+    TextCoord = aUV;
 }

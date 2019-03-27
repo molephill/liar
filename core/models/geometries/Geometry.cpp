@@ -74,15 +74,20 @@ namespace Liar
 		}
 	}
 
-	Liar::Uint Geometry::GetNumberTriangles() 
+	Liar::Uint Geometry::GetNumberTriangles() const
 	{
 		return m_rawVertexBuffers->GetNumberTriangles();
+	}
+
+	Liar::Uint Geometry::GetNumberLength() const 
+	{
+		return m_rawVertexBuffers->GetNumberLength();
 	}
 
 	void Geometry::Draws()
 	{
 		glBindVertexArray(m_vertexArray);
-		glDrawElements(GL_TRIANGLES, m_rawVertexBuffers->GetNumberLength(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, GetNumberLength(), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
 }

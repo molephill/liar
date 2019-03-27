@@ -23,6 +23,26 @@ namespace Liar
 			e[1] = f[1] * b;
 		}
 
+		static void Normalize(const Liar::Vector2& source, Liar::Vector2& out)
+		{
+			Liar::Number xxyy = source.x * source.x + source.y * source.y;
+			Liar::Number invLength = 1.0f / sqrtf(xxyy);
+			out.x = source.x*invLength;
+			out.y = source.y*invLength;
+		};
+
+		static Liar::Number Distance(const Liar::Vector2& s, const Liar::Vector2& e)
+		{
+			return Vector2::Distance(s.x, s.y, e.x, e.y);
+		};
+
+		static Liar::Number Distance(Liar::Number sx, Liar::Number sy, Liar::Number ex, Liar::Number ey)
+		{
+			Liar::Number tmpx = sx - ex;
+			Liar::Number tmpy = sy - ey;
+			return sqrtf(tmpx*tmpx - tmpy * tmpy);
+		}
+
 	public:
 		friend Liar::Vector2 operator*(const Liar::Number, const Liar::Vector2&);
 		friend std::ostream& operator<<(std::ostream&, const Liar::Vector2&);
@@ -207,36 +227,16 @@ namespace Liar
 		}
 
 		// subscript operator v[0], v[1]
-		inline virtual Liar::Number operator[](size_t index) const
+		inline Liar::Number operator[](size_t index) const
 		{
 			return (&x)[index];
 		};
 		
 		// subscript operator v[0], v[1]
-		inline virtual Liar::Number& operator[](size_t index)
+		inline Liar::Number& operator[](size_t index)
 		{
 			return (&x)[index];
 		};
-
-		inline static void Normalize(const Liar::Vector2& source, Liar::Vector2& out)
-		{
-			Liar::Number xxyy = source.x * source.x + source.y * source.y;
-			Liar::Number invLength = 1.0f / sqrtf(xxyy);
-			out.x = source.x*invLength;
-			out.y = source.y*invLength;
-		};
-
-		inline static Liar::Number Distance(const Liar::Vector2& s, const Liar::Vector2& e)
-		{
-			return Vector2::Distance(s.x, s.y, e.x, e.y);
-		};
-
-		inline static Liar::Number Distance(Liar::Number sx, Liar::Number sy, Liar::Number ex, Liar::Number ey)
-		{
-			Liar::Number tmpx = sx - ex;
-			Liar::Number tmpy = sy - ey;
-			return sqrtf(tmpx*tmpx - tmpy * tmpy);
-		}
 	};
 
 	inline Liar::Vector2 operator*(const Liar::Number a, const Liar::Vector2& rhs)

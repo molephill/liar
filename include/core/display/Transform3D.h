@@ -41,6 +41,7 @@ namespace Liar
 		void SetRotation(Liar::Number, Liar::Number, Liar::Number);
 
 		void SetScale(const Liar::Vector3& rhs);
+		void SetScale(Liar::Number);
 		void SetScale(Liar::Number x, Liar::Number y, Liar::Number z);
 
 		void SetParent(Liar::Transform3D* parent);

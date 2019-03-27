@@ -24,7 +24,8 @@ namespace Liar
 		void SetHeight(Liar::Number value);
 
 	protected:
-		//virtual void RecreateResource();
+		virtual void RecreateResource();
+		virtual Liar::Uint GetNumberLength() const;
 		virtual void RecreateSubResource();
 	};
 }

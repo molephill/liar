@@ -9,7 +9,8 @@ namespace Liar
 	{
 	public:
 		Vector4(Liar::Number cx = Liar::ZERO, Liar::Number cy = Liar::ZERO, Liar::Number cz = Liar::ZERO, Liar::Number cw = Liar::ZERO) { Set(cx, cy, cz, cw); };
-		virtual ~Vector4() {};
+		Vector4(const Liar::Vector4& rhs) { Set(rhs); };
+		~Vector4() {};
 
 	public:
 		Liar::Number x;
@@ -361,11 +362,13 @@ namespace Liar
 		}
 	};
 
-	inline Vector4 operator*(const Liar::Number a, const Vector4& vec) {
+	inline Liar::Vector4 operator*(const Liar::Number a, const Vector4& vec) 
+	{
 		return Vector4(a*vec.x, a*vec.y, a*vec.z, a*vec.w);
 	}
 
-	inline std::ostream& operator<<(std::ostream& os, const Vector4& vec) {
+	inline std::ostream& operator<<(std::ostream& os, const Vector4& vec) 
+	{
 		os << "(" << vec.x << ", " << vec.y << ", " << vec.z << ", " << vec.w << ")";
 		return os;
 	}

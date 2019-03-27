@@ -8,7 +8,7 @@ namespace Liar
 	{
 	public:
 		Quaternion(Liar::Number cx = Liar::ZERO, Liar::Number cy = Liar::ZERO, Liar::Number cz = Liar::ZERO, Liar::Number cw = 1.0f):Liar::Vector4(cx, cy, cz, cw) {};
-		virtual ~Quaternion() {};
+		~Quaternion() {};
 
 	public:
 		/**

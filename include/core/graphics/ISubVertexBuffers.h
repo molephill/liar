@@ -14,6 +14,11 @@ namespace Liar
 		IntHeapOperator(int len) :
 			m_buffer(new Liar::Int[len]), m_numBuffer(len)
 		{};
+		IntHeapOperator(Liar::Int x, Liar::Int y, Liar::Int z) :
+			m_buffer(new Liar::Int[3]), m_numBuffer(3)
+		{
+			m_buffer[0] = x; m_buffer[1] = y; m_buffer[2] = z;
+		};
 
 		virtual ~IntHeapOperator() { delete[] m_buffer; };
 
