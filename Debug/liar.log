@@ -1,68 +1,10 @@
-﻿  stb_image.c
-  glad.c
-  正在生成代码...
-  EventDispatcher.cpp
-  Node.cpp
-  Stage.cpp
-  Transform3D.cpp
-  Event.cpp
-  EventController.cpp
-  MouseEvent.cpp
-  IRawVertexBuffers.cpp
-  ISubVertexBuffers.cpp
+﻿  ISubVertexBuffers.cpp
   RawVertexBuffersPosition.cpp
   RawVertexBuffersPositionNormalTexture.cpp
   RawVertexBuffersPositonColor.cpp
   RawVertexBuffersPositonNormal.cpp
   RawVertexBuffersPositonNormalColor.cpp
-  RawVertexBuffersPositonNromalTextureSkin.cpp
   RawVertexBuffersPostionNormalColorTexture.cpp
   RawVertexBuffersPostionTexture.cpp
-  RawVertexBuffersSkin.cpp
-  SubVertexBuffers.cpp
-  VertexFactory.cpp
   正在生成代码...
-e:\c++\liar\liar\core\graphics\rawvertexbuffersskin.cpp(104): warning C4715: “Liar::RawVertexBuffersSkin::GetSubVertexBuffer”: 不是所有的控件路径都返回值
-  正在编译...
-  Liar3D.cpp
-  BaseLight.cpp
-  DirectionLight.cpp
-  PointLight.cpp
-  SpotLight.cpp
-  BaseMaterial.cpp
-  MTL.cpp
-  StandardMaterial.cpp
-  BoxGeometry.cpp
-  Geometry.cpp
-  NetGeometry.cpp
-  GeometryFactory.cpp
-  Mesh.cpp
-  Model.cpp
-  BaseCamera.cpp
-  Camera.cpp
-  Renderer.cpp
-  RenderQueue.cpp
-  RenderState.cpp
-  RenderUnit.cpp
-  正在生成代码...
-  正在编译...
-  BaseTeture.cpp
-  Resource.cpp
-  ShaderCompile.cpp
-  ShaderProgram.cpp
-  ShaderValue.cpp
-  SolidColorTexture.cpp
-  Texture2D.cpp
-  main.cpp
-  MathUtils.cpp
-  Matrix3x3.cpp
-  Matrix4x4.cpp
-  Quaternion.cpp
-  Vector3.cpp
-  Vector4.cpp
-  Viewport.cpp
-  CameraMoveScript.cpp
-  URL.cpp
-  正在生成代码...
-LINK : warning LNK4098: 默认库“MSVCRT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
   liar.vcxproj -> E:\c++\liar\Debug\liar.exe

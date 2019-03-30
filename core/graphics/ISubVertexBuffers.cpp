@@ -84,8 +84,7 @@ namespace Liar
 
 	size_t ISubVertexBuffers::AttribPointer(Liar::VertexAttribPointer index, Liar::StageContext& gl, size_t stride, size_t offset)
 	{
-		size_t format = GetFormat();
-		gl.VertexAttribPointer(index, format, GetType(), GL_FALSE, stride, (void*)offset);
+		gl.VertexAttribPointer(index, GetFormat(), GetType(), GL_FALSE, stride, (void*)offset);
 		gl.EnableVertexAttribArray(index);
 		return offset + GetSize();
 	}

@@ -66,20 +66,11 @@ namespace Liar
 
 	size_t RawVertexBuffersPosition::LoopUploadSubData(Liar::StageContext& gl, GLenum type, Liar::Int i, size_t start)
 	{
-		size_t positionOffset = start;
-		Liar::Int positionSize = m_position->GetSize();
-		void* pos = GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_POSITION);
-		gl.BufferSubData(type, positionOffset, positionSize, pos);
-		return positionOffset;
+		return m_position->UploadData(gl, type, start, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_POSITION));
 	}
 
 	size_t RawVertexBuffersPosition::VertexAttrbSubPointer(Liar::StageContext& gl, size_t stride)
 	{
-		// position
-		size_t positonOffset = 0;
-		Liar::Int positonFormat = m_position->GetFormat();
-		gl.VertexAttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_POSITION, positonFormat, GL_FLOAT, GL_FALSE, stride, (void*)positonOffset);
-		gl.EnableVertexAttribArray(Liar::VertexAttribPointer::ATTRIB_POINTER_POSITION);
-		return positonOffset;
+		return m_position->AttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_POSITION, gl, stride);
 	}
 }

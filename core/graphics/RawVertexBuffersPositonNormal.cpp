@@ -66,24 +66,14 @@ namespace Liar
 
 	size_t RawVertexBuffersPositonNormal::LoopUploadSubData(Liar::StageContext& gl, GLenum type, Liar::Int i, size_t start)
 	{
-		size_t positionOffset = Liar::RawVertexBuffersPosition::LoopUploadSubData(gl, type, i, start);
-
-		Liar::Int normalSize = m_normal->GetSize();
-		size_t normalOffset = positionOffset + m_position->GetSize();
-		void* normal = GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL);
-		gl.BufferSubData(type, normalOffset, normalSize, normal);
-		return normalOffset;
+		size_t offset = Liar::RawVertexBuffersPosition::LoopUploadSubData(gl, type, i, start);
+		return m_normal->UploadData(gl, type, offset, 
+			GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL));
 	}
 
 	size_t RawVertexBuffersPositonNormal::VertexAttrbSubPointer(Liar::StageContext& gl, size_t stride)
 	{
-		// position
-		size_t positionOffset = Liar::RawVertexBuffersPosition::VertexAttrbSubPointer(gl, stride);
-		// normal
-		size_t normalOffset = positionOffset + m_position->GetSize();
-		Liar::Int normalFormat = m_normal->GetFormat();
-		gl.VertexAttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_NORMAL, normalFormat, GL_FLOAT, GL_FALSE, stride, (void*)normalOffset);
-		gl.EnableVertexAttribArray(Liar::VertexAttribPointer::ATTRIB_POINTER_NORMAL);
-		return normalOffset;
+		size_t offset = Liar::RawVertexBuffersPosition::VertexAttrbSubPointer(gl, stride);
+		return m_normal->AttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_NORMAL, gl, stride, offset);
 	}
 }

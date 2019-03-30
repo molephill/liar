@@ -67,23 +67,14 @@ namespace Liar
 
 	size_t RawVertexBuffersPositionNormalTexture::LoopUploadSubData(Liar::StageContext& gl, GLenum type, Liar::Int i, size_t start)
 	{
-		size_t normalOffset = Liar::RawVertexBuffersPositonNormal::LoopUploadSubData(gl, type, i, start);
-
-		Liar::Int texCoordSize = m_texCoord->GetSize();
-		size_t texCoordOffset = normalOffset + m_normal->GetSize();
-		void* texCoord = GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE);
-		gl.BufferSubData(type, texCoordOffset, texCoordSize, texCoord);
-		return texCoordOffset;
+		size_t offset = Liar::RawVertexBuffersPositonNormal::LoopUploadSubData(gl, type, i, start);
+		return m_texCoord->UploadData(gl, type, offset, 
+			GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE));
 	}
 
 	size_t RawVertexBuffersPositionNormalTexture::VertexAttrbSubPointer(Liar::StageContext& gl, size_t stride)
 	{
-		size_t normalOffset = Liar::RawVertexBuffersPositonNormal::VertexAttrbSubPointer(gl, stride);
-		// texCoord
-		size_t texCoordOffset = normalOffset + m_normal->GetSize();
-		Liar::Int texCoordFromat = m_texCoord->GetFormat();
-		gl.VertexAttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_TEXTURECOORDINATE, texCoordFromat, GL_FLOAT, GL_FALSE, stride, (void*)texCoordOffset);
-		gl.EnableVertexAttribArray(Liar::VertexAttribPointer::ATTRIB_POINTER_TEXTURECOORDINATE);
-		return texCoordOffset;
+		size_t offset = Liar::RawVertexBuffersPositonNormal::VertexAttrbSubPointer(gl, stride);
+		return m_texCoord->AttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_TEXTURECOORDINATE, gl, stride, offset);
 	}
 }

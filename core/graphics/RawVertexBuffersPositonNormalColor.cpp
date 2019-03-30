@@ -66,24 +66,14 @@ namespace Liar
 
 	size_t RawVertexBuffersPositonNormalColor::LoopUploadSubData(Liar::StageContext& gl, GLenum type, Liar::Int i, size_t start)
 	{
-		size_t normalOffsize = Liar::RawVertexBuffersPositonNormal::LoopUploadSubData(gl, type, i, start);
-
-		Liar::Int colorOffset = m_color->GetSize();
-		size_t colorOffsize = normalOffsize + m_normal->GetSize();
-
-		gl.BufferSubData(type, colorOffsize, colorOffset, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_COLOR));
-		return normalOffsize;
+		size_t offset = Liar::RawVertexBuffersPositonNormal::LoopUploadSubData(gl, type, i, start);
+		return m_color->UploadData(gl, type, offset,
+			GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_COLOR));
 	}
 
 	size_t RawVertexBuffersPositonNormalColor::VertexAttrbSubPointer(Liar::StageContext& gl, size_t stride)
 	{
-		// normal
-		size_t normalOffisze = Liar::RawVertexBuffersPositonNormal::VertexAttrbSubPointer(gl, stride);
-		// color
-		size_t colorOffisze = normalOffisze + m_normal->GetSize();
-		Liar::Int colorFormat = m_color->GetFormat();
-		gl.VertexAttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_COLOR, colorFormat, GL_FLOAT, GL_FALSE, stride, (void*)colorOffisze);
-		gl.EnableVertexAttribArray(Liar::VertexAttribPointer::ATTRIB_POINTER_COLOR);
-		return colorOffisze;
+		size_t offset = Liar::RawVertexBuffersPositonNormal::VertexAttrbSubPointer(gl, stride);
+		return m_color->AttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_NORMAL, gl, stride, offset);
 	}
 }
