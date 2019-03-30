@@ -137,8 +137,10 @@
     <ClCompile Include="core\graphics\RawVertexBuffersPositonColor.cpp" />
     <ClCompile Include="core\graphics\RawVertexBuffersPositonNormal.cpp" />
     <ClCompile Include="core\graphics\RawVertexBuffersPositonNormalColor.cpp" />
+    <ClCompile Include="core\graphics\RawVertexBuffersPositonNromalTextureSkin.cpp" />
     <ClCompile Include="core\graphics\RawVertexBuffersPostionNormalColorTexture.cpp" />
     <ClCompile Include="core\graphics\RawVertexBuffersPostionTexture.cpp" />
+    <ClCompile Include="core\graphics\RawVertexBuffersSkin.cpp" />
     <ClCompile Include="core\graphics\SubVertexBuffers.cpp" />
     <ClCompile Include="core\graphics\VertexFactory.cpp" />
     <ClCompile Include="core\Liar3D.cpp" />
@@ -196,8 +198,10 @@
     <ClInclude Include="include\core\graphics\RawVertexBuffersPositonColor.h" />
     <ClInclude Include="include\core\graphics\RawVertexBuffersPositonNormal.h" />
     <ClInclude Include="include\core\graphics\RawVertexBuffersPositonNormalColor.h" />
+    <ClInclude Include="include\core\graphics\RawVertexBuffersPositonNromalTextureSkin.h" />
     <ClInclude Include="include\core\graphics\RawVertexBuffersPostionNormalColorTexture.h" />
     <ClInclude Include="include\core\graphics\RawVertexBuffersPostionTexture.h" />
+    <ClInclude Include="include\core\graphics\RawVertexBuffersSkin.h" />
     <ClInclude Include="include\core\graphics\SubVertexBuffers.h" />
     <ClInclude Include="include\core\graphics\VertexFactory.h" />
     <ClInclude Include="include\core\graphics\VertexType.h" />

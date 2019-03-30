@@ -20,12 +20,6 @@ namespace Liar
 	protected:
 		virtual size_t LoopUploadSubData(Liar::StageContext&, GLenum, Liar::Int, size_t);
 		virtual size_t VertexAttrbSubPointer(Liar::StageContext&, size_t);
-
-		void AddPositionVertexBuffer(void*);
-		void SetPositionVertexBuffer(Liar::Int, void*);
-		void SetPositionVertexBufferLen(Liar::Int);
-		void* GetPostionVertexBuffer(Liar::Int) const;
-
 	public:
 
 		// …Ë÷√ buffer –≈œ¢

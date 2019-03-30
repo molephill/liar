@@ -17,15 +17,6 @@ namespace Liar
 		Liar::SubVector3VertexBuffer* m_color;
 
 	protected:
-		// 增加color信息
-		virtual void AddColorVertexBuffer(void*);
-		// 设置color信息
-		virtual void SetColorVertexBuffer(Liar::Int, void*);
-		// 设置color长度
-		virtual void SetColorVertexBufferLen(Liar::Int);
-		// 获得color信息
-		virtual void* GetColorVertexBuffer(size_t) const;
-
 		virtual size_t LoopUploadSubData(Liar::StageContext&, GLenum, Liar::Int, size_t);
 		virtual size_t VertexAttrbSubPointer(Liar::StageContext&, size_t);
 

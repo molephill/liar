@@ -49,9 +49,44 @@ namespace Liar
 				}
 				break;
 			}
+			case Liar::VertexFormatType::VERTEX_FORMAT_TYPE_INT:
+			{
+				Liar::IntHeapOperator* tmpVec0 = static_cast<Liar::IntHeapOperator*>(buffer);
+				if (tmpVec0)
+				{
+					Liar::IntHeapOperator* tmpVec1 = static_cast<Liar::IntHeapOperator*>(tmp);
+					if (tmpVec1 && tmpVec0->Equal(*tmpVec1)) return buffer;
+				}
+				break;
+			}
+			case Liar::VertexFormatType::VERTEX_FORMAT_TYPE_FLOAT:
+			{
+				Liar::FloatHeapOperator* tmpVec0 = static_cast<Liar::FloatHeapOperator*>(buffer);
+				if (tmpVec0)
+				{
+					Liar::FloatHeapOperator* tmpVec1 = static_cast<Liar::FloatHeapOperator*>(tmp);
+					if (tmpVec1 && tmpVec0->Equal(*tmpVec1)) return buffer;
+				}
+				break;
+			}
 			}
 		}
 
 		return nullptr;
+	}
+
+	size_t ISubVertexBuffers::UploadData(Liar::StageContext& gl, GLenum type, size_t offset, void* data)
+	{
+		size_t size = GetSize();
+		gl.BufferSubData(type, offset, size, data);
+		return offset + size;
+	}
+
+	size_t ISubVertexBuffers::AttribPointer(Liar::VertexAttribPointer index, Liar::StageContext& gl, size_t stride, size_t offset)
+	{
+		size_t format = GetFormat();
+		gl.VertexAttribPointer(index, format, GetType(), GL_FALSE, stride, (void*)offset);
+		gl.EnableVertexAttribArray(index);
+		return offset + GetSize();
 	}
 }

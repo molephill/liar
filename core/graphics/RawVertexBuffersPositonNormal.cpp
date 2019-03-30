@@ -18,30 +18,6 @@ namespace Liar
 		m_normal = nullptr;
 	}
 
-	// 增加normal信息
-	void RawVertexBuffersPositonNormal::AddNormalVertexBuffer(void* data)
-	{
-		m_normal->AddVertexBuffer(data);
-	}
-
-	// 设置normal信息
-	void RawVertexBuffersPositonNormal::SetNormalVertexBuffer(Liar::Int index, void* data)
-	{
-		m_normal->SetVertexBuffer(index, data);
-	}
-
-	// 设置normal长度
-	void RawVertexBuffersPositonNormal::SetNormalVertexBufferLen(Liar::Int len)
-	{
-		m_normal->SetVertexBufferLen(len);
-	}
-
-	// 获得normal信息
-	void* RawVertexBuffersPositonNormal::GetNormalVertexBuffer(size_t index) const
-	{
-		return m_normal->GetVertexBuffer(index);
-	}
-
 	Liar::Int RawVertexBuffersPositonNormal::GetSize() const
 	{
 		return  Liar::RawVertexBuffersPosition::GetSize() + m_normal->GetSize();
@@ -50,26 +26,26 @@ namespace Liar
 	// 设置 buffer 信息
 	void RawVertexBuffersPositonNormal::AddSubVertexBuffer(Liar::VertexElementAttr attr, void* data)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) AddNormalVertexBuffer(data);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) m_normal->AddVertexBuffer(data);
 		else Liar::RawVertexBuffersPosition::AddSubVertexBuffer(attr, data);
 	}
 
 	void RawVertexBuffersPositonNormal::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index, void* data)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) SetNormalVertexBuffer(index, data);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) m_normal->SetVertexBuffer(index, data);
 		else Liar::RawVertexBuffersPosition::SetSubVertexBuffer(attr, index, data);
 	}
 
 	void RawVertexBuffersPositonNormal::SetSubVertexBufferLen(Liar::VertexElementAttr attr, Liar::Int len)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) SetNormalVertexBufferLen(len);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) m_normal->SetVertexBufferLen(len);
 		else Liar::RawVertexBuffersPosition::SetSubVertexBufferLen(attr, len);
 	}
 
 	// 取得 buffer
 	void* RawVertexBuffersPositonNormal::GetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) return GetNormalVertexBuffer(index);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) return m_normal->GetVertexBuffer(index);
 		else return Liar::RawVertexBuffersPosition::GetSubVertexBuffer(attr, index);
 	}
 

@@ -17,30 +17,6 @@ namespace Liar
 		m_texCoord = nullptr;
 	}
 
-	// 增加texcoord信息
-	void RawVertexBuffersPostionTexture::AddTexCoordVertexBuffer(void* data)
-	{
-		m_texCoord->AddVertexBuffer(data);
-	}
-
-	// 设置texcoord信息
-	void RawVertexBuffersPostionTexture::SetTexCoordVertexBuffer(Liar::Int index, void* data)
-	{
-		m_texCoord->SetVertexBuffer(index, data);
-	}
-
-	// 设置texcoord长度
-	void RawVertexBuffersPostionTexture::SetTexCoordVertexBufferLen(Liar::Int len)
-	{
-		m_texCoord->SetVertexBufferLen(len);
-	}
-
-	// 获得texcoord信息
-	void* RawVertexBuffersPostionTexture::GetTexCoordVertexBuffer(Liar::Int index) const
-	{
-		return m_texCoord->GetVertexBuffer(index);
-	}
-
 	Liar::Int RawVertexBuffersPostionTexture::GetSize() const
 	{
 		return  Liar::RawVertexBuffersPosition::GetSize() + m_texCoord->GetSize();
@@ -49,26 +25,26 @@ namespace Liar
 	// 设置 buffer 信息
 	void RawVertexBuffersPostionTexture::AddSubVertexBuffer(Liar::VertexElementAttr attr, void* data)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) AddTexCoordVertexBuffer(data);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) m_texCoord->AddVertexBuffer(data);
 		else Liar::RawVertexBuffersPosition::AddSubVertexBuffer(attr, data);
 	}
 
 	void RawVertexBuffersPostionTexture::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index, void* data)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) SetTexCoordVertexBuffer(index, data);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) m_texCoord->SetVertexBuffer(index, data);
 		else Liar::RawVertexBuffersPosition::SetSubVertexBuffer(attr, index, data);
 	}
 
 	void RawVertexBuffersPostionTexture::SetSubVertexBufferLen(Liar::VertexElementAttr attr, Liar::Int len)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) SetTexCoordVertexBufferLen(len);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) m_texCoord->SetVertexBufferLen(len);
 		else Liar::RawVertexBuffersPosition::SetSubVertexBufferLen(attr, len);
 	}
 
 	// 取得 buffer
 	void* RawVertexBuffersPostionTexture::GetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) return GetTexCoordVertexBuffer(index);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) return m_texCoord->GetVertexBuffer(index);
 		else return Liar::RawVertexBuffersPosition::GetSubVertexBuffer(attr, index);
 	}
 

@@ -216,10 +216,11 @@ namespace Liar
 		Liar::Int perSize = 0;
 		fread(&perSize, blockSize, 1, pFile);
 
-		Liar::VertexFormatType format = static_cast<Liar::VertexFormatType>(perSize - 2);
+		blockSize = sizeof(Liar::Number);
 		for (Liar::Int i = 0; i < len; ++i)
 		{
-			void* it = ReadFloatVector(format, pFile);
+			Liar::FloatHeapOperator* it = new Liar::FloatHeapOperator(perSize);
+			for (Liar::Int j = 0; j < perSize; ++j) fread(&((*it)[j]), blockSize, 1, pFile);
 			m_rawVertexBuffers->SetSubVertexBuffer(type, i, it);
 		}
 	}

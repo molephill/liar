@@ -19,30 +19,6 @@ namespace Liar
 		m_color = nullptr;
 	}
 
-	// 增加color信息
-	void RawVertexBuffersPositonColor::AddColorVertexBuffer(void* data)
-	{
-		m_color->AddVertexBuffer(data);
-	}
-
-	// 设置color信息
-	void RawVertexBuffersPositonColor::SetColorVertexBuffer(Liar::Int index, void* data)
-	{
-		m_color->SetVertexBuffer(index, data);
-	}
-
-	// 设置color长度
-	void RawVertexBuffersPositonColor::SetColorVertexBufferLen(Liar::Int len)
-	{
-		m_color->SetVertexBufferLen(len);
-	}
-
-	// 获得color信息
-	void* RawVertexBuffersPositonColor::GetColorVertexBuffer(size_t index) const
-	{
-		return m_color->GetVertexBuffer(index);
-	}
-
 	Liar::Int RawVertexBuffersPositonColor::GetSize() const
 	{
 		return  Liar::RawVertexBuffersPosition::GetSize() + m_color->GetSize();
@@ -51,26 +27,26 @@ namespace Liar
 	// 设置 buffer 信息
 	void RawVertexBuffersPositonColor::AddSubVertexBuffer(Liar::VertexElementAttr attr, void* data)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_COLOR) AddColorVertexBuffer(data);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_COLOR) m_color->AddVertexBuffer(data);
 		else Liar::RawVertexBuffersPosition::AddSubVertexBuffer(attr, data);
 	}
 
 	void RawVertexBuffersPositonColor::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index, void* data)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_COLOR) SetColorVertexBuffer(index, data);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_COLOR) m_color->SetVertexBuffer(index, data);
 		else Liar::RawVertexBuffersPosition::SetSubVertexBuffer(attr, index, data);
 	}
 
 	void RawVertexBuffersPositonColor::SetSubVertexBufferLen(Liar::VertexElementAttr attr, Liar::Int len)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_COLOR) SetColorVertexBufferLen(len);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_COLOR) m_color->SetVertexBufferLen(len);
 		else Liar::RawVertexBuffersPosition::SetSubVertexBufferLen(attr, len);
 	}
 
 	// 取得 buffer
 	void* RawVertexBuffersPositonColor::GetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_COLOR) return GetColorVertexBuffer(index);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_COLOR) return m_color->GetVertexBuffer(index);
 		else return Liar::RawVertexBuffersPosition::GetSubVertexBuffer(attr, index);
 	}
 

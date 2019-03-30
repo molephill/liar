@@ -19,54 +19,35 @@ namespace Liar
 		m_texCoord = nullptr;
 	}
 
-	// 增加texcoord信息
-	void RawVertexBuffersPostionNormalColorTexture::AddTexCoordVertexBuffer(void* data)
-	{
-		m_texCoord->AddVertexBuffer(data);
-	}
-
-	// 设置texcoord信息
-	void RawVertexBuffersPostionNormalColorTexture::SetTexCoordVertexBuffer(Liar::Int index, void* data)
-	{
-		m_texCoord->SetVertexBuffer(index, data);
-	}
-
-	// 设置texcoord长度
-	void RawVertexBuffersPostionNormalColorTexture::SetTexCoordVertexBufferLen(Liar::Int len)
-	{
-		m_texCoord->SetVertexBufferLen(len);
-	}
-
-	// 获得texcoord信息
-	void* RawVertexBuffersPostionNormalColorTexture::GetTexCoordVertexBuffer(Liar::Int index) const
-	{
-		return m_texCoord->GetVertexBuffer(index);
-	}
-
 	// 设置 buffer 信息
 	void RawVertexBuffersPostionNormalColorTexture::AddSubVertexBuffer(Liar::VertexElementAttr attr, void* data)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) AddTexCoordVertexBuffer(data);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) m_texCoord->AddVertexBuffer(data);
 		else Liar::RawVertexBuffersPositonNormalColor::AddSubVertexBuffer(attr, data);
 	}
 
 	void RawVertexBuffersPostionNormalColorTexture::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index, void* data)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) SetTexCoordVertexBuffer(index, data);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) m_texCoord->SetVertexBuffer(index, data);
 		else Liar::RawVertexBuffersPositonNormalColor::SetSubVertexBuffer(attr, index, data);
 	}
 
 	void RawVertexBuffersPostionNormalColorTexture::SetSubVertexBufferLen(Liar::VertexElementAttr attr, Liar::Int len)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) SetTexCoordVertexBufferLen(len);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) m_texCoord->SetVertexBufferLen(len);
 		else Liar::RawVertexBuffersPositonNormalColor::SetSubVertexBufferLen(attr, len);
 	}
 
 	// 取得 buffer
 	void* RawVertexBuffersPostionNormalColorTexture::GetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) return GetTexCoordVertexBuffer(index);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) return m_texCoord->GetVertexBuffer(index);
 		else return Liar::RawVertexBuffersPositonNormalColor::GetSubVertexBuffer(attr, index);
+	}
+
+	Liar::Int RawVertexBuffersPostionNormalColorTexture::GetSize() const
+	{
+		return Liar::RawVertexBuffersPosition::GetSize() + m_normal->GetSize() + m_color->GetSize() + m_texCoord->GetSize();
 	}
 
 	// 获得提交指定顶点属性信息
@@ -82,11 +63,6 @@ namespace Liar
 		{
 			return Liar::RawVertexBuffersPositonNormalColor::GetUploadVertexBuffer(index, attr);
 		}
-	}
-
-	Liar::Int RawVertexBuffersPostionNormalColorTexture::GetSize() const
-	{
-		return Liar::RawVertexBuffersPosition::GetSize() + m_normal->GetSize() + m_color->GetSize() + m_texCoord->GetSize();
 	}
 
 	size_t RawVertexBuffersPostionNormalColorTexture::LoopUploadSubData(Liar::StageContext& gl, GLenum type, Liar::Int i, size_t start)

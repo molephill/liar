@@ -23,53 +23,29 @@ namespace Liar
 		return m_position->GetSize();
 	}
 
-	// 增加position信息
-	void RawVertexBuffersPosition::AddPositionVertexBuffer(void* data)
-	{
-		m_position->AddVertexBuffer(data);
-	}
-
-	// 设置position信息
-	void RawVertexBuffersPosition::SetPositionVertexBuffer(Liar::Int index, void* data)
-	{
-		m_position->SetVertexBuffer(index, data);
-	}
-
-	// 设置position长度
-	void RawVertexBuffersPosition::SetPositionVertexBufferLen(Liar::Int len)
-	{
-		m_position->SetVertexBufferLen(len);
-	}
-
-	// 获得position信息
-	void* RawVertexBuffersPosition::GetPostionVertexBuffer(Liar::Int index) const
-	{
-		return m_position->GetVertexBuffer(index);
-	}
-
 	// 设置 buffer 信息
 	void RawVertexBuffersPosition::AddSubVertexBuffer(Liar::VertexElementAttr attr, void* data)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) AddPositionVertexBuffer(data);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) m_position->AddVertexBuffer(data);
 		else Liar::IRawVertexBuffers::AddSubVertexBuffer(attr, data);
 	}
 
 	void RawVertexBuffersPosition::SetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index, void* data)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) SetPositionVertexBuffer(index, data);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) m_position->SetVertexBuffer(index, data);
 		else Liar::IRawVertexBuffers::SetSubVertexBuffer(attr, index, data);
 	}
 
 	void RawVertexBuffersPosition::SetSubVertexBufferLen(Liar::VertexElementAttr attr, Liar::Int len)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) SetPositionVertexBufferLen(len);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) m_position->SetVertexBufferLen(len);
 		else Liar::IRawVertexBuffers::SetSubVertexBufferLen(attr, len);
 	}
 
 	// 取得 buffer
 	void* RawVertexBuffersPosition::GetSubVertexBuffer(Liar::VertexElementAttr attr, Liar::Int index)
 	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) return GetPostionVertexBuffer(index);
+		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) return m_position->GetVertexBuffer(index);
 		else return Liar::IRawVertexBuffers::GetSubVertexBuffer(attr, index);
 	}
 

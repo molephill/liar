@@ -264,6 +264,9 @@
     <ClCompile Include="core\graphics\SubVertexBuffers.cpp">
       <Filter>源文件\core\graphics</Filter>
     </ClCompile>
+    <ClCompile Include="core\graphics\RawVertexBuffersPositonNromalTextureSkin.cpp">
+      <Filter>源文件\core\graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\math\Matrix3x3.h">
@@ -456,6 +459,9 @@
       <Filter>头文件\core\graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\core\graphics\SubVertexBuffers.h">
+      <Filter>头文件\core\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\graphics\RawVertexBuffersPositonNromalTextureSkin.h">
       <Filter>头文件\core\graphics</Filter>
     </ClInclude>
   </ItemGroup>

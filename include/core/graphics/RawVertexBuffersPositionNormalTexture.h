@@ -14,15 +14,6 @@ namespace Liar
 		Liar::SubVector2VertexBuffer* m_texCoord;
 
 	protected:
-		// 增加texcoord信息
-		virtual void AddTexCoordVertexBuffer(void*);
-		// 设置texcoord信息
-		virtual void SetTexCoordVertexBuffer(Liar::Int, void*);
-		// 设置texcoord长度
-		virtual void SetTexCoordVertexBufferLen(Liar::Int);
-		// 获得texcoord信息
-		virtual void* GetTexCoordVertexBuffer(Liar::Int) const;
-
 		virtual size_t LoopUploadSubData(Liar::StageContext&, GLenum, Liar::Int, size_t);
 		virtual size_t VertexAttrbSubPointer(Liar::StageContext&, size_t);
 
