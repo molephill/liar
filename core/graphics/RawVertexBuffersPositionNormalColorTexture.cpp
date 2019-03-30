@@ -1,4 +1,4 @@
-#include <core/graphics/RawVertexBuffersPostionNormalColorTexture.h>
+#include <core/graphics/RawVertexBuffersPositionNormalColorTexture.h>
 
 namespace Liar
 {

@@ -1,10 +1,2 @@
-﻿  ISubVertexBuffers.cpp
-  RawVertexBuffersPosition.cpp
-  RawVertexBuffersPositionNormalTexture.cpp
-  RawVertexBuffersPositonColor.cpp
-  RawVertexBuffersPositonNormal.cpp
-  RawVertexBuffersPositonNormalColor.cpp
-  RawVertexBuffersPostionNormalColorTexture.cpp
-  RawVertexBuffersPostionTexture.cpp
-  正在生成代码...
+﻿  main.cpp
   liar.vcxproj -> E:\c++\liar\Debug\liar.exe

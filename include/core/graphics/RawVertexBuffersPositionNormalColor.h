@@ -1,17 +1,20 @@
 #pragma once
 
-#include "RawVertexBuffersPosition.h"
+#include "RawVertexBuffersPositionNormal.h"
 
 namespace Liar
 {
-	class RawVertexBuffersPositonNormal :public RawVertexBuffersPosition
+	/*
+	* 具体数据
+	*/
+	class RawVertexBuffersPositonNormalColor:public RawVertexBuffersPositionNormal
 	{
 	public:
-		RawVertexBuffersPositonNormal(Liar::GeometryVertexType type = Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_NONE);
-		virtual ~RawVertexBuffersPositonNormal();
+		RawVertexBuffersPositonNormalColor(Liar::GeometryVertexType = Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_NONE);
+		virtual ~RawVertexBuffersPositonNormalColor();
 
 	protected:
-		Liar::SubVector3VertexBuffer* m_normal;
+		Liar::SubVector3VertexBuffer* m_color;
 
 	protected:
 		virtual size_t LoopUploadSubData(Liar::StageContext&, GLenum, Liar::Int, size_t);

@@ -1,14 +1,17 @@
 #pragma once
 
-#include "RawVertexBuffersPositionNormal.h"
+#include "RawVertexBuffersPosition.h"
 
 namespace Liar
 {
-	class RawVertexBuffersPositionNormalTexture :public Liar::RawVertexBuffersPositionNormal
+	/*
+	* 具体数据
+	*/
+	class RawVertexBuffersPositionTexture:public RawVertexBuffersPosition
 	{
 	public:
-		RawVertexBuffersPositionNormalTexture(Liar::GeometryVertexType type = Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_NONE);
-		virtual ~RawVertexBuffersPositionNormalTexture();
+		RawVertexBuffersPositionTexture(Liar::GeometryVertexType = Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_NONE);
+		virtual ~RawVertexBuffersPositionTexture();
 
 	protected:
 		Liar::SubVector2VertexBuffer* m_texCoord;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "RawVertexBuffersPositonNormalColor.h"
+#include "RawVertexBuffersPositionNormalColor.h"
 
 namespace Liar
 {

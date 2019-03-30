@@ -4,17 +4,14 @@
 
 namespace Liar
 {
-	/*
-	* 具体数据
-	*/
-	class RawVertexBuffersPostionTexture:public RawVertexBuffersPosition
+	class RawVertexBuffersPositionNormal :public RawVertexBuffersPosition
 	{
 	public:
-		RawVertexBuffersPostionTexture(Liar::GeometryVertexType = Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_NONE);
-		virtual ~RawVertexBuffersPostionTexture();
+		RawVertexBuffersPositionNormal(Liar::GeometryVertexType type = Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_NONE);
+		virtual ~RawVertexBuffersPositionNormal();
 
 	protected:
-		Liar::SubVector2VertexBuffer* m_texCoord;
+		Liar::SubVector3VertexBuffer* m_normal;
 
 	protected:
 		virtual size_t LoopUploadSubData(Liar::StageContext&, GLenum, Liar::Int, size_t);

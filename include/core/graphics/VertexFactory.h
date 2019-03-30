@@ -1,7 +1,7 @@
 #pragma once
 
-#include "RawVertexBuffersPositionNormalTexture.h"
-#include "RawVertexBuffersPositonColor.h"
+#include <core/graphics/RawVertexBuffersPositionNormalTextureSkin.h>
+#include <core/graphics/RawVertexBuffersPositionColor.h>
 
 namespace Liar
 {

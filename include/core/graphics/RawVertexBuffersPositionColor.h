@@ -4,11 +4,11 @@
 
 namespace Liar
 {
-	class RawVertexBuffersPositonColor:public RawVertexBuffersPosition
+	class RawVertexBuffersPositionColor:public RawVertexBuffersPosition
 	{
 	public:
-		RawVertexBuffersPositonColor(Liar::GeometryVertexType type = Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_NONE);
-		virtual ~RawVertexBuffersPositonColor();
+		RawVertexBuffersPositionColor(Liar::GeometryVertexType type = Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_NONE);
+		virtual ~RawVertexBuffersPositionColor();
 
 	protected:
 		Liar::SubVector3VertexBuffer* m_color;

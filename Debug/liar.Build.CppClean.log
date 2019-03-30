@@ -7,6 +7,7 @@ e:\c++\liar\liar\debug\subvertexbuffers.obj
 e:\c++\liar\liar\debug\rawvertexbuffersskin.obj
 e:\c++\liar\liar\debug\rawvertexbufferspostiontexture.obj
 e:\c++\liar\liar\debug\rawvertexbufferspostionnormalcolortexture.obj
+e:\c++\liar\liar\debug\rawvertexbufferspositonnromaltextureskin.obj
 e:\c++\liar\liar\debug\rawvertexbufferspositonnormalcolor.obj
 e:\c++\liar\liar\debug\rawvertexbufferspositonnormal.obj
 e:\c++\liar\liar\debug\rawvertexbufferspositoncolor.obj
@@ -58,6 +59,12 @@ e:\c++\liar\liar\debug\shaderprogram.obj
 e:\c++\liar\liar\debug\shadercompile.obj
 e:\c++\liar\liar\debug\resource.obj
 e:\c++\liar\liar\debug\baseteture.obj
+e:\c++\liar\debug\liar.exe
+e:\c++\liar\debug\liar.ilk
+e:\c++\liar\debug\liar.pdb
 e:\c++\liar\liar\debug\liar.tlog\cl.command.1.tlog
 e:\c++\liar\liar\debug\liar.tlog\cl.read.1.tlog
 e:\c++\liar\liar\debug\liar.tlog\cl.write.1.tlog
+e:\c++\liar\liar\debug\liar.tlog\link.command.1.tlog
+e:\c++\liar\liar\debug\liar.tlog\link.read.1.tlog
+e:\c++\liar\liar\debug\liar.tlog\link.write.1.tlog

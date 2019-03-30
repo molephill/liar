@@ -222,9 +222,6 @@
     <ClCompile Include="core\graphics\IRawVertexBuffers.cpp">
       <Filter>源文件\core\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="core\graphics\RawVertexBuffersPositionNormalTexture.cpp">
-      <Filter>源文件\core\graphics</Filter>
-    </ClCompile>
     <ClCompile Include="core\graphics\VertexFactory.cpp">
       <Filter>源文件\core\graphics</Filter>
     </ClCompile>
@@ -243,28 +240,31 @@
     <ClCompile Include="core\graphics\ISubVertexBuffers.cpp">
       <Filter>源文件\core\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="core\graphics\RawVertexBuffersPosition.cpp">
-      <Filter>源文件\core\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="core\graphics\RawVertexBuffersPositonColor.cpp">
-      <Filter>源文件\core\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="core\graphics\RawVertexBuffersPositonNormal.cpp">
-      <Filter>源文件\core\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="core\graphics\RawVertexBuffersPositonNormalColor.cpp">
-      <Filter>源文件\core\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="core\graphics\RawVertexBuffersPostionNormalColorTexture.cpp">
-      <Filter>源文件\core\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="core\graphics\RawVertexBuffersPostionTexture.cpp">
-      <Filter>源文件\core\graphics</Filter>
-    </ClCompile>
     <ClCompile Include="core\graphics\SubVertexBuffers.cpp">
       <Filter>源文件\core\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="core\graphics\RawVertexBuffersPositonNromalTextureSkin.cpp">
+    <ClCompile Include="core\graphics\RawVertexBuffersPosition.cpp">
+      <Filter>源文件\core\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="core\graphics\RawVertexBuffersPositionColor.cpp">
+      <Filter>源文件\core\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="core\graphics\RawVertexBuffersPositionNormal.cpp">
+      <Filter>源文件\core\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="core\graphics\RawVertexBuffersPositionNormalColor.cpp">
+      <Filter>源文件\core\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="core\graphics\RawVertexBuffersPositionNormalColorTexture.cpp">
+      <Filter>源文件\core\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="core\graphics\RawVertexBuffersPositionNormalTexture.cpp">
+      <Filter>源文件\core\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="core\graphics\RawVertexBuffersPositionNormalTextureSkin.cpp">
+      <Filter>源文件\core\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="core\graphics\RawVertexBuffersPositionTexture.cpp">
       <Filter>源文件\core\graphics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -425,9 +425,6 @@
     <ClInclude Include="include\core\graphics\IRawVertexBuffers.h">
       <Filter>头文件\core\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\graphics\RawVertexBuffersPositionNormalTexture.h">
-      <Filter>头文件\core\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="include\core\models\Model.h">
       <Filter>头文件\core\models</Filter>
     </ClInclude>
@@ -440,28 +437,31 @@
     <ClInclude Include="include\core\graphics\ISubVertexBuffers.h">
       <Filter>头文件\core\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\graphics\RawVertexBuffersPosition.h">
-      <Filter>头文件\core\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\graphics\RawVertexBuffersPositonColor.h">
-      <Filter>头文件\core\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\graphics\RawVertexBuffersPositonNormal.h">
-      <Filter>头文件\core\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\graphics\RawVertexBuffersPositonNormalColor.h">
-      <Filter>头文件\core\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\graphics\RawVertexBuffersPostionNormalColorTexture.h">
-      <Filter>头文件\core\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\graphics\RawVertexBuffersPostionTexture.h">
-      <Filter>头文件\core\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="include\core\graphics\SubVertexBuffers.h">
       <Filter>头文件\core\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\graphics\RawVertexBuffersPositonNromalTextureSkin.h">
+    <ClInclude Include="include\core\graphics\RawVertexBuffersPosition.h">
+      <Filter>头文件\core\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\graphics\RawVertexBuffersPositionColor.h">
+      <Filter>头文件\core\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\graphics\RawVertexBuffersPositionNormal.h">
+      <Filter>头文件\core\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\graphics\RawVertexBuffersPositionNormalColor.h">
+      <Filter>头文件\core\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\graphics\RawVertexBuffersPositionNormalColorTexture.h">
+      <Filter>头文件\core\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\graphics\RawVertexBuffersPositionNormalTexture.h">
+      <Filter>头文件\core\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\graphics\RawVertexBuffersPositionNormalTextureSkin.h">
+      <Filter>头文件\core\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\graphics\RawVertexBuffersPositionTexture.h">
       <Filter>头文件\core\graphics</Filter>
     </ClInclude>
   </ItemGroup>
