@@ -65,14 +65,14 @@ namespace Liar
 		}
 		else
 		{
-			return Liar::RawVertexBuffersPositionNormal::GetUploadVertexBuffer(index, attr);
+			return Liar::RawVertexBuffersPositionNormalTexture::GetUploadVertexBuffer(index, attr);
 		}
 	}
 
 	size_t RawVertexBuffersPositionNormalTextureSkin::LoopUploadSubData(Liar::StageContext& gl, GLenum type, Liar::Int i, size_t start)
 	{
 		size_t offset = Liar::RawVertexBuffersPositionNormalTexture::LoopUploadSubData(gl, type, i, start);
-		offset = m_boneIndices->UploadData(gl, type, offset,	GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_BONE_INDICES));
+		offset = m_boneIndices->UploadData(gl, type, offset, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_BONE_INDICES));
 		return m_boneWeights->UploadData(gl, type, offset, GetUploadVertexBuffer(i, Liar::VertexElementAttr::ELEMENT_ATTR_BONE_WEIGHTS));
 	}
 

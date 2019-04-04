@@ -12,6 +12,7 @@ namespace Liar
 		~VertexFactory();
 
 	public:
-		Liar::IRawVertexBuffers* GetRawVertexBuffers(Liar::GeometryVertexType attr);
+		Liar::IRawVertexBuffers* GetRawVertexBuffers(Liar::GeometryVertexType);
+		Liar::ISubVertexBuffers* GetSubVertexBuffers(Liar::VertexFormatType);
 	};
 }

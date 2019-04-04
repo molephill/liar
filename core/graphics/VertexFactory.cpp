@@ -28,4 +28,21 @@ namespace Liar
 			return nullptr;
 		}
 	}
+
+	Liar::ISubVertexBuffers* VertexFactory::GetSubVertexBuffers(Liar::VertexFormatType type)
+	{
+		switch (type)
+		{
+		case Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR2:
+			return new Liar::SubVector2VertexBuffer();
+		case Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR3:
+			return new Liar::SubVector3VertexBuffer();
+		case Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR4:
+			return new Liar::SubVector4VertexBuffer();
+		case Liar::VertexFormatType::VERTEX_FORMAT_TYPE_QUATERNION:
+			return new Liar::SubQuatVertexBuffer();
+		default:
+			return nullptr;
+		}
+	}
 }
