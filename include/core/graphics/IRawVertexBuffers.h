@@ -57,7 +57,7 @@ namespace Liar
 		virtual void* GetSubVertexBuffer(Liar::VertexElementAttr, Liar::Int);
 
 		// 获得提交指定顶点属性信息
-		virtual void* GetUploadVertexBuffer(Liar::Int, Liar::VertexElementAttr) = 0;
+		void* GetUploadVertexBuffer(Liar::Int, Liar::VertexElementAttr);
 
 		// 顶点索引信息
 		void AddRawIndex(Liar::Int);

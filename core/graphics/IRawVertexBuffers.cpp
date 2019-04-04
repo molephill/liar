@@ -97,6 +97,14 @@ namespace Liar
 		return &(m_indices[index]);
 	}
 
+	// 获得提交指定顶点属性信息
+	void* IRawVertexBuffers::GetUploadVertexBuffer(Liar::Int index, Liar::VertexElementAttr attr)
+	{
+		Liar::IntHeapOperator* key = m_vertexKeys[index];
+		Liar::Int vertxIndex = (*key)[m_vertexIndex++];
+		return GetSubVertexBuffer(attr, vertxIndex);
+	}
+
 	void IRawVertexBuffers::AddSubVertexBuffer(Liar::VertexElementAttr type, void* data)
 	{
 		switch (type)

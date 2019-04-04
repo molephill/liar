@@ -29,9 +29,6 @@ namespace Liar
 		// 取得 buffer
 		virtual void* GetSubVertexBuffer(Liar::VertexElementAttr, Liar::Int);
 
-		// 获得提交指定顶点属性信息
-		virtual void* GetUploadVertexBuffer(Liar::Int, Liar::VertexElementAttr);
-
 		virtual Liar::Int GetSize() const;
 	};
 }

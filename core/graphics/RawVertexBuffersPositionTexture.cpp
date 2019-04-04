@@ -48,21 +48,6 @@ namespace Liar
 		else return Liar::RawVertexBuffersPosition::GetSubVertexBuffer(attr, index);
 	}
 
-	// 获得提交指定顶点属性信息
-	void* RawVertexBuffersPositionTexture::GetUploadVertexBuffer(Liar::Int index, Liar::VertexElementAttr attr)
-	{
-		if (attr == Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE)
-		{
-			Liar::IntHeapOperator* key = m_vertexKeys[index];
-			Liar::Int posIndex = (*key)[m_vertexIndex++];
-			return GetSubVertexBuffer(attr, posIndex);
-		}
-		else
-		{
-			return Liar::RawVertexBuffersPosition::GetUploadVertexBuffer(index, attr);
-		}
-	}
-
 	size_t RawVertexBuffersPositionTexture::LoopUploadSubData(Liar::StageContext& gl, GLenum type, Liar::Int i, size_t start)
 	{
 		size_t offset = Liar::RawVertexBuffersPosition::LoopUploadSubData(gl, type, i, start);
