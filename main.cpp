@@ -24,7 +24,7 @@ int main() {
 	Liar::Liar3D::stage->AddChild(mesh);*/
 
 	Liar::Model* model = new Liar::Model();
-	model->SetURL("ani\\test");
+	model->SetURL("ani\\ani");
 	model->GetTransform3D().SetScale(0.1f);
 	Liar::Liar3D::stage->AddChild(model);
 

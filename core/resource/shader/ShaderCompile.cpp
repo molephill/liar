@@ -186,6 +186,10 @@ namespace Liar
 			return ConcatShaderDefine("TEXCOORDNIATE0", Liar::VertexAttribPointer::ATTRIB_POINTER_TEXTURECOORDINATE);
 		case Liar::ELEMENT_ATTR_COLOR:
 			return ConcatShaderDefine("COLOR0", Liar::VertexAttribPointer::ATTRIB_POINTER_COLOR);
+		case Liar::ELEMENT_ATTR_BONE_INDICES:
+			return ConcatShaderDefine("BONEINDICES0", Liar::VertexAttribPointer::ATTRIB_POINTER_BONE_INDICES);
+		case Liar::ELEMENT_ATTR_BONE_WEIGHTS:
+			return ConcatShaderDefine("BONEWEIGHTS0", Liar::VertexAttribPointer::ATTRIB_POINTER_BONE_WEIGHTS);
 		default:
 			return "";
 		}
@@ -219,6 +223,12 @@ namespace Liar
 		case Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_POSITION_TEXTURE:
 			return GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) +
 				GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE);
+		case Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_TEXTURE_SKIN:
+			return GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_POSITION) +
+				GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL) +
+				GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE) +
+				GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_BONE_INDICES) +
+				GetSingleShaderDefine(Liar::VertexElementAttr::ELEMENT_ATTR_BONE_WEIGHTS);
 		default:
 			return "";
 		}
