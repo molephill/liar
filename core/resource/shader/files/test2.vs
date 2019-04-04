@@ -34,10 +34,10 @@ void main()
 	skinTransform += u_Bones[int(a_BoneIndices.y)] * a_BoneWeights.y;
 	skinTransform += u_Bones[int(a_BoneIndices.z)] * a_BoneWeights.z;
 	skinTransform += u_Bones[int(a_BoneIndices.w)] * a_BoneWeights.w;
-	vec4 position=skinTransform*a_Position;
+	vec4 position=skinTransform * vec4(aPos, 1.0);
 	gl_Position = u_MvpMatrix * position;
 #else
-	gl_Position = u_MvpMatrix * a_Position;
+	gl_Position = u_MvpMatrix * vec4(aPos, 1.0);
 #endif
     ourColor = vec3(1.0, 0.0, 0.0);
     TextCoord = aUV;
