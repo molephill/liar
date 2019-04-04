@@ -30,6 +30,6 @@ namespace Liar
 
 		// 解析各类型顶点
 		void ReadIntHeapOperator(Liar::VertexElementAttr, Liar::Int, FILE*);
-		void ReadFloatHeapOperator(Liar::VertexElementAttr, Liar::Int, FILE*);
+		void ReadSkinInfo(Liar::VertexElementAttr, Liar::Int, FILE*);
 	};
 }

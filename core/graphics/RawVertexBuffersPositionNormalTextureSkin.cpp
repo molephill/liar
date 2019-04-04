@@ -5,8 +5,8 @@ namespace Liar
 {
 	RawVertexBuffersPositionNormalTextureSkin::RawVertexBuffersPositionNormalTextureSkin(Liar::GeometryVertexType type):
 		Liar::RawVertexBuffersPositionNormalTexture(type),
-		m_boneIndices(new Liar::SubIntVertexBuffer()),
-		m_boneWeights(new Liar::SubFloatVertexBuffer())
+		m_boneIndices(new Liar::SubVector4VertexBuffer()),
+		m_boneWeights(new Liar::SubVector4VertexBuffer())
 	{
 	}
 

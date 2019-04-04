@@ -103,14 +103,14 @@ namespace Liar
 		fread(&len, sizeof(Liar::Int), 1, pFile);
 		m_rawVertexBuffers->SetSubVertexBufferLen(vexType, len);
 
-		if (vexType == Liar::VertexElementAttr::ELEMENT_ATTR_BONE_INDICES ||
-			vexType == Liar::VertexElementAttr::ELEMENT_ATTR_RAW_KEY)
+		if (vexType == Liar::VertexElementAttr::ELEMENT_ATTR_RAW_KEY)
 		{
 			ReadIntHeapOperator(vexType, len, pFile);
 		}
-		else if (vexType == Liar::VertexElementAttr::ELEMENT_ATTR_BONE_WEIGHTS)
+		else if (vexType == Liar::VertexElementAttr::ELEMENT_ATTR_BONE_WEIGHTS || 
+				 vexType == Liar::VertexElementAttr::ELEMENT_ATTR_BONE_INDICES)
 		{
-			ReadFloatHeapOperator(vexType, len, pFile);
+			ReadSkinInfo(vexType, len, pFile);
 		}
 		else if (vexType == Liar::VertexElementAttr::ELEMENT_ATTR_RAW_INDICES)
 		{
@@ -210,7 +210,7 @@ namespace Liar
 		}
 	}
 
-	void NetGeometry::ReadFloatHeapOperator(Liar::VertexElementAttr type, Liar::Int len, FILE* pFile)
+	void NetGeometry::ReadSkinInfo(Liar::VertexElementAttr type, Liar::Int len, FILE* pFile)
 	{
 		size_t blockSize = sizeof(Liar::Int);
 		Liar::Int perSize = 0;
@@ -219,7 +219,7 @@ namespace Liar
 		blockSize = sizeof(Liar::Number);
 		for (Liar::Int i = 0; i < len; ++i)
 		{
-			Liar::FloatHeapOperator* it = new Liar::FloatHeapOperator(perSize);
+			Liar::Vector4* it = new Liar::Vector4();
 			for (Liar::Int j = 0; j < perSize; ++j) fread(&((*it)[j]), blockSize, 1, pFile);
 			m_rawVertexBuffers->SetSubVertexBuffer(type, i, it);
 		}

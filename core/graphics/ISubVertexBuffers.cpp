@@ -49,26 +49,6 @@ namespace Liar
 				}
 				break;
 			}
-			case Liar::VertexFormatType::VERTEX_FORMAT_TYPE_INT:
-			{
-				Liar::IntHeapOperator* tmpVec0 = static_cast<Liar::IntHeapOperator*>(buffer);
-				if (tmpVec0)
-				{
-					Liar::IntHeapOperator* tmpVec1 = static_cast<Liar::IntHeapOperator*>(tmp);
-					if (tmpVec1 && tmpVec0->Equal(*tmpVec1)) return buffer;
-				}
-				break;
-			}
-			case Liar::VertexFormatType::VERTEX_FORMAT_TYPE_FLOAT:
-			{
-				Liar::FloatHeapOperator* tmpVec0 = static_cast<Liar::FloatHeapOperator*>(buffer);
-				if (tmpVec0)
-				{
-					Liar::FloatHeapOperator* tmpVec1 = static_cast<Liar::FloatHeapOperator*>(tmp);
-					if (tmpVec1 && tmpVec0->Equal(*tmpVec1)) return buffer;
-				}
-				break;
-			}
 			}
 		}
 

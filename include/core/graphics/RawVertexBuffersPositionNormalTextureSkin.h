@@ -11,8 +11,8 @@ namespace Liar
 		virtual ~RawVertexBuffersPositionNormalTextureSkin();
 
 	protected:
-		Liar::SubIntVertexBuffer* m_boneIndices;
-		Liar::SubFloatVertexBuffer* m_boneWeights;
+		Liar::SubVector4VertexBuffer* m_boneIndices;
+		Liar::SubVector4VertexBuffer* m_boneWeights;
 
 	protected:
 		virtual size_t LoopUploadSubData(Liar::StageContext&, GLenum, Liar::Int, size_t);
