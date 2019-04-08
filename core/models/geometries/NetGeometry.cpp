@@ -59,9 +59,9 @@ namespace Liar
 
 		fclose(pFile);
 
-		std::ofstream out("C:/Users/Administrator/Desktop/model/out1.txt");
+		/*std::ofstream out("C:/Users/Administrator/Desktop/model/out1.txt");
 		m_rawVertexBuffers->Print(out);
-		out.close();
+		out.close();*/
 	}
 
 	void NetGeometry::ReadDynamicVertex(Liar::GeometryVertexType type, FILE* pFile)
