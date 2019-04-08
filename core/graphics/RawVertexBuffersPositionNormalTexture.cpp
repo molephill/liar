@@ -62,4 +62,11 @@ namespace Liar
 		size_t offset = Liar::RawVertexBuffersPositionNormal::VertexAttrbSubPointer(gl, stride);
 		return m_texCoord->AttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_TEXTURECOORDINATE, gl, stride, offset);
 	}
+
+	void RawVertexBuffersPositionNormalTexture::Print(std::ostream& os) const
+	{
+		Liar::RawVertexBuffersPositionNormal::Print(os);
+		os << "\ntexCoord:\n";
+		m_texCoord->Print(os);
+	}
 }

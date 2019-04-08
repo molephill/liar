@@ -58,6 +58,10 @@ namespace Liar
 		m_rawVertexBuffers->SetMtlIndex(mtlIndex);
 
 		fclose(pFile);
+
+		std::ofstream out("C:/Users/Administrator/Desktop/model/out1.txt");
+		m_rawVertexBuffers->Print(out);
+		out.close();
 	}
 
 	void NetGeometry::ReadDynamicVertex(Liar::GeometryVertexType type, FILE* pFile)
@@ -75,12 +79,14 @@ namespace Liar
 			LoopReadTypeVertex(pFile, 3);
 			break;
 		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_COLOR_TEXTURE:
-		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_COLOR_SKIN:
-		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_TEXTURE_SKIN:
 			LoopReadTypeVertex(pFile, 4);
 			break;
-		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_COLOR_TEXTURE_SKIN:
+		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_COLOR_SKIN:
+		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_TEXTURE_SKIN:
 			LoopReadTypeVertex(pFile, 5);
+			break;
+		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_COLOR_TEXTURE_SKIN:
+			LoopReadTypeVertex(pFile, 6);
 			break;
 		default:
 			break;

@@ -62,4 +62,11 @@ namespace Liar
 		size_t offset = Liar::RawVertexBuffersPosition::VertexAttrbSubPointer(gl, stride);
 		return m_color->AttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_NORMAL, gl, stride, offset);
 	}
+
+	void RawVertexBuffersPositionColor::Print(std::ostream& os) const
+	{
+		Liar::RawVertexBuffersPosition::Print(os);
+		os << "\ncolor:\n";
+		m_color->Print(os);
+	}
 }

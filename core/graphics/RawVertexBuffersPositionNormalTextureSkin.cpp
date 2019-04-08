@@ -67,4 +67,13 @@ namespace Liar
 		offset = m_boneIndices->AttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_BONE_INDICES, gl, stride, offset);
 		return m_boneWeights->AttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_BONE_WEIGHTS, gl, stride, offset);
 	}
+
+	void RawVertexBuffersPositionNormalTextureSkin::Print(std::ostream& os) const
+	{
+		Liar::RawVertexBuffersPositionNormalTexture::Print(os);
+		os << "\nboneIds:\n";
+		m_boneIndices->Print(os);
+		os << "\nboneWeights:\n";
+		m_boneWeights->Print(os);
+	}
 }

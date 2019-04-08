@@ -58,4 +58,11 @@ namespace Liar
 	{
 		return m_position->AttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_POSITION, gl, stride);
 	}
+
+	void RawVertexBuffersPosition::Print(std::ostream& os) const
+	{
+		Liar::IRawVertexBuffers::Print(os);
+		os << "\npositon:\n";
+		m_position->Print(os);
+	}
 }

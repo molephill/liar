@@ -29,5 +29,7 @@ namespace Liar
 		virtual void* GetSubVertexBuffer(Liar::VertexElementAttr, Liar::Int);
 
 		virtual Liar::Int GetSize() const;
+
+		virtual void Print(std::ostream&) const;
 	};
 }

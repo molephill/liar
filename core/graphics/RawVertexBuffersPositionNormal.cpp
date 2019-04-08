@@ -61,4 +61,11 @@ namespace Liar
 		size_t offset = Liar::RawVertexBuffersPosition::VertexAttrbSubPointer(gl, stride);
 		return m_normal->AttribPointer(Liar::VertexAttribPointer::ATTRIB_POINTER_NORMAL, gl, stride, offset);
 	}
+
+	void RawVertexBuffersPositionNormal::Print(std::ostream& os) const
+	{
+		Liar::RawVertexBuffersPosition::Print(os);
+		os << "\nnormal:\n";
+		m_normal->Print(os);
+	}
 }

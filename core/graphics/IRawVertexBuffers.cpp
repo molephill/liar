@@ -176,4 +176,12 @@ namespace Liar
 		VertexAttrbSubPointer(gl, stride);
 	}
 
+	void IRawVertexBuffers::Print(std::ostream& os) const
+	{
+		Liar::Int i = 0;
+		os << "indices:\n";
+		for (i = 0; i < m_numberIndices; ++i) os << m_indices[i] << ",";
+		os << "\nkeys:\n";
+		for (i = 0; i < m_numberVertexKeys; ++i) os << *(m_vertexKeys[i]) << ",";
+	}
 }

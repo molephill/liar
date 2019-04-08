@@ -84,5 +84,8 @@ namespace Liar
 		// 提交数据
 		virtual void UploadData(GLenum);
 
+		// 打印
+		virtual void Print(std::ostream&) const;
+
 	};
 }

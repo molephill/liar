@@ -30,6 +30,7 @@ namespace Liar
 		virtual void SetVertexBufferLen(Liar::Int);
 		virtual void* GetVertexBuffer(Liar::Int) const;
 		virtual void ToString();
+		virtual void Print(std::ostream&) const;
 	};
 
 	/**
@@ -54,6 +55,7 @@ namespace Liar
 		virtual void SetVertexBufferLen(Liar::Int);
 		virtual void* GetVertexBuffer(Liar::Int) const;
 		virtual void ToString();
+		virtual void Print(std::ostream&) const;
 	};
 
 	/**
@@ -78,6 +80,7 @@ namespace Liar
 		virtual void SetVertexBufferLen(Liar::Int);
 		virtual void* GetVertexBuffer(Liar::Int) const;
 		virtual void ToString();
+		virtual void Print(std::ostream&) const;
 	};
 
 	/**
@@ -102,6 +105,7 @@ namespace Liar
 		virtual void SetVertexBufferLen(Liar::Int);
 		virtual void* GetVertexBuffer(Liar::Int) const;
 		virtual void ToString();
+		virtual void Print(std::ostream&) const;
 	};
 
 }

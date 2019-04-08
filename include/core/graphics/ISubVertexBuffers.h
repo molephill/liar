@@ -69,77 +69,16 @@ namespace Liar
 		friend std::ostream& operator<<(std::ostream&, const Liar::IntHeapOperator&);
 	};
 
-	/**
-	* =============================== ¶¯Ì¬floatÀàÐÍ ============================
-	*/
 	inline std::ostream& operator<<(std::ostream& os, const IntHeapOperator& rhs)
 	{
-		os << "num: " << rhs.m_numBuffer;
-		for (Liar::Int i = 0; i < rhs.m_numBuffer; ++i) os << "i: " << i << " val:" << rhs[i];
-		return os;
-	};
-
-	class FloatHeapOperator
-	{
-	public:
-		FloatHeapOperator(int len) :
-			m_buffer(new Liar::Number[len]), m_numBuffer(len)
-		{};
-		FloatHeapOperator(Liar::Number x, Liar::Number y, Liar::Number z) :
-			m_buffer(new Liar::Number[3]), m_numBuffer(3)
+		Liar::Int max = rhs.m_numBuffer;
+		os << "(";
+		for (Liar::Int i = 0; i < max; ++i)
 		{
-			m_buffer[0] = x; m_buffer[1] = y; m_buffer[2] = z;
-		};
-
-		~FloatHeapOperator() { delete[] m_buffer; };
-
-	protected:
-		Liar::Number* m_buffer;
-		Liar::Int m_numBuffer;
-
-	public:
-		bool operator==(const FloatHeapOperator& rhs) const
-		{
-			return Equal(rhs);
-		};
-
-		bool Equal(const FloatHeapOperator& rhs) const
-		{
-			if (rhs.m_numBuffer != m_numBuffer) return false;
-			for (int i = 0; i < m_numBuffer; ++i)
-			{
-				if (rhs[i] != m_buffer[i]) return false;
-			}
-			return true;
+			os << rhs[i];
+			if (i < max - 1) os << ",";
 		}
-
-		Liar::Number operator[](size_t index) const
-		{
-			return m_buffer[index];
-		};
-
-		Liar::Number& operator[](size_t index)
-		{
-			return m_buffer[index];
-		}
-
-		Liar::Int GetSize() const
-		{
-			return Liar::VertexElementSize::ELEMENT_SIZE_FLOAT * m_numBuffer;
-		}
-
-		Liar::Int GetNumberBuffer() const
-		{
-			return m_numBuffer;
-		}
-
-		friend std::ostream& operator<<(std::ostream&, const Liar::FloatHeapOperator&);
-	};
-
-	inline std::ostream& operator<<(std::ostream& os, const FloatHeapOperator& rhs)
-	{
-		os << "num: " << rhs.m_numBuffer;
-		for (Liar::Int i = 0; i < rhs.m_numBuffer; ++i) os << "i: " << i << " val:" << rhs[i];
+		os << ")";
 		return os;
 	};
 
@@ -165,6 +104,7 @@ namespace Liar
 		virtual void SetVertexBufferLen(Liar::Int) = 0;
 		virtual void* GetVertexBuffer(Liar::Int) const = 0;
 		virtual void ToString() = 0;
+		virtual void Print(std::ostream&) const = 0;
 
 	public:
 		size_t UploadData(Liar::StageContext&, GLenum, size_t, void*);

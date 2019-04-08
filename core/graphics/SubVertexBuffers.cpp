@@ -87,6 +87,11 @@ namespace Liar
 		}
 	}
 
+	void SubVector2VertexBuffer::Print(std::ostream& os) const
+	{
+		for (Liar::Int i = 0; i < m_numberBuffers; ++i) os << *(m_buffers[i]) << ",";
+	}
+
 	/**
 	* vector3
 	*/
@@ -170,6 +175,11 @@ namespace Liar
 			std::cout << "index:" << i << " ";
 			std::cout << *(m_buffers[i]) << std::endl;
 		}
+	}
+
+	void SubVector3VertexBuffer::Print(std::ostream& os) const
+	{
+		for (Liar::Int i = 0; i < m_numberBuffers; ++i) os << *(m_buffers[i]) << ",";
 	}
 
 	/**
@@ -258,6 +268,11 @@ namespace Liar
 		}
 	}
 
+	void SubVector4VertexBuffer::Print(std::ostream& os) const
+	{
+		for (Liar::Int i = 0; i < m_numberBuffers; ++i) os << *(m_buffers[i]) << ",";
+	}
+
 	/**
 	* Quat
 	*/
@@ -341,5 +356,10 @@ namespace Liar
 			std::cout << "index:" << i << " ";
 			std::cout << *(m_buffers[i]) << std::endl;
 		}
+	}
+
+	void SubQuatVertexBuffer::Print(std::ostream& os) const
+	{
+		for (Liar::Int i = 0; i < m_numberBuffers; ++i) os << *(m_buffers[i]);
 	}
 }
