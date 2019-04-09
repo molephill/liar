@@ -11,6 +11,7 @@
 #include <core/events/EventController.h>
 #include <utils/CameraMoveScript.h>
 #include <core/material/MTL.h>
+#include <math/ByteArray.h>
 
 namespace Liar
 {
@@ -46,5 +47,7 @@ namespace Liar
 	public:
 		static void Init(Liar::Int w = Liar::WINDOW_W, Liar::Int h = Liar::WINDOW_H, const Liar::Char* title = "LiarOpenGL");
 		static void Run();
-	};	
+		static Liar::ByteArray* LiarLoad(const char*, const char* = "rb");
+		static void* ParseVector(Liar::ByteArray*, Liar::VertexFormatType);
+	};
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Geometry.h"
+#include <math/ByteArray.h>
 
 namespace Liar
 {
@@ -8,10 +9,13 @@ namespace Liar
 	{
 	public:
 		NetGeometry();
-		~NetGeometry();
+		virtual ~NetGeometry();
 
 	private:
 		std::string m_url;
+		Liar::ByteArray* m_byteArray;
+		Liar::Int m_readStep;
+		Liar::Int m_loopStep;
 
 	public:
 		virtual Liar::Boolen operator==(const char*) const;
@@ -19,17 +23,13 @@ namespace Liar
 
 		void SetURL(const char*);
 
-	public:
-		static void* ReadFloatVector(Liar::VertexFormatType, FILE*);
-
 	protected:
 		virtual void RecreateSubResource();
-		void ReadDynamicVertex(Liar::GeometryVertexType, FILE*);
-		void ReadTypeVertex(FILE*);
-		void LoopReadTypeVertex(FILE*, Liar::Int = 2);
-
-		// 解析各类型顶点
-		void ReadIntHeapOperator(Liar::VertexElementAttr, Liar::Int, FILE*);
-		void ReadSkinInfo(Liar::VertexElementAttr, Liar::Int, FILE*);
+		// read bytearray
+		void ParseRawData();
+		void ParseSubRawData();
+		void Loop(Liar::Int = 4);
+		void ParseIntHeapOperator(Liar::VertexElementAttr, Liar::Int);
+		void ParseSkinData(Liar::VertexElementAttr, Liar::Int);
 	};
 }

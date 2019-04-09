@@ -47,8 +47,9 @@ namespace Liar
 #ifdef __APPLE__
 #else
 		Liar::Liar3D::urlFormat->basePath = "E:\\c++\\liar\\liar\\core\\";
-		Liar::Liar3D::urlFormat->baseshaderFolder = "resource\\shader\\files\\";
+		Liar::Liar3D::urlFormat->baseShaderFolder = "resource\\shader\\files\\";
 		Liar::Liar3D::urlFormat->baseSourceFolder = "C:\\Users\\Administrator\\Desktop\\model\\";
+		Liar::Liar3D::urlFormat->baseSkeletonFolder = "C:\\Users\\Administrator\\Desktop\\model\\skeletons\\";
 #endif
 		Liar::Liar3D::events = new Liar::EventController();
 		Liar::Liar3D::mtl = new Liar::MTL();
@@ -92,6 +93,84 @@ namespace Liar
 				Liar::Liar3D::Destroy();
 				run = false;
 			}
+		}
+	}
+
+	Liar::ByteArray* Liar3D::LiarLoad(const char* filename, const char* mode)
+	{
+		FILE *f;
+#if defined(_MSC_VER) && _MSC_VER >= 1400
+		if (0 != fopen_s(&f, filename, mode))
+			f = 0;
+#else
+		f = fopen(filename, mode);
+#endif
+
+		if (!f) return nullptr;
+
+		long lSize;
+		char* buffer;
+		size_t result;
+
+		/* 获取文件大小 */
+		fseek(f, 0, SEEK_END);
+		lSize = ftell(f);
+		rewind(f);
+
+		/* 分配内存存储整个文件 */
+		//buffer = (char*)malloc(sizeof(char)*lSize);
+		buffer = new char[lSize];
+
+#if defined(_MSC_VER) && _MSC_VER >= 1400
+		result = fread_s(buffer, lSize, 1, lSize, f);
+#else
+		result = fread(buffer, 1, lSize, pFile);
+#endif
+		fclose(f);
+		if (result != lSize) return nullptr;
+
+		return Liar::ByteArray::CreateWithBuffer(buffer, lSize);
+	}
+
+	void* Liar3D::ParseVector(Liar::ByteArray* byte, Liar::VertexFormatType type)
+	{
+		switch (type)
+		{
+		case Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR2:
+		{
+			Liar::Vector2* vec = new Liar::Vector2();
+			vec->x = byte->ReadFloat();
+			vec->y = byte->ReadFloat();
+			return vec;
+		}
+		case Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR3:
+		{
+			Liar::Vector3* vec = new Liar::Vector3();
+			vec->x = byte->ReadFloat();
+			vec->y = byte->ReadFloat();
+			vec->z = byte->ReadFloat();
+			return vec;
+		}
+		case Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR4:
+		{
+			Liar::Vector4* vec = new Liar::Vector4();
+			vec->x = byte->ReadFloat();
+			vec->y = byte->ReadFloat();
+			vec->z = byte->ReadFloat();
+			vec->w = byte->ReadFloat();
+			return vec;
+		}
+		case Liar::VertexFormatType::VERTEX_FORMAT_TYPE_QUATERNION:
+		{
+			Liar::Quaternion* vec = new Liar::Quaternion();
+			vec->x = byte->ReadFloat();
+			vec->y = byte->ReadFloat();
+			vec->z = byte->ReadFloat();
+			vec->w = byte->ReadFloat();
+			return vec;
+		}
+		default:
+			return nullptr;
 		}
 	}
 

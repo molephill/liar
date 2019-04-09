@@ -5,8 +5,9 @@ namespace Liar
 {
 	URL::URL():
 		basePath(nullptr),
-		baseshaderFolder(nullptr),
-		baseSourceFolder(nullptr)
+		baseShaderFolder(nullptr),
+		baseSourceFolder(nullptr),
+		baseSkeletonFolder(nullptr)
 	{
 	}
 
@@ -43,7 +44,7 @@ namespace Liar
 		if (!base)
 		{
 			std::string formatURL = basePath ? basePath : "";
-			formatURL = baseshaderFolder ? formatURL + baseshaderFolder : formatURL;
+			formatURL = baseShaderFolder ? formatURL + baseShaderFolder : formatURL;
 			return FormatURL(url, formatURL.c_str());
 		}
 		else
@@ -58,10 +59,24 @@ namespace Liar
 
 		if (!base)
 		{
-			/*std::string formatURL = basePath ? basePath : "";
-			formatURL = baseSourceFolder ? formatURL + baseSourceFolder : formatURL;*/
 			std::string formatURL = "";
 			formatURL = baseSourceFolder ? formatURL + baseSourceFolder : formatURL;
+			return FormatURL(url, formatURL.c_str());
+		}
+		else
+		{
+			return FormatURL(url, base);
+		}
+	}
+
+	std::string URL::FormatSkeletonURL(const char* url, const char* base)
+	{
+		if (!url)return "";
+
+		if (!base)
+		{
+			std::string formatURL = "";
+			formatURL = baseSkeletonFolder ? formatURL + baseSkeletonFolder : formatURL;
 			return FormatURL(url, formatURL.c_str());
 		}
 		else

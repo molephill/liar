@@ -123,6 +123,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\VSOpenGL\OpenGL\stb_load\deprecated\stb_image.c" />
+    <ClCompile Include="core\ani\Bone.cpp" />
+    <ClCompile Include="core\ani\Skeleton.cpp" />
     <ClCompile Include="core\display\EventDispatcher.cpp" />
     <ClCompile Include="core\display\Node.cpp" />
     <ClCompile Include="core\display\Stage.cpp" />
@@ -170,6 +172,7 @@
     <ClCompile Include="core\resource\SolidColorTexture.cpp" />
     <ClCompile Include="core\resource\Texture2D.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="math\ByteArray.cpp" />
     <ClCompile Include="math\MathUtils.cpp" />
     <ClCompile Include="math\Matrix3x3.cpp" />
     <ClCompile Include="math\Matrix4x4.cpp" />
@@ -182,6 +185,8 @@
     <ClCompile Include="_common\glad\src\glad.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\core\ani\Bone.h" />
+    <ClInclude Include="include\core\ani\Skeleton.h" />
     <ClInclude Include="include\core\display\EventDispatcher.h" />
     <ClInclude Include="include\core\display\Node.h" />
     <ClInclude Include="include\core\display\Stage.hpp" />
@@ -235,6 +240,7 @@
     <ClInclude Include="include\core\resource\Textrue2D.h" />
     <ClInclude Include="include\Liar3D.h" />
     <ClInclude Include="include\LiarType.h" />
+    <ClInclude Include="include\math\ByteArray.h" />
     <ClInclude Include="include\math\MathUtils3D.h" />
     <ClInclude Include="include\math\Matrix3x3.h" />
     <ClInclude Include="include\math\Matrix4x4.h" />

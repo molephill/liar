@@ -91,6 +91,12 @@
     <Filter Include="源文件\core\events">
       <UniqueIdentifier>{7651684b-f5f3-4ce6-857a-f7dea33cc0f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\core\ani">
+      <UniqueIdentifier>{aa87d6fc-4d5f-4314-aa9c-972bc3ffdb4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\ani">
+      <UniqueIdentifier>{3a72c79b-4479-4b2d-8339-2a5bf8a6b855}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -266,6 +272,15 @@
     </ClCompile>
     <ClCompile Include="core\graphics\RawVertexBuffersPositionTexture.cpp">
       <Filter>源文件\core\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="core\ani\Skeleton.cpp">
+      <Filter>源文件\core\ani</Filter>
+    </ClCompile>
+    <ClCompile Include="core\ani\Bone.cpp">
+      <Filter>源文件\core\ani</Filter>
+    </ClCompile>
+    <ClCompile Include="math\ByteArray.cpp">
+      <Filter>源文件\match</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -463,6 +478,15 @@
     </ClInclude>
     <ClInclude Include="include\core\graphics\RawVertexBuffersPositionTexture.h">
       <Filter>头文件\core\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\ani\Skeleton.h">
+      <Filter>头文件\core\ani</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\ani\Bone.h">
+      <Filter>头文件\core\ani</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\ByteArray.h">
+      <Filter>头文件\math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
