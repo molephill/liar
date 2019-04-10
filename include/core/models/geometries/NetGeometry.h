@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Geometry.h"
-#include <math/ByteArray.h>
 
 namespace Liar
 {
@@ -13,8 +12,6 @@ namespace Liar
 
 	private:
 		std::string m_url;
-		Liar::ByteArray* m_byteArray;
-		Liar::Int m_readStep;
 		Liar::Int m_loopStep;
 
 	public:

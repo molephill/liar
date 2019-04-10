@@ -219,6 +219,11 @@ namespace Liar
 		this->m_pos += sizeof(value);
 	}
 
+	std::string ByteArray::ReadString()
+	{
+		int len = ReadInt();
+		return ReadString(len);
+	}
 
 	std::string ByteArray::ReadString(int len)
 	{

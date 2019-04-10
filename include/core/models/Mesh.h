@@ -27,6 +27,7 @@ namespace Liar
 		void SetSharedMaterials(Liar::BaseMaterial*);
 
 		Liar::Geometry* GetGeometry() { return m_geometry; };
+		virtual Liar::Int CollectRenderUint(Liar::RenderState&);
 		virtual Liar::ClassType GetNodeType() const { return Liar::ClassType::CLASS_NODE_TYPE_MESH; };
 	};
 }

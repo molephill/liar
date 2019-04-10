@@ -53,6 +53,12 @@ namespace Liar
 		m_sharedMaterial = shared;
 	}
 
+	Liar::Int Mesh::CollectRenderUint(Liar::RenderState& state)
+	{
+		if (!m_geometry || !m_geometry->GetUploaded()) return 0;
+		return Liar::Node::CollectRenderUint(state);
+	}
+
 	Liar::RenderUnit* Mesh::GetRenderUint(Liar::RenderState& state)
 	{
 		Liar::RenderUnit* renderUnit = Liar::Node::GetRenderUint(state);

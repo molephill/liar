@@ -164,6 +164,7 @@
     <ClCompile Include="core\render\RenderQueue.cpp" />
     <ClCompile Include="core\render\RenderState.cpp" />
     <ClCompile Include="core\render\RenderUnit.cpp" />
+    <ClCompile Include="core\render\TickRender.cpp" />
     <ClCompile Include="core\resource\BaseTeture.cpp" />
     <ClCompile Include="core\resource\Resource.cpp" />
     <ClCompile Include="core\resource\shader\ShaderCompile.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="include\core\render\RenderState.h" />
     <ClInclude Include="include\core\render\RenderUnit.h" />
     <ClInclude Include="include\core\render\StageContext.h" />
+    <ClInclude Include="include\core\render\TickRender.h" />
     <ClInclude Include="include\core\resource\BaseTexture.h" />
     <ClInclude Include="include\core\resource\Resource.h" />
     <ClInclude Include="include\core\resource\shader\ShaderCompile.h" />

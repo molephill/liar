@@ -6,17 +6,12 @@ namespace Liar
 {
 	NetGeometry::NetGeometry():
 		Liar::Geometry(),
-		m_url(""), m_byteArray(nullptr), m_readStep(0), m_loopStep(0)
+		m_url(""), m_loopStep(0)
 	{
 	}
 
 	NetGeometry::~NetGeometry()
 	{
-		if (m_byteArray)
-		{
-			delete m_byteArray;
-			m_byteArray = nullptr;
-		}
 	}
 
 	Liar::Boolen NetGeometry::operator==(const char* url) const

@@ -3,6 +3,7 @@
 #include <core/resource/Resource.h>
 #include <core/graphics/IRawVertexBuffers.h>
 #include <core/graphics/VertexType.h>
+#include <math/ByteArray.h>
 
 
 namespace Liar
@@ -19,6 +20,7 @@ namespace Liar
 
 		GLenum m_bufferSubType;
 		Liar::IRawVertexBuffers* m_rawVertexBuffers;
+		Liar::ByteArray* m_byteArray;
 
 		Liar::Uint m_vertexArray;
 		Liar::Uint m_vertexBuffer;
@@ -35,6 +37,7 @@ namespace Liar
 		void SetGeometryVertexType(Liar::GeometryVertexType);
 		Liar::IRawVertexBuffers* GetRawVertexBuffers() { return m_rawVertexBuffers; };
 		Liar::GeometryVertexType GetGeoVertexType() const { return m_geometryVertexType; };
+		Liar::Boolen GetUploaded() const { return m_rawVertexBuffers ? m_rawVertexBuffers->GetUploaded() : false; };
 
 	public:
 		virtual size_t GetNumberTriangles() const;

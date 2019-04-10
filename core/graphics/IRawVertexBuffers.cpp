@@ -12,7 +12,8 @@ namespace Liar
 		m_geomtryVertexType(vertextype),
 		m_indices(nullptr), m_numberIndices(0),
 		m_vertexKeys(nullptr), m_numberVertexKeys(0),
-		m_mtlIndex(-1), m_vertexIndex(0)
+		m_mtlIndex(-1), m_vertexIndex(0), 
+		m_loopStep(0), m_uploaed(false)
 	{
 	}
 
@@ -162,18 +163,28 @@ namespace Liar
 		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
 		size_t indicesSize = sizeof(Liar::Uint)*m_numberIndices;
 		gl.BufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, m_indices, GL_STATIC_DRAW);
+		Liar::Liar3D::tickRender->AddTickRender(this);
+	}
+
+	bool IRawVertexBuffers::TickRender(Liar::Int delSec)
+	{
+		Liar::RenderState& state = *(Liar::Liar3D::renderState);
+		Liar::StageContext& gl = *(state.stageContext);
 
 		// 提交具体数据
 		Liar::Int stride = GetSize();
-		for (Liar::Int i = 0; i < m_numberVertexKeys; ++i)
+		while(m_loopStep < m_numberVertexKeys)
 		{
 			m_vertexIndex = 0;
-			size_t start = i * stride;
-			LoopUploadSubData(gl, type, i, start);
+			size_t start = m_loopStep * stride;
+			LoopUploadSubData(gl, GL_ARRAY_BUFFER, m_loopStep, start);
+			++m_loopStep;
+			if (Liar::Liar3D::GetTimer() - state.lastCurrentTime >= delSec) return false;
 		}
-
 		// 绑定
 		VertexAttrbSubPointer(gl, stride);
+		m_uploaed = true;
+		return true;
 	}
 
 	void IRawVertexBuffers::Print(std::ostream& os) const

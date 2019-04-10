@@ -43,11 +43,13 @@ namespace Liar
 		static Liar::EventController* events;
 		static Liar::CameraMoveScript* cameraMoveScript;
 		static Liar::MTL* mtl;
+		static Liar::TickRender* tickRender;
 
 	public:
 		static void Init(Liar::Int w = Liar::WINDOW_W, Liar::Int h = Liar::WINDOW_H, const Liar::Char* title = "LiarOpenGL");
 		static void Run();
 		static Liar::ByteArray* LiarLoad(const char*, const char* = "rb");
 		static void* ParseVector(Liar::ByteArray*, Liar::VertexFormatType);
+		static clock_t GetTimer();
 	};
 }

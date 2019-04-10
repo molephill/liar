@@ -80,55 +80,32 @@ namespace Liar
 			RemoveAllMeshs();
 
 			std::string realPath = Liar::Liar3D::urlFormat->FormatSourceURL(m_url.c_str()) + Liar::Model::mtlSzChar;
-			FILE* pFile = nullptr;
-#ifndef __APPLE__
-			fopen_s(&pFile, realPath.c_str(), "rb+");
-#else
-			pFile = fopen(realPath.c_str(), "rb+");
-#endif
 
-			// strip
-			size_t strip = sizeof(Liar::Int);
-
-			// ¼ÓÔØËùÓÐ mesh
-			Liar::Int meshSize = 0;
 			std::string tmpName = name;
-			fread(&meshSize, strip, 1, pFile);
-
 			std::string folderName = Liar::StringParse::GetHead(m_url, "\\");
 			folderName += "\\";
 
-			// materials
-			Liar::Int materialSize = 0;
-			fread(&materialSize, strip, 1, pFile);
-
+			Liar::ByteArray* byte = Liar::Liar3D::LiarLoad(realPath.c_str());
+			Liar::Int meshSize = byte->ReadInt();
+			Liar::Int materialSize = byte->ReadInt();
 			SetNumberSharedMaterial(materialSize);
-
 			for (Liar::Int i = 0; i < materialSize; ++i)
 			{
 				Liar::BaseMaterial* mat = Liar::Liar3D::mtl->GetShareMaterial(name, Liar::MaterialTypeDefine::MATERIAL_STANDARD);
 				SetSharedMaterial(mat, i);
 				// texture
-				Liar::Int texSize = 0;
-				fread(&texSize, strip, 1, pFile);
+				Liar::Int texSize = byte->ReadInt();
 
 				for (Liar::Int j = 0; j < texSize; ++j)
 				{
-					Liar::Int mapSlot = 0;
-					fread(&mapSlot, strip, 1, pFile);
-					std::string tmpBitmapPath = Liar::MathUtils3D::ReadString(pFile);
+					Liar::Int mapSlot = byte->ReadInt();
+					std::string tmpBitmapPath = byte->ReadString();
 					tmpBitmapPath = folderName + tmpBitmapPath;
-					
+
 					Liar::BaseTexture* tex = Liar::Liar3D::mtl->GetShareTexture(tmpBitmapPath.c_str(), Liar::TextureTypeDefine::TEXTURE_2D);
 					mat->SetAmbientTexture(tex);
 				}
 			}
-
-			fclose(pFile);
-
-			/*Liar::Mesh* mesh = new Liar::Mesh(Liar::GeometryType::GEOMETRY_TYPE_BOX);
-			mesh->SetSharedMaterials(m_sharedMaterials[0]);
-			AddChild(mesh);*/
 
 			for (Liar::Int i = 0; i < meshSize; ++i)
 			{
@@ -137,6 +114,8 @@ namespace Liar
 				subMesh->SetGeometryType(tmpName.c_str(), m_sharedMaterials);
 				AddChild(subMesh);
 			}
+
+			delete byte;
 		}
 	}
 

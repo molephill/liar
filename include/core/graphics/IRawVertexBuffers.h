@@ -2,6 +2,7 @@
 
 #include <core/graphics/VertexType.h>
 #include <core/render/RenderState.h>
+#include <core/render/TickRender.h>
 #include <LiarType.h>
 #include <math/Vector3.h>
 #include <math/Vector2.h>
@@ -13,7 +14,7 @@ namespace Liar
 	/*
 	* 顶点详细数据
 	*/
-	class IRawVertexBuffers
+	class IRawVertexBuffers:public Liar::ITickRender
 	{
 	public:
 		IRawVertexBuffers(Liar::GeometryVertexType type = Liar::GeometryVertexType::GEOMETRY_VERTEX_TYPE_NONE);
@@ -31,7 +32,12 @@ namespace Liar
 		// 共享材质
 		Liar::Int m_mtlIndex;
 
+		// current vertex index;
 		Liar::Int m_vertexIndex;
+
+		// current loop step;
+		Liar::Int m_loopStep;
+		Liar::Boolen m_uploaed;
 
 	protected:
 		virtual size_t VertexAttrbSubPointer(Liar::StageContext&, size_t) = 0;
@@ -73,7 +79,10 @@ namespace Liar
 		Liar::Int GetNumberTriangles() const { return m_numberIndices / 3; };
 
 		// 获得顶点索引数据
-		Liar::Uint* GetIndices() { return m_indices; };
+		Liar::Uint* GetIndices() const { return m_indices; };
+
+		// 是否已提交完
+		Liar::Boolen GetUploaded() const { return m_uploaed; };
 
 		// 获得步长
 		virtual Liar::Int GetSize() const = 0;
@@ -86,6 +95,9 @@ namespace Liar
 
 		// 打印
 		virtual void Print(std::ostream&) const;
+
+		// 分帧处理
+		virtual bool TickRender(Liar::Int = Liar::TICK_INTERVAL);
 
 	};
 }

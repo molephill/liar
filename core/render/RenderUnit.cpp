@@ -24,7 +24,7 @@ namespace Liar
 
 	void RenderUnit::Render(Liar::RenderState& state)
 	{
-		if (!geometry) return;
+		if (!geometry || !geometry->GetUploaded()) return;
 		Liar::ShaderProgram* shaderProgram = Liar::Liar3D::shaderCompile->GetShaderProgram(geometry->GetGeoVertexType());
 		shaderProgram->Use();
 		shaderProgram->SetMat4("u_MvpMatrix", transform->GetProjectionViewWorldMatrix());

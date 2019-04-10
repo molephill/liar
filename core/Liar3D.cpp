@@ -59,6 +59,7 @@ namespace Liar
 		Liar::Liar3D::shaderCompile = new Liar::ShaderCompile();
 		Liar::Liar3D::rendering = new Liar::Renderer();
 		Liar::Liar3D::cameraMoveScript = new Liar::CameraMoveScript();
+		Liar::Liar3D::tickRender = new Liar::TickRender();
 
 		Liar::Liar3D::renderState->stageContext->Enable(GL_DEPTH_TEST);
 	}
@@ -77,11 +78,11 @@ namespace Liar
 				Liar::RenderState& state = *(Liar::Liar3D::renderState);
 
 				// calc runtime
-				clock_t start;
-				start = clock();
+				clock_t start = GetTimer();
 				state.elapsedTime = state.lastCurrentTime > 0 ? start - state.lastCurrentTime : 0;
 				state.lastCurrentTime = start;
 
+				Liar::Liar3D::tickRender->Loop();
 				run = Liar::Liar3D::stage->OnEnterFrame(state);
 				state.publicDefine = state.shaderValue->GetShaderDefineValue();
 				rendering->Render(state);
@@ -94,6 +95,11 @@ namespace Liar
 				run = false;
 			}
 		}
+	}
+
+	clock_t Liar3D::GetTimer()
+	{
+		return clock();
 	}
 
 	Liar::ByteArray* Liar3D::LiarLoad(const char* filename, const char* mode)
@@ -206,6 +212,12 @@ namespace Liar
 			Liar::Liar3D::cameraMoveScript = nullptr;
 		}
 
+		if (Liar::Liar3D::tickRender)
+		{
+			delete Liar::Liar3D::tickRender;
+			Liar::Liar3D::tickRender = nullptr;
+		}
+
 		/*  ·Å×îºóÉ¾³ý */
 		if (Liar::Liar3D::stage)
 		{
@@ -244,6 +256,7 @@ namespace Liar
 	Liar::EventController* Liar3D::events = nullptr;
 	Liar::MTL* Liar3D::mtl = nullptr;
 	Liar::CameraMoveScript* Liar3D::cameraMoveScript = nullptr;
+	Liar::TickRender* Liar3D::tickRender = nullptr;
 	GLFWwindow* Liar3D::m_window = nullptr;
 }
 

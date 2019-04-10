@@ -282,6 +282,9 @@
     <ClCompile Include="math\ByteArray.cpp">
       <Filter>源文件\match</Filter>
     </ClCompile>
+    <ClCompile Include="core\render\TickRender.cpp">
+      <Filter>源文件\core\render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\math\Matrix3x3.h">
@@ -487,6 +490,9 @@
     </ClInclude>
     <ClInclude Include="include\math\ByteArray.h">
       <Filter>头文件\math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\render\TickRender.h">
+      <Filter>头文件\core\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

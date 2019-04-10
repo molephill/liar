@@ -20,6 +20,7 @@ namespace Liar
 	typedef void(*EventFun)(const Liar::Event&);
 
 	const static Number ZERO = 0.0f;
+	const static Int TICK_INTERVAL = 100;
 
 	// 定义类类型
 	enum ClassType

@@ -47,6 +47,7 @@ namespace Liar
 		void WriteLongLong(long long);
 
 		std::string ReadString(int);
+		std::string ReadString();
 		void WriteString(std::string);
 
 		char ReadByte();
