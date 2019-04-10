@@ -26,10 +26,11 @@ namespace Liar
 		m_rawVertexBuffers = Liar::Liar3D::geometryFactory->GetVertexFactory().GetRawVertexBuffers(m_geometryVertexType);
 
 		// 创建具体的数据
-		RecreateSubResource();
-
-		// 提交数据
-		UploadData();
+		if (RecreateSubResource())
+		{
+			// 提交数据
+			UploadData();
+		}
 	}
 
 	void Geometry::DisposeResource()

@@ -97,7 +97,7 @@ namespace Liar
 		virtual void Print(std::ostream&) const;
 
 		// ∑÷÷°¥¶¿Ì
-		virtual bool TickRender(Liar::Int = Liar::TICK_INTERVAL);
+		virtual bool TickRender(void* = nullptr, Liar::Int = Liar::TICK_INTERVAL);
 
 	};
 }

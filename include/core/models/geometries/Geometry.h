@@ -29,7 +29,7 @@ namespace Liar
 	protected:
 		virtual void DisposeResource();
 		virtual void RecreateResource();
-		virtual void RecreateSubResource() = 0;
+		virtual bool RecreateSubResource() = 0;
 		virtual Liar::Uint GetNumberLength() const;
 		void UploadData();
 

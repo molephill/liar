@@ -131,7 +131,7 @@ namespace Liar
 		glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/ar
 	}
 
-	void BoxGeometry::RecreateSubResource()
+	bool BoxGeometry::RecreateSubResource()
 	{
 		//Liar::Number halfLong = m_long * 0.5f;
 		//Liar::Number halfWidth = m_width * 0.5f;
@@ -226,5 +226,6 @@ namespace Liar
 		//m_rawVertexBuffers->SetSubVertexBuffer(Liar::VertexElementAttr::ELEMENT_ATTR_RAW_KEY, 21, new Liar::IntHeapOperator(0, 5, 0));
 		//m_rawVertexBuffers->SetSubVertexBuffer(Liar::VertexElementAttr::ELEMENT_ATTR_RAW_KEY, 22, new Liar::IntHeapOperator(4, 5, 1));
 		//m_rawVertexBuffers->SetSubVertexBuffer(Liar::VertexElementAttr::ELEMENT_ATTR_RAW_KEY, 23, new Liar::IntHeapOperator(7, 5, 2));
+		return true;
 	}
 }

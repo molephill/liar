@@ -4,7 +4,7 @@
 
 namespace Liar
 {
-	class NetGeometry:public Liar::Geometry
+	class NetGeometry:public Liar::Geometry, public Liar::ITickRender
 	{
 	public:
 		NetGeometry();
@@ -20,12 +20,13 @@ namespace Liar
 
 		void SetURL(const char*);
 
+		// ∑÷÷°¥¶¿Ì
+		virtual bool TickRender(void* = nullptr, Liar::Int = Liar::TICK_INTERVAL);
+
 	protected:
-		virtual void RecreateSubResource();
+		virtual bool RecreateSubResource();
 		// read bytearray
-		void ParseRawData();
 		void ParseSubRawData();
-		void Loop(Liar::Int = 4);
 		void ParseIntHeapOperator(Liar::VertexElementAttr, Liar::Int);
 		void ParseSkinData(Liar::VertexElementAttr, Liar::Int);
 	};

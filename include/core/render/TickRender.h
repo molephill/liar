@@ -7,7 +7,7 @@ namespace Liar
 	class ITickRender
 	{
 	public:
-		virtual bool TickRender(Liar::Int = Liar::TICK_INTERVAL) = 0;
+		virtual bool TickRender(void* = nullptr, Liar::Int = Liar::TICK_INTERVAL) = 0;
 	};
 
 	class TickRender
@@ -24,22 +24,24 @@ namespace Liar
 		Liar::TickRender::TickNode* m_tail;
 
 	public:
-		void AddTickRender(Liar::ITickRender*);
+		void AddTickRender(Liar::ITickRender*, void* = nullptr);
 		void Loop();
 	};
 
 	class Liar::TickRender::TickNode
 	{
 	public:
-		TickNode() :node(nullptr), next(nullptr) {};
+		TickNode() :node(nullptr), next(nullptr), args(nullptr){};
 		~TickNode()
 		{
 			node = nullptr;
 			next = nullptr;
+			args = nullptr;
 		}
 
 	public:
 		Liar::ITickRender* node;
 		Liar::TickRender::TickNode* next;
+		void* args;
 	};
 }

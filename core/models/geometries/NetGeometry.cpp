@@ -6,6 +6,7 @@ namespace Liar
 {
 	NetGeometry::NetGeometry():
 		Liar::Geometry(),
+		Liar::ITickRender(),
 		m_url(""), m_loopStep(0)
 	{
 	}
@@ -34,7 +35,7 @@ namespace Liar
 		}
 	}
 
-	void NetGeometry::RecreateSubResource()
+	bool NetGeometry::RecreateSubResource()
 	{
 		std::string realPath = Liar::Liar3D::urlFormat->FormatSourceURL(m_url.c_str());
 
@@ -46,45 +47,53 @@ namespace Liar
 		Liar::Int mtlIndex = m_byteArray->ReadInt();
 		m_rawVertexBuffers->SetMtlIndex(mtlIndex);
 
-		ParseRawData();
+		Liar::Liar3D::tickRender->AddTickRender(this);
 
 		/*std::ofstream out("C:/Users/Administrator/Desktop/model/out1.txt");
 		m_rawVertexBuffers->Print(out);
 		out.close();*/
+
+		return false;
 	}
 
-	void NetGeometry::ParseRawData()
+	bool NetGeometry::TickRender(void* args, Liar::Int delSec)
 	{
+		Liar::Int loopCount = 0;
 		switch (m_geometryVertexType)
 		{
 		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL:
 		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_COLOR:
 		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_TEXTURE:
-			Loop();
+			loopCount = 4;
 			break;
 		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_COLOR:
 		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_TEXTURE_SKIN:
 		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_TEXTURE:
-			Loop(5);
+			loopCount = 5;
 			break;
 		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_COLOR_TEXTURE:
-			Loop(6);
+			loopCount = 6;
 			break;
 		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_COLOR_SKIN:
 		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_TEXTURE_SKIN:
-			Loop(7);
+			loopCount = 7;
 			break;
 		case Liar::GEOMETRY_VERTEX_TYPE_POSITION_NORMAL_COLOR_TEXTURE_SKIN:
-			Loop(8);
+			loopCount = 8;
 			break;
 		default:
 			break;
 		}
-	}
 
-	void NetGeometry::Loop(Liar::Int len)
-	{
-		for (m_loopStep; m_loopStep < len; ++m_loopStep) ParseSubRawData();
+		Liar::RenderState& state = *(Liar::Liar3D::renderState);
+		while (m_loopStep < loopCount)
+		{
+			ParseSubRawData();
+			++m_loopStep;
+			if (Liar::Liar3D::GetTimer() - state.lastCurrentTime >= delSec) return false;
+		}
+		UploadData();
+		return true;
 	}
 
 	void NetGeometry::ParseSubRawData()

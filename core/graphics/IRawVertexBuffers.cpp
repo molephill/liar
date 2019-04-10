@@ -163,16 +163,18 @@ namespace Liar
 		Liar::StageContext& gl = *(Liar::Liar3D::renderState->stageContext);
 		size_t indicesSize = sizeof(Liar::Uint)*m_numberIndices;
 		gl.BufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, m_indices, GL_STATIC_DRAW);
-		Liar::Liar3D::tickRender->AddTickRender(this);
+		Liar::Liar3D::tickRender->AddTickRender(this, &type);
 	}
 
-	bool IRawVertexBuffers::TickRender(Liar::Int delSec)
+	bool IRawVertexBuffers::TickRender(void* args, Liar::Int delSec)
 	{
 		Liar::RenderState& state = *(Liar::Liar3D::renderState);
 		Liar::StageContext& gl = *(state.stageContext);
 
 		// 提交具体数据
 		Liar::Int stride = GetSize();
+		//GLenum type = GL_ARRAY_BUFFER;
+		//if (args) type = *(GLenum*)args;
 		while(m_loopStep < m_numberVertexKeys)
 		{
 			m_vertexIndex = 0;

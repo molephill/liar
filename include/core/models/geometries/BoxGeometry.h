@@ -26,6 +26,6 @@ namespace Liar
 	protected:
 		virtual void RecreateResource();
 		virtual Liar::Uint GetNumberLength() const;
-		virtual void RecreateSubResource();
+		virtual bool RecreateSubResource();
 	};
 }
