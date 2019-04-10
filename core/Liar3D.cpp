@@ -180,6 +180,30 @@ namespace Liar
 		}
 	}
 
+	Liar::VertexFormatType Liar3D::ElementAttrFormat(Liar::VertexElementAttr attrType)
+	{
+		Liar::VertexFormatType elementType = Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR2;
+		switch (attrType)
+		{
+		case Liar::VertexElementAttr::ELEMENT_ATTR_POSITION:
+		case Liar::VertexElementAttr::ELEMENT_ATTR_NORMAL:
+		case Liar::VertexElementAttr::ELEMENT_ATTR_COLOR:
+		case Liar::VertexElementAttr::ELEMENT_ATTR_SCALE:
+			elementType = Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR3;
+			break;
+		case Liar::VertexElementAttr::ELEMENT_ATTR_TEXTURECOORDINATE:
+			elementType = Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR2;
+			break;
+		case Liar::VertexElementAttr::ELEMENT_ATTR_ROTATION:
+			elementType = Liar::VertexFormatType::VERTEX_FORMAT_TYPE_QUATERNION;
+			break;
+		default:
+			elementType = Liar::VertexFormatType::VERTEX_FORMAT_TYPE_VECTOR4;
+			break;
+		}
+		return elementType;
+	}
+
 	void Liar3D::Destroy()
 	{
 		if (Liar::Liar3D::geometryFactory)

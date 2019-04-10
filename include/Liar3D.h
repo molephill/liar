@@ -50,6 +50,7 @@ namespace Liar
 		static void Run();
 		static Liar::ByteArray* LiarLoad(const char*, const char* = "rb");
 		static void* ParseVector(Liar::ByteArray*, Liar::VertexFormatType);
+		static Liar::VertexFormatType ElementAttrFormat(Liar::VertexElementAttr);
 		static clock_t GetTimer();
 	};
 }

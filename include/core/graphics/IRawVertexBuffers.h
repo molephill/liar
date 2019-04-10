@@ -3,7 +3,6 @@
 #include <core/graphics/VertexType.h>
 #include <core/render/RenderState.h>
 #include <core/render/TickRender.h>
-#include <LiarType.h>
 #include <math/Vector3.h>
 #include <math/Vector2.h>
 #include <math/Quaternion.h>

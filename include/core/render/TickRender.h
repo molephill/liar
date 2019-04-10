@@ -25,6 +25,7 @@ namespace Liar
 
 	public:
 		void AddTickRender(Liar::ITickRender*, void* = nullptr);
+		void RemoveTickRender(Liar::ITickRender*);
 		void Loop();
 	};
 

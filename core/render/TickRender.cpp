@@ -35,6 +35,45 @@ namespace Liar
 		m_tail = tickNode;
 	}
 
+	void TickRender::RemoveTickRender(Liar::ITickRender* render)
+	{
+		if (render)
+		{
+			if (m_current)
+			{
+				Liar::TickRender::TickNode* tmp = nullptr;
+				if (m_current->node == render)
+				{
+					tmp = m_current->next;
+					if (m_current == m_tail) m_tail = nullptr;
+					delete m_current;
+					m_current = tmp;
+				}
+				else
+				{
+					Liar::TickRender::TickNode* pre = m_current;
+					Liar::TickRender::TickNode* cur = m_current;
+					while (cur)
+					{
+						if (cur->node == render)
+						{
+							tmp = cur->next;
+							if (cur == m_tail) m_tail = pre;
+							delete cur;
+							pre->next = tmp;
+							return;
+						}
+						else
+						{
+							pre = cur;
+							cur = cur->next;
+						}
+					}
+				}
+			}
+		}
+	}
+
 	void TickRender::Loop()
 	{
 		if (m_current)

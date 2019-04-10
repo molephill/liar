@@ -7,7 +7,6 @@
 #include <core/render/RenderState.h>
 #include <core/resource/shader/ShaderProgram.h>
 #include <core/resource/shader/ShaderCompile.h>
-#include <LiarType.h>
 
 namespace Liar
 {

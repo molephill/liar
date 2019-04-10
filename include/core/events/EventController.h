@@ -2,7 +2,6 @@
 
 #include <core/display/EventDispatcher.h>
 #include <core/events/MouseEvent.h>
-#include <LiarType.h>
 
 namespace Liar
 {

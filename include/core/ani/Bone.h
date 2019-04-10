@@ -1,7 +1,7 @@
 #pragma once
 
 #include <core/display/Node.h>
-#include <math/Matrix4x4.h>
+#include <core/display/Transform3D.h>
 
 namespace Liar
 {
@@ -16,11 +16,10 @@ namespace Liar
 		Liar::Int m_positonIndex;
 		Liar::Int m_rotationIndex;
 		Liar::Int m_scaleIndex;
-		Liar::Matrix4x4* m_matrix;
 
 	public:
 		void SetParentIndex(Liar::Int index) {	m_parentIndex = index; };
-		void SetKey(Liar::Int, Liar::Int, Liar::Int);
+		void SetMatrixKey(Liar::Int, Liar::Int, Liar::Int);
 		Liar::Boolen Equals(const Liar::Bone&) const;
 		Liar::Boolen Equals(const char*) const;
 	};

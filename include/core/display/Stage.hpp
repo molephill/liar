@@ -2,7 +2,6 @@
 #ifndef Stage_hpp
 #define Stage_hpp
 
-#include <LiarType.h>
 #include <core/render/BaseCamera.h>
 #include <core/light/BaseLight.h>
 #include <core/display/Node.h>

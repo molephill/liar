@@ -5,19 +5,16 @@ namespace Liar
 	Bone::Bone():
 		Liar::Node(),
 		m_parentIndex(-1),
-		m_positonIndex(0), m_rotationIndex(0), m_scaleIndex(0),
-		m_matrix(new Liar::Matrix4x4())
+		m_positonIndex(0), m_rotationIndex(0), m_scaleIndex(0)
 	{
 	}
 
 
 	Bone::~Bone()
 	{
-		delete m_matrix;
-		m_matrix = nullptr;
 	}
 
-	void Bone::SetKey(Liar::Int pos, Liar::Int rot, Liar::Int scale)
+	void Bone::SetMatrixKey(Liar::Int pos, Liar::Int rot, Liar::Int scale)
 	{
 		m_positonIndex = pos;
 		m_rotationIndex = rot;

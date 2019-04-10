@@ -6,6 +6,7 @@
 #include <core/models/Mesh.h>
 #include <core/events/EventType.h>
 #include <core/models/Model.h>
+#include <core/ani/Skeleton.h>
 
 int main() {
 
@@ -27,6 +28,10 @@ int main() {
 	model->SetURL("ani\\test");
 	model->GetTransform3D().SetScale(0.1f);
 	Liar::Liar3D::stage->AddChild(model);
+
+	Liar::Skeleton* ske = new Liar::Skeleton();
+	ske->SetURL("bird");
+	//delete ske;
 
 	Liar::Liar3D::Run();
 

@@ -10,10 +10,6 @@ namespace Liar
 		Model();
 		virtual ~Model();
 
-	private:
-		static const char* mtlSzChar;
-		static const char* meshSzChar;
-
 	protected:
 		std::string m_url;
 		Liar::BaseMaterial** m_sharedMaterials;

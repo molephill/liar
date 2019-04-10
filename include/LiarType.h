@@ -21,6 +21,9 @@ namespace Liar
 
 	const static Number ZERO = 0.0f;
 	const static Int TICK_INTERVAL = 100;
+	/*const char* mtlSzChar = ".MTL";
+	const char* meshSzChar = ".MESH";
+	const char* skeSzChar = ".SKE";*/
 
 	// 定义类类型
 	enum ClassType

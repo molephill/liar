@@ -79,7 +79,7 @@ namespace Liar
 			SetName(name);
 			RemoveAllMeshs();
 
-			std::string realPath = Liar::Liar3D::urlFormat->FormatSourceURL(m_url.c_str()) + Liar::Model::mtlSzChar;
+			std::string realPath = Liar::Liar3D::urlFormat->FormatSourceURL(m_url.c_str()) + ".MTL";//Liar::mtlSzChar;
 
 			std::string tmpName = name;
 			std::string folderName = Liar::StringParse::GetHead(m_url, "\\");
@@ -110,7 +110,7 @@ namespace Liar
 			for (Liar::Int i = 0; i < meshSize; ++i)
 			{
 				Liar::Mesh* subMesh = new Liar::Mesh(Liar::GeometryType::GEOMETRY_NONE);
-				tmpName = name + std::to_string(i) + Liar::Model::meshSzChar;
+				tmpName = name + std::to_string(i) + ".MESH";//Liar::meshSzChar;
 				subMesh->SetGeometryType(tmpName.c_str(), m_sharedMaterials);
 				AddChild(subMesh);
 			}
@@ -118,7 +118,4 @@ namespace Liar
 			delete byte;
 		}
 	}
-
-	const char* Liar::Model::mtlSzChar = ".MTL";
-	const char* Liar::Model::meshSzChar = ".MESH";
 }
