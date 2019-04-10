@@ -43,9 +43,10 @@ namespace Liar
 		Liar::Int type = m_byteArray->ReadInt();
 		m_geometryVertexType = static_cast<Liar::GeometryVertexType>(type);
 		m_rawVertexBuffers = Liar::Liar3D::geometryFactory->GetVertexFactory().GetRawVertexBuffers(m_geometryVertexType);
-		ParseRawData();
 		Liar::Int mtlIndex = m_byteArray->ReadInt();
 		m_rawVertexBuffers->SetMtlIndex(mtlIndex);
+
+		ParseRawData();
 
 		/*std::ofstream out("C:/Users/Administrator/Desktop/model/out1.txt");
 		m_rawVertexBuffers->Print(out);
