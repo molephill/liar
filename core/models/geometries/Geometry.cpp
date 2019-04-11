@@ -22,7 +22,7 @@ namespace Liar
 	void Geometry::RecreateResource()
 	{
 		Liar::Resource::RecreateResource();
-		m_rawVertexBuffers = Liar::Liar3D::geometryFactory->GetVertexFactory().GetRawVertexBuffers(m_geometryVertexType);
+		m_rawVertexBuffers = Liar::Liar3D::mtl->GetRawVertexBuffers(m_geometryVertexType);
 
 		// 创建具体的数据
 		if (RecreateSubResource())

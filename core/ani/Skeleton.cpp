@@ -127,9 +127,16 @@ namespace Liar
 			Liar::Int positionIndex = byte->ReadInt();
 			Liar::Int rotationIndex = byte->ReadInt();
 			Liar::Int scaleIndex = byte->ReadInt();
-			bone->SetName(name.c_str());
+			bone->name = name;
 			bone->SetMatrixKey(positionIndex, rotationIndex, scaleIndex);
 			bone->parentIndex = parentIndex;
+
+			Liar::Vector3* positon = m_positions[positionIndex];
+			Liar::Quaternion* rotation = m_rotations[rotationIndex];
+			Liar::Vector3* scale = m_scales[scaleIndex];
+
+			Liar::Matrix4x4::CreateAffineTransformation(*positon, *rotation, *scale, *(bone->matrix));
+
 			m_bones[m_loopStep++] = bone;
 			if (Liar::Liar3D::CheckTimeout(delSec)) return false;
 		}

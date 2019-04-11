@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Bone.h"
+#include <math/ByteArray.h>
+#include <core/graphics/VertexType.h>
 #include <core/resource/Resource.h>
 #include <core/render/TickRender.h>
 

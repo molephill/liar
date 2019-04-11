@@ -228,12 +228,6 @@
     <ClCompile Include="core\graphics\IRawVertexBuffers.cpp">
       <Filter>源文件\core\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="core\graphics\VertexFactory.cpp">
-      <Filter>源文件\core\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="core\models\GeometryFactory.cpp">
-      <Filter>源文件\core\models</Filter>
-    </ClCompile>
     <ClCompile Include="core\models\Model.cpp">
       <Filter>源文件\core\models</Filter>
     </ClCompile>
@@ -335,9 +329,6 @@
     <ClInclude Include="include\core\graphics\VertexType.h">
       <Filter>头文件\core\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\graphics\VertexFactory.h">
-      <Filter>头文件\core\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="include\core\light\BaseLight.h">
       <Filter>头文件\core\light</Filter>
     </ClInclude>
@@ -379,9 +370,6 @@
     </ClInclude>
     <ClInclude Include="include\core\models\geometries\BoxGeometry.h">
       <Filter>头文件\core\models\geometries</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\models\GeometryFactory.h">
-      <Filter>头文件\core\models</Filter>
     </ClInclude>
     <ClInclude Include="include\core\models\Mesh.h">
       <Filter>头文件\core\models</Filter>

@@ -1,21 +1,22 @@
 #pragma once
 
-#include <core/display/Node.h>
-#include <core/display/Transform3D.h>
+#include <math/Matrix4x4.h>
 
 namespace Liar
 {
-	class Bone:public Liar::Node
+	class Bone
 	{
 	public:
 		Bone();
-		virtual ~Bone();
+		~Bone();
 
 	public:
+		std::string name;
 		Liar::Int parentIndex;
 		Liar::Int positonIndex;
 		Liar::Int rotationIndex;
 		Liar::Int scaleIndex;
+		Liar::Matrix4x4* matrix;
 
 	public:
 		void SetMatrixKey(Liar::Int, Liar::Int, Liar::Int);

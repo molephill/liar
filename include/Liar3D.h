@@ -5,7 +5,6 @@
 #include <core/render/StageContext.h>
 #include <core/resource/shader/ShaderCompile.h>
 #include <core/render/RenderState.h>
-#include <core/models/GeometryFactory.h>
 #include <utils/URL.h>
 #include <core/render/Renderer.h>
 #include <core/events/EventController.h>
@@ -33,7 +32,6 @@ namespace Liar
 	public:
 		static Liar::Stage* stage;
 		static Liar::RenderState* renderState;
-		static Liar::GeometryFactory* geometryFactory;
 		static Liar::ShaderCompile* shaderCompile;
 		static Liar::URL* urlFormat;
 		static Liar::RenderUnit** m_renderUnits;

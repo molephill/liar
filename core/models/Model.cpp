@@ -9,7 +9,8 @@ namespace Liar
 	Model::Model() :
 		Liar::Node(),
 		m_url(""),
-		m_sharedMaterials(nullptr), m_numberSharedMaterials(0)
+		m_sharedMaterials(nullptr), m_numberSharedMaterials(0),
+		m_skeleton(nullptr)
 	{
 		//m_preCompileShader = Liar::Liar3D::shaderCompile->GetPreCompileShader("TEST");
 	}
@@ -23,6 +24,12 @@ namespace Liar
 		}
 		if (m_sharedMaterials) free(m_sharedMaterials);
 		m_sharedMaterials = nullptr;
+
+		if (m_skeleton)
+		{
+			m_skeleton->ReduceRefrence();
+			m_skeleton = nullptr;
+		}
 	}
 
 	void Model::RemoveAllMeshs()
@@ -71,7 +78,7 @@ namespace Liar
 		return CollectChildrenRenderUint(state);
 	}
 
-	void Model::SetURL(const char* name)
+	void Model::SetURL(const char* name, const char* ske)
 	{
 		if (strcmp(m_url.c_str(), name) != 0)
 		{
@@ -117,5 +124,9 @@ namespace Liar
 
 			delete byte;
 		}
+
+		// skeleteon
+		if (!ske || (m_skeleton && m_skeleton->Equals(ske))) return;
+		
 	}
 }

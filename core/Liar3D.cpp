@@ -55,7 +55,6 @@ namespace Liar
 		Liar::Liar3D::mtl = new Liar::MTL();
 		Liar::Liar3D::stage = new Liar::Stage(w, h);
 		Liar::Liar3D::renderState = new Liar::RenderState();
-		Liar::Liar3D::geometryFactory = new Liar::GeometryFactory();
 		Liar::Liar3D::shaderCompile = new Liar::ShaderCompile();
 		Liar::Liar3D::rendering = new Liar::Renderer();
 		Liar::Liar3D::cameraMoveScript = new Liar::CameraMoveScript();
@@ -212,12 +211,6 @@ namespace Liar
 
 	void Liar3D::Destroy()
 	{
-		if (Liar::Liar3D::geometryFactory)
-		{
-			delete Liar::Liar3D::geometryFactory;
-			Liar::Liar3D::geometryFactory = nullptr;
-		}
-
 		if (Liar::Liar3D::shaderCompile)
 		{
 			delete Liar::Liar3D::shaderCompile;
@@ -278,7 +271,6 @@ namespace Liar
 	}
 
 	Liar::Stage* Liar3D::stage = nullptr;
-	Liar::GeometryFactory* Liar3D::geometryFactory = nullptr;
 	Liar::RenderState* Liar3D::renderState = nullptr;
 	Liar::ShaderCompile* Liar3D::shaderCompile = nullptr;
 	Liar::URL* Liar3D::urlFormat = nullptr;

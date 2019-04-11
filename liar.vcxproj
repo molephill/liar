@@ -143,7 +143,6 @@
     <ClCompile Include="core\graphics\RawVertexBuffersPositionNormalTextureSkin.cpp" />
     <ClCompile Include="core\graphics\RawVertexBuffersPositionTexture.cpp" />
     <ClCompile Include="core\graphics\SubVertexBuffers.cpp" />
-    <ClCompile Include="core\graphics\VertexFactory.cpp" />
     <ClCompile Include="core\Liar3D.cpp" />
     <ClCompile Include="core\light\BaseLight.cpp" />
     <ClCompile Include="core\light\DirectionLight.cpp" />
@@ -155,7 +154,6 @@
     <ClCompile Include="core\models\geometries\BoxGeometry.cpp" />
     <ClCompile Include="core\models\geometries\Geometry.cpp" />
     <ClCompile Include="core\models\geometries\NetGeometry.cpp" />
-    <ClCompile Include="core\models\GeometryFactory.cpp" />
     <ClCompile Include="core\models\Mesh.cpp" />
     <ClCompile Include="core\models\Model.cpp" />
     <ClCompile Include="core\render\BaseCamera.cpp" />
@@ -207,7 +205,6 @@
     <ClInclude Include="include\core\graphics\RawVertexBuffersPositionNormalTextureSkin.h" />
     <ClInclude Include="include\core\graphics\RawVertexBuffersPositionTexture.h" />
     <ClInclude Include="include\core\graphics\SubVertexBuffers.h" />
-    <ClInclude Include="include\core\graphics\VertexFactory.h" />
     <ClInclude Include="include\core\graphics\VertexType.h" />
     <ClInclude Include="include\core\light\BaseLight.h" />
     <ClInclude Include="include\core\light\DirectionLight.h" />
@@ -220,7 +217,6 @@
     <ClInclude Include="include\core\models\geometries\BoxGeometry.h" />
     <ClInclude Include="include\core\models\geometries\Geometry.h" />
     <ClInclude Include="include\core\models\geometries\NetGeometry.h" />
-    <ClInclude Include="include\core\models\GeometryFactory.h" />
     <ClInclude Include="include\core\models\Mesh.h" />
     <ClInclude Include="include\core\models\Model.h" />
     <ClInclude Include="include\core\render\BaseCamera.h" />

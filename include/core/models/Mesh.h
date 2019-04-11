@@ -1,7 +1,6 @@
 #pragma once
 
 #include <core/display/Node.h>
-#include <core/models/GeometryFactory.h>
 #include <core/material/BaseMaterial.h>
 
 namespace Liar
