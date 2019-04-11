@@ -11,14 +11,13 @@ namespace Liar
 		Bone();
 		virtual ~Bone();
 
-	private:
-		Liar::Int m_parentIndex;
-		Liar::Int m_positonIndex;
-		Liar::Int m_rotationIndex;
-		Liar::Int m_scaleIndex;
+	public:
+		Liar::Int parentIndex;
+		Liar::Int positonIndex;
+		Liar::Int rotationIndex;
+		Liar::Int scaleIndex;
 
 	public:
-		void SetParentIndex(Liar::Int index) {	m_parentIndex = index; };
 		void SetMatrixKey(Liar::Int, Liar::Int, Liar::Int);
 		Liar::Boolen Equals(const Liar::Bone&) const;
 		Liar::Boolen Equals(const char*) const;

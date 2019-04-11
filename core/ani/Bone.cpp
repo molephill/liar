@@ -4,8 +4,8 @@ namespace Liar
 {
 	Bone::Bone():
 		Liar::Node(),
-		m_parentIndex(-1),
-		m_positonIndex(0), m_rotationIndex(0), m_scaleIndex(0)
+		parentIndex(-1),
+		positonIndex(0), rotationIndex(0), scaleIndex(0)
 	{
 	}
 
@@ -16,9 +16,9 @@ namespace Liar
 
 	void Bone::SetMatrixKey(Liar::Int pos, Liar::Int rot, Liar::Int scale)
 	{
-		m_positonIndex = pos;
-		m_rotationIndex = rot;
-		m_scaleIndex = scale;
+		positonIndex = pos;
+		rotationIndex = rot;
+		scaleIndex = scale;
 	}
 
 	Liar::Boolen Bone::Equals(const Liar::Bone& bone) const

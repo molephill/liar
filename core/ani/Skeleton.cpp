@@ -45,13 +45,7 @@ namespace Liar
 		Liar::Resource::RecreateResource();
 		std::string realPath = Liar::Liar3D::urlFormat->FormatSkeletonURL(m_url.c_str()) + ".SKE";//Liar::skeSzChar;
 		m_byteArray = Liar::Liar3D::LiarLoad(realPath.c_str());
-		if (m_byteArray)
-		{
-			m_numberBones = m_byteArray->ReadInt();
-			m_bones = (Liar::Bone**)malloc(sizeof(Liar::Bone*)*m_numberBones);
-			for (Liar::Int i = 0; i < m_numberBones; ++i) m_bones[i] = nullptr;
-			Liar::Liar3D::tickRender->AddTickRender(this);
-		}
+		if (m_byteArray) Liar::Liar3D::tickRender->AddTickRender(this);
 	}
 
 	void Skeleton::DisposeResource()
@@ -107,25 +101,24 @@ namespace Liar
 
 	bool Skeleton::TickRender(void* args, Liar::Int delSec)
 	{
-		if (m_parseVer == 0)
+		m_loopStep = 0;
+		while (m_parseVer < 3)
 		{
-			return ParseBones(m_byteArray, delSec);
+			ParseMatrixInfo(m_byteArray, delSec);
+			if (Liar::Liar3D::CheckTimeout(delSec)) return false;
 		}
-		else
+		if (m_parseVer == 3)
 		{
-			Liar::RenderState& state = *(Liar::Liar3D::renderState);
-			while (m_parseVer < 4)
-			{
-				ParseMatrixInfo(m_byteArray, delSec);
-				if (Liar::Liar3D::GetTimer() - state.lastCurrentTime >= delSec) return false;
-			}
-			return true;
+			m_numberBones = m_byteArray->ReadInt();
+			m_bones = (Liar::Bone**)malloc(sizeof(Liar::Bone*)*m_numberBones);
+			for (Liar::Int i = 0; i < m_numberBones; ++i) m_bones[i] = nullptr;
+			++m_parseVer;
 		}
+		return ParseBones(m_byteArray, delSec);
 	}
 
 	Liar::Boolen Skeleton::ParseBones(Liar::ByteArray* byte, Liar::Int delSec)
 	{
-		Liar::RenderState& state = *(Liar::Liar3D::renderState);
 		while (m_loopStep < m_numberBones)
 		{
 			Liar::Bone* bone = new Liar::Bone();
@@ -136,13 +129,13 @@ namespace Liar
 			Liar::Int scaleIndex = byte->ReadInt();
 			bone->SetName(name.c_str());
 			bone->SetMatrixKey(positionIndex, rotationIndex, scaleIndex);
-			bone->SetParentIndex(parentIndex);
+			bone->parentIndex = parentIndex;
 			m_bones[m_loopStep++] = bone;
-			if (Liar::Liar3D::GetTimer() - state.lastCurrentTime >= delSec) return false;
+			if (Liar::Liar3D::CheckTimeout(delSec)) return false;
 		}
 		m_loopStep = 0;
 		++m_parseVer;
-		return false;
+		return true;
 	}
 
 	Liar::Boolen Skeleton::ParseMatrixInfo(Liar::ByteArray* byte, Liar::Int delSce)
