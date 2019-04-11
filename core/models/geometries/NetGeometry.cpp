@@ -4,10 +4,11 @@
 
 namespace Liar
 {
-	NetGeometry::NetGeometry():
+	NetGeometry::NetGeometry() :
 		Liar::Geometry(),
 		Liar::ITickRender(),
-		m_url(""), m_loopStep(0)
+		m_url(""), m_loopStep(0),
+		m_byteArray(nullptr)
 	{
 	}
 
@@ -33,6 +34,17 @@ namespace Liar
 			DisposeResource();
 			RecreateResource();
 		}
+	}
+
+	void NetGeometry::DisposeResource()
+	{
+		if (m_byteArray)
+		{
+			if (m_byteArray->GetBytesAvailable() > 0) Liar::Liar3D::tickRender->RemoveTickRender(this);
+			delete m_byteArray;
+			m_byteArray = nullptr;
+		}
+		Liar::Geometry::DisposeResource();
 	}
 
 	bool NetGeometry::RecreateSubResource()
@@ -85,13 +97,16 @@ namespace Liar
 			break;
 		}
 
-		Liar::RenderState& state = *(Liar::Liar3D::renderState);
 		while (m_loopStep < loopCount)
 		{
 			ParseSubRawData();
 			++m_loopStep;
-			if (Liar::Liar3D::GetTimer() - state.lastCurrentTime >= delSec) return false;
+			if (Liar::Liar3D::CheckTimeout(delSec)) return false;
 		}
+
+		delete m_byteArray;
+		m_byteArray = nullptr;
+
 		UploadData();
 		return true;
 	}

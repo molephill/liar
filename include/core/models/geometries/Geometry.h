@@ -20,7 +20,6 @@ namespace Liar
 
 		GLenum m_bufferSubType;
 		Liar::IRawVertexBuffers* m_rawVertexBuffers;
-		Liar::ByteArray* m_byteArray;
 
 		Liar::Uint m_vertexArray;
 		Liar::Uint m_vertexBuffer;

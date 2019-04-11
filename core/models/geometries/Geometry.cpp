@@ -10,7 +10,6 @@ namespace Liar
 		m_geometryVertexType(geometryType),
 		m_bufferSubType(type),
 		m_rawVertexBuffers(nullptr),
-		m_byteArray(nullptr),
 		m_vertexArray(0), m_vertexBuffer(0), m_elementBuffer(0)
 	{
 	}
@@ -44,12 +43,6 @@ namespace Liar
 		{
 			delete m_rawVertexBuffers;
 			m_rawVertexBuffers = nullptr;
-		}
-
-		if (m_byteArray)
-		{
-			delete m_byteArray;
-			m_byteArray = nullptr;
 		}
 	}
 

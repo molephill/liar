@@ -13,6 +13,7 @@ namespace Liar
 	private:
 		std::string m_url;
 		Liar::Int m_loopStep;
+		Liar::ByteArray* m_byteArray;
 
 	public:
 		virtual Liar::Boolen operator==(const char*) const;
@@ -22,6 +23,7 @@ namespace Liar
 
 		// ∑÷÷°¥¶¿Ì
 		virtual bool TickRender(void* = nullptr, Liar::Int = Liar::TICK_INTERVAL);
+		virtual void DisposeResource();
 
 	protected:
 		virtual bool RecreateSubResource();

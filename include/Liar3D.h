@@ -52,5 +52,6 @@ namespace Liar
 		static void* ParseVector(Liar::ByteArray*, Liar::VertexFormatType);
 		static Liar::VertexFormatType ElementAttrFormat(Liar::VertexElementAttr);
 		static clock_t GetTimer();
+		static Liar::Boolen CheckTimeout(Liar::Int);
 	};
 }

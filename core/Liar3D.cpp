@@ -102,6 +102,12 @@ namespace Liar
 		return clock();
 	}
 
+	Liar::Boolen Liar3D::CheckTimeout(Liar::Int delSec)
+	{
+		Liar::RenderState& state = *(Liar::Liar3D::renderState);
+		return (Liar::Liar3D::GetTimer() - state.lastCurrentTime >= delSec);
+	}
+
 	Liar::ByteArray* Liar3D::LiarLoad(const char* filename, const char* mode)
 	{
 		FILE *f;

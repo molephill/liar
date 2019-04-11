@@ -13,7 +13,7 @@ namespace Liar
 		m_indices(nullptr), m_numberIndices(0),
 		m_vertexKeys(nullptr), m_numberVertexKeys(0),
 		m_mtlIndex(-1), m_vertexIndex(0), 
-		m_loopStep(0), m_uploaed(false)
+		m_loopStep(0)
 	{
 	}
 
@@ -166,6 +166,11 @@ namespace Liar
 		Liar::Liar3D::tickRender->AddTickRender(this, &type);
 	}
 
+	Liar::Boolen IRawVertexBuffers::GetUploaded() const
+	{
+		return (m_numberVertexKeys > 0 && m_loopStep >= m_numberVertexKeys);
+	}
+
 	bool IRawVertexBuffers::TickRender(void* args, Liar::Int delSec)
 	{
 		Liar::RenderState& state = *(Liar::Liar3D::renderState);
@@ -185,7 +190,6 @@ namespace Liar
 		}
 		// °ó¶¨
 		VertexAttrbSubPointer(gl, stride);
-		m_uploaed = true;
 		return true;
 	}
 

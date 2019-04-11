@@ -16,10 +16,9 @@ namespace Liar
 
 	Skeleton::~Skeleton()
 	{
-		if(m_parseVer < 4) Liar::Liar3D::tickRender->RemoveTickRender(this);
-
 		if (m_byteArray)
 		{
+			if(m_byteArray->GetBytesAvailable() > 0) Liar::Liar3D::tickRender->RemoveTickRender(this);
 			delete m_byteArray;
 			m_byteArray = nullptr;
 		}

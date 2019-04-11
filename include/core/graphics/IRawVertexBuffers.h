@@ -36,7 +36,6 @@ namespace Liar
 
 		// current loop step;
 		Liar::Int m_loopStep;
-		Liar::Boolen m_uploaed;
 
 	protected:
 		virtual size_t VertexAttrbSubPointer(Liar::StageContext&, size_t) = 0;
@@ -81,7 +80,7 @@ namespace Liar
 		Liar::Uint* GetIndices() const { return m_indices; };
 
 		// 是否已提交完
-		Liar::Boolen GetUploaded() const { return m_uploaed; };
+		Liar::Boolen GetUploaded() const;
 
 		// 获得步长
 		virtual Liar::Int GetSize() const = 0;
