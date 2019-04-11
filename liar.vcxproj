@@ -149,7 +149,6 @@
     <ClCompile Include="core\light\PointLight.cpp" />
     <ClCompile Include="core\light\SpotLight.cpp" />
     <ClCompile Include="core\material\BaseMaterial.cpp" />
-    <ClCompile Include="core\material\MTL.cpp" />
     <ClCompile Include="core\material\StandardMaterial.cpp" />
     <ClCompile Include="core\models\geometries\BoxGeometry.cpp" />
     <ClCompile Include="core\models\geometries\Geometry.cpp" />
@@ -164,6 +163,7 @@
     <ClCompile Include="core\render\RenderUnit.cpp" />
     <ClCompile Include="core\render\TickRender.cpp" />
     <ClCompile Include="core\resource\BaseTeture.cpp" />
+    <ClCompile Include="core\resource\MTL.cpp" />
     <ClCompile Include="core\resource\Resource.cpp" />
     <ClCompile Include="core\resource\shader\ShaderCompile.cpp" />
     <ClCompile Include="core\resource\shader\ShaderProgram.cpp" />
@@ -212,7 +212,6 @@
     <ClInclude Include="include\core\light\SpotLight.h" />
     <ClInclude Include="include\core\material\BaseMaterial.h" />
     <ClInclude Include="include\core\material\MaterialDefine.h" />
-    <ClInclude Include="include\core\material\MTL.h" />
     <ClInclude Include="include\core\material\StandardMaterial.h" />
     <ClInclude Include="include\core\models\geometries\BoxGeometry.h" />
     <ClInclude Include="include\core\models\geometries\Geometry.h" />
@@ -229,6 +228,7 @@
     <ClInclude Include="include\core\render\StageContext.h" />
     <ClInclude Include="include\core\render\TickRender.h" />
     <ClInclude Include="include\core\resource\BaseTexture.h" />
+    <ClInclude Include="include\core\resource\MTL.h" />
     <ClInclude Include="include\core\resource\Resource.h" />
     <ClInclude Include="include\core\resource\shader\ShaderCompile.h" />
     <ClInclude Include="include\core\resource\shader\ShaderDefine.h" />

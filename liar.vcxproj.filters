@@ -234,9 +234,6 @@
     <ClCompile Include="core\models\geometries\NetGeometry.cpp">
       <Filter>源文件\core\models\geometries</Filter>
     </ClCompile>
-    <ClCompile Include="core\material\MTL.cpp">
-      <Filter>源文件\core\material</Filter>
-    </ClCompile>
     <ClCompile Include="core\graphics\ISubVertexBuffers.cpp">
       <Filter>源文件\core\graphics</Filter>
     </ClCompile>
@@ -278,6 +275,9 @@
     </ClCompile>
     <ClCompile Include="core\render\TickRender.cpp">
       <Filter>源文件\core\render</Filter>
+    </ClCompile>
+    <ClCompile Include="core\resource\MTL.cpp">
+      <Filter>源文件\core\resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -437,9 +437,6 @@
     <ClInclude Include="include\core\models\geometries\NetGeometry.h">
       <Filter>头文件\core\models\geometries</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\material\MTL.h">
-      <Filter>头文件\core\material</Filter>
-    </ClInclude>
     <ClInclude Include="include\core\graphics\ISubVertexBuffers.h">
       <Filter>头文件\core\graphics</Filter>
     </ClInclude>
@@ -481,6 +478,9 @@
     </ClInclude>
     <ClInclude Include="include\core\render\TickRender.h">
       <Filter>头文件\core\render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\resource\MTL.h">
+      <Filter>头文件\core\resource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

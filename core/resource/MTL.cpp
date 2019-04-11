@@ -1,5 +1,5 @@
 
-#include <core/material/MTL.h>
+#include <core/resource/MTL.h>
 #include <core/resource/Textrue2D.h>
 #include <core/material/StandardMaterial.h>
 #include <core/models/geometries/BoxGeometry.h>

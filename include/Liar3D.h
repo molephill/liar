@@ -9,7 +9,7 @@
 #include <core/render/Renderer.h>
 #include <core/events/EventController.h>
 #include <utils/CameraMoveScript.h>
-#include <core/material/MTL.h>
+#include <core/resource/MTL.h>
 #include <math/ByteArray.h>
 
 namespace Liar
