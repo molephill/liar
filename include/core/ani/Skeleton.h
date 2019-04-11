@@ -1,18 +1,19 @@
 #pragma once
 
 #include "Bone.h"
+#include <core/resource/Resource.h>
 #include <core/render/TickRender.h>
 
 namespace Liar
 {
-	class Skeleton:public Liar::ITickRender
+	class Skeleton:public Liar::Resource, public Liar::ITickRender
 	{
 	public:
 		Skeleton();
-		~Skeleton();
+		virtual ~Skeleton();
 
 	private:
-		std::string m_name;
+		std::string m_url;
 		Liar::Bone** m_bones;
 		Liar::Int m_numberBones;
 
@@ -44,5 +45,9 @@ namespace Liar
 		Liar::Boolen ParseMatrixInfo(Liar::ByteArray*, Liar::Int);
 		void SetMatrixInfoLen(Liar::VertexElementAttr, Liar::Int);
 		void SetMatrixInfo(Liar::VertexElementAttr, Liar::Int, void*);
+
+	protected:
+		virtual void DisposeResource();
+		virtual void RecreateResource();
 	};
 }

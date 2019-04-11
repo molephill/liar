@@ -26,8 +26,8 @@ namespace Liar
 		virtual Liar::Int AddRefrence();
 		virtual Liar::Int ReduceRefrence();
 		virtual bool Destroy();
-		virtual bool ReleaseResource(bool force = false);
-		virtual void ActiveResource(bool force = false);
+		virtual bool ReleaseResource(bool = false);
+		virtual void ActiveResource(bool = false);
 
 	protected:
 		virtual void DisposeResource() = 0;

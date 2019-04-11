@@ -4,8 +4,9 @@
 namespace Liar
 {
 	Skeleton::Skeleton() :
+		Liar::Resource(),
 		Liar::ITickRender(),
-		m_name(""),
+		m_url(""),
 		m_bones(nullptr), m_numberBones(0),
 		m_parseVer(0), m_loopStep(0), m_byteArray(nullptr),
 		m_positions(nullptr), m_numberPositons(0),
@@ -16,9 +17,48 @@ namespace Liar
 
 	Skeleton::~Skeleton()
 	{
+		Destroy();
+	}
+
+	Liar::Boolen Skeleton::Equals(const Liar::Skeleton& ske) const
+	{
+		return Equals(ske.m_url.c_str());
+	}
+
+	Liar::Boolen Skeleton::Equals(const char* name) const
+	{
+		return m_url == name;
+	}
+
+	void Skeleton::SetURL(const char* url)
+	{
+		if (m_url != url)
+		{
+			m_url = url;
+			DisposeResource();
+			RecreateResource();
+		}
+	}
+
+	void Skeleton::RecreateResource()
+	{
+		Liar::Resource::RecreateResource();
+		std::string realPath = Liar::Liar3D::urlFormat->FormatSkeletonURL(m_url.c_str()) + ".SKE";//Liar::skeSzChar;
+		m_byteArray = Liar::Liar3D::LiarLoad(realPath.c_str());
 		if (m_byteArray)
 		{
-			if(m_byteArray->GetBytesAvailable() > 0) Liar::Liar3D::tickRender->RemoveTickRender(this);
+			m_numberBones = m_byteArray->ReadInt();
+			m_bones = (Liar::Bone**)malloc(sizeof(Liar::Bone*)*m_numberBones);
+			for (Liar::Int i = 0; i < m_numberBones; ++i) m_bones[i] = nullptr;
+			Liar::Liar3D::tickRender->AddTickRender(this);
+		}
+	}
+
+	void Skeleton::DisposeResource()
+	{
+		if (m_byteArray)
+		{
+			if (m_byteArray->GetBytesAvailable() > 0) Liar::Liar3D::tickRender->RemoveTickRender(this);
 			delete m_byteArray;
 			m_byteArray = nullptr;
 		}
@@ -28,7 +68,7 @@ namespace Liar
 		{
 			for (i = 0; i < m_numberBones; ++i)
 			{
-				if(m_bones[i]) delete m_bones[i];
+				if (m_bones[i]) delete m_bones[i];
 			}
 			free(m_bones);
 			m_bones = nullptr;
@@ -38,7 +78,7 @@ namespace Liar
 		{
 			for (i = 0; i < m_numberPositons; ++i)
 			{
-				if(m_positions[i]) delete m_positions[i];
+				if (m_positions[i]) delete m_positions[i];
 			}
 			free(m_positions);
 			m_positions = nullptr;
@@ -48,7 +88,7 @@ namespace Liar
 		{
 			for (i = 0; i < m_numberRotations; ++i)
 			{
-				if(m_rotations[i]) delete m_rotations[i];
+				if (m_rotations[i]) delete m_rotations[i];
 			}
 			free(m_rotations);
 			m_rotations = nullptr;
@@ -58,37 +98,10 @@ namespace Liar
 		{
 			for (i = 0; i < m_numberScales; ++i)
 			{
-				if(m_scales[i]) delete m_scales[i];
+				if (m_scales[i]) delete m_scales[i];
 			}
 			free(m_scales);
 			m_scales = nullptr;
-		}
-	}
-
-	Liar::Boolen Skeleton::Equals(const Liar::Skeleton& ske) const
-	{
-		return Equals(ske.m_name.c_str());
-	}
-
-	Liar::Boolen Skeleton::Equals(const char* name) const
-	{
-		return m_name == name;
-	}
-
-	void Skeleton::SetURL(const char* url)
-	{
-		if (m_name != url)
-		{
-			m_name = url;
-			std::string realPath = Liar::Liar3D::urlFormat->FormatSkeletonURL(url) + ".SKE";//Liar::skeSzChar;
-			m_byteArray = Liar::Liar3D::LiarLoad(realPath.c_str());
-			if (m_byteArray)
-			{
-				m_numberBones = m_byteArray->ReadInt();
-				m_bones = (Liar::Bone**)malloc(sizeof(Liar::Bone*)*m_numberBones);
-				for (Liar::Int i = 0; i < m_numberBones; ++i) m_bones[i] = nullptr;
-				Liar::Liar3D::tickRender->AddTickRender(this);
-			}
 		}
 	}
 
