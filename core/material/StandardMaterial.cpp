@@ -26,7 +26,7 @@ namespace Liar
 
 	StandardMaterial::~StandardMaterial()
 	{
-		Destroy();
+		
 	}
 
 	void StandardMaterial::SetRenderMode(Liar::RenderModeDefine value)

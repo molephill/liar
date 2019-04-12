@@ -20,29 +20,18 @@ namespace Liar
 		Liar::BaseTexture** m_shareTextures;
 		Liar::Int m_numberShareTextures;
 
-		Liar::BaseMaterial** m_shareMaterials;
-		Liar::Int m_numberShareMaterials;
-
-		Liar::BaseMaterial* GetShareMaterial(const char*, Liar::Int&);
-		Liar::BaseTexture* GetShareTexture(const char*, Liar::Int&);
-
-		Liar::NetGeometry** m_netGeometries;
-		Liar::Int m_numberNetGeometries;
-
 	private:
-		Liar::BaseTexture* NewTextrue(Liar::TextureTypeDefine);
-		Liar::BaseMaterial* NewMaterial(Liar::MaterialTypeDefine);
+		Liar::BaseTexture* CreateTexture(Liar::TextureTypeDefine);
+		Liar::BaseTexture* GetTexture(const char*);
+		Liar::BaseTexture* GetTexture(const Liar::BaseTexture*);
 
 	public:
-		Liar::BaseMaterial* GetShareMaterial(const char*, Liar::MaterialTypeDefine);
 		Liar::BaseTexture* GetShareTexture(const char*, Liar::TextureTypeDefine);
-		void DelShareTexture(const char*);
-		void DelShareMaterial(const char*);
-		void DelShareTexture(const Liar::BaseTexture*);
-		void DelShareMaterial(const Liar::BaseMaterial*);
+		Liar::BaseMaterial* CreateMaterial(Liar::MaterialTypeDefine);
+		void ReduceTexture(const Liar::BaseTexture*);
+		void AddRefTexture(const Liar::BaseTexture*);
 		Liar::IRawVertexBuffers* GetRawVertexBuffers(Liar::GeometryVertexType);
 		Liar::Geometry* GetGeometry(Liar::GeometryType);
-		Liar::Geometry* GetGeometry(const char*);
 	};
 
 }

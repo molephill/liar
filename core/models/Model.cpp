@@ -19,8 +19,11 @@ namespace Liar
 	{
 		for (Liar::Int i = 0; i < m_numberSharedMaterials; ++i)
 		{
-			m_sharedMaterials[i]->ReduceRefrence();
-			m_sharedMaterials[i] = nullptr;
+			if (m_sharedMaterials[i])
+			{
+				delete m_sharedMaterials[i];
+				m_sharedMaterials[i] = nullptr;
+			}
 		}
 		if (m_sharedMaterials) free(m_sharedMaterials);
 		m_sharedMaterials = nullptr;
@@ -58,8 +61,7 @@ namespace Liar
 			{
 				if (m_sharedMaterials[i])
 				{
-					m_sharedMaterials[i]->ReduceRefrence();
-					free(m_sharedMaterials[i]);
+					delete m_sharedMaterials[i];
 					m_sharedMaterials[i] = nullptr;
 				}
 			}
@@ -98,7 +100,8 @@ namespace Liar
 			SetNumberSharedMaterial(materialSize);
 			for (Liar::Int i = 0; i < materialSize; ++i)
 			{
-				Liar::BaseMaterial* mat = Liar::Liar3D::mtl->GetShareMaterial(name, Liar::MaterialTypeDefine::MATERIAL_STANDARD);
+				Liar::BaseMaterial* mat = Liar::Liar3D::mtl->CreateMaterial(Liar::MaterialTypeDefine::MATERIAL_STANDARD);
+				mat->SetName(name);
 				SetSharedMaterial(mat, i);
 				// texture
 				Liar::Int texSize = byte->ReadInt();

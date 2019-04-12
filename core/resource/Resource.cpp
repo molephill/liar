@@ -22,16 +22,7 @@ namespace Liar
 
 	Liar::Int Resource::ReduceRefrence()
 	{
-		m_refrenceCount--;
-		if (m_refrenceCount <= 0)
-		{
-			delete this;
-			return 0;
-		}
-		else
-		{
-			return m_refrenceCount;
-		}
+		return --m_refrenceCount;
 	}
 
 	bool Resource::Destroy()

@@ -39,6 +39,7 @@ namespace Liar
 		Liar::Boolen GetUploaded() const { return m_rawVertexBuffers ? m_rawVertexBuffers->GetUploaded() : false; };
 
 	public:
+		virtual void SetURL(const char*) {};
 		virtual size_t GetNumberTriangles() const;
 		virtual void Draws();
 	};

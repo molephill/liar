@@ -16,10 +16,7 @@ namespace Liar
 
 	BaseTexture::~BaseTexture()
 	{
-		if (Destroy())
-		{
-			Liar::Liar3D::mtl->DelShareTexture(this);
-		}
+		DisposeResource();
 	}
 
 	void BaseTexture::SetURL(const char* url)
@@ -90,9 +87,17 @@ namespace Liar
 
 	void BaseTexture::DisposeResource()
 	{
-		if (m_data) free(m_data);
+		if (m_data)
+		{
+			free(m_data);
+			m_data = nullptr;
+		}
+		if (m_textureID > 0)
+		{
+			glDeleteTextures(1, &m_textureID);
+			m_textureID = 0;
+		}
 		m_released = true;
-		if(m_textureID > 0) glDeleteTextures(1, &m_textureID);
 	}
 
 	void BaseTexture::Draws(Liar::ShaderProgram& shader, Liar::Int index)

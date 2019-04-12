@@ -6,7 +6,8 @@ namespace Liar
 	enum GeometryType
 	{
 		GEOMETRY_NONE,
-		GEOMETRY_TYPE_BOX
+		GEOMETRY_TYPE_BOX,
+		GEOMETRY_NET
 	};
 
 	// geometry ¿Ô vertex ¿‡–Õ

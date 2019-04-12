@@ -22,7 +22,7 @@ namespace Liar
 	{
 		if (m_geometry)
 		{
-			m_geometry->ReduceRefrence();
+			if (m_geometry->ReduceRefrence() <= 0) delete m_geometry;
 			m_geometry = nullptr;
 		}
 	}
@@ -34,7 +34,9 @@ namespace Liar
 
 	void Mesh::SetGeometryType(const char* path, Liar::BaseMaterial** materials)
 	{
-		SetGeometry(Liar::Liar3D::mtl->GetGeometry(path), materials);
+		Liar::Geometry* geo = Liar::Liar3D::mtl->GetGeometry(Liar::GeometryType::GEOMETRY_NET);
+		geo->SetURL(path);
+		SetGeometry(geo, materials);
 	}
 
 	void Mesh::SetGeometry(Liar::Geometry* geometry, Liar::BaseMaterial** materials)

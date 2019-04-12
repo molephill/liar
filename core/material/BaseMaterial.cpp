@@ -5,7 +5,6 @@
 namespace Liar
 {
 	BaseMaterial::BaseMaterial() :
-		Liar::Resource(),
 		m_name(""),
 		m_textures(nullptr), m_numberTexture(0),
 		m_alphaTest(false),
@@ -26,27 +25,14 @@ namespace Liar
 
 	BaseMaterial::~BaseMaterial()
 	{
-		Destroy();
-	}
+		delete m_blendConstColor;
+		m_blendConstColor = nullptr;
 
-	void BaseMaterial::RecreateResource()
-	{
-		Liar::Resource::RecreateResource();
-		m_textures = (Liar::BaseTexture**)malloc(sizeof(Liar::BaseTexture*));
-		m_numberTexture = 0;
-	}
+		delete m_shaderValues;
+		m_shaderValues = nullptr;
 
-	void BaseMaterial::DisposeResource()
-	{
-		for (size_t i = 0; i < m_numberTexture; ++i)
-		{
-			if (m_textures[i])
-			{
-				m_textures[i]->ReduceRefrence();
-				m_textures[i] = nullptr;
-			}
-		}
-		if(m_textures) free(m_textures);
+		for (size_t i = 0; i < m_numberTexture; ++i) Liar::Liar3D::mtl->ReduceTexture(m_textures[i]);
+		if (m_textures) free(m_textures);
 		m_textures = nullptr;
 		m_numberTexture = 0;
 	}
@@ -64,11 +50,7 @@ namespace Liar
 		}
 
 		m_numberTexture = index + 1;
-		if (m_textures[index])
-		{
-			m_textures[index]->ReduceRefrence();
-			m_textures[index] = nullptr;
-		}
+		Liar::Liar3D::mtl->ReduceTexture(m_textures[index]);
 
 		m_textures[index] = texture;
 
@@ -78,36 +60,6 @@ namespace Liar
 	{
 		if (index < 0 || index >= m_numberTexture) return nullptr;
 		return m_textures[index];
-	}
-
-	Liar::Int BaseMaterial::AddRefrence()
-	{
-		Liar::Int val = Liar::Resource::AddRefrence();
-		if (m_textures)
-		{
-			for (size_t i = 0; i < m_numberTexture; ++i)
-			{
-				m_textures[i]->AddRefrence();
-			}
-		}
-		return val;
-	}
-
-	Liar::Int BaseMaterial::ReduceRefrence()
-	{
-		Liar::Int val = 0;
-		if (m_textures)
-		{
-			for (size_t i = 0; i < m_numberTexture; ++i)
-			{
-				if (m_textures[i])
-				{
-					val = m_textures[i]->ReduceRefrence();
-					if (val <= 0) m_textures[i] = nullptr;
-				}
-			}
-		}
-		return Liar::Resource::ReduceRefrence();
 	}
 
 	void BaseMaterial::SetRenderStateBlendDepth()
@@ -424,21 +376,5 @@ namespace Liar
 	{
 		value ? m_shaderValues->AddShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_REFLECTMAP) : m_shaderValues->RemoveShaderDefine(Liar::ShaderTypeDefine::SHADERTYPE_REFLECTMAP);
 		SetTexture(value, Liar::ShaderValueDefine::SHADERVALUE_REFLECTTEXTURE);
-	}
-
-	bool BaseMaterial::Destroy()
-	{
-		bool destroy = Liar::Resource::Destroy();
-		if (destroy)
-		{
-			delete m_blendConstColor;
-			m_blendConstColor = nullptr;
-
-			delete m_shaderValues;
-			m_shaderValues = nullptr;
-
-			Liar::Liar3D::mtl->DelShareMaterial(this);
-		}
-		return destroy;
 	}
 }

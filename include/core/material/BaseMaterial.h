@@ -9,7 +9,7 @@
 
 namespace Liar
 {
-	class BaseMaterial:public Liar::Resource
+	class BaseMaterial
 	{
 	public:
 		BaseMaterial();
@@ -20,10 +20,6 @@ namespace Liar
 		Liar::BaseTexture** m_textures;
 		Liar::Uint m_numberTexture;
 		bool m_alphaTest;
-
-	protected:
-		virtual void DisposeResource();
-		virtual void RecreateResource();
 
 	protected:
 		Liar::CullTypeDefine m_cull;		/**äÖÈ¾ÌÞ³ý×´Ì¬¡£*/
@@ -222,13 +218,7 @@ namespace Liar
 		Liar::BaseTexture* GetTexture(size_t);
 		void SetRenderStateBlendDepth();
 		void SetRenderStateFrontFace(bool, Liar::Transform3D* transform = nullptr);
-
-		virtual Liar::Int AddRefrence();
-		virtual Liar::Int ReduceRefrence();
-		virtual bool Destroy();
-
 		virtual void SetRenderMode(Liar::RenderModeDefine) = 0;
-
 		virtual void Draws(Liar::ShaderProgram&) = 0;
 	};
 }
