@@ -34,3 +34,7 @@ core/resource/shader/files/test.ps
 *.pdb
 *.vcxproj
 *.filters
+*.tlog
+*.log
+*.idb
+*.pdb
