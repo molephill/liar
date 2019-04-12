@@ -16,6 +16,14 @@ namespace Liar
 	MTL::~MTL()
 	{
 		Liar::Int i = 0;
+		for (i = 0; i < m_numberShareTextures; ++i)
+		{
+			if (m_shareTextures[i])
+			{
+				delete m_shareTextures[i];
+				m_shareTextures[i] = nullptr;
+			}
+		}
 		if (m_shareTextures) free(m_shareTextures);
 		m_shareTextures = nullptr;
 	}
@@ -42,17 +50,40 @@ namespace Liar
 
 	Liar::BaseTexture* MTL::GetShareTexture(const char* path, Liar::TextureTypeDefine type)
 	{
-		Liar::BaseTexture* tmp = GetTexture(path);
+		Liar::Int nullIndex = -1;
+		Liar::BaseTexture* tmp = nullptr;
+		for (Liar::Int i = 0; i < m_numberShareTextures; ++i)
+		{
+			Liar::BaseTexture* ttmp = m_shareTextures[i];
+			if (tmp)
+			{
+				if (tmp->Equals(path))
+				{
+					tmp = ttmp;
+					break;
+				}
+			}
+			else
+			{
+				if (nullIndex == -1) nullIndex = i;
+			}
+		}
+
 		if (!tmp)
 		{
-			m_numberShareTextures++;
-			size_t strip = sizeof(Liar::BaseTexture*)*m_numberShareTextures;
-			if (m_shareTextures) m_shareTextures = (Liar::BaseTexture**)realloc(m_shareTextures, strip);
-			else m_shareTextures = (Liar::BaseTexture**)malloc(strip);
+			if (nullIndex == -1)
+			{
+				m_numberShareTextures++;
+				size_t strip = sizeof(Liar::BaseTexture*)*m_numberShareTextures;
+				if (m_shareTextures) m_shareTextures = (Liar::BaseTexture**)realloc(m_shareTextures, strip);
+				else m_shareTextures = (Liar::BaseTexture**)malloc(strip);
+				nullIndex = m_numberShareTextures - 1;
+			}
+
 			tmp = CreateTexture(type);
 			tmp->AddRefrence();
 			tmp->SetURL(path);
-			m_shareTextures[m_numberShareTextures - 1] = tmp;
+			m_shareTextures[nullIndex] = tmp;
 		}
 		return tmp;
 	}
@@ -61,7 +92,6 @@ namespace Liar
 	{
 		if (tex)
 		{
-			
 			for (Liar::Int i = 0; i < m_numberShareTextures; ++i)
 			{
 				Liar::BaseTexture* tmp = m_shareTextures[i];
