@@ -44,6 +44,9 @@ namespace Liar
 			delete m_rawVertexBuffers;
 			m_rawVertexBuffers = nullptr;
 		}
+		m_vertexArray = 0;
+		m_vertexBuffer = 0;
+		m_elementBuffer = 0;
 	}
 
 	void Geometry::UploadData()
