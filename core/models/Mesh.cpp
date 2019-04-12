@@ -29,12 +29,12 @@ namespace Liar
 
 	void Mesh::SetGeometryType(Liar::GeometryType type, Liar::BaseMaterial** materials)
 	{
-		SetGeometry(Liar::Liar3D::mtl->GetGeometry(type), materials);
+		SetGeometry(Liar::Liar3D::mtl->CreateGeometry(type), materials);
 	}
 
 	void Mesh::SetGeometryType(const char* path, Liar::BaseMaterial** materials)
 	{
-		Liar::Geometry* geo = Liar::Liar3D::mtl->GetGeometry(Liar::GeometryType::GEOMETRY_NET);
+		Liar::Geometry* geo = Liar::Liar3D::mtl->CreateGeometry(Liar::GeometryType::GEOMETRY_NET);
 		geo->SetURL(path);
 		SetGeometry(geo, materials);
 	}

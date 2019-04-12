@@ -20,28 +20,6 @@ namespace Liar
 		m_shareTextures = nullptr;
 	}
 
-	Liar::BaseTexture* MTL::CreateTexture(Liar::TextureTypeDefine type)
-	{
-		switch (type)
-		{
-		case Liar::TextureTypeDefine::TEXTURE_2D:
-			return new Liar::Texture2D();
-		default:
-			return nullptr;
-		}
-	}
-
-	Liar::BaseMaterial* MTL::CreateMaterial(Liar::MaterialTypeDefine type)
-	{
-		switch (type)
-		{
-		case Liar::MaterialTypeDefine::MATERIAL_STANDARD:
-			return new Liar::StandardMaterial();
-		default:
-			return nullptr;
-		}
-	}
-
 	Liar::BaseTexture* MTL::GetTexture(const char* path)
 	{
 		for (Liar::Int i = 0; i < m_numberShareTextures; ++i)
@@ -106,8 +84,30 @@ namespace Liar
 		if (tmp) tmp->AddRefrence();
 	}
 
+	Liar::BaseTexture* MTL::CreateTexture(Liar::TextureTypeDefine type)
+	{
+		switch (type)
+		{
+		case Liar::TextureTypeDefine::TEXTURE_2D:
+			return new Liar::Texture2D();
+		default:
+			return nullptr;
+		}
+	}
+
+	Liar::BaseMaterial* MTL::CreateMaterial(Liar::MaterialTypeDefine type)
+	{
+		switch (type)
+		{
+		case Liar::MaterialTypeDefine::MATERIAL_STANDARD:
+			return new Liar::StandardMaterial();
+		default:
+			return nullptr;
+		}
+	}
+
 	// ================ get buffers ========================= //
-	Liar::IRawVertexBuffers* MTL::GetRawVertexBuffers(Liar::GeometryVertexType attr)
+	Liar::IRawVertexBuffers* MTL::CreateRawVertexBuffers(Liar::GeometryVertexType attr)
 	{
 		switch (attr)
 		{
@@ -127,7 +127,7 @@ namespace Liar
 	}
 
 	// =============================== get geometry ===========================
-	Liar::Geometry* MTL::GetGeometry(Liar::GeometryType type)
+	Liar::Geometry* MTL::CreateGeometry(Liar::GeometryType type)
 	{
 		switch (type)
 		{

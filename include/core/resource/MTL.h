@@ -30,8 +30,8 @@ namespace Liar
 		Liar::BaseMaterial* CreateMaterial(Liar::MaterialTypeDefine);
 		void ReduceTexture(const Liar::BaseTexture*);
 		void AddRefTexture(const Liar::BaseTexture*);
-		Liar::IRawVertexBuffers* GetRawVertexBuffers(Liar::GeometryVertexType);
-		Liar::Geometry* GetGeometry(Liar::GeometryType);
+		Liar::IRawVertexBuffers* CreateRawVertexBuffers(Liar::GeometryVertexType);
+		Liar::Geometry* CreateGeometry(Liar::GeometryType);
 	};
 
 }
