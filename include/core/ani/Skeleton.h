@@ -5,6 +5,7 @@
 #include <core/graphics/VertexType.h>
 #include <core/resource/Resource.h>
 #include <core/render/TickRender.h>
+#include <core/resource/shader/ShaderProgram.h>
 
 namespace Liar
 {

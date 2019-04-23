@@ -90,9 +90,9 @@ namespace Liar
 
 	bool Skeleton::TickRender(void* args, Liar::Int delSec)
 	{
-		m_loopStep = 0;
 		while (m_parseVer < 3)
 		{
+			m_loopStep = 0;
 			ParseMatrixInfo(m_byteArray, delSec);
 			if (Liar::Liar3D::CheckTimeout(delSec)) return false;
 		}

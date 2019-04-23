@@ -6,7 +6,9 @@ namespace Liar
 {
 	RenderUnit::RenderUnit() :
 		transform(nullptr),
-		geometry(nullptr), material(nullptr)
+		geometry(nullptr), 
+		material(nullptr),
+		skeleton(nullptr)
 	{
 	}
 
@@ -20,6 +22,7 @@ namespace Liar
 		transform = nullptr;
 		geometry = nullptr;
 		material = nullptr;
+		skeleton = nullptr;
 	}
 
 	void RenderUnit::Render(Liar::RenderState& state)

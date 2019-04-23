@@ -5,6 +5,7 @@
 #include <core/models/geometries/Geometry.h>
 #include <core/resource/shader/ShaderProgram.h>
 #include <core/render/RenderState.h>
+#include <core/ani/Skeleton.h>
 
 namespace Liar
 {
@@ -18,6 +19,7 @@ namespace Liar
 		Liar::Transform3D* transform;
 		Liar::Geometry* geometry;
 		Liar::BaseMaterial* material;
+		Liar::Skeleton* skeleton;
 
 	public:
 		void Clear();

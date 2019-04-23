@@ -37,6 +37,7 @@ namespace Liar
 
 	public:
 		Liar::Uint GetID() const { return m_id; };
+		bool GetLoaded() const { return m_loaded; };
 		Liar::Boolen Equals(const char* path) const { return m_url == path; };
 		Liar::Boolen Equals(const Liar::Resource& rhs) const { return rhs.m_url == m_url; };
 		Liar::Boolen operator==(const char* path) const { return m_url == path; };

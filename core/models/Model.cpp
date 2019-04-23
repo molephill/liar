@@ -76,11 +76,17 @@ namespace Liar
 	Liar::Int Model::CollectRenderUint(Liar::RenderState& state)
 	{
 		m_transform3D->CalclateTransformation(&(state.camera->GetProjectionViewMatrix()));
-		return CollectChildrenRenderUint(state);
+		return Liar::Node::CollectChildrenRenderUint(state);
 	}
 
 	void Model::SetURL(const char* name, const char* ske)
 	{
+		if (ske)
+		{
+			if (m_skeleton && !m_skeleton->Equals(ske)) Liar::Liar3D::mtl->ReduceRefrence(m_skeleton);
+			m_skeleton = static_cast<Liar::Skeleton*>(Liar::Liar3D::mtl->CreateResource(ske, Liar::ClassType::CLASS_NODE_TYPE_SKELETON));
+		}
+
 		if (strcmp(m_url.c_str(), name) != 0)
 		{
 			m_url = name;
@@ -128,9 +134,5 @@ namespace Liar
 
 			delete byte;
 		}
-
-		// skeleteon
-		if (!ske || (m_skeleton && m_skeleton->Equals(ske))) return;
-		m_skeleton = static_cast<Liar::Skeleton*>(Liar::Liar3D::mtl->CreateResource(ske, Liar::ClassType::CLASS_NODE_TYPE_SKELETON));
 	}
 }
