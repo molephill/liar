@@ -12,7 +12,6 @@ namespace Liar
 
 	Texture2D::~Texture2D()
 	{
-		Destroy();
 	}
 
 	void Texture2D::RecreateResource()

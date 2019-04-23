@@ -31,7 +31,7 @@ namespace Liar
 		delete m_shaderValues;
 		m_shaderValues = nullptr;
 
-		for (size_t i = 0; i < m_numberTexture; ++i) Liar::Liar3D::mtl->ReduceTexture(m_textures[i]);
+		for (size_t i = 0; i < m_numberTexture; ++i) Liar::Liar3D::mtl->ReduceRefrence(m_textures[i]);
 		if (m_textures) free(m_textures);
 		m_textures = nullptr;
 		m_numberTexture = 0;
@@ -50,7 +50,7 @@ namespace Liar
 		}
 
 		m_numberTexture = index + 1;
-		Liar::Liar3D::mtl->ReduceTexture(m_textures[index]);
+		Liar::Liar3D::mtl->ReduceRefrence(m_textures[index]);
 
 		m_textures[index] = texture;
 

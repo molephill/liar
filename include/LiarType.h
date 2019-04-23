@@ -21,9 +21,6 @@ namespace Liar
 
 	const static Number ZERO = 0.0f;
 	const static Int TICK_INTERVAL = 100;
-	/*const char* mtlSzChar = ".MTL";
-	const char* meshSzChar = ".MESH";
-	const char* skeSzChar = ".SKE";*/
 
 	// 定义类类型
 	enum ClassType
@@ -31,6 +28,9 @@ namespace Liar
 		CLASS_NODE_TYPE_NODE,
 		CLASS_NODE_TYPE_MESH,
 		CLASS_NODE_TYPE_MODEL,
-		CLASS_NODE_TYPE_STAGE
+		CLASS_NODE_TYPE_STAGE,
+		CLASS_NODE_TYPE_SKELETON,
+		CLASS_NODE_TYPE_TEXTURE,
+		CLASS_NODE_TYPE_GEOMETORY
 	};
 }

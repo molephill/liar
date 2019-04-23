@@ -3,16 +3,17 @@
 
 namespace Liar
 {
-	Resource::Resource():
+	Resource::Resource() :
 		m_id(++__uniqueIDCounter),
 		m_memorySize(0),
 		m_released(true), m_destroyed(false),
-		m_lock(false), m_loaded(true), m_refrenceCount(0)
+		m_lock(false), m_loaded(true), m_refrenceCount(0),
+		m_url("")
 	{}
 
 	Resource::~Resource()
 	{
-		Destroy();
+		Dispose();
 	}
 
 	Liar::Int Resource::AddRefrence()
@@ -23,15 +24,6 @@ namespace Liar
 	Liar::Int Resource::ReduceRefrence()
 	{
 		return --m_refrenceCount;
-	}
-
-	bool Resource::Destroy()
-	{
-		if (m_destroyed) return false;
-		m_lock = false;
-		ReleaseResource(true);
-		m_destroyed = true;
-		return true;
 	}
 
 	void Resource::RecreateResource()
@@ -55,6 +47,16 @@ namespace Liar
 		if (!m_destroyed && m_loaded && (m_released || force))
 		{
 			RecreateResource();
+		}
+	}
+
+	void Resource::Dispose()
+	{
+		if (!m_destroyed)
+		{
+			m_lock = false;
+			ReleaseResource(true);
+			m_destroyed = true;
 		}
 	}
 

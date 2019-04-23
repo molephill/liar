@@ -16,7 +16,7 @@ namespace Liar
 
 	Geometry::~Geometry()
 	{
-		Destroy();
+		Dispose();
 	}
 
 	void Geometry::RecreateResource()

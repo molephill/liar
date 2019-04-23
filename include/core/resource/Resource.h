@@ -1,6 +1,7 @@
 #pragma once
 
 #include <LiarType.h>
+#include <string>
 
 namespace Liar
 {
@@ -21,21 +22,26 @@ namespace Liar
 		bool m_lock;
 		bool m_loaded;
 		Liar::Int m_refrenceCount;
+		std::string m_url;
 
 	public:
 		virtual Liar::Int AddRefrence();
 		virtual Liar::Int ReduceRefrence();
-		virtual bool Destroy();
 		virtual bool ReleaseResource(bool = false);
 		virtual void ActiveResource(bool = false);
 
 	protected:
 		virtual void DisposeResource() = 0;
 		virtual void RecreateResource();
+		void Dispose();
 
 	public:
-		Liar::Int GetRefrenceCount() const { return m_refrenceCount; };
 		Liar::Uint GetID() const { return m_id; };
+		Liar::Boolen Equals(const char* path) const { return m_url == path; };
+		Liar::Boolen Equals(const Liar::Resource& rhs) const { return rhs.m_url == m_url; };
+		Liar::Boolen operator==(const char* path) const { return m_url == path; };
+		Liar::Boolen operator==(const Liar::Resource& rhs) const { return rhs.m_url == m_url; };
+		virtual void SetURL(const char*) = 0;
 	};
 }
 

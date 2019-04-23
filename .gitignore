@@ -38,3 +38,6 @@ core/resource/shader/files/test.ps
 *.log
 *.idb
 *.pdb
+*.pdb
+*.idb
+*.obj

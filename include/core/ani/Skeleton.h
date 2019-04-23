@@ -15,7 +15,6 @@ namespace Liar
 		virtual ~Skeleton();
 
 	private:
-		std::string m_url;
 		Liar::Bone** m_bones;
 		Liar::Int m_numberBones;
 
@@ -37,9 +36,7 @@ namespace Liar
 		Liar::Int m_numberScales;
 
 	public:
-		Liar::Boolen Equals(const Liar::Skeleton&) const;
-		Liar::Boolen Equals(const char*) const;
-		void SetURL(const char*);
+		virtual void SetURL(const char*);
 		virtual bool TickRender(void* = nullptr, Liar::Int = Liar::TICK_INTERVAL);
 
 	private:

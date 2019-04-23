@@ -16,7 +16,7 @@ namespace Liar
 
 	BaseTexture::~BaseTexture()
 	{
-		DisposeResource();
+		Dispose();
 	}
 
 	void BaseTexture::SetURL(const char* url)

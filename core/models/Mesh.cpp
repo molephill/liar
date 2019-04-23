@@ -4,44 +4,31 @@
 
 namespace Liar
 {
-	Mesh::Mesh(Liar::GeometryType type):
+	Mesh::Mesh():
 		Liar::Node(),
 		m_sharedMaterial(nullptr),
 		m_geometry(nullptr)
 	{
-		SetGeometryType(type);
 	}
 
 
 	Mesh::~Mesh()
 	{
-		Release();
-	}
-
-	void Mesh::Release()
-	{
-		if (m_geometry)
-		{
-			if (m_geometry->ReduceRefrence() <= 0) delete m_geometry;
-			m_geometry = nullptr;
-		}
-	}
-
-	void Mesh::SetGeometryType(Liar::GeometryType type, Liar::BaseMaterial** materials)
-	{
-		SetGeometry(Liar::Liar3D::mtl->CreateGeometry(type), materials);
+		Liar::Liar3D::mtl->ReduceRefrence(m_geometry);
+		m_geometry = nullptr;
 	}
 
 	void Mesh::SetGeometryType(const char* path, Liar::BaseMaterial** materials)
 	{
-		Liar::Geometry* geo = Liar::Liar3D::mtl->CreateGeometry(Liar::GeometryType::GEOMETRY_NET);
+		Liar::GeometryType type = Liar::GeometryType::GEOMETRY_NET;
+		Liar::Geometry* geo = static_cast<Liar::Geometry*>(Liar::Liar3D::mtl->CreateResource(path, Liar::ClassType::CLASS_NODE_TYPE_GEOMETORY, &type));
 		geo->SetURL(path);
 		SetGeometry(geo, materials);
 	}
 
 	void Mesh::SetGeometry(Liar::Geometry* geometry, Liar::BaseMaterial** materials)
 	{
-		Release();
+		Liar::Liar3D::mtl->ReduceRefrence(m_geometry);
 		m_geometry = geometry;
 		if (m_geometry && materials)
 		{

@@ -13,7 +13,6 @@ namespace Liar
 
 	BoxGeometry::~BoxGeometry()
 	{
-		Destroy();
 	}
 
 	void BoxGeometry::SetLong(Liar::Number value)

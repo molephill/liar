@@ -11,15 +11,11 @@ namespace Liar
 		virtual ~NetGeometry();
 
 	private:
-		std::string m_url;
 		Liar::Int m_loopStep;
 		Liar::ByteArray* m_byteArray;
 
 	public:
-		virtual Liar::Boolen operator==(const char*) const;
-		virtual Liar::Boolen operator==(const Liar::NetGeometry&) const;
-
-		void SetURL(const char*);
+		virtual void SetURL(const char*);
 
 		// ∑÷÷°¥¶¿Ì
 		virtual bool TickRender(void* = nullptr, Liar::Int = Liar::TICK_INTERVAL);

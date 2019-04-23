@@ -1,9 +1,2 @@
 ﻿  Liar3D.cpp
-  Skeleton.cpp
-  EventDispatcher.cpp
-  Node.cpp
-  Stage.cpp
-  EventController.cpp
-  IRawVertexBuffers.cpp
-  RawVertexBuffersPosition.cpp
-  RawVertexBuffersPositionColor.cpp
+  liar.vcxproj -> E:\c++\liar\Debug\liar.exe

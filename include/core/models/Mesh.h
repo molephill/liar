@@ -8,7 +8,7 @@ namespace Liar
 	class Mesh:public Liar::Node
 	{
 	public:
-		Mesh(Liar::GeometryType);
+		Mesh();
 		virtual ~Mesh();
 
 	protected:
@@ -17,10 +17,8 @@ namespace Liar
 
 		virtual Liar::RenderUnit* GetRenderUint(Liar::RenderState&);
 		virtual void SetGeometry(Liar::Geometry*, Liar::BaseMaterial** = nullptr);
-		virtual void Release();
 
 	public:
-		void SetGeometryType(Liar::GeometryType, Liar::BaseMaterial** = nullptr);
 		void SetGeometryType(const char*, Liar::BaseMaterial** = nullptr);
 
 		void SetSharedMaterials(Liar::BaseMaterial*);

@@ -1,11 +1,10 @@
 #pragma once
 
 #include <core/material/BaseMaterial.h>
-#include <core/material/MaterialDefine.h>
 #include <core/graphics/RawVertexBuffersPositionNormalTextureSkin.h>
 #include <core/graphics/RawVertexBuffersPositionColor.h>
-#include <core/models/geometries/Geometry.h>
 #include <core/models/geometries/NetGeometry.h>
+#include <core/ani/Skeleton.h>
 
 
 namespace Liar
@@ -17,21 +16,18 @@ namespace Liar
 		~MTL();
 
 	private:
-		Liar::BaseTexture** m_shareTextures;
-		Liar::Int m_numberShareTextures;
+		Liar::Resource** m_shareResources;
+		Liar::Int m_numberShares;
 
 	private:
 		Liar::BaseTexture* CreateTexture(Liar::TextureTypeDefine);
-		Liar::BaseTexture* GetTexture(const char*);
-		Liar::BaseTexture* GetTexture(const Liar::BaseTexture*);
+		Liar::Geometry* CreateGeometry(Liar::GeometryType);
 
 	public:
-		Liar::BaseTexture* GetShareTexture(const char*, Liar::TextureTypeDefine);
 		Liar::BaseMaterial* CreateMaterial(Liar::MaterialTypeDefine);
-		void ReduceTexture(const Liar::BaseTexture*);
-		void AddRefTexture(const Liar::BaseTexture*);
 		Liar::IRawVertexBuffers* CreateRawVertexBuffers(Liar::GeometryVertexType);
-		Liar::Geometry* CreateGeometry(Liar::GeometryType);
+		void ReduceRefrence(const Liar::Resource*);
+		Liar::Resource* CreateResource(const char*, Liar::ClassType, void* = nullptr);
 	};
 
 }

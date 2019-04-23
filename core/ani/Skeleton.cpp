@@ -6,7 +6,6 @@ namespace Liar
 	Skeleton::Skeleton() :
 		Liar::Resource(),
 		Liar::ITickRender(),
-		m_url(""),
 		m_bones(nullptr), m_numberBones(0),
 		m_parseVer(0), m_loopStep(0), m_byteArray(nullptr),
 		m_positions(nullptr), m_numberPositons(0),
@@ -17,17 +16,6 @@ namespace Liar
 
 	Skeleton::~Skeleton()
 	{
-		Destroy();
-	}
-
-	Liar::Boolen Skeleton::Equals(const Liar::Skeleton& ske) const
-	{
-		return Equals(ske.m_url.c_str());
-	}
-
-	Liar::Boolen Skeleton::Equals(const char* name) const
-	{
-		return m_url == name;
 	}
 
 	void Skeleton::SetURL(const char* url)

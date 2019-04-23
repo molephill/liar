@@ -9,109 +9,23 @@ namespace Liar
 {
 	// ≤ƒ÷ π‹¿Ì
 	MTL::MTL():
-		m_shareTextures(nullptr), m_numberShareTextures(0)
+		m_shareResources(nullptr), m_numberShares(0)
 	{
 	}
 
 	MTL::~MTL()
 	{
 		Liar::Int i = 0;
-		for (i = 0; i < m_numberShareTextures; ++i)
+		for (i = 0; i < m_numberShares; ++i)
 		{
-			if (m_shareTextures[i])
+			if (m_shareResources[i])
 			{
-				delete m_shareTextures[i];
-				m_shareTextures[i] = nullptr;
+				delete m_shareResources[i];
+				m_shareResources[i] = nullptr;
 			}
 		}
-		if (m_shareTextures) free(m_shareTextures);
-		m_shareTextures = nullptr;
-	}
-
-	Liar::BaseTexture* MTL::GetTexture(const char* path)
-	{
-		for (Liar::Int i = 0; i < m_numberShareTextures; ++i)
-		{
-			Liar::BaseTexture* tmp = m_shareTextures[i];
-			if (tmp && tmp->Equals(path)) return tmp;
-		}
-		return nullptr;
-	}
-
-	Liar::BaseTexture* MTL::GetTexture(const Liar::BaseTexture* tex)
-	{
-		for (Liar::Int i = 0; i < m_numberShareTextures; ++i)
-		{
-			Liar::BaseTexture* tmp = m_shareTextures[i];
-			if (tmp && tmp == tex) return tmp;
-		}
-		return nullptr;
-	}
-
-	Liar::BaseTexture* MTL::GetShareTexture(const char* path, Liar::TextureTypeDefine type)
-	{
-		Liar::Int nullIndex = -1;
-		Liar::BaseTexture* tmp = nullptr;
-		for (Liar::Int i = 0; i < m_numberShareTextures; ++i)
-		{
-			Liar::BaseTexture* ttmp = m_shareTextures[i];
-			if (tmp)
-			{
-				if (tmp->Equals(path))
-				{
-					tmp = ttmp;
-					break;
-				}
-			}
-			else
-			{
-				if (nullIndex == -1) nullIndex = i;
-			}
-		}
-
-		if (!tmp)
-		{
-			if (nullIndex == -1)
-			{
-				m_numberShareTextures++;
-				size_t strip = sizeof(Liar::BaseTexture*)*m_numberShareTextures;
-				if (m_shareTextures) m_shareTextures = (Liar::BaseTexture**)realloc(m_shareTextures, strip);
-				else m_shareTextures = (Liar::BaseTexture**)malloc(strip);
-				nullIndex = m_numberShareTextures - 1;
-			}
-
-			tmp = CreateTexture(type);
-			tmp->AddRefrence();
-			tmp->SetURL(path);
-			m_shareTextures[nullIndex] = tmp;
-		}
-		return tmp;
-	}
-
-	void MTL::ReduceTexture(const Liar::BaseTexture* tex)
-	{
-		if (tex)
-		{
-			for (Liar::Int i = 0; i < m_numberShareTextures; ++i)
-			{
-				Liar::BaseTexture* tmp = m_shareTextures[i];
-				if (tmp == tex)
-				{
-					if (tmp->ReduceRefrence() <= 0)
-					{
-						delete m_shareTextures[i];
-						m_shareTextures[i] = nullptr;
-					}
-					return;
-				}
-			}
-		}
-	}
-
-	void MTL::AddRefTexture(const Liar::BaseTexture* tex)
-	{
-		Liar::BaseTexture* tmp = GetTexture(tex);
-		if (tmp) tmp->AddRefrence();
+		if (m_shareResources) free(m_shareResources);
+		m_shareResources = nullptr;
 	}
 
 	Liar::BaseTexture* MTL::CreateTexture(Liar::TextureTypeDefine type)
@@ -176,6 +90,72 @@ namespace Liar
 		}
 		default:
 			return nullptr;
+		}
+	}
+
+	Liar::Resource* MTL::CreateResource(const char* path, Liar::ClassType type, void* args)
+	{
+		Liar::Int nullIndex = -1;
+		for (Liar::Int i = 0; i < m_numberShares; ++i)
+		{
+			if (m_shareResources[i])
+			{
+				if (m_shareResources[i]->Equals(path)) return m_shareResources[i];
+			}
+			else
+			{
+				if (nullIndex == -1) nullIndex = i;
+			}
+		}
+
+		if (nullIndex == -1)
+		{
+			nullIndex = m_numberShares++;
+			size_t blockSize = sizeof(Liar::Resource*)*m_numberShares;
+			if (m_shareResources) m_shareResources = (Liar::Resource**)realloc(m_shareResources, blockSize);
+			else m_shareResources = (Liar::Resource**)malloc(blockSize);
+		}
+
+		Liar::Resource* tmp = nullptr;
+
+		switch (type)
+		{
+		case Liar::ClassType::CLASS_NODE_TYPE_TEXTURE:
+			tmp = CreateTexture(*(static_cast<Liar::TextureTypeDefine*>(args)));
+			break;
+		case Liar::ClassType::CLASS_NODE_TYPE_SKELETON:
+			tmp = new Liar::Skeleton();
+			break;
+		case Liar::ClassType::CLASS_NODE_TYPE_GEOMETORY:
+			tmp = CreateGeometry(*(static_cast<Liar::GeometryType*>(args)));
+			break;
+		default:
+			break;
+		}
+
+		if (tmp)
+		{
+			tmp->SetURL(path);
+			tmp->AddRefrence();
+			m_shareResources[nullIndex] = tmp;
+		}
+		return tmp;
+	}
+
+	void MTL::ReduceRefrence(const Liar::Resource* res)
+	{
+		if (!res) return;
+		for (Liar::Int i = 0; i < m_numberShares; ++i)
+		{
+			if (m_shareResources[i] == res)
+			{
+				if (m_shareResources[i]->ReduceRefrence() <= 0)
+				{
+					delete m_shareResources[i];
+					m_shareResources[i] = nullptr;
+				}
+				return;
+			}
 		}
 	}
 

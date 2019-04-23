@@ -248,6 +248,12 @@ namespace Liar
 			Liar::Liar3D::stage = nullptr;
 		}
 
+		if (Liar::Liar3D::mtl)
+		{
+			delete Liar::Liar3D::mtl;
+			Liar::Liar3D::mtl = nullptr;
+		}
+
 		if (Liar::Liar3D::renderState)
 		{
 			delete Liar::Liar3D::renderState;
@@ -258,12 +264,6 @@ namespace Liar
 		{
 			delete Liar::Liar3D::events;
 			Liar::Liar3D::events = nullptr;
-		}
-
-		if (Liar::Liar3D::mtl)
-		{
-			delete Liar::Liar3D::mtl;
-			Liar::Liar3D::mtl = nullptr;
 		}
 
 		glfwTerminate();

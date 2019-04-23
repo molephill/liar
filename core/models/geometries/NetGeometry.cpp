@@ -7,23 +7,13 @@ namespace Liar
 	NetGeometry::NetGeometry() :
 		Liar::Geometry(),
 		Liar::ITickRender(),
-		m_url(""), m_loopStep(0),
+		m_loopStep(0),
 		m_byteArray(nullptr)
 	{
 	}
 
 	NetGeometry::~NetGeometry()
 	{
-	}
-
-	Liar::Boolen NetGeometry::operator==(const char* url) const
-	{
-		return strcmp(url, m_url.c_str()) == 0;
-	}
-
-	Liar::Boolen NetGeometry::operator==(const Liar::NetGeometry& source) const
-	{
-		return source.m_url == m_url;
 	}
 
 	void NetGeometry::SetURL(const char* url)

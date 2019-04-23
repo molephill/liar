@@ -17,22 +17,21 @@ namespace Liar
 
 	Model::~Model()
 	{
-		for (Liar::Int i = 0; i < m_numberSharedMaterials; ++i)
+		if (m_sharedMaterials)
 		{
-			if (m_sharedMaterials[i])
+			for (Liar::Int i = 0; i < m_numberSharedMaterials; ++i)
 			{
-				delete m_sharedMaterials[i];
-				m_sharedMaterials[i] = nullptr;
+				if (m_sharedMaterials[i])
+				{
+					delete m_sharedMaterials[i];
+					m_sharedMaterials[i] = nullptr;
+				}
 			}
+			free(m_sharedMaterials);
+			m_sharedMaterials = nullptr;
 		}
-		if (m_sharedMaterials) free(m_sharedMaterials);
-		m_sharedMaterials = nullptr;
 
-		if (m_skeleton)
-		{
-			m_skeleton->ReduceRefrence();
-			m_skeleton = nullptr;
-		}
+		Liar::Liar3D::mtl->ReduceRefrence(m_skeleton);
 	}
 
 	void Model::RemoveAllMeshs()
@@ -112,14 +111,16 @@ namespace Liar
 					std::string tmpBitmapPath = byte->ReadString();
 					tmpBitmapPath = folderName + tmpBitmapPath;
 
-					Liar::BaseTexture* tex = Liar::Liar3D::mtl->GetShareTexture(tmpBitmapPath.c_str(), Liar::TextureTypeDefine::TEXTURE_2D);
+					Liar::TextureTypeDefine texType = Liar::TextureTypeDefine::TEXTURE_2D;
+					Liar::BaseTexture* tex = static_cast<Liar::BaseTexture*>(Liar::Liar3D::mtl->CreateResource(tmpBitmapPath.c_str(), 
+						Liar::ClassType::CLASS_NODE_TYPE_TEXTURE, &texType));
 					mat->SetAmbientTexture(tex);
 				}
 			}
 
 			for (Liar::Int i = 0; i < meshSize; ++i)
 			{
-				Liar::Mesh* subMesh = new Liar::Mesh(Liar::GeometryType::GEOMETRY_NONE);
+				Liar::Mesh* subMesh = new Liar::Mesh();
 				tmpName = name + std::to_string(i) + ".MESH";//Liar::meshSzChar;
 				subMesh->SetGeometryType(tmpName.c_str(), m_sharedMaterials);
 				AddChild(subMesh);
