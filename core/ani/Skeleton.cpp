@@ -16,6 +16,7 @@ namespace Liar
 
 	Skeleton::~Skeleton()
 	{
+		Dispose();
 	}
 
 	void Skeleton::SetURL(const char* url)

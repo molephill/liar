@@ -131,6 +131,6 @@ namespace Liar
 
 		// skeleteon
 		if (!ske || (m_skeleton && m_skeleton->Equals(ske))) return;
-		
+		m_skeleton = static_cast<Liar::Skeleton*>(Liar::Liar3D::mtl->CreateResource(ske, Liar::ClassType::CLASS_NODE_TYPE_SKELETON));
 	}
 }
