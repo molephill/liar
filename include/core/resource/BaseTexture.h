@@ -25,7 +25,6 @@ namespace Liar
 		GLint m_minFifter;
 		GLint m_magFifter;
 		Liar::UChar* m_data;
-		std::string m_url;
 		Liar::Uint m_textureID;
 
 	public:
@@ -37,7 +36,7 @@ namespace Liar
 		Liar::Uint GetTextureID() const { return m_textureID; };
 		virtual void SetURL(const char*);
 		std::string GetURL() const { return m_url; };
-		bool Equals(const char* url) const { return m_url == url; };
+		virtual Liar::ClassType GetNodeType() const { return Liar::ClassType::CLASS_NODE_TYPE_TEXTURE; };
 
 	protected:
 		virtual void DisposeResource();

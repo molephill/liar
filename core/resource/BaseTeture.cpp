@@ -10,7 +10,7 @@ namespace Liar
 		m_type(GL_TEXTURE_2D),
 		m_width(0), m_height(0),
 		m_minFifter(-1), m_magFifter(-1),
-		m_data(nullptr), m_url(""), m_textureID(0)
+		m_data(nullptr), m_textureID(0)
 	{
 	}
 

@@ -37,6 +37,7 @@ namespace Liar
 		Liar::IRawVertexBuffers* GetRawVertexBuffers() { return m_rawVertexBuffers; };
 		Liar::GeometryVertexType GetGeoVertexType() const { return m_geometryVertexType; };
 		Liar::Boolen GetUploaded() const { return m_rawVertexBuffers ? m_rawVertexBuffers->GetUploaded() : false; };
+		virtual Liar::ClassType GetNodeType() const { return Liar::ClassType::CLASS_NODE_TYPE_GEOMETORY; };
 
 	public:
 		virtual void SetURL(const char*) {};

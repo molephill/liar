@@ -38,6 +38,7 @@ namespace Liar
 	public:
 		virtual void SetURL(const char*);
 		virtual bool TickRender(void* = nullptr, Liar::Int = Liar::TICK_INTERVAL);
+		virtual Liar::ClassType GetNodeType() const { return Liar::ClassType::CLASS_NODE_TYPE_SKELETON; };
 
 	private:
 		Liar::Boolen ParseBones(Liar::ByteArray*, Liar::Int);
